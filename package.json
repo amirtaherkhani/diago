@@ -1,0 +1,39 @@
+{
+  "name": "engineering-diagram-toolkit",
+  "version": "0.1.0",
+  "description": "AI-ready software architecture diagram skills and a deterministic rendering CLI for Codex and Claude.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "author": "Amir Taherkhani",
+  "homepage": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amirtaherkhani/engineering-diagram-toolkit.git"
+  },
+  "keywords": [
+    "ai",
+    "architecture-diagrams",
+    "software-architecture",
+    "system-design",
+    "developer-tools",
+    "codex",
+    "claude-code",
+    "agent-skills",
+    "visualization"
+  ],
+  "bin": {
+    "diagram-toolkit": "./bin/diagram-toolkit.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "advise": "node bin/diagram-toolkit.mjs advise",
+    "doctor": "node bin/diagram-toolkit.mjs doctor",
+    "test": "node --test test/*.test.mjs",
+    "validate": "node scripts/validate-repo.mjs",
+    "check": "npm run validate && npm test",
+    "upstreams:check": "node scripts/check-upstreams.mjs"
+  }
+}

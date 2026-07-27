@@ -1,0 +1,88 @@
+name: Sync upstream sources
+
+on:
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: upstream-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    strategy:
+      fail-fast: false
+      matrix:
+        source:
+          - archify
+          - architecture-diagram-skill
+          - ui-ux-pro-max-skill
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install package metadata
+        run: npm install --ignore-scripts
+
+      - name: Refresh ${{ matrix.source }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./scripts/sync-upstreams.sh "${{ matrix.source }}"
+
+      - name: Open reviewed update pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE: ${{ matrix.source }}
+        run: |
+          if git diff --quiet; then
+            echo "$SOURCE is already current."
+            exit 0
+          fi
+
+          branch="chore/upstream-${SOURCE}-$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add vendor
+          git commit -m "Update ${SOURCE} snapshot"
+          git push --force-with-lease origin "$branch"
+
+          body_file="$(mktemp)"
+          {
+            echo "## What changed"
+            echo
+            echo "- Refreshed the pinned \`${SOURCE}\` snapshot."
+            echo "- Updated \`vendor/upstreams.lock.json\`."
+            echo
+            echo "## Review gates"
+            echo
+            echo "- [ ] Review upstream license and security changes."
+            echo "- [ ] Adapt relevant methodology changes into the canonical skills."
+            echo "- [ ] Confirm Archify JSON and standalone HTML compatibility."
+            echo "- [ ] Confirm facts, assumptions, and recommendations remain distinct."
+            echo
+            echo "## Validation"
+            echo
+            echo "- \`npm run check\`"
+          } > "$body_file"
+
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "Update ${SOURCE} snapshot" \
+            --body-file "$body_file"

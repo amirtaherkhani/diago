@@ -1,0 +1,17 @@
+{
+  "name": "Engineering Diagram Toolkit",
+  "short_name": "Diagram Toolkit",
+  "description": "Evidence-grounded software engineering diagrams for Codex and Claude.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1018",
+  "theme_color": "#0b1018",
+  "icons": [
+    {
+      "src": "./assets/mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

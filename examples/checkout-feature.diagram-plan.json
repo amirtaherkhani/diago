@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "task": "Add an idempotent checkout endpoint that reserves stock before creating a payment.",
+  "goal": "Show component ownership and the request path from the API to inventory and payment providers.",
+  "audience": "backend engineers and reviewers",
+  "scope": {
+    "in": ["API entry point", "checkout orchestration", "inventory reservation", "payment provider", "idempotency store"],
+    "out": ["provider-internal settlement", "warehouse fulfillment"]
+  },
+  "evidence": {
+    "facts": [
+      {
+        "statement": "The API requires an idempotency key.",
+        "source": "sample requirement for this example",
+        "confidence": "high"
+      }
+    ],
+    "assumptions": [
+      {
+        "statement": "Inventory reservations expire after a bounded time.",
+        "source": "example assumption requiring product confirmation",
+        "confidence": "low"
+      }
+    ],
+    "recommendations": [
+      {
+        "statement": "Persist the orchestration result against the idempotency key.",
+        "source": "toolkit recommendation",
+        "confidence": "medium"
+      }
+    ]
+  },
+  "views": [
+    {
+      "type": "architecture",
+      "question": "Which components own checkout and how do they depend on inventory and payment?",
+      "focus": ["ownership", "trust boundaries", "data stores"]
+    },
+    {
+      "type": "sequence",
+      "question": "What happens from checkout request to response, including replay and failure?",
+      "focus": ["ordering", "idempotency", "compensation"]
+    }
+  ],
+  "constraints": ["Do not expose provider credentials or production identifiers."],
+  "output": {
+    "format": "standalone-html",
+    "quality": "showcase"
+  }
+}

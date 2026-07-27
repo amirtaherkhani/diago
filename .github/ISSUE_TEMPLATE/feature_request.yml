@@ -1,0 +1,35 @@
+name: Feature request
+description: Propose a diagram recipe, quality gate, integration, or workflow.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Engineering problem
+      description: Which decision or explanation is hard today?
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example prompt or task
+      description: Show how an engineer would ask for this capability.
+    validations:
+      required: true
+  - type: dropdown
+    id: diagram
+    attributes:
+      label: Closest diagram type
+      options:
+        - Architecture
+        - Sequence
+        - Workflow
+        - Dataflow
+        - Lifecycle
+        - New type
+  - type: textarea
+    id: evidence
+    attributes:
+      label: References or evidence
+      description: Link standards, implementations, or source material that should ground the proposal.

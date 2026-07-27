@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/schemas/advice.schema.json",
+  "title": "Engineering Diagram Advice",
+  "type": "object",
+  "required": ["schemaVersion", "query", "recommendation", "alternatives", "evidenceChecklist", "suggestedPrompt"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "query": { "type": "string" },
+    "recommendation": {
+      "type": "object",
+      "required": ["type", "view", "question", "why", "include", "avoid", "quality"]
+    },
+    "alternatives": { "type": "array" },
+    "evidenceChecklist": { "type": "array", "items": { "type": "string" } },
+    "suggestedPrompt": { "type": "string" }
+  }
+}

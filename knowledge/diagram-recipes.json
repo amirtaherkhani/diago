@@ -1,0 +1,98 @@
+[
+  {
+    "id": "feature-architecture",
+    "type": "architecture",
+    "view": "feature context",
+    "question": "Which components own this feature and how do they depend on one another?",
+    "why": "Use a structural view to establish boundaries before showing runtime detail.",
+    "useWhen": "The task spans modules, services, stores, or deployment boundaries.",
+    "keywords": ["feature", "architecture", "service", "module", "component", "dependency", "system design"],
+    "signals": ["where does", "what owns", "how is it structured"],
+    "include": ["entry points", "owning components", "external dependencies", "data stores", "trust boundaries"],
+    "avoid": ["private implementation detail", "unverified future services"]
+  },
+  {
+    "id": "request-sequence",
+    "type": "sequence",
+    "view": "request walkthrough",
+    "question": "What happens from the initiating request to the final response or failure?",
+    "why": "A sequence view makes ordering, participants, retries, and responses explicit.",
+    "useWhen": "The task concerns an API call, user action, message exchange, or integration.",
+    "keywords": ["request", "api", "endpoint", "call", "response", "authentication", "webhook", "integration"],
+    "signals": ["step by step", "what happens when", "request flow"],
+    "include": ["initiator", "participants", "ordered calls", "responses", "failure and retry paths"],
+    "avoid": ["unrelated static dependencies", "line-level code detail"]
+  },
+  {
+    "id": "decision-workflow",
+    "type": "workflow",
+    "view": "decision path",
+    "question": "Which steps and decisions determine the outcome of this task?",
+    "why": "A workflow exposes branches, approvals, loops, and operational handoffs.",
+    "useWhen": "The task is driven by decisions, approvals, validation, or operational steps.",
+    "keywords": ["workflow", "process", "decision", "approval", "validation", "best practice", "task"],
+    "signals": ["what should we do", "how should", "decision tree"],
+    "include": ["start condition", "decision guards", "happy path", "failure path", "completion criteria"],
+    "avoid": ["infrastructure that does not affect a decision", "ambiguous branch labels"]
+  },
+  {
+    "id": "event-dataflow",
+    "type": "dataflow",
+    "view": "event and data lineage",
+    "question": "Where does data originate, how is it transformed, and where does it persist?",
+    "why": "A dataflow view makes sources, transformations, delivery semantics, and stores visible.",
+    "useWhen": "The task concerns events, analytics, ETL, queues, or data ownership.",
+    "keywords": ["data", "event", "queue", "stream", "etl", "analytics", "database", "store", "cache"],
+    "signals": ["data flow", "where is data", "event driven"],
+    "include": ["sources", "transformations", "transport", "stores", "delivery guarantees"],
+    "avoid": ["control flow with no data meaning", "implicit schemas"]
+  },
+  {
+    "id": "entity-lifecycle",
+    "type": "lifecycle",
+    "view": "state model",
+    "question": "Which states can this entity enter and what guards each transition?",
+    "why": "A lifecycle view prevents state, retry, terminal, and recovery behavior from being hidden.",
+    "useWhen": "The task concerns state machines, jobs, deployments, orders, sessions, or incidents.",
+    "keywords": ["lifecycle", "state", "status", "job", "deployment", "order", "session", "incident"],
+    "signals": ["state machine", "changes state", "from pending"],
+    "include": ["initial state", "transition triggers", "guards", "terminal states", "recovery paths"],
+    "avoid": ["service topology", "transitions without verbs"]
+  },
+  {
+    "id": "design-pattern",
+    "type": "architecture",
+    "view": "pattern responsibilities",
+    "question": "Which responsibilities and collaborations make this design pattern useful here?",
+    "why": "A responsibility-centered architecture view explains intent without turning into a class catalog.",
+    "useWhen": "The task asks for a design pattern, SOLID boundary, or refactoring approach.",
+    "keywords": ["design pattern", "solid", "strategy", "adapter", "factory", "observer", "repository", "refactor"],
+    "signals": ["best pattern", "apply pattern", "responsibility"],
+    "include": ["problem forces", "roles", "collaborations", "extension point", "tradeoffs"],
+    "avoid": ["ceremonial classes", "pattern names without problem context"]
+  },
+  {
+    "id": "deployment-topology",
+    "type": "architecture",
+    "view": "deployment topology",
+    "question": "Where does the software run and which runtime boundaries affect reliability?",
+    "why": "A deployment view connects services to actual runtime, networking, and persistence boundaries.",
+    "useWhen": "The task concerns Kubernetes, cloud infrastructure, scaling, networking, or rollout.",
+    "keywords": ["deployment", "kubernetes", "pod", "cluster", "cloud", "network", "load balancer", "scaling"],
+    "signals": ["where does it run", "runtime topology", "deploy"],
+    "include": ["runtime units", "network boundaries", "replicas", "stores", "external providers"],
+    "avoid": ["source modules that do not affect deployment", "invented infrastructure"]
+  },
+  {
+    "id": "incident-response",
+    "type": "workflow",
+    "view": "incident response",
+    "question": "How is an incident detected, contained, diagnosed, recovered, and learned from?",
+    "why": "A workflow clarifies operational ownership and exit criteria under failure.",
+    "useWhen": "The task concerns alerts, outages, runbooks, or recovery.",
+    "keywords": ["incident", "alert", "outage", "runbook", "recovery", "rollback", "on-call"],
+    "signals": ["when it fails", "incident response", "operational"],
+    "include": ["detection", "triage", "containment", "recovery", "verification", "follow-up"],
+    "avoid": ["normal feature flow", "steps without owners"]
+  }
+]

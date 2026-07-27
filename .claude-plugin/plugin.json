@@ -1,0 +1,19 @@
+{
+  "name": "engineering-diagram-toolkit",
+  "description": "Create and review evidence-grounded software engineering diagrams for architecture, features, workflows, design patterns, and best-practice decisions.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Amir Taherkhani",
+    "email": "amirtaherkhani@outlook.com",
+    "url": "https://github.com/amirtaherkhani"
+  },
+  "homepage": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/",
+  "repository": "https://github.com/amirtaherkhani/engineering-diagram-toolkit",
+  "license": "MIT",
+  "keywords": [
+    "architecture-diagrams",
+    "system-design",
+    "software-engineering",
+    "visualization"
+  ]
+}

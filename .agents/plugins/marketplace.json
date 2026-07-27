@@ -1,0 +1,20 @@
+{
+  "name": "engineering-diagram-toolkit",
+  "interface": {
+    "displayName": "Engineering Diagram Toolkit"
+  },
+  "plugins": [
+    {
+      "name": "engineering-diagram-toolkit",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

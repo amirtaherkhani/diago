@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "task": "Describe the engineering task or feature.",
+  "goal": "State the decision or understanding this diagram must support.",
+  "audience": "Name the primary reader.",
+  "scope": {
+    "in": ["List included boundaries."],
+    "out": ["List intentionally excluded boundaries."]
+  },
+  "evidence": {
+    "facts": [
+      {
+        "statement": "Add one verified claim.",
+        "source": "path, URL, command, or user statement",
+        "confidence": "high"
+      }
+    ],
+    "assumptions": [],
+    "recommendations": []
+  },
+  "views": [
+    {
+      "type": "architecture",
+      "question": "What does this view answer?",
+      "focus": ["List the important nodes, flows, or decisions."]
+    }
+  ],
+  "constraints": ["No secrets or production identifiers."],
+  "output": {
+    "format": "standalone-html",
+    "quality": "showcase"
+  }
+}

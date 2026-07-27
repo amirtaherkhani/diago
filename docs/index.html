@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Engineering Diagram Toolkit — AI software architecture diagrams</title>
+    <meta
+      name="description"
+      content="Create evidence-grounded software architecture, sequence, workflow, dataflow, and lifecycle diagrams with AI skills for Codex and Claude."
+    >
+    <meta name="theme-color" content="#0b1018">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="https://amirtaherkhani.github.io/engineering-diagram-toolkit/">
+    <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="stylesheet" href="./styles.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Engineering Diagram Toolkit">
+    <meta property="og:description" content="Make the system visible before you change it.">
+    <meta property="og:url" content="https://amirtaherkhani.github.io/engineering-diagram-toolkit/">
+    <meta property="og:image" content="https://amirtaherkhani.github.io/engineering-diagram-toolkit/assets/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Engineering Diagram Toolkit showing an evidence-grounded architecture flow">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Engineering Diagram Toolkit">
+    <meta name="twitter:description" content="AI-ready architecture diagrams grounded in engineering evidence.">
+    <meta name="twitter:image" content="https://amirtaherkhani.github.io/engineering-diagram-toolkit/assets/og-card.png">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "Engineering Diagram Toolkit",
+        "description": "AI-ready software architecture diagram skills and deterministic interactive rendering for Codex and Claude.",
+        "codeRepository": "https://github.com/amirtaherkhani/engineering-diagram-toolkit",
+        "url": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/",
+        "license": "https://opensource.org/license/mit",
+        "programmingLanguage": ["JavaScript", "HTML", "CSS"],
+        "author": {
+          "@type": "Person",
+          "name": "Amir Taherkhani",
+          "url": "https://github.com/amirtaherkhani"
+        },
+        "keywords": "AI architecture diagrams, software architecture, system design, Codex skills, Claude Code skills, developer tools"
+      }
+    </script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Engineering Diagram Toolkit home">
+        <img src="./assets/mark.svg" alt="" width="34" height="34">
+        <span>Engineering Diagram Toolkit</span>
+      </a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary">
+        <a href="#why">Why</a>
+        <a href="#views">Views</a>
+        <a href="#install">Install</a>
+        <a href="#upstreams">Upstreams</a>
+        <a class="nav-github" href="https://github.com/amirtaherkhani/engineering-diagram-toolkit">
+          GitHub
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M4.2 11.8 11.4 4.6M6.1 4.5h5.4v5.4"/>
+          </svg>
+        </a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="top" class="hero section-shell">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> AI-native architecture visualization</p>
+          <h1>Make the system visible <em>before</em> you change it.</h1>
+          <p class="hero-lede">
+            Turn a task, feature, design pattern, or code path into an interactive engineering diagram—grounded in evidence, honest about assumptions, and ready for review.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#install">Install the plugin</a>
+            <a class="button button-secondary" href="https://github.com/amirtaherkhani/engineering-diagram-toolkit">
+              View source
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4.2 11.8 11.4 4.6M6.1 4.5h5.4v5.4"/>
+              </svg>
+            </a>
+          </div>
+          <ul class="hero-proof" aria-label="Project highlights">
+            <li><strong>Codex + Claude</strong><span>one plugin contract</span></li>
+            <li><strong>5 diagram types</strong><span>one question per view</span></li>
+            <li><strong>0 runtime packages</strong><span>deterministic CLI</span></li>
+          </ul>
+        </div>
+
+        <div class="workbench" aria-label="Interactive diagram preview">
+          <div class="workbench-bar">
+            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="workbench-title">checkout-feature.diagram.json</span>
+            <span class="status-pill"><i></i> validated</span>
+          </div>
+          <div class="view-switcher" role="tablist" aria-label="Diagram preview">
+            <button type="button" role="tab" aria-selected="true" data-diagram-view="architecture">Architecture</button>
+            <button type="button" role="tab" aria-selected="false" data-diagram-view="sequence">Sequence</button>
+            <button type="button" role="tab" aria-selected="false" data-diagram-view="evidence">Evidence</button>
+          </div>
+          <div class="diagram-stage">
+            <svg class="diagram-view is-active" data-view-panel="architecture" viewBox="0 0 760 420" role="img" aria-labelledby="architecture-title">
+              <title id="architecture-title">Checkout feature architecture with API, orchestrator, inventory, payment, and idempotency store</title>
+              <defs>
+                <marker id="arrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0 0 10 5 0 10z"/>
+                </marker>
+                <linearGradient id="node-sheen" x1="0" x2="1">
+                  <stop offset="0" stop-color="#142332"/>
+                  <stop offset="1" stop-color="#101924"/>
+                </linearGradient>
+              </defs>
+              <g class="diagram-grid" aria-hidden="true">
+                <path d="M0 70H760M0 140H760M0 210H760M0 280H760M0 350H760"/>
+                <path d="M95 0V420M190 0V420M285 0V420M380 0V420M475 0V420M570 0V420M665 0V420"/>
+              </g>
+              <rect class="boundary" x="202" y="72" width="354" height="274" rx="20"/>
+              <text class="boundary-label" x="224" y="101">CHECKOUT BOUNDARY</text>
+              <g class="flow-lines">
+                <path class="flow-primary" d="M156 208H240"/>
+                <path class="flow-primary" d="M362 208H424"/>
+                <path class="flow-secondary" d="M486 178V135H616"/>
+                <path class="flow-primary" d="M548 208H616"/>
+                <path class="flow-secondary" d="M486 238V292H616"/>
+              </g>
+              <g class="diagram-node node-external">
+                <rect x="38" y="174" width="118" height="68" rx="14"/>
+                <circle cx="60" cy="196" r="5"/>
+                <text x="59" y="221">Client</text>
+                <text class="node-meta" x="59" y="238">POST /checkout</text>
+              </g>
+              <g class="diagram-node">
+                <rect x="240" y="174" width="122" height="68" rx="14"/>
+                <circle cx="262" cy="196" r="5"/>
+                <text x="262" y="221">API</text>
+                <text class="node-meta" x="262" y="238">validate request</text>
+              </g>
+              <g class="diagram-node node-highlight">
+                <rect x="424" y="166" width="124" height="84" rx="14"/>
+                <circle cx="446" cy="190" r="5"/>
+                <text x="446" y="216">Orchestrator</text>
+                <text class="node-meta" x="446" y="235">checkout owner</text>
+              </g>
+              <g class="diagram-node node-store">
+                <rect x="616" y="99" width="112" height="68" rx="14"/>
+                <circle cx="638" cy="121" r="5"/>
+                <text x="638" y="146">Inventory</text>
+                <text class="node-meta" x="638" y="163">reserve</text>
+              </g>
+              <g class="diagram-node node-provider">
+                <rect x="616" y="174" width="112" height="68" rx="14"/>
+                <circle cx="638" cy="196" r="5"/>
+                <text x="638" y="221">Payment</text>
+                <text class="node-meta" x="638" y="238">authorize</text>
+              </g>
+              <g class="diagram-node node-store">
+                <rect x="616" y="274" width="112" height="68" rx="14"/>
+                <circle cx="638" cy="296" r="5"/>
+                <text x="638" y="321">Idempotency</text>
+                <text class="node-meta" x="638" y="338">replay result</text>
+              </g>
+              <g class="edge-labels">
+                <text x="173" y="195">HTTPS</text>
+                <text x="370" y="195">dispatch</text>
+                <text x="561" y="195">authorize</text>
+              </g>
+            </svg>
+
+            <svg class="diagram-view" data-view-panel="sequence" viewBox="0 0 760 420" role="img" aria-labelledby="sequence-title">
+              <title id="sequence-title">Checkout request sequence across client, API, inventory, payment, and idempotency store</title>
+              <g class="sequence-labels">
+                <g><rect x="35" y="38" width="116" height="42" rx="10"/><text x="93" y="64">Client</text></g>
+                <g><rect x="184" y="38" width="116" height="42" rx="10"/><text x="242" y="64">API</text></g>
+                <g><rect x="333" y="38" width="116" height="42" rx="10"/><text x="391" y="64">Inventory</text></g>
+                <g><rect x="482" y="38" width="116" height="42" rx="10"/><text x="540" y="64">Payment</text></g>
+                <g><rect x="631" y="38" width="96" height="42" rx="10"/><text x="679" y="64">Store</text></g>
+              </g>
+              <g class="lifelines">
+                <path d="M93 80V380M242 80V380M391 80V380M540 80V380M679 80V380"/>
+              </g>
+              <g class="sequence-messages">
+                <path d="M93 112H242"/><text x="118" y="103">1 · checkout(key)</text>
+                <path d="M242 164H679"/><text x="405" y="155">2 · find replay</text>
+                <path class="async" d="M242 216H391"/><text x="270" y="207">3 · reserve stock</text>
+                <path d="M242 268H540"/><text x="346" y="259">4 · authorize</text>
+                <path d="M242 320H679"/><text x="402" y="311">5 · persist result</text>
+                <path class="return" d="M242 364H93"/><text x="126" y="355">6 · response</text>
+              </g>
+            </svg>
+
+            <div class="diagram-view evidence-panel" data-view-panel="evidence" role="region" aria-label="Evidence contract preview">
+              <div class="evidence-row">
+                <span class="evidence-kind fact">Fact</span>
+                <div><strong>API requires an idempotency key.</strong><small>Source: checkout contract · confidence: high</small></div>
+              </div>
+              <div class="evidence-row">
+                <span class="evidence-kind assumption">Assumption</span>
+                <div><strong>Inventory reservation expires.</strong><small>Source: product confirmation needed · confidence: low</small></div>
+              </div>
+              <div class="evidence-row">
+                <span class="evidence-kind recommendation">Recommendation</span>
+                <div><strong>Persist orchestration result by key.</strong><small>Source: toolkit guidance · confidence: medium</small></div>
+              </div>
+              <div class="evidence-rule">
+                <span>Current behavior</span><i></i><span>Proposed behavior</span><i class="dashed"></i>
+              </div>
+            </div>
+          </div>
+          <div class="workbench-footer">
+            <span><i class="legend-dot verified"></i> verified</span>
+            <span><i class="legend-dot assumed"></i> assumption</span>
+            <span><i class="legend-line"></i> current</span>
+            <span><i class="legend-line dashed"></i> proposed</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="why" class="why-section">
+        <div class="section-shell">
+          <div class="section-heading">
+            <p class="eyebrow"><span></span> A better engineering artifact</p>
+            <h2>Not another pretty box-and-arrow picture.</h2>
+            <p>The toolkit gives agents a rigorous path from source evidence to a visual that can survive architecture review.</p>
+          </div>
+          <div class="principles">
+            <article>
+              <span class="principle-number">01</span>
+              <h3>Evidence before geometry</h3>
+              <p>Important nodes and edges trace back to code, contracts, runtime observations, or an explicit requirement.</p>
+              <div class="principle-signal"><i></i> source-linked claims</div>
+            </article>
+            <article>
+              <span class="principle-number">02</span>
+              <h3>One question per view</h3>
+              <p>Architecture, sequence, workflow, dataflow, and lifecycle views each answer the question they are best at.</p>
+              <div class="principle-signal"><i></i> decision-focused scope</div>
+            </article>
+            <article>
+              <span class="principle-number">03</span>
+              <h3>Uncertainty stays visible</h3>
+              <p>Facts, assumptions, and recommendations remain distinct instead of collapsing into one confident-looking diagram.</p>
+              <div class="principle-signal"><i></i> honest semantics</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="views" class="views-section section-shell">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="eyebrow"><span></span> Choose by question</p>
+            <h2>Five views. Zero guesswork.</h2>
+          </div>
+          <p>Start with the engineering decision. The advisor selects the smallest view that can explain it.</p>
+        </div>
+        <div class="view-list">
+          <article>
+            <span class="view-glyph architecture-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div><h3>Architecture</h3><p>What exists, who owns it, and how the boundaries connect.</p></div>
+            <code>components · dependencies</code>
+          </article>
+          <article>
+            <span class="view-glyph sequence-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div><h3>Sequence</h3><p>What happens over time between callers, services, and providers.</p></div>
+            <code>calls · retries · responses</code>
+          </article>
+          <article>
+            <span class="view-glyph workflow-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div><h3>Workflow</h3><p>Which steps, decisions, approvals, and failure paths control the work.</p></div>
+            <code>branches · owners · exits</code>
+          </article>
+          <article>
+            <span class="view-glyph dataflow-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div><h3>Dataflow</h3><p>Where data begins, transforms, moves, and persists.</p></div>
+            <code>sources · lineage · stores</code>
+          </article>
+          <article>
+            <span class="view-glyph lifecycle-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div><h3>Lifecycle</h3><p>How an entity changes state and which guards allow each transition.</p></div>
+            <code>states · triggers · recovery</code>
+          </article>
+        </div>
+      </section>
+
+      <section class="contract-section">
+        <div class="section-shell contract-layout">
+          <div class="contract-copy">
+            <p class="eyebrow"><span></span> One durable contract</p>
+            <h2>Plan once. Render, review, and evolve.</h2>
+            <p>A small JSON plan keeps the agent, renderer, and reviewer aligned. The interactive HTML remains a delivery artifact—not the source of truth.</p>
+            <ul class="check-list">
+              <li><span>✓</span> Source-grounded claims</li>
+              <li><span>✓</span> Explicit scope boundaries</li>
+              <li><span>✓</span> Standalone HTML output</li>
+              <li><span>✓</span> Mobile and accessibility gates</li>
+            </ul>
+          </div>
+          <div class="code-window" aria-label="Example diagram plan JSON">
+            <div class="code-window-bar">
+              <span>diagram-plan.json</span>
+              <button type="button" class="copy-button" data-copy-target="plan-code">Copy</button>
+            </div>
+            <pre id="plan-code"><code><span class="code-punc">{</span>
+  <span class="code-key">"task"</span><span class="code-punc">:</span> <span class="code-string">"Add idempotent checkout"</span><span class="code-punc">,</span>
+  <span class="code-key">"goal"</span><span class="code-punc">:</span> <span class="code-string">"Trace request to payment"</span><span class="code-punc">,</span>
+  <span class="code-key">"evidence"</span><span class="code-punc">:</span> <span class="code-punc">{</span>
+    <span class="code-key">"facts"</span><span class="code-punc">:</span> <span class="code-punc">[</span><span class="code-string">"contract: idempotency-key"</span><span class="code-punc">],</span>
+    <span class="code-key">"assumptions"</span><span class="code-punc">:</span> <span class="code-punc">[</span><span class="code-string">"reservation expires"</span><span class="code-punc">],</span>
+    <span class="code-key">"recommendations"</span><span class="code-punc">:</span> <span class="code-punc">[</span><span class="code-string">"persist replay result"</span><span class="code-punc">]</span>
+  <span class="code-punc">},</span>
+  <span class="code-key">"views"</span><span class="code-punc">:</span> <span class="code-punc">[</span><span class="code-string">"architecture"</span><span class="code-punc">,</span> <span class="code-string">"sequence"</span><span class="code-punc">]</span>
+<span class="code-punc">}</span></code></pre>
+            <div class="code-proof"><span>schema v1</span><span>review score 100</span><span>showcase ✓</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="install" class="install-section section-shell">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> Start in a minute</p>
+          <h2>One repository. Your agent of choice.</h2>
+          <p>Install the complete plugin, invoke a skill directly, or use the deterministic CLI on its own.</p>
+        </div>
+        <div class="install-panel">
+          <div class="install-tabs" role="tablist" aria-label="Installation method">
+            <button type="button" role="tab" aria-selected="true" data-install-tab="codex">Codex</button>
+            <button type="button" role="tab" aria-selected="false" data-install-tab="claude">Claude Code</button>
+            <button type="button" role="tab" aria-selected="false" data-install-tab="cli">CLI</button>
+          </div>
+          <div class="install-content">
+            <div class="install-copy">
+              <span class="install-step">01</span>
+              <h3 data-install-title>Install the Codex marketplace</h3>
+              <p data-install-description>Add the GitHub repository as a marketplace, then install the plugin from its catalog.</p>
+            </div>
+            <div class="terminal">
+              <div class="terminal-bar">
+                <span>terminal</span>
+                <button type="button" class="copy-button" data-copy-target="install-command">Copy</button>
+              </div>
+              <pre id="install-command"><code data-install-command>codex plugin marketplace add amirtaherkhani/engineering-diagram-toolkit
+codex plugin add engineering-diagram-toolkit@engineering-diagram-toolkit</code></pre>
+            </div>
+          </div>
+          <div class="prompt-strip">
+            <span>TRY IT</span>
+            <code>Use $engineering-diagram to visualize this feature from API entry point to persistence.</code>
+          </div>
+        </div>
+      </section>
+
+      <section id="upstreams" class="upstream-section">
+        <div class="section-shell upstream-layout">
+          <div class="section-heading">
+            <p class="eyebrow"><span></span> Upstream intelligence</p>
+            <h2>Combined carefully. Updated continuously.</h2>
+            <p>Three focused projects contribute rendering, interaction patterns, and visual design intelligence. Updates arrive as separate reviewable pull requests.</p>
+          </div>
+          <div class="upstream-list">
+            <a href="https://github.com/tt-a1i/archify">
+              <span class="upstream-index">01</span>
+              <div><strong>Archify</strong><small>JSON IR · deterministic rendering · validation</small></div>
+              <span class="upstream-mode">bundled runtime</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.2 11.8 11.4 4.6M6.1 4.5h5.4v5.4"/></svg>
+            </a>
+            <a href="https://github.com/konraddzbik/architecture-diagram-skill">
+              <span class="upstream-index">02</span>
+              <div><strong>Architecture Diagram Skill</strong><small>interactive walkthroughs · payload detail</small></div>
+              <span class="upstream-mode">methodology</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.2 11.8 11.4 4.6M6.1 4.5h5.4v5.4"/></svg>
+            </a>
+            <a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill">
+              <span class="upstream-index">03</span>
+              <div><strong>UI UX Pro Max</strong><small>visual systems · accessibility · design guidance</small></div>
+              <span class="upstream-mode">methodology</span>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.2 11.8 11.4 4.6M6.1 4.5h5.4v5.4"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta section-shell">
+        <div>
+          <p class="eyebrow"><span></span> Build with shared understanding</p>
+          <h2>Your next task deserves a diagram people can trust.</h2>
+        </div>
+        <div class="final-actions">
+          <a class="button button-primary" href="https://github.com/amirtaherkhani/engineering-diagram-toolkit">Explore on GitHub</a>
+          <a class="text-link" href="#install">Install now <span>→</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="section-shell footer-inner">
+        <a class="brand" href="#top">
+          <img src="./assets/mark.svg" alt="" width="30" height="30">
+          <span>Engineering Diagram Toolkit</span>
+        </a>
+        <p>Open source under MIT · Built for clearer engineering decisions.</p>
+        <div>
+          <a href="https://github.com/amirtaherkhani/engineering-diagram-toolkit/blob/main/CONTRIBUTING.md">Contribute</a>
+          <a href="https://github.com/amirtaherkhani/engineering-diagram-toolkit/blob/main/LICENSE">License</a>
+          <a href="https://github.com/amirtaherkhani">Author</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

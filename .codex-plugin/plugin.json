@@ -1,0 +1,44 @@
+{
+  "name": "engineering-diagram-toolkit",
+  "version": "0.1.0",
+  "description": "Evidence-grounded software architecture diagrams for features, workflows, design patterns, and engineering decisions.",
+  "author": {
+    "name": "Amir Taherkhani",
+    "email": "amirtaherkhani@outlook.com",
+    "url": "https://github.com/amirtaherkhani"
+  },
+  "homepage": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/",
+  "repository": "https://github.com/amirtaherkhani/engineering-diagram-toolkit",
+  "license": "MIT",
+  "keywords": [
+    "architecture-diagrams",
+    "software-architecture",
+    "system-design",
+    "developer-tools",
+    "codex",
+    "claude-code",
+    "agent-skills"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Engineering Diagram Toolkit",
+    "shortDescription": "Turn engineering work into evidence-grounded diagrams.",
+    "longDescription": "Plan, render, and review interactive software engineering diagrams for tasks, features, request flows, data movement, lifecycles, design patterns, and architecture decisions.",
+    "developerName": "Amir Taherkhani",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write",
+      "Interactive"
+    ],
+    "websiteURL": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/",
+    "defaultPrompt": [
+      "Visualize this feature from entry point to persistence.",
+      "Choose the best diagram for this engineering task.",
+      "Review this architecture diagram against the code."
+    ],
+    "brandColor": "#6EF3C5",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png"
+  }
+}

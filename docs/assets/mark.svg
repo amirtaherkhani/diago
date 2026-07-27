@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Engineering Diagram Toolkit mark</title>
+  <defs>
+    <linearGradient id="bg" x1="8" y1="5" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#172737"/>
+      <stop offset="1" stop-color="#0b1119"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="url(#bg)" stroke="#31465a" stroke-width="2"/>
+  <path d="M18 18h15c9 0 16 6 16 14s-7 14-16 14H18V18Z" fill="none" stroke="#6EF3C5" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M27 25v14m0-7h11" fill="none" stroke="#6CA8FF" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="27" cy="25" r="3.5" fill="#FF9D6C"/>
+  <circle cx="27" cy="39" r="3.5" fill="#6EF3C5"/>
+  <circle cx="40" cy="32" r="3.5" fill="#6CA8FF"/>
+</svg>

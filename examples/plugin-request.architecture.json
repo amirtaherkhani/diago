@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Evidence-grounded diagram workflow",
+    "subtitle": "From engineering task to a reviewable standalone artifact",
+    "output": "plugin-request.architecture.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "primary-flow",
+        "label": "Primary flow",
+        "focus": ["task", "agent", "plan", "renderer", "artifact"],
+        "note": "Follow a request from source evidence to a validated interactive diagram."
+      },
+      {
+        "id": "evidence-loop",
+        "label": "Evidence loop",
+        "focus": ["sources", "agent", "plan", "review"],
+        "note": "Inspect how facts, assumptions, and recommendations stay visible through review."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "task",
+      "type": "external",
+      "label": "Engineering task",
+      "sublabel": "feature / pattern / incident",
+      "pos": [30, 250],
+      "size": [150, 70]
+    },
+    {
+      "id": "sources",
+      "type": "database",
+      "label": "Evidence",
+      "sublabel": "code · contracts · runtime",
+      "pos": [240, 90],
+      "size": [160, 70],
+      "tag": "verified"
+    },
+    {
+      "id": "agent",
+      "type": "backend",
+      "label": "Codex / Claude",
+      "sublabel": "engineering-diagram skill",
+      "pos": [240, 250],
+      "size": [160, 70]
+    },
+    {
+      "id": "plan",
+      "type": "backend",
+      "label": "Diagram plan",
+      "sublabel": "facts ≠ assumptions",
+      "pos": [460, 250],
+      "size": [160, 70],
+      "tag": "JSON"
+    },
+    {
+      "id": "renderer",
+      "type": "cloud",
+      "label": "Archify runtime",
+      "sublabel": "validate + render",
+      "pos": [680, 250],
+      "size": [160, 70],
+      "tag": "v2.12.0"
+    },
+    {
+      "id": "artifact",
+      "type": "external",
+      "label": "Interactive HTML",
+      "sublabel": "standalone + shareable",
+      "pos": [900, 250],
+      "size": [160, 70]
+    },
+    {
+      "id": "review",
+      "type": "security",
+      "label": "Diagram review",
+      "sublabel": "evidence · scope · UX",
+      "pos": [570, 430],
+      "size": [170, 70]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Engineering Diagram Toolkit",
+      "wraps": ["agent", "plan", "renderer", "review"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "task-to-agent",
+      "from": "task",
+      "to": "agent",
+      "label": "describe"
+    },
+    {
+      "id": "sources-to-agent",
+      "from": "sources",
+      "to": "agent",
+      "label": "ground",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [320, 182]
+    },
+    {
+      "id": "agent-to-plan",
+      "from": "agent",
+      "to": "plan",
+      "label": "structure"
+    },
+    {
+      "id": "plan-to-renderer",
+      "from": "plan",
+      "to": "renderer",
+      "label": "JSON IR"
+    },
+    {
+      "id": "renderer-to-artifact",
+      "from": "renderer",
+      "to": "artifact",
+      "label": "deliver",
+      "variant": "emphasis"
+    },
+    {
+      "id": "plan-to-review",
+      "from": "plan",
+      "to": "review",
+      "label": "audit",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "review-to-agent",
+      "from": "review",
+      "to": "agent",
+      "label": "correct",
+      "variant": "security",
+      "fromSide": "left",
+      "toSide": "bottom",
+      "via": [[440, 465], [440, 350], [320, 350]]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Evidence first",
+      "items": ["Facts cite their source", "Assumptions remain visible"]
+    },
+    {
+      "dot": "emerald",
+      "title": "One contract",
+      "items": ["JSON plan guides the agent", "Archify validates the rendered view"]
+    },
+    {
+      "dot": "rose",
+      "title": "Reviewable",
+      "items": ["Desktop and mobile QA", "Standalone HTML delivery"]
+    }
+  ]
+}

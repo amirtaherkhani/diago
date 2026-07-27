@@ -1,0 +1,4 @@
+interface:
+  display_name: "Engineering Diagram"
+  short_description: "Plan and render software engineering diagrams"
+  default_prompt: "Use $engineering-diagram to visualize this feature and explain the design decisions."

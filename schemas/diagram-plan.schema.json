@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/schemas/diagram-plan.schema.json",
+  "title": "Engineering Diagram Plan",
+  "type": "object",
+  "required": ["schemaVersion", "task", "goal", "audience", "scope", "evidence", "views", "output"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "task": { "type": "string", "minLength": 6 },
+    "goal": { "type": "string", "minLength": 6 },
+    "audience": { "type": "string", "minLength": 3 },
+    "scope": {
+      "type": "object",
+      "required": ["in", "out"],
+      "properties": {
+        "in": { "type": "array", "items": { "type": "string" } },
+        "out": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["facts", "assumptions", "recommendations"],
+      "properties": {
+        "facts": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "assumptions": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "recommendations": { "type": "array", "items": { "$ref": "#/$defs/claim" } }
+      },
+      "additionalProperties": false
+    },
+    "views": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type", "question", "focus"],
+        "properties": {
+          "type": {
+            "enum": ["architecture", "workflow", "sequence", "dataflow", "lifecycle"]
+          },
+          "question": { "type": "string", "minLength": 6 },
+          "focus": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "constraints": { "type": "array", "items": { "type": "string" } },
+    "output": {
+      "type": "object",
+      "required": ["format", "quality"],
+      "properties": {
+        "format": { "const": "standalone-html" },
+        "quality": { "enum": ["standard", "showcase"] }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "required": ["statement", "source"],
+      "properties": {
+        "statement": { "type": "string", "minLength": 3 },
+        "source": { "type": "string", "minLength": 1 },
+        "confidence": { "enum": ["high", "medium", "low"] }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

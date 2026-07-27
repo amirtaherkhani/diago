@@ -1,0 +1,31 @@
+name: Bug report
+description: Report a CLI, skill, renderer, or documentation problem.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve Engineering Diagram Toolkit.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Include the command, prompt, diagram type, and observed result.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Reproduction or evidence
+      description: Add a minimal JSON input, repository link, screenshot, or error output. Remove secrets.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: v0.1.0

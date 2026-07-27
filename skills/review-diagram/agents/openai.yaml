@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Diagram"
+  short_description: "Audit architecture diagrams against evidence"
+  default_prompt: "Use $review-diagram to review this diagram against the code and task requirements."
