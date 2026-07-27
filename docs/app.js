@@ -11,17 +11,17 @@ const installOptions = {
   codex: {
     title: 'Install the Codex marketplace',
     description: 'Add the GitHub repository as a marketplace, then install the plugin with its skills and MCP tools.',
-    command: 'codex plugin marketplace add amirtaherkhani/engineering-diagram-toolkit\ncodex plugin add engineering-diagram-toolkit@engineering-diagram-toolkit',
+    command: 'codex plugin marketplace add amirtaherkhani/diago\ncodex plugin add diago@diago',
   },
   claude: {
     title: 'Install in Claude Code',
     description: 'Add the repository marketplace and install the namespaced skills and MCP tools from Claude Code.',
-    command: '/plugin marketplace add amirtaherkhani/engineering-diagram-toolkit\n/plugin install engineering-diagram-toolkit@engineering-diagram-toolkit\n/reload-plugins',
+    command: '/plugin marketplace add amirtaherkhani/diago\n/plugin install diago@diago\n/reload-plugins',
   },
   cli: {
     title: 'Run the deterministic CLI',
-    description: 'Clone the repository and use the advisor, reviewer, validator, and bundled Archify renderer directly.',
-    command: 'git clone https://github.com/amirtaherkhani/engineering-diagram-toolkit.git\ncd engineering-diagram-toolkit\nnode bin/diagram-toolkit.mjs doctor',
+    description: 'Clone the repository and use the advisor, reviewer, validator, and bundled renderer directly.',
+    command: 'git clone https://github.com/amirtaherkhani/diago.git\ncd diago\nnode bin/diago.mjs doctor',
   },
 };
 

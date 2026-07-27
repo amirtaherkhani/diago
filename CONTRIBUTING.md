@@ -7,7 +7,7 @@ Contributions are welcome for diagram recipes, evidence rules, renderer integrat
 ```bash
 npm install --ignore-scripts
 npm run check
-node bin/diagram-toolkit.mjs advise "trace an async job lifecycle"
+node bin/diago.mjs advise "trace an async job lifecycle"
 ```
 
 Use Node.js 18 or newer. The project has no runtime npm dependencies.

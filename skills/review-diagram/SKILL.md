@@ -14,8 +14,8 @@ Audit the diagram as an engineering artifact, not as decoration. Treat correctne
 3. Run deterministic checks when a plan or Archify IR is available. Prefer `review_diagram_plan` and `validate_diagram` MCP tools. If MCP tools are unavailable, use the CLI:
 
    ```bash
-   node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diagram-toolkit.mjs" review <diagram-plan.json> --json
-   node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diagram-toolkit.mjs" validate <type> <diagram.json>
+   node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diago.mjs" review <diagram-plan.json> --json
+   node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diago.mjs" validate <type> <diagram.json>
    ```
 
 4. Apply `references/review-checklist.md`.

@@ -1,5 +1,5 @@
 {
-  "name": "engineering-diagram-toolkit",
+  "name": "diago",
   "owner": {
     "name": "Amir Taherkhani",
     "url": "https://github.com/amirtaherkhani"
@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "engineering-diagram-toolkit",
+      "name": "diago",
       "source": "./",
       "description": "Create and review architecture, sequence, workflow, dataflow, and lifecycle diagrams with evidence-aware skills and MCP tools.",
       "version": "0.2.0",

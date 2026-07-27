@@ -1,5 +1,5 @@
 {
-  "name": "engineering-diagram-toolkit",
+  "name": "diago",
   "description": "Create and review evidence-grounded software engineering diagrams with agent skills and native MCP tools.",
   "version": "0.2.0",
   "author": {
@@ -7,8 +7,8 @@
     "email": "amirtaherkhani@outlook.com",
     "url": "https://github.com/amirtaherkhani"
   },
-  "homepage": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/",
-  "repository": "https://github.com/amirtaherkhani/engineering-diagram-toolkit",
+  "homepage": "https://amirtaherkhani.github.io/diago/",
+  "repository": "https://github.com/amirtaherkhani/diago",
   "license": "MIT",
   "keywords": [
     "architecture-diagrams",

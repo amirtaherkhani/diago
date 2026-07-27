@@ -1,6 +1,6 @@
 # Third-party notices
 
-Engineering Diagram Toolkit combines and adapts ideas from three MIT-licensed projects. Their pinned source versions are recorded in `vendor/upstreams.lock.json`.
+Diago combines and adapts ideas from three MIT-licensed projects. Their pinned source versions are recorded in `vendor/upstreams.lock.json`.
 
 ## Archify
 

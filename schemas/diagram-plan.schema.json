@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/schemas/diagram-plan.schema.json",
+  "$id": "https://amirtaherkhani.github.io/diago/schemas/diagram-plan.schema.json",
   "title": "Engineering Diagram Plan",
   "type": "object",
   "required": ["schemaVersion", "task", "goal", "audience", "scope", "evidence", "views", "output"],

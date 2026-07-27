@@ -1,15 +1,15 @@
 {
-  "name": "engineering-diagram-toolkit",
+  "name": "diago",
   "version": "0.2.0",
   "description": "AI-ready software architecture diagram skills, native MCP tools, and deterministic rendering for Codex and Claude.",
   "type": "module",
   "private": true,
   "license": "MIT",
   "author": "Amir Taherkhani",
-  "homepage": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/",
+  "homepage": "https://amirtaherkhani.github.io/diago/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/amirtaherkhani/engineering-diagram-toolkit.git"
+    "url": "git+https://github.com/amirtaherkhani/diago.git"
   },
   "keywords": [
     "ai",
@@ -25,14 +25,14 @@
     "visualization"
   ],
   "bin": {
-    "diagram-toolkit": "./bin/diagram-toolkit.mjs"
+    "diago": "./bin/diago.mjs"
   },
   "engines": {
     "node": ">=18"
   },
   "scripts": {
-    "advise": "node bin/diagram-toolkit.mjs advise",
-    "doctor": "node bin/diagram-toolkit.mjs doctor",
+    "advise": "node bin/diago.mjs advise",
+    "doctor": "node bin/diago.mjs doctor",
     "test": "node --test test/*.test.mjs",
     "validate": "node scripts/validate-repo.mjs",
     "check": "npm run validate && npm test",

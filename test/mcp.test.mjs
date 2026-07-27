@@ -45,7 +45,7 @@ test('MCP handlers advise, plan, and review without writing files', () => {
 });
 
 test('MCP validate and render tools use bundled Archify with overwrite protection', () => {
-  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'diagram-toolkit-mcp-test-'));
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'diago-mcp-test-'));
   try {
     const diagram = readExample();
     const outputPath = path.join(temporary, 'plugin-request.html');
@@ -182,7 +182,7 @@ test('portable MCP launcher resolves Codex and Claude plugin roots', () => {
     encoding: 'utf8',
   });
   assert.equal(codexLaunch.status, 0, codexLaunch.stderr);
-  assert.equal(JSON.parse(codexLaunch.stdout).result.serverInfo.name, 'engineering-diagram-toolkit');
+  assert.equal(JSON.parse(codexLaunch.stdout).result.serverInfo.name, 'diago');
 
   const claudeLaunch = spawnSync(mcpConfig.command, mcpConfig.args, {
     cwd: os.tmpdir(),
@@ -191,5 +191,5 @@ test('portable MCP launcher resolves Codex and Claude plugin roots', () => {
     encoding: 'utf8',
   });
   assert.equal(claudeLaunch.status, 0, claudeLaunch.stderr);
-  assert.equal(JSON.parse(claudeLaunch.stdout).result.serverInfo.name, 'engineering-diagram-toolkit');
+  assert.equal(JSON.parse(claudeLaunch.stdout).result.serverInfo.name, 'diago');
 });

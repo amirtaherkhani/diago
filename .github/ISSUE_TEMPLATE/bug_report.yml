@@ -5,7 +5,7 @@ labels: ["bug"]
 body:
   - type: markdown
     attributes:
-      value: Thanks for helping improve Engineering Diagram Toolkit.
+      value: Thanks for helping improve Diago.
   - type: textarea
     id: problem
     attributes:

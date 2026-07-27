@@ -15,7 +15,7 @@ Turn engineering evidence into a diagram that answers one explicit question. Pre
 4. Choose the diagram type with `references/diagram-selection.md`. When MCP tools are available, call `advise_diagram` with the task. Otherwise run the bundled advisor:
 
    ```bash
-   node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diagram-toolkit.mjs" advise "<task or feature>" --json
+   node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diago.mjs" advise "<task or feature>" --json
    ```
 
 5. Call `create_diagram_plan` when MCP tools are available, or create a plan from `assets/diagram-plan.json`. Fill its evidence lanes from inspected sources. Keep one primary question per view and link every important node or edge to evidence.
@@ -23,8 +23,8 @@ Turn engineering evidence into a diagram that answers one explicit question. Pre
 7. Call `validate_diagram` with the JSON object. After it passes, call `render_diagram` with an absolute `.html` output path. Use `overwrite: true` only when replacement is intended. If MCP tools are unavailable, validate and render with the CLI:
 
    ```bash
-   node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diagram-toolkit.mjs" validate <type> <input.json>
-   node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diagram-toolkit.mjs" render <type> <input.json> <output.html>
+   node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diago.mjs" validate <type> <input.json>
+   node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diago.mjs" render <type> <input.json> <output.html>
    ```
 
 8. Inspect the HTML at desktop and mobile widths. Apply `references/quality-gates.md` before delivery.

@@ -1,5 +1,5 @@
 {
-  "name": "engineering-diagram-toolkit",
+  "name": "diago",
   "version": "0.2.0",
   "description": "Evidence-grounded software architecture diagram skills and native MCP tools for engineering decisions.",
   "author": {
@@ -7,8 +7,8 @@
     "email": "amirtaherkhani@outlook.com",
     "url": "https://github.com/amirtaherkhani"
   },
-  "homepage": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/",
-  "repository": "https://github.com/amirtaherkhani/engineering-diagram-toolkit",
+  "homepage": "https://amirtaherkhani.github.io/diago/",
+  "repository": "https://github.com/amirtaherkhani/diago",
   "license": "MIT",
   "keywords": [
     "architecture-diagrams",
@@ -24,7 +24,7 @@
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
-    "displayName": "Engineering Diagram Toolkit",
+    "displayName": "Diago",
     "shortDescription": "Turn engineering work into evidence-grounded diagrams.",
     "longDescription": "Plan, render, and review interactive software engineering diagrams for tasks, features, request flows, data movement, lifecycles, design patterns, and architecture decisions.",
     "developerName": "Amir Taherkhani",
@@ -34,7 +34,7 @@
       "Write",
       "Interactive"
     ],
-    "websiteURL": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/",
+    "websiteURL": "https://amirtaherkhani.github.io/diago/",
     "defaultPrompt": [
       "Visualize this feature from entry point to persistence.",
       "Choose the best diagram for this engineering task.",

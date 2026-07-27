@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://amirtaherkhani.github.io/engineering-diagram-toolkit/schemas/advice.schema.json",
+  "$id": "https://amirtaherkhani.github.io/diago/schemas/advice.schema.json",
   "title": "Engineering Diagram Advice",
   "type": "object",
   "required": ["schemaVersion", "query", "recommendation", "alternatives", "evidenceChecklist", "suggestedPrompt"],
