@@ -21,6 +21,8 @@
   ·
   <a href="#install">Install</a>
   ·
+  <a href="#use-after-installation">Use it</a>
+  ·
   <a href="#how-it-works">How it works</a>
 </p>
 
@@ -102,6 +104,57 @@ node bin/diago.mjs review examples/checkout-feature.diagram-plan.json
 node bin/diago.mjs validate architecture examples/plugin-request.architecture.json --quality showcase
 node bin/diago.mjs render architecture examples/plugin-request.architecture.json diagram.html --quality showcase
 ```
+
+## Use after installation
+
+Open the repository you want to explain, start a new Codex or Claude Code thread, and describe the engineering decision you need to make. Diago inspects the relevant source, selects the smallest useful view, separates verified facts from assumptions and recommendations, validates the diagram, and renders a standalone HTML artifact.
+
+For Codex, mention the skill directly:
+
+```text
+Use $engineering-diagram to map this feature from its API entry point to persistence. Inspect the code, separate facts from assumptions, and render architecture and sequence views.
+```
+
+For Claude Code, invoke the namespaced skill and then provide the task:
+
+```text
+/diago:engineering-diagram
+Map this feature from its API entry point to persistence. Inspect the code, separate facts from assumptions, and render architecture and sequence views.
+```
+
+### Example prompts
+
+**Feature architecture**
+
+```text
+Use $engineering-diagram to map this feature from its API entry point to persistence. Show ownership boundaries, external dependencies, and the request sequence.
+```
+
+**Design pattern**
+
+```text
+Use $engineering-diagram to evaluate whether the Strategy pattern fits this task. Show the current coupling, proposed objects, tradeoffs, and where the pattern should not be used.
+```
+
+**Best-practice rollout**
+
+```text
+Use $engineering-diagram to find the safest workflow for rolling out this schema change. Show owners, validation gates, failure paths, rollback steps, and the evidence for each recommendation.
+```
+
+**Lifecycle or incident flow**
+
+```text
+Use $engineering-diagram to visualize this background job lifecycle, including retries, timeouts, recovery paths, and terminal states.
+```
+
+**Review an existing diagram**
+
+```text
+Use $review-diagram to audit this diagram against the repository. List unsupported claims, missing boundaries, ambiguous edges, and visual issues, then recommend focused corrections.
+```
+
+In Claude Code, replace `$engineering-diagram` with `/diago:engineering-diagram` and `$review-diagram` with `/diago:review-diagram`.
 
 ## Native MCP tools
 
