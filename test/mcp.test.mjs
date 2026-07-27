@@ -99,6 +99,45 @@ test('MCP validate and render tools use bundled Archify with overwrite protectio
   }
 });
 
+test('render_diagram stays inside DIAGO_OUTPUT_ROOT when configured', () => {
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'diago-output-root-test-'));
+  const outputRoot = path.join(temporary, 'data');
+  fs.mkdirSync(outputRoot);
+  const previousOutputRoot = process.env.DIAGO_OUTPUT_ROOT;
+  process.env.DIAGO_OUTPUT_ROOT = outputRoot;
+
+  try {
+    const allowed = callTool('render_diagram', {
+      type: 'architecture',
+      diagram: readExample(),
+      outputPath: path.join(outputRoot, 'allowed.html'),
+    });
+    assert.equal(allowed.isError, false, allowed.content[0].text);
+
+    const escaped = callTool('render_diagram', {
+      type: 'architecture',
+      diagram: readExample(),
+      outputPath: path.join(temporary, 'escaped.html'),
+    });
+    assert.equal(escaped.isError, true);
+    assert.match(escaped.content[0].text, /must stay inside DIAGO_OUTPUT_ROOT/);
+
+    const linkedDirectory = path.join(outputRoot, 'linked');
+    fs.symlinkSync(temporary, linkedDirectory, 'dir');
+    const symlinkEscape = callTool('render_diagram', {
+      type: 'architecture',
+      diagram: readExample(),
+      outputPath: path.join(linkedDirectory, 'escaped-through-link.html'),
+    });
+    assert.equal(symlinkEscape.isError, true);
+    assert.match(symlinkEscape.content[0].text, /must stay inside DIAGO_OUTPUT_ROOT/);
+  } finally {
+    if (previousOutputRoot === undefined) delete process.env.DIAGO_OUTPUT_ROOT;
+    else process.env.DIAGO_OUTPUT_ROOT = previousOutputRoot;
+    fs.rmSync(temporary, { recursive: true, force: true });
+  }
+});
+
 test('stdio MCP server negotiates, lists tools, and returns protocol errors', () => {
   const messages = [
     {

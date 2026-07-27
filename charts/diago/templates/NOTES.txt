@@ -1,0 +1,23 @@
+Diago is installed in namespace {{ .Release.Namespace }}.
+
+MCP endpoint inside the cluster:
+  http://{{ include "diago.fullname" . }}.{{ .Release.Namespace }}.svc:{{ .Values.service.port }}/mcp
+
+Health endpoints:
+  http://{{ include "diago.fullname" . }}.{{ .Release.Namespace }}.svc:{{ .Values.service.port }}/livez
+  http://{{ include "diago.fullname" . }}.{{ .Release.Namespace }}.svc:{{ .Values.service.port }}/readyz
+
+For local access:
+  kubectl -n {{ .Release.Namespace }} port-forward service/{{ include "diago.fullname" . }} 3000:{{ .Values.service.port }}
+
+Then initialize an MCP session:
+  curl -i http://127.0.0.1:3000/mcp \
+    -H 'Content-Type: application/json' \
+    -H 'Accept: application/json, text/event-stream' \
+    -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"curl","version":"1.0.0"}}}'
+
+{{- if not .Values.auth.existingSecret }}
+
+WARNING: bearer authentication is disabled. Keep the ClusterIP private, or configure
+auth.existingSecret before exposing this endpoint outside the cluster.
+{{- end }}

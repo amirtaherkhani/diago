@@ -316,6 +316,39 @@ function sanitizeDiagnostic(value, temporaryDirectory) {
     .slice(0, 20_000);
 }
 
+function canonicalIntendedPath(target) {
+  const missingSegments = [];
+  let existingPath = target;
+
+  while (!fs.existsSync(existingPath)) {
+    const parent = path.dirname(existingPath);
+    if (parent === existingPath) break;
+    missingSegments.unshift(path.basename(existingPath));
+    existingPath = parent;
+  }
+
+  const canonicalExistingPath = fs.realpathSync(existingPath);
+  return path.resolve(canonicalExistingPath, ...missingSegments);
+}
+
+function enforceOutputRoot(outputPath) {
+  const configuredRoot = process.env.DIAGO_OUTPUT_ROOT?.trim();
+  if (!configuredRoot) return;
+  if (!path.isAbsolute(configuredRoot)) {
+    throw new TypeError('DIAGO_OUTPUT_ROOT must be an absolute path.');
+  }
+  if (!fs.existsSync(configuredRoot)) {
+    throw new TypeError(`DIAGO_OUTPUT_ROOT does not exist: ${configuredRoot}`);
+  }
+
+  const canonicalRoot = fs.realpathSync(configuredRoot);
+  const canonicalOutput = canonicalIntendedPath(outputPath);
+  const relative = path.relative(canonicalRoot, canonicalOutput);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    throw new TypeError(`outputPath must stay inside DIAGO_OUTPUT_ROOT (${canonicalRoot}).`);
+  }
+}
+
 function withTemporaryDiagram(diagram, callback) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'engineering-diagram-mcp-'));
   const input = path.join(directory, 'diagram.json');
@@ -359,6 +392,7 @@ function renderDiagram(args) {
   if (path.extname(outputPath).toLowerCase() !== '.html') {
     throw new TypeError('outputPath must end in .html.');
   }
+  enforceOutputRoot(outputPath);
   if (args.overwrite !== undefined && typeof args.overwrite !== 'boolean') {
     throw new TypeError('overwrite must be a boolean.');
   }
