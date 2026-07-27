@@ -1,0 +1,105 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/amirtaherkhani/diago
+  pullPolicy: Always
+  tag: latest
+  digest: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+  fsGroup: 10001
+  fsGroupChangePolicy: OnRootMismatch
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+
+mcp:
+  allowedOrigins: []
+  maxBodyBytes: 4194304
+  maxSessions: 1000
+  sessionTtlMs: 1800000
+
+auth:
+  existingSecret: ""
+  secretKey: token
+
+service:
+  type: ClusterIP
+  port: 80
+  annotations: {}
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: diago.example.com
+      paths:
+        - path: /mcp
+          pathType: Exact
+        - path: /artifacts
+          pathType: Prefix
+  tls: []
+
+persistence:
+  enabled: false
+  existingClaim: ""
+  accessModes:
+    - ReadWriteOnce
+  size: 1Gi
+  storageClass: ""
+  annotations: {}
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+
+startupProbe:
+  failureThreshold: 30
+  periodSeconds: 2
+
+livenessProbe:
+  failureThreshold: 3
+  periodSeconds: 10
+  timeoutSeconds: 2
+
+readinessProbe:
+  failureThreshold: 3
+  periodSeconds: 5
+  timeoutSeconds: 2
+
+terminationGracePeriodSeconds: 30
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+topologySpreadConstraints: []

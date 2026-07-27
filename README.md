@@ -11,6 +11,7 @@
 <p align="center">
   <a href="https://github.com/amirtaherkhani/diago/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/amirtaherkhani/diago/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/amirtaherkhani/diago/actions/workflows/pages.yml"><img alt="GitHub Pages" src="https://github.com/amirtaherkhani/diago/actions/workflows/pages.yml/badge.svg"></a>
+  <a href="https://github.com/amirtaherkhani/diago/actions/workflows/container.yml"><img alt="Container" src="https://github.com/amirtaherkhani/diago/actions/workflows/container.yml/badge.svg"></a>
   <a href="https://github.com/amirtaherkhani/diago/releases"><img alt="Release" src="https://img.shields.io/github/v/release/amirtaherkhani/diago?display_name=tag"></a>
   <a href="./LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-6ef3c5"></a>
   <img alt="Node 18+" src="https://img.shields.io/badge/node-%E2%89%A518-6ca8ff">
@@ -105,6 +106,22 @@ node bin/diago.mjs validate architecture examples/plugin-request.architecture.js
 node bin/diago.mjs render architecture examples/plugin-request.architecture.json diagram.html --quality showcase
 ```
 
+### Kubernetes
+
+Run the shared Streamable HTTP MCP server with the included Helm chart:
+
+```bash
+helm upgrade --install diago ./charts/diago \
+  --namespace diago \
+  --create-namespace \
+  --wait
+
+kubectl -n diago port-forward service/diago 3000:80
+codex mcp add diago-k8s --url http://127.0.0.1:3000/mcp
+```
+
+The chart includes startup, liveness, and readiness probes; a non-root read-only container; optional bearer authentication and Ingress; and optional persistent storage for rendered HTML. See the complete [Kubernetes installation and MCP usage guide](./docs/kubernetes.md), including Claude Code setup and direct protocol examples.
+
 ## Use after installation
 
 Open the repository you want to explain, start a new Codex or Claude Code thread, and describe the engineering decision you need to make. Diago inspects the relevant source, selects the smallest useful view, separates verified facts from assumptions and recommendations, validates the diagram, and renders a standalone HTML artifact.
@@ -168,7 +185,7 @@ Codex and Claude can call the same deterministic core directly:
 | `validate_diagram` | Run schema, renderer, accessibility, and composition checks | read-only |
 | `render_diagram` | Deliver validated standalone HTML to an absolute path | local write |
 
-The server implements MCP over stdio without runtime npm dependencies. Its portable launcher resolves from Claude's plugin-root environment or Codex's plugin working directory, and each structured result also includes a text representation for compatibility.
+The server implements MCP over stdio for local plugins and Streamable HTTP for shared or Kubernetes deployments, without runtime npm dependencies. Its portable launcher resolves from Claude's plugin-root environment or Codex's plugin working directory, and each structured result also includes a text representation for compatibility.
 
 ## Included skills
 
@@ -245,7 +262,8 @@ skills/
   engineering-diagram/      creation workflow and evidence contract
   review-diagram/           correctness and visual review workflow
 bin/                        zero-dependency CLI
-mcp/                        native stdio MCP tools for Codex and Claude
+mcp/                        stdio and Streamable HTTP MCP transports
+charts/diago/               hardened Kubernetes Helm chart
 knowledge/                  diagram selection recipes
 schemas/                    plan and advice contracts
 examples/                   validated plans and renderer JSON
@@ -260,9 +278,11 @@ test/                       Node test suite and renderer smoke tests
 ```bash
 npm install --ignore-scripts
 npm run check
+helm lint charts/diago
+helm template diago charts/diago >/dev/null
 ```
 
-The test suite covers MCP initialization and tools, recommendation selection, evidence review, plugin health, plan creation, renderer showcase validation, overwrite protection, and standalone HTML rendering.
+The test suite covers stdio and Streamable HTTP MCP initialization, sessions, authentication, tools, recommendation selection, evidence review, plugin health, plan creation, renderer showcase validation, output-root enforcement, overwrite protection, and standalone HTML rendering.
 
 ## Contributing
 
