@@ -10,12 +10,12 @@ const siteNav = document.querySelector('.site-nav');
 const installOptions = {
   codex: {
     title: 'Install the Codex marketplace',
-    description: 'Add the GitHub repository as a marketplace, then install the plugin from its catalog.',
+    description: 'Add the GitHub repository as a marketplace, then install the plugin with its skills and MCP tools.',
     command: 'codex plugin marketplace add amirtaherkhani/engineering-diagram-toolkit\ncodex plugin add engineering-diagram-toolkit@engineering-diagram-toolkit',
   },
   claude: {
     title: 'Install in Claude Code',
-    description: 'Add the repository marketplace and install the namespaced plugin from Claude Code.',
+    description: 'Add the repository marketplace and install the namespaced skills and MCP tools from Claude Code.',
     command: '/plugin marketplace add amirtaherkhani/engineering-diagram-toolkit\n/plugin install engineering-diagram-toolkit@engineering-diagram-toolkit\n/reload-plugins',
   },
   cli: {

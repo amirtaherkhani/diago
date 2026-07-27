@@ -11,7 +11,7 @@ Audit the diagram as an engineering artifact, not as decoration. Treat correctne
 
 1. Identify the diagram's audience, question, scope, source JSON, and rendered artifact.
 2. Inspect the cited code, configuration, contracts, tests, or documents. Mark unsupported claims.
-3. Run deterministic checks when a plan or Archify IR is available:
+3. Run deterministic checks when a plan or Archify IR is available. Prefer `review_diagram_plan` and `validate_diagram` MCP tools. If MCP tools are unavailable, use the CLI:
 
    ```bash
    node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diagram-toolkit.mjs" review <diagram-plan.json> --json

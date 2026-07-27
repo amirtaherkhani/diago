@@ -1,7 +1,7 @@
 {
   "name": "engineering-diagram-toolkit",
-  "description": "Create and review evidence-grounded software engineering diagrams for architecture, features, workflows, design patterns, and best-practice decisions.",
-  "version": "0.1.0",
+  "description": "Create and review evidence-grounded software engineering diagrams with agent skills and native MCP tools.",
+  "version": "0.2.0",
   "author": {
     "name": "Amir Taherkhani",
     "email": "amirtaherkhani@outlook.com",
@@ -14,6 +14,8 @@
     "architecture-diagrams",
     "system-design",
     "software-engineering",
+    "mcp",
+    "model-context-protocol",
     "visualization"
   ]
 }

@@ -5,15 +5,15 @@
     "url": "https://github.com/amirtaherkhani"
   },
   "metadata": {
-    "description": "Evidence-grounded software engineering diagram skills and deterministic interactive rendering.",
-    "version": "0.1.0"
+    "description": "Evidence-grounded engineering diagram skills, native MCP tools, and deterministic interactive rendering.",
+    "version": "0.2.0"
   },
   "plugins": [
     {
       "name": "engineering-diagram-toolkit",
       "source": "./",
-      "description": "Create and review architecture, sequence, workflow, dataflow, and lifecycle diagrams with evidence-aware AI skills.",
-      "version": "0.1.0",
+      "description": "Create and review architecture, sequence, workflow, dataflow, and lifecycle diagrams with evidence-aware skills and MCP tools.",
+      "version": "0.2.0",
       "author": {
         "name": "Amir Taherkhani"
       },
@@ -22,7 +22,8 @@
         "system-design",
         "diagrams",
         "developer-tools",
-        "agent-skills"
+        "agent-skills",
+        "mcp"
       ],
       "category": "development",
       "strict": false

@@ -110,6 +110,11 @@ function commandDoctor(args) {
       detail: 'Claude plugin manifest',
     },
     {
+      name: 'mcp-server',
+      ok: fs.existsSync(fromRoot('mcp', 'server.mjs')),
+      detail: 'Bundled stdio MCP tools',
+    },
+    {
       name: 'upstream-lock',
       ok: fs.existsSync(fromRoot('vendor', 'upstreams.lock.json')),
       detail: 'Pinned upstream sources',

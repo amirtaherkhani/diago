@@ -1,7 +1,7 @@
 {
   "name": "engineering-diagram-toolkit",
-  "version": "0.1.0",
-  "description": "Evidence-grounded software architecture diagrams for features, workflows, design patterns, and engineering decisions.",
+  "version": "0.2.0",
+  "description": "Evidence-grounded software architecture diagram skills and native MCP tools for engineering decisions.",
   "author": {
     "name": "Amir Taherkhani",
     "email": "amirtaherkhani@outlook.com",
@@ -17,9 +17,12 @@
     "developer-tools",
     "codex",
     "claude-code",
-    "agent-skills"
+    "agent-skills",
+    "mcp",
+    "model-context-protocol"
   ],
   "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Engineering Diagram Toolkit",
     "shortDescription": "Turn engineering work into evidence-grounded diagrams.",

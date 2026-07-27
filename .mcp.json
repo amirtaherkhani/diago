@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "engineering-diagrams": {
+      "command": "node",
+      "args": [
+        "--input-type=module",
+        "--eval",
+        "import path from 'node:path'; import { pathToFileURL } from 'node:url'; const root = process.env.CLAUDE_PLUGIN_ROOT || process.cwd(); await import(pathToFileURL(path.join(root, 'mcp', 'server.mjs')).href);"
+      ],
+      "cwd": "."
+    }
+  }
+}
