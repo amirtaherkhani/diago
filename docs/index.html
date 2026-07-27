@@ -52,26 +52,29 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="Diago home">
-        <img src="./assets/mark.svg" alt="" width="34" height="34">
-        <span>Diago</span>
-      </a>
-      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span class="sr-only">Toggle navigation</span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </button>
-      <nav id="site-nav" class="site-nav" aria-label="Primary">
-        <a href="#why">Why</a>
-        <a href="#views">Views</a>
-        <a href="#install">Install</a>
-        <a class="nav-github" href="https://github.com/amirtaherkhani/diago">
-          GitHub
-          <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M4.2 11.8 11.4 4.6M6.1 4.5h5.4v5.4"/>
-          </svg>
+      <div class="nav-shell">
+        <a class="brand" href="#top" aria-label="Diago home">
+          <img src="./assets/mark.svg" alt="" width="34" height="34">
+          <span>Diago</span>
         </a>
-      </nav>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="sr-only">Toggle navigation</span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Primary">
+          <a href="#why">Why</a>
+          <a href="#views">Views</a>
+          <a href="#install">Install</a>
+          <a href="#usage">Use it</a>
+          <a class="nav-github" href="https://github.com/amirtaherkhani/diago">
+            GitHub
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4.2 11.8 11.4 4.6M6.1 4.5h5.4v5.4"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
     </header>
 
     <main id="main">
@@ -360,6 +363,64 @@ codex plugin add diago@diago</code></pre>
         </div>
       </section>
 
+      <section id="usage" class="usage-section">
+        <div class="section-shell">
+          <div class="section-heading split-heading">
+            <div>
+              <p class="eyebrow"><span></span> After installation</p>
+              <h2>Describe the decision. Diago builds the view.</h2>
+            </div>
+            <div>
+              <p>Start a new agent thread in the repository you want to explain. Ask Diago to inspect the source, choose the smallest useful diagram, keep assumptions visible, and render a reviewable HTML artifact.</p>
+              <div class="agent-invocations" aria-label="Agent invocation examples">
+                <p><span>Codex</span><code>Use $engineering-diagram to…</code></p>
+                <p><span>Claude Code</span><code>/diago:engineering-diagram</code></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="usage-grid" aria-label="Example Diago prompts">
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">01</span>
+                <div><small>Feature architecture</small><h3>Map a feature end to end</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-feature">Copy</button>
+              </div>
+              <pre id="usage-feature"><code>Use $engineering-diagram to map this feature from its API entry point to persistence. Inspect the code, separate facts from assumptions, and render architecture and sequence views.</code></pre>
+            </article>
+
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">02</span>
+                <div><small>Design pattern</small><h3>Explain whether a pattern fits</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-pattern">Copy</button>
+              </div>
+              <pre id="usage-pattern"><code>Use $engineering-diagram to evaluate whether the Strategy pattern fits this task. Show the current coupling, proposed objects, tradeoffs, and where the pattern should not be used.</code></pre>
+            </article>
+
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">03</span>
+                <div><small>Best-practice workflow</small><h3>Plan a safer rollout</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-rollout">Copy</button>
+              </div>
+              <pre id="usage-rollout"><code>Use $engineering-diagram to find the safest workflow for rolling out this schema change. Show owners, validation gates, failure paths, rollback steps, and the evidence for each recommendation.</code></pre>
+            </article>
+
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">04</span>
+                <div><small>Diagram review</small><h3>Check a diagram against code</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-review">Copy</button>
+              </div>
+              <pre id="usage-review"><code>Use $review-diagram to audit this diagram against the repository. List unsupported claims, missing boundaries, ambiguous edges, and visual issues, then recommend focused corrections.</code></pre>
+            </article>
+          </div>
+
+          <p class="usage-note"><span>Claude Code</span> Replace <code>$engineering-diagram</code> with <code>/diago:engineering-diagram</code>, or use <code>/diago:review-diagram</code> for review prompts.</p>
+        </div>
+      </section>
+
       <section class="final-cta section-shell">
         <div>
           <p class="eyebrow"><span></span> Build with shared understanding</p>
@@ -367,7 +428,7 @@ codex plugin add diago@diago</code></pre>
         </div>
         <div class="final-actions">
           <a class="button button-primary" href="https://github.com/amirtaherkhani/diago">Explore on GitHub</a>
-          <a class="text-link" href="#install">Install now <span>→</span></a>
+          <a class="text-link" href="#usage">See usage examples <span>→</span></a>
         </div>
       </section>
     </main>
