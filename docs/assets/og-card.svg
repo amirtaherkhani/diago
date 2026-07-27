@@ -19,7 +19,7 @@
   <circle cx="80" cy="78" r="3" fill="#FF9D6C"/>
   <circle cx="80" cy="90" r="3" fill="#6EF3C5"/>
   <circle cx="91" cy="84" r="3" fill="#6CA8FF"/>
-  <text x="128" y="91" fill="#F5F8FB" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="24" font-weight="700">Engineering Diagram Toolkit</text>
+  <text x="128" y="91" fill="#F5F8FB" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="24" font-weight="700">Diago</text>
   <text x="58" y="214" fill="#F5F8FB" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="63" font-weight="650" letter-spacing="-2.5">Make the system visible</text>
   <text x="58" y="282" fill="#6EF3C5" font-family="Georgia,serif" font-size="63" font-style="italic">before you change it.</text>
   <text x="61" y="342" fill="#9EB0C2" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="22">Evidence-grounded architecture diagrams for Codex and Claude.</text>

@@ -49,7 +49,7 @@ readJson('knowledge/diagram-recipes.json');
 readJson('examples/checkout-feature.diagram-plan.json');
 readJson('examples/plugin-request.architecture.json');
 
-check(codexManifest?.name === 'engineering-diagram-toolkit', 'Codex plugin name is incorrect.');
+check(codexManifest?.name === 'diago', 'Codex plugin name is incorrect.');
 check(codexManifest?.version === packageManifest?.version, 'Codex plugin version must match package.json.');
 check(codexManifest?.skills === './skills/', 'Codex skills path must be ./skills/.');
 check(codexManifest?.mcpServers === './.mcp.json', 'Codex MCP config path must be ./.mcp.json.');

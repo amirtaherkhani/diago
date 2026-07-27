@@ -1,11 +1,11 @@
 {
-  "name": "engineering-diagram-toolkit",
+  "name": "diago",
   "interface": {
-    "displayName": "Engineering Diagram Toolkit"
+    "displayName": "Diago"
   },
   "plugins": [
     {
-      "name": "engineering-diagram-toolkit",
+      "name": "diago",
       "source": {
         "source": "local",
         "path": "./"

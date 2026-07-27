@@ -85,7 +85,7 @@
   "boundaries": [
     {
       "kind": "region",
-      "label": "Engineering Diagram Toolkit",
+      "label": "Diago",
       "wraps": ["agent", "plan", "renderer", "review"]
     }
   ],

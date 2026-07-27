@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import readline from 'node:readline';
 import { callTool, TOOL_DEFINITIONS, UnknownToolError } from './tools.mjs';
 
-const SERVER_NAME = 'engineering-diagram-toolkit';
+const SERVER_NAME = 'diago';
 const SERVER_VERSION = JSON.parse(
   fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
 ).version;

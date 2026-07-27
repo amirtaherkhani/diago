@@ -12,16 +12,16 @@ import { fromRoot } from '../lib/paths.mjs';
 const [command, ...rawArgs] = process.argv.slice(2);
 
 function usage() {
-  return `Engineering Diagram Toolkit
+  return `Diago
 
 Usage:
-  diagram-toolkit advise <task or feature> [--json]
-  diagram-toolkit plan <task or feature> [--out diagram-plan.json]
-  diagram-toolkit review <diagram-plan.json> [--json]
-  diagram-toolkit render <type> <input.json> [output.html] [Archify options]
-  diagram-toolkit validate <type> <input.json> [Archify options]
-  diagram-toolkit doctor [--json]
-  diagram-toolkit examples
+  diago advise <task or feature> [--json]
+  diago plan <task or feature> [--out diagram-plan.json]
+  diago review <diagram-plan.json> [--json]
+  diago render <type> <input.json> [output.html] [Archify options]
+  diago validate <type> <input.json> [Archify options]
+  diago doctor [--json]
+  diago examples
 
 Types: architecture, workflow, sequence, dataflow, lifecycle
 `;

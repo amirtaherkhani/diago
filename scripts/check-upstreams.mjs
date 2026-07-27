@@ -10,7 +10,7 @@ async function github(path) {
   const response = await fetch(`https://api.github.com${path}`, {
     headers: {
       Accept: 'application/vnd.github+json',
-      'User-Agent': 'engineering-diagram-toolkit',
+      'User-Agent': 'diago',
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });

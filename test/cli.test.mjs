@@ -6,7 +6,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { fromRoot } from '../lib/paths.mjs';
 
-const cli = fromRoot('bin', 'diagram-toolkit.mjs');
+const cli = fromRoot('bin', 'diago.mjs');
 
 function run(args, cwd = fromRoot()) {
   return spawnSync(process.execPath, [cli, ...args], {
@@ -24,7 +24,7 @@ test('doctor verifies the dual plugin, MCP server, and renderer', () => {
 });
 
 test('plan writes a reusable diagram plan', () => {
-  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'diagram-toolkit-test-'));
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'diago-test-'));
   try {
     const output = path.join(temporary, 'plan.json');
     const result = run(['plan', 'Map an async deployment job lifecycle', '--out', output]);
@@ -37,7 +37,7 @@ test('plan writes a reusable diagram plan', () => {
 });
 
 test('bundled Archify validates and renders the showcase example', () => {
-  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'diagram-toolkit-render-'));
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'diago-render-'));
   try {
     const input = fromRoot('examples', 'plugin-request.architecture.json');
     const output = path.join(temporary, 'diagram.html');
@@ -48,7 +48,7 @@ test('bundled Archify validates and renders the showcase example', () => {
     const render = run(['render', 'architecture', input, output, '--quality', 'showcase']);
     assert.equal(render.status, 0, render.stderr);
     const html = fs.readFileSync(output, 'utf8');
-    assert.match(html, /Engineering Diagram Toolkit/);
+    assert.match(html, /Diago/);
     assert.match(html, /<svg/);
   } finally {
     fs.rmSync(temporary, { recursive: true, force: true });
