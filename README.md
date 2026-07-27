@@ -28,7 +28,7 @@
 
 ![Engineering Diagram Toolkit: make the system visible before you change it](./docs/assets/og-card.png)
 
-Engineering Diagram Toolkit turns a task, feature, code path, design pattern, incident, or best-practice discussion into the smallest useful software engineering diagram. It combines an evidence-aware agent workflow, a deterministic CLI, and Archify's interactive renderer in one repository that works with both OpenAI Codex and Claude Code.
+Engineering Diagram Toolkit turns a task, feature, code path, design pattern, incident, or best-practice discussion into the smallest useful software engineering diagram. It combines an evidence-aware agent workflow, five native MCP tools, a deterministic CLI, and Archify's interactive renderer in one repository that works with both OpenAI Codex and Claude Code.
 
 ## Why this exists
 
@@ -83,6 +83,8 @@ Then invoke the namespaced skill:
 /engineering-diagram-toolkit:engineering-diagram
 ```
 
+Both plugin installs start the bundled `engineering-diagrams` stdio server automatically. No separate MCP registration or API key is required.
+
 ### CLI
 
 The CLI has no runtime npm dependencies:
@@ -102,6 +104,20 @@ node bin/diagram-toolkit.mjs review examples/checkout-feature.diagram-plan.json
 node bin/diagram-toolkit.mjs validate architecture examples/plugin-request.architecture.json --quality showcase
 node bin/diagram-toolkit.mjs render architecture examples/plugin-request.architecture.json diagram.html --quality showcase
 ```
+
+## Native MCP tools
+
+Codex and Claude can call the same deterministic core directly:
+
+| Tool | Purpose | State |
+| --- | --- | --- |
+| `advise_diagram` | Choose the smallest useful view for a task | read-only |
+| `create_diagram_plan` | Establish scope, evidence lanes, and the primary question | read-only |
+| `review_diagram_plan` | Find unsupported facts and missing decision context | read-only |
+| `validate_diagram` | Run schema, renderer, accessibility, and composition checks | read-only |
+| `render_diagram` | Deliver validated standalone HTML to an absolute path | local write |
+
+The server implements MCP over stdio without runtime npm dependencies. Its portable launcher resolves from Claude's plugin-root environment or Codex's plugin working directory, and each structured result also includes a text representation for compatibility.
 
 ## Included skills
 
@@ -194,6 +210,7 @@ skills/
   engineering-diagram/      creation workflow and evidence contract
   review-diagram/           correctness and visual review workflow
 bin/                        zero-dependency CLI
+mcp/                        native stdio MCP tools for Codex and Claude
 knowledge/                  diagram selection recipes
 schemas/                    plan and advice contracts
 examples/                   validated plans and Archify JSON
@@ -210,7 +227,7 @@ npm install --ignore-scripts
 npm run check
 ```
 
-The test suite covers recommendation selection, evidence review, plugin health, plan creation, Archify showcase validation, and standalone HTML rendering.
+The test suite covers MCP initialization and tools, recommendation selection, evidence review, plugin health, plan creation, Archify showcase validation, overwrite protection, and standalone HTML rendering.
 
 ## Contributing
 

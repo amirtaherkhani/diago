@@ -1,7 +1,7 @@
 {
   "name": "engineering-diagram-toolkit",
-  "version": "0.1.0",
-  "description": "AI-ready software architecture diagram skills and a deterministic rendering CLI for Codex and Claude.",
+  "version": "0.2.0",
+  "description": "AI-ready software architecture diagram skills, native MCP tools, and deterministic rendering for Codex and Claude.",
   "type": "module",
   "private": true,
   "license": "MIT",
@@ -20,6 +20,8 @@
     "codex",
     "claude-code",
     "agent-skills",
+    "mcp",
+    "model-context-protocol",
     "visualization"
   ],
   "bin": {

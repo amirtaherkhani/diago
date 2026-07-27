@@ -12,15 +12,15 @@ Turn engineering evidence into a diagram that answers one explicit question. Pre
 1. Inspect the task and its evidence before drawing. Read the relevant code, configuration, API contracts, tests, logs, or design notes.
 2. State the audience, the decision the diagram supports, and the system boundary.
 3. Separate verified facts, assumptions, and recommendations. Never render an assumption as an observed fact.
-4. Choose the diagram type with `references/diagram-selection.md`. Run the bundled advisor when the request spans several possible views:
+4. Choose the diagram type with `references/diagram-selection.md`. When MCP tools are available, call `advise_diagram` with the task. Otherwise run the bundled advisor:
 
    ```bash
    node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diagram-toolkit.mjs" advise "<task or feature>" --json
    ```
 
-5. Create a plan from `assets/diagram-plan.json`. Keep one primary question per view and link every important node or edge to evidence.
+5. Call `create_diagram_plan` when MCP tools are available, or create a plan from `assets/diagram-plan.json`. Fill its evidence lanes from inspected sources. Keep one primary question per view and link every important node or edge to evidence.
 6. Author Archify JSON IR. Use the schemas and examples under the plugin root at `vendor/archify/schemas/` and `examples/`.
-7. Validate and render:
+7. Call `validate_diagram` with the JSON object. After it passes, call `render_diagram` with an absolute `.html` output path. Use `overwrite: true` only when replacement is intended. If MCP tools are unavailable, validate and render with the CLI:
 
    ```bash
    node "${PLUGIN_ROOT:-$CLAUDE_PLUGIN_ROOT}/bin/diagram-toolkit.mjs" validate <type> <input.json>

@@ -15,10 +15,12 @@ function run(args, cwd = fromRoot()) {
   });
 }
 
-test('doctor verifies the dual plugin and renderer', () => {
+test('doctor verifies the dual plugin, MCP server, and renderer', () => {
   const result = run(['doctor', '--json']);
   assert.equal(result.status, 0, result.stderr);
-  assert.equal(JSON.parse(result.stdout).ok, true);
+  const doctor = JSON.parse(result.stdout);
+  assert.equal(doctor.ok, true);
+  assert.ok(doctor.checks.some((check) => check.name === 'mcp-server' && check.ok));
 });
 
 test('plan writes a reusable diagram plan', () => {

@@ -40,8 +40,9 @@ const codexManifest = readJson('.codex-plugin/plugin.json');
 const claudeManifest = readJson('.claude-plugin/plugin.json');
 const claudeMarketplace = readJson('.claude-plugin/marketplace.json');
 const codexMarketplace = readJson('.agents/plugins/marketplace.json');
+const mcpConfig = readJson('.mcp.json');
 const upstreams = readJson('vendor/upstreams.lock.json');
-readJson('package.json');
+const packageManifest = readJson('package.json');
 readJson('schemas/diagram-plan.schema.json');
 readJson('schemas/advice.schema.json');
 readJson('knowledge/diagram-recipes.json');
@@ -49,14 +50,20 @@ readJson('examples/checkout-feature.diagram-plan.json');
 readJson('examples/plugin-request.architecture.json');
 
 check(codexManifest?.name === 'engineering-diagram-toolkit', 'Codex plugin name is incorrect.');
-check(codexManifest?.version === '0.1.0', 'Codex plugin version must match the release.');
+check(codexManifest?.version === packageManifest?.version, 'Codex plugin version must match package.json.');
 check(codexManifest?.skills === './skills/', 'Codex skills path must be ./skills/.');
+check(codexManifest?.mcpServers === './.mcp.json', 'Codex MCP config path must be ./.mcp.json.');
 check(claudeManifest?.name === codexManifest?.name, 'Claude and Codex plugin names must match.');
 check(claudeManifest?.version === codexManifest?.version, 'Claude and Codex plugin versions must match.');
+check(claudeMarketplace?.metadata?.version === codexManifest?.version, 'Claude marketplace metadata version must match the plugin.');
+check(claudeMarketplace?.plugins?.[0]?.version === codexManifest?.version, 'Claude marketplace plugin version must match the plugin.');
 check(claudeMarketplace?.plugins?.[0]?.source === './', 'Claude marketplace must load the repository-root plugin.');
 check(codexMarketplace?.plugins?.[0]?.source?.path === './', 'Codex marketplace must load the repository-root plugin.');
 check(codexMarketplace?.plugins?.[0]?.policy?.installation === 'AVAILABLE', 'Codex marketplace installation policy is required.');
 check(codexMarketplace?.plugins?.[0]?.policy?.authentication === 'ON_INSTALL', 'Codex marketplace authentication policy is required.');
+check(mcpConfig?.mcpServers?.['engineering-diagrams']?.command === 'node', 'MCP server must use the bundled Node runtime.');
+check(mcpConfig?.mcpServers?.['engineering-diagrams']?.args?.includes('--input-type=module'), 'MCP launcher must use Node ESM mode.');
+check(mcpConfig?.mcpServers?.['engineering-diagrams']?.args?.some((arg) => arg.includes('CLAUDE_PLUGIN_ROOT')), 'MCP launcher must support the Claude plugin root.');
 
 for (const [name, source] of Object.entries(upstreams?.sources ?? {})) {
   check(/^[0-9a-f]{40}$/.test(source.commit), `${name} must be pinned to a full commit SHA.`);
@@ -71,6 +78,8 @@ for (const relativePath of [
   'vendor/archify/LICENSE',
   'vendor/architecture-diagram-skill/LICENSE',
   'vendor/ui-ux-pro-max-skill/LICENSE',
+  'mcp/server.mjs',
+  'mcp/tools.mjs',
   'docs/index.html',
   'LICENSE',
   'THIRD_PARTY_NOTICES.md',
