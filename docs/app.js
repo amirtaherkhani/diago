@@ -20,7 +20,7 @@ const installOptions = {
   },
   cli: {
     title: 'Run the deterministic CLI',
-    description: 'Clone the repository and use the advisor, reviewer, validator, and bundled Archify renderer directly.',
+    description: 'Clone the repository and use the advisor, reviewer, validator, and bundled renderer directly.',
     command: 'git clone https://github.com/amirtaherkhani/engineering-diagram-toolkit.git\ncd engineering-diagram-toolkit\nnode bin/diagram-toolkit.mjs doctor',
   },
 };

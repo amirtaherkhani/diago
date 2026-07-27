@@ -36,7 +36,7 @@
     <path d="M396 34H454" stroke="#6CA8FF" stroke-width="2" marker-end="url(#arrow)"/>
     <rect x="456" width="168" height="68" rx="13" fill="#142231" stroke="#344A60"/>
     <circle cx="480" cy="24" r="5" fill="#FF9D6C"/>
-    <text x="480" y="47" fill="#F5F8FB" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="16" font-weight="700">Archify</text>
+    <text x="480" y="47" fill="#F5F8FB" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="16" font-weight="700">Renderer</text>
     <text x="480" y="62" fill="#7F96AC" font-family="monospace" font-size="9">validate + render</text>
     <path d="M624 34H682" stroke="#6CA8FF" stroke-width="2" marker-end="url(#arrow)"/>
     <rect x="684" width="168" height="68" rx="13" fill="#142231" stroke="#344A60"/>

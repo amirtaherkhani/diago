@@ -22,13 +22,11 @@
   <a href="#install">Install</a>
   ·
   <a href="#how-it-works">How it works</a>
-  ·
-  <a href="#upstream-updates">Upstream updates</a>
 </p>
 
 ![Engineering Diagram Toolkit: make the system visible before you change it](./docs/assets/og-card.png)
 
-Engineering Diagram Toolkit turns a task, feature, code path, design pattern, incident, or best-practice discussion into the smallest useful software engineering diagram. It combines an evidence-aware agent workflow, five native MCP tools, a deterministic CLI, and Archify's interactive renderer in one repository that works with both OpenAI Codex and Claude Code.
+Engineering Diagram Toolkit turns a task, feature, code path, design pattern, incident, or best-practice discussion into the smallest useful software engineering diagram. It combines an evidence-aware agent workflow, five native MCP tools, a deterministic CLI, and an interactive renderer in one repository that works with both OpenAI Codex and Claude Code.
 
 ## Why this exists
 
@@ -148,7 +146,7 @@ Example prompts:
 task or feature
       │
       ▼
-source evidence ──► diagram plan ──► Archify JSON IR ──► validated HTML
+source evidence ──► diagram plan ──► diagram JSON IR ──► validated HTML
       ▲                   │                                  │
       └──────────── review findings ◄────────────────────────┘
 ```
@@ -165,40 +163,24 @@ The canonical plan keeps three claim lanes:
 }
 ```
 
-See [`schemas/diagram-plan.schema.json`](./schemas/diagram-plan.schema.json), the [checkout plan](./examples/checkout-feature.diagram-plan.json), and the [Archify architecture example](./examples/plugin-request.architecture.json).
+See [`schemas/diagram-plan.schema.json`](./schemas/diagram-plan.schema.json), the [checkout plan](./examples/checkout-feature.diagram-plan.json), and the [architecture example](./examples/plugin-request.architecture.json).
 
-## The combined architecture
+## Dependency updates
 
-This repository integrates three upstream projects through explicit boundaries:
-
-| Upstream | What is used | Update policy |
-| --- | --- | --- |
-| [tt-a1i/archify](https://github.com/tt-a1i/archify) | pinned runtime, schemas, validation, interactive renderer | vendored from the latest tested release |
-| [konraddzbik/architecture-diagram-skill](https://github.com/konraddzbik/architecture-diagram-skill) | walkthrough and interaction methodology snapshot | review before adapting canonical skills |
-| [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | visual-system, accessibility, and design-quality methodology snapshot | review before adapting canonical skills |
-
-Exact commits and integration modes live in [`vendor/upstreams.lock.json`](./vendor/upstreams.lock.json). Original licenses are preserved; see [third-party notices](./THIRD_PARTY_NOTICES.md).
-
-## Upstream updates
-
-The scheduled `Sync upstream sources` workflow checks all three projects every week. Each source is refreshed in its own pull request with a review checklist for:
+The scheduled dependency workflow checks pinned sources every week. Each update is isolated in a reviewable pull request with checks for:
 
 - license and security changes;
-- skill methodology changes;
-- Archify schema and rendering compatibility;
+- schema and rendering compatibility;
 - evidence semantics and visual quality;
 - the complete `npm run check` suite.
 
-Run the same process locally:
+Run the read-only check locally:
 
 ```bash
-node scripts/check-upstreams.mjs
-./scripts/sync-upstreams.sh archify
-./scripts/sync-upstreams.sh architecture-diagram-skill
-./scripts/sync-upstreams.sh ui-ux-pro-max-skill
+npm run upstreams:check
 ```
 
-Upstream changes never silently rewrite the canonical skills.
+Dependency updates never silently rewrite the canonical skills.
 
 ## Repository structure
 
@@ -213,10 +195,10 @@ bin/                        zero-dependency CLI
 mcp/                        native stdio MCP tools for Codex and Claude
 knowledge/                  diagram selection recipes
 schemas/                    plan and advice contracts
-examples/                   validated plans and Archify JSON
-vendor/                     pinned upstream runtime and snapshots
+examples/                   validated plans and renderer JSON
+vendor/                     pinned runtime and methodology snapshots
 docs/                       GitHub Pages site
-scripts/                    validation and upstream automation
+scripts/                    validation and dependency automation
 test/                       Node test suite and renderer smoke tests
 ```
 
@@ -227,7 +209,7 @@ npm install --ignore-scripts
 npm run check
 ```
 
-The test suite covers MCP initialization and tools, recommendation selection, evidence review, plugin health, plan creation, Archify showcase validation, overwrite protection, and standalone HTML rendering.
+The test suite covers MCP initialization and tools, recommendation selection, evidence review, plugin health, plan creation, renderer showcase validation, overwrite protection, and standalone HTML rendering.
 
 ## Contributing
 
@@ -235,4 +217,4 @@ Diagram recipes, accessibility improvements, examples, renderer adapters, and ag
 
 ## License
 
-Engineering Diagram Toolkit is available under the [MIT License](./LICENSE). Vendored and referenced upstream work retains its original copyright and license notices.
+Engineering Diagram Toolkit is available under the [MIT License](./LICENSE). Required third-party copyright and license notices are preserved in [third-party notices](./THIRD_PARTY_NOTICES.md).
