@@ -74,8 +74,9 @@ for (const [name, source] of Object.entries(upstreams?.sources ?? {})) {
   check(fs.existsSync(fromRoot(source.path)), `${name} snapshot is missing at ${source.path}.`);
 }
 
-validateSkill('engineering-diagram');
-validateSkill('review-diagram');
+validateSkill('diago-engineering-diagram');
+validateSkill('diago-chat-architecture');
+validateSkill('diago-review-diagram');
 
 for (const relativePath of [
   'vendor/archify/bin/archify.mjs',

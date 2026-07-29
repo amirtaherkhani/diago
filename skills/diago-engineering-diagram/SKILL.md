@@ -1,5 +1,5 @@
 ---
-name: engineering-diagram
+name: diago-engineering-diagram
 description: Create evidence-grounded software engineering diagrams for architecture, feature flows, workflows, sequences, data movement, lifecycles, design patterns, and best-practice decisions. Use when a task, feature, code path, system design, technical explanation, implementation plan, incident, or architecture decision would be clearer as an interactive diagram or visual walkthrough.
 ---
 

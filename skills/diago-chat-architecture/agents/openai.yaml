@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diago Chat Architecture"
+  short_description: "Visualize architecture discussed in a chat"
+  default_prompt: "Use $diago-chat-architecture to turn this conversation into a connected architecture visualization and explain how every part works together."

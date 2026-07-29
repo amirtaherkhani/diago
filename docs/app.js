@@ -18,6 +18,11 @@ const installOptions = {
     description: 'Add the repository marketplace and install the namespaced skills and MCP tools from Claude Code.',
     command: '/plugin marketplace add amirtaherkhani/diago\n/plugin install diago@diago\n/reload-plugins',
   },
+  mcp: {
+    title: 'Connect the MCP server directly',
+    description: 'Clone Diago, register its native stdio server, then restart Codex. The Codex app, CLI, and IDE share this MCP configuration.',
+    command: 'git clone https://github.com/amirtaherkhani/diago.git\ncd diago\ncodex mcp add diago -- node "$PWD/mcp/server.mjs"\ncodex mcp get diago',
+  },
   cli: {
     title: 'Run the deterministic CLI',
     description: 'Clone the repository and use the advisor, reviewer, validator, and bundled renderer directly.',

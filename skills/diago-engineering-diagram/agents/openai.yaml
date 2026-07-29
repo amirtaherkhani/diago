@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diago Engineering Diagram"
+  short_description: "Plan and render software engineering diagrams"
+  default_prompt: "Use $diago-engineering-diagram to visualize this feature and explain the design decisions."

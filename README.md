@@ -65,7 +65,7 @@ codex plugin add diago@diago
 Start a new thread and try:
 
 ```text
-Use $engineering-diagram to visualize this feature from API entry point to persistence.
+Use $diago-engineering-diagram to visualize this feature from API entry point to persistence.
 ```
 
 ### Claude Code
@@ -81,7 +81,7 @@ Run these commands inside Claude Code:
 Then invoke the namespaced skill:
 
 ```text
-/diago:engineering-diagram
+/diago:diago-engineering-diagram
 ```
 
 Both plugin installs start the bundled `engineering-diagrams` stdio server automatically. No separate MCP registration or API key is required.
@@ -106,6 +106,19 @@ node bin/diago.mjs validate architecture examples/plugin-request.architecture.js
 node bin/diago.mjs render architecture examples/plugin-request.architecture.json diagram.html --quality showcase
 ```
 
+### Connect the MCP server directly to Codex
+
+Register Diago as a native stdio MCP server:
+
+```bash
+git clone https://github.com/amirtaherkhani/diago.git
+cd diago
+codex mcp add diago -- node "$PWD/mcp/server.mjs"
+codex mcp get diago
+```
+
+Restart the Codex app or open a new Codex session after registration. The Codex app, CLI, and IDE extension share this MCP configuration.
+
 ### Kubernetes
 
 Run the shared Streamable HTTP MCP server with the included Helm chart:
@@ -129,13 +142,13 @@ Open the repository you want to explain, start a new Codex or Claude Code thread
 For Codex, mention the skill directly:
 
 ```text
-Use $engineering-diagram to map this feature from its API entry point to persistence. Inspect the code, separate facts from assumptions, and render architecture and sequence views.
+Use $diago-engineering-diagram to map this feature from its API entry point to persistence. Inspect the code, separate facts from assumptions, and render architecture and sequence views.
 ```
 
 For Claude Code, invoke the namespaced skill and then provide the task:
 
 ```text
-/diago:engineering-diagram
+/diago:diago-engineering-diagram
 Map this feature from its API entry point to persistence. Inspect the code, separate facts from assumptions, and render architecture and sequence views.
 ```
 
@@ -144,34 +157,46 @@ Map this feature from its API entry point to persistence. Inspect the code, sepa
 **Feature architecture**
 
 ```text
-Use $engineering-diagram to map this feature from its API entry point to persistence. Show ownership boundaries, external dependencies, and the request sequence.
+Use $diago-engineering-diagram to map this feature from its API entry point to persistence. Show ownership boundaries, external dependencies, and the request sequence.
 ```
 
 **Design pattern**
 
 ```text
-Use $engineering-diagram to evaluate whether the Strategy pattern fits this task. Show the current coupling, proposed objects, tradeoffs, and where the pattern should not be used.
+Use $diago-engineering-diagram to evaluate whether the Strategy pattern fits this task. Show the current coupling, proposed objects, tradeoffs, and where the pattern should not be used.
 ```
 
 **Best-practice rollout**
 
 ```text
-Use $engineering-diagram to find the safest workflow for rolling out this schema change. Show owners, validation gates, failure paths, rollback steps, and the evidence for each recommendation.
+Use $diago-engineering-diagram to find the safest workflow for rolling out this schema change. Show owners, validation gates, failure paths, rollback steps, and the evidence for each recommendation.
 ```
 
 **Lifecycle or incident flow**
 
 ```text
-Use $engineering-diagram to visualize this background job lifecycle, including retries, timeouts, recovery paths, and terminal states.
+Use $diago-engineering-diagram to visualize this background job lifecycle, including retries, timeouts, recovery paths, and terminal states.
 ```
 
 **Review an existing diagram**
 
 ```text
-Use $review-diagram to audit this diagram against the repository. List unsupported claims, missing boundaries, ambiguous edges, and visual issues, then recommend focused corrections.
+Use $diago-review-diagram to audit this diagram against the repository. List unsupported claims, missing boundaries, ambiguous edges, and visual issues, then recommend focused corrections.
 ```
 
-In Claude Code, replace `$engineering-diagram` with `/diago:engineering-diagram` and `$review-diagram` with `/diago:review-diagram`.
+**Architecture from the active conversation**
+
+```text
+Use $diago-chat-architecture to turn this conversation into a software architecture visualization. Show every important component, what it owns, how it connects to the other parts, and how the parts work together. Separate current behavior, proposals, assumptions, and unresolved questions.
+```
+
+**Architecture from selected chat history**
+
+```text
+Use $diago-chat-architecture to visualize the architecture discussed in the supplied conversation history. Reconcile later decisions with earlier proposals, show component responsibilities and directed connections, and add a sequence view when ordering is important.
+```
+
+In Claude Code, replace `$diago-engineering-diagram` with `/diago:diago-engineering-diagram`, `$diago-chat-architecture` with `/diago:diago-chat-architecture`, and `$diago-review-diagram` with `/diago:diago-review-diagram`.
 
 ## Native MCP tools
 
@@ -189,7 +214,7 @@ The server implements MCP over stdio for local plugins and Streamable HTTP for s
 
 ## Included skills
 
-### `engineering-diagram`
+### `diago-engineering-diagram`
 
 Inspects source evidence, selects the right view, separates facts from assumptions and recommendations, authors JSON IR, validates the result, and delivers a reviewable standalone diagram.
 
@@ -200,7 +225,18 @@ Example prompts:
 - “Visualize the async job lifecycle, retry policy, and terminal failure states.”
 - “Find the clearest best-practice workflow for rolling out this schema change.”
 
-### `review-diagram`
+### `diago-chat-architecture`
+
+Turns the active conversation, accessible chat history, or a supplied transcript into a connected architecture visualization. It extracts components, responsibilities, boundaries, and directed relationships; reconciles changed decisions; and explains how the parts collaborate without exposing hidden context or inventing unavailable history.
+
+Example prompts:
+
+- “Visualize the software architecture we designed in this conversation.”
+- “Show each component, what it owns, and how it connects to every other relevant part.”
+- “Turn this exported chat into architecture and sequence views, separating accepted decisions from earlier proposals.”
+- “Explain how the components work together from the initiating request to the final result.”
+
+### `diago-review-diagram`
 
 Audits an existing diagram for unsupported claims, missing boundaries, ambiguous edges, visual defects, accessibility, and decision usefulness.
 
@@ -259,8 +295,9 @@ Dependency updates never silently rewrite the canonical skills.
 .claude-plugin/             Claude plugin + marketplace
 .agents/plugins/            Codex repository marketplace
 skills/
-  engineering-diagram/      creation workflow and evidence contract
-  review-diagram/           correctness and visual review workflow
+  diago-chat-architecture/ architecture extraction from active chat or history
+  diago-engineering-diagram/      creation workflow and evidence contract
+  diago-review-diagram/           correctness and visual review workflow
 bin/                        zero-dependency CLI
 mcp/                        stdio and Streamable HTTP MCP transports
 charts/diago/               hardened Kubernetes Helm chart

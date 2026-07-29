@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diago Review Diagram"
+  short_description: "Audit architecture diagrams against evidence"
+  default_prompt: "Use $diago-review-diagram to review this diagram against the code and task requirements."
