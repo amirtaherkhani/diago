@@ -2,6 +2,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { esc, renderDefinitions, renderSemanticSigil, textUnits } from '../shared/utils.mjs';
 import { animateAttr, focusEdgeAttrs, focusNodeAttrs, focusNodeTitle, loadDiagram, writeDiagram, svgAccessibleText, svgRootAttrs } from '../shared/cli.mjs';
+import { throwDiagnosticProblems } from '../shared/diagnostics.mjs';
+import { resolveLegend, renderLegend as renderResolvedLegend } from '../shared/legend.mjs';
 import {
   asArray,
   isFinitePoint,
@@ -161,6 +163,17 @@ function validateDataflow() {
       const [start, end] = [routed.points[0], routed.points[routed.points.length - 1]];
       const distance = Math.hypot(end[0] - start[0], end[1] - start[1]);
       if (distance < 34) problems.push(`Flow "${flow.label}" is too short (${Math.round(distance)}px; minimum 34px) — route it through a channel or spread its nodes.`);
+      if (Array.isArray(flow.via)) {
+        for (let segmentIndex = 0; segmentIndex < routed.points.length - 1; segmentIndex += 1) {
+          const segmentStart = routed.points[segmentIndex];
+          const segmentEnd = routed.points[segmentIndex + 1];
+          const isDiagonal = Math.abs(segmentStart[0] - segmentEnd[0]) > 0.01
+            && Math.abs(segmentStart[1] - segmentEnd[1]) > 0.01;
+          if (!isDiagonal) continue;
+          const viaIndex = Math.min(segmentIndex, flow.via.length - 1);
+          problems.push(`Flow "${flow.label}" has a diagonal segment from (${segmentStart.join(', ')}) to (${segmentEnd.join(', ')}) — align via[${viaIndex}] with its adjacent point by sharing the same x or y coordinate.`);
+        }
+      }
     }
   }
 
@@ -251,7 +264,9 @@ function validateDataflow() {
   }
 
   if (problems.length) {
-    throw new Error(`Data-flow layout validation failed:\n- ${problems.join('\n- ')}`);
+    throwDiagnosticProblems('Data-flow layout validation failed', problems, {
+      subject: { diagramType: 'dataflow' },
+    });
   }
 }
 
@@ -346,17 +361,32 @@ function renderFlowLabel(flow, index) {
         </g>`;
 }
 
+const LEGEND_CATALOG = [
+  { kind: 'emphasis', label: 'primary data', className: 'a-emphasis', marker: 'arrowhead-emphasis', strokeWidth: 1.8, swatchWidth: 34, swatchGap: 9, interactive: false },
+  { kind: 'security', label: 'policy / PII', className: 'a-security', marker: 'arrowhead-security', swatchWidth: 34, swatchGap: 9, interactive: false },
+  { kind: 'dashed', label: 'async batch', className: 'a-dashed', marker: 'arrowhead-dashed', swatchWidth: 34, swatchGap: 9, interactive: false },
+  { kind: 'database', label: 'data store' },
+  { kind: 'default', label: 'data flow', className: 'a-default', marker: 'arrowhead', swatchWidth: 34, swatchGap: 9, interactive: false },
+];
+
 function renderLegend() {
-  const y = viewBox[1] - 36;
-  return `        <text x="214" y="${y - 20}" class="t-primary" font-size="10" font-weight="600">Legend</text>
-        <path d="M 214 ${y} L 248 ${y}" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <text x="257" y="${y + 3}" class="t-muted" font-size="8">primary data</text>
-        <path d="M 340 ${y} L 374 ${y}" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <text x="383" y="${y + 3}" class="t-muted" font-size="8">policy / PII</text>
-        <path d="M 480 ${y} L 514 ${y}" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <text x="523" y="${y + 3}" class="t-muted" font-size="8">async batch</text>
-        <rect x="625" y="${y - 8}" width="14" height="9" rx="2" class="c-database" stroke-width="1"/>
-        <text x="646" y="${y}" class="t-muted" font-size="8">data store</text>`;
+  const presentKinds = new Set(asArray(dataflow.flows).map((flow) => flow.variant || 'default'));
+  if ([...nodes.values()].some((node) => node.type === 'database')) presentKinds.add('database');
+  const entries = resolveLegend(dataflow.meta?.legend, LEGEND_CATALOG, presentKinds);
+  return renderResolvedLegend({
+    entries,
+    layout: {
+      x: 40,
+      baselineY: viewBox[1] - 36,
+      width: viewBox[0] - 80,
+      minTitleY: viewBox[1] - 66,
+      unfit: dataflow.meta?.legend === undefined ? 'hide' : 'error',
+      diagramType: 'dataflow',
+    },
+    renderSwatch: (entry) => entry.kind === 'database'
+      ? `<rect x="${entry.x}" y="${entry.baseline - 8}" width="14" height="9" rx="2" class="c-database" stroke-width="1"/>`
+      : `<path d="M ${entry.x} ${entry.baseline - 3} L ${entry.x + 34} ${entry.baseline - 3}" class="${entry.className}" stroke-width="${entry.strokeWidth || 1.4}" marker-end="url(#${entry.marker})"/>`,
+  });
 }
 
 function renderSvg() {

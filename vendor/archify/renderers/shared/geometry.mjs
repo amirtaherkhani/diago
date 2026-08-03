@@ -2,6 +2,8 @@
 // pure; renderers own their layout tables and pass measured rects
 // ({x, y, width, height, cx, cy}) in.
 
+import { recordDiagnostic } from './diagnostics.mjs';
+
 // In degraded mode (no ajv) a type-wrong top-level field reaches the renderer.
 // Coerce non-arrays to [] so the module-level Maps build without throwing and
 // the friendly validator checks (which run later) report the real problem.
@@ -170,6 +172,143 @@ function sameRelationship(left, right) {
   return Boolean(left.id && right.id && left.id === right.id && left.from === right.from && left.to === right.to);
 }
 
+function relationshipSubject(diagramType, relationCollection, relationIndex, relation) {
+  return {
+    diagramType,
+    collection: relationCollection,
+    index: relationIndex,
+    ...(relation?.id ? { id: relation.id } : {}),
+    ...(relation?.from ? { from: relation.from } : {}),
+    ...(relation?.to ? { to: relation.to } : {}),
+  };
+}
+
+const ENDPOINT_SIDE_RULES = {
+  left: {
+    axis: 'horizontal',
+    sourceSign: -1,
+    targetSign: 1,
+    sourceDirection: 'leftward',
+    targetDirection: 'rightward from the left',
+  },
+  right: {
+    axis: 'horizontal',
+    sourceSign: 1,
+    targetSign: -1,
+    sourceDirection: 'rightward',
+    targetDirection: 'leftward from the right',
+  },
+  top: {
+    axis: 'vertical',
+    sourceSign: -1,
+    targetSign: 1,
+    sourceDirection: 'upward',
+    targetDirection: 'downward from above',
+  },
+  bottom: {
+    axis: 'vertical',
+    sourceSign: 1,
+    targetSign: -1,
+    sourceDirection: 'downward',
+    targetDirection: 'upward from below',
+  },
+};
+
+function endpointSideIssue(points, endpoint, side) {
+  const rule = ENDPOINT_SIDE_RULES[side];
+  if (!rule) return null;
+  const normalized = normalizeRoutePoints(points);
+  if (normalized.length < 2) return null;
+  const segmentIndex = endpoint === 'source' ? 0 : normalized.length - 2;
+  const start = normalized[segmentIndex];
+  const end = normalized[segmentIndex + 1];
+  const dx = end[0] - start[0];
+  const dy = end[1] - start[1];
+  const along = rule.axis === 'horizontal' ? dx : dy;
+  const across = rule.axis === 'horizontal' ? dy : dx;
+  const expectedSign = endpoint === 'source' ? rule.sourceSign : rule.targetSign;
+  if (Math.abs(across) <= 0.0001 && along * expectedSign > 0.0001) return null;
+  return {
+    endpoint,
+    side,
+    segmentIndex,
+    start,
+    end,
+    expectedAxis: rule.axis,
+    expectedDirection: endpoint === 'source' ? rule.sourceDirection : rule.targetDirection,
+  };
+}
+
+// A side is a direction contract, not just a point on a box border. This pure
+// predicate lets automatic routers prefer a dogleg whose first and final
+// segments leave/enter the chosen sides perpendicularly.
+export function routeHonorsEndpointSides(points, fromSide, toSide) {
+  return !endpointSideIssue(points, 'source', fromSide)
+    && !endpointSideIssue(points, 'target', toSide);
+}
+
+// Explicit fromSide/toSide are authored geometry, so a tangent or backwards
+// endpoint segment changes their meaning. Fail this universally instead of
+// leaving a malformed arrow for visual review to discover.
+export function cleanEndpointSideProblems({
+  relations,
+  endpointIds,
+  pathFor,
+  diagramType,
+  relationCollection,
+  fromSideFor,
+  toSideFor,
+  routeHint = 'align the first/final via segment with fromSide/toSide, change the side, or remove explicit routing so auto can choose a perpendicular approach',
+}) {
+  const problems = [];
+  for (const [relationIndex, relation] of asArray(relations).entries()) {
+    if (!relation || !endpointIds?.has(relation.from) || !endpointIds?.has(relation.to)) continue;
+    const points = pathFor(relation)?.points;
+    if (!Array.isArray(points) || points.length < 2) continue;
+    const authoredFromSide = relation.fromSide && relation.fromSide !== 'auto' ? relation.fromSide : null;
+    const authoredToSide = relation.toSide && relation.toSide !== 'auto' ? relation.toSide : null;
+    const fromSide = (typeof fromSideFor === 'function' ? fromSideFor(relation) : null) ?? authoredFromSide;
+    const toSide = (typeof toSideFor === 'function' ? toSideFor(relation) : null) ?? authoredToSide;
+    const checks = [
+      fromSide
+        ? { ...endpointSideIssue(points, 'source', fromSide), sideOrigin: authoredFromSide ? 'authored' : 'inferred' }
+        : null,
+      toSide
+        ? { ...endpointSideIssue(points, 'target', toSide), sideOrigin: authoredToSide ? 'authored' : 'inferred' }
+        : null,
+    ].filter((issue) => issue?.endpoint);
+    for (const issue of checks) {
+      const relationId = relation.id ? ` id "${relation.id}"` : '';
+      const authoredField = issue.endpoint === 'source' ? 'fromSide' : 'toSide';
+      const sideField = issue.sideOrigin === 'inferred' ? `inferred ${authoredField}` : authoredField;
+      const segmentRole = issue.endpoint === 'source' ? 'first' : 'final';
+      const from = issue.start.map((value) => Math.round(value * 10) / 10).join(', ');
+      const to = issue.end.map((value) => Math.round(value * 10) / 10).join(', ');
+      const message = `[clean-flow/endpoint-side-direction] ${diagramType} ${relationCollection}[${relationIndex}]${relationId} "${relation.from}" -> "${relation.to}" ${segmentRole} segment ${issue.segmentIndex} [${from}] -> [${to}] does not honor ${sideField} "${issue.side}" — it must run ${issue.expectedAxis} ${issue.expectedDirection}; ${routeHint}.`;
+      recordDiagnostic({
+        code: 'clean-flow/endpoint-side-direction',
+        severity: 'error',
+        message,
+        subject: relationshipSubject(diagramType, relationCollection, relationIndex, relation),
+        evidence: {
+          endpoint: issue.endpoint,
+          authoredField,
+          sideOrigin: issue.sideOrigin,
+          side: issue.side,
+          segmentIndex: issue.segmentIndex,
+          from: issue.start,
+          to: issue.end,
+          expectedAxis: issue.expectedAxis,
+          expectedDirection: issue.expectedDirection,
+        },
+        supportedFixes: [routeHint],
+      });
+      problems.push(message);
+    }
+  }
+  return problems;
+}
+
 // One mechanical quality gate for every renderer-owned relationship path.
 // A renderer supplies its semantic obstacle set; source/target boxes are
 // always exempt because paths are expected to terminate on their boundaries.
@@ -215,9 +354,23 @@ export function cleanFlowProblems({
       const from = points[hitSegment].map(Math.round).join(', ');
       const to = points[hitSegment + 1].map(Math.round).join(', ');
       const relationId = relation.id ? ` id "${relation.id}"` : '';
-      problems.push(
-        `[clean-flow/edge-through-node] ${diagramType} ${relationCollection}[${relationIndex}]${relationId} "${relation.from}" -> "${relation.to}" crosses ${obstacleKind} "${obstacle.id}" (unrelated to this relationship) on segment ${hitSegment} [${from}] -> [${to}] (${clearance}px clearance) — ${routeHint}.`
-      );
+      const message = `[clean-flow/edge-through-node] ${diagramType} ${relationCollection}[${relationIndex}]${relationId} "${relation.from}" -> "${relation.to}" crosses ${obstacleKind} "${obstacle.id}" (unrelated to this relationship) on segment ${hitSegment} [${from}] -> [${to}] (${clearance}px clearance) — ${routeHint}.`;
+      recordDiagnostic({
+        code: 'clean-flow/edge-through-node',
+        severity: 'error',
+        message,
+        subject: relationshipSubject(diagramType, relationCollection, relationIndex, relation),
+        evidence: {
+          obstacleKind,
+          obstacleId: obstacle.id,
+          segmentIndex: hitSegment,
+          from: points[hitSegment],
+          to: points[hitSegment + 1],
+          clearancePx: clearance,
+        },
+        supportedFixes: [routeHint],
+      });
+      problems.push(message);
     }
   }
   return problems;
@@ -276,9 +429,21 @@ export function cleanCrossingProblems({
         return `${relationCollection}[${index}]${id} "${relation.from}" -> "${relation.to}"`;
       };
       const point = hit.point.map((value) => Math.round(value * 10) / 10).join(', ');
-      problems.push(
-        `[composition/proper-crossing] showcase ${diagramType} ${describe(left)} crosses ${describe(right)} at [${point}] (segments ${hit.leftSegment} and ${hit.rightSegment}) — ${routeHint}.`
-      );
+      const message = `[composition/proper-crossing] showcase ${diagramType} ${describe(left)} crosses ${describe(right)} at [${point}] (segments ${hit.leftSegment} and ${hit.rightSegment}) — ${routeHint}.`;
+      recordDiagnostic({
+        code: 'composition/proper-crossing',
+        severity: 'error',
+        message,
+        subject: relationshipSubject(diagramType, relationCollection, left.index, left.relation),
+        evidence: {
+          otherRelationship: relationshipSubject(diagramType, relationCollection, right.index, right.relation),
+          point: hit.point,
+          segmentIndex: hit.leftSegment,
+          otherSegmentIndex: hit.rightSegment,
+        },
+        supportedFixes: [routeHint],
+      });
+      problems.push(message);
     }
   }
   return problems;
@@ -367,7 +532,24 @@ export function cleanAmbiguousCorridorProblems({
     const length = Math.round(hit.overlapLength * 10) / 10;
     const from = hit.overlapStart.map((value) => Math.round(value * 10) / 10).join(', ');
     const to = hit.overlapEnd.map((value) => Math.round(value * 10) / 10).join(', ');
-    return `[composition/ambiguous-corridor] showcase ${diagramType} ${describe(hit.left)} shares a ${length}px corridor with ${describe(hit.right)} at [${from}] -> [${to}] (segments ${hit.leftSegment} and ${hit.rightSegment}; minimum ${minOverlapPx}px) — ${routeHint}.`;
+    const message = `[composition/ambiguous-corridor] showcase ${diagramType} ${describe(hit.left)} shares a ${length}px corridor with ${describe(hit.right)} at [${from}] -> [${to}] (segments ${hit.leftSegment} and ${hit.rightSegment}; minimum ${minOverlapPx}px) — ${routeHint}.`;
+    recordDiagnostic({
+      code: 'composition/ambiguous-corridor',
+      severity: 'error',
+      message,
+      subject: relationshipSubject(diagramType, relationCollection, hit.left.relationIndex, hit.left.relation),
+      evidence: {
+        otherRelationship: relationshipSubject(diagramType, relationCollection, hit.right.relationIndex, hit.right.relation),
+        overlapLengthPx: length,
+        minimumPx: minOverlapPx,
+        from: hit.overlapStart,
+        to: hit.overlapEnd,
+        segmentIndex: hit.leftSegment,
+        otherSegmentIndex: hit.rightSegment,
+      },
+      supportedFixes: [routeHint],
+    });
+    return message;
   });
 }
 
@@ -445,7 +627,25 @@ export function cleanBorderRunProblems({
     const length = Math.round(hit.overlapLength * 10) / 10;
     const from = hit.overlapStart.map((value) => Math.round(value * 10) / 10).join(', ');
     const to = hit.overlapEnd.map((value) => Math.round(value * 10) / 10).join(', ');
-    return `[composition/container-border-run] ${diagramType} ${relationCollection}[${hit.relationIndex}]${relationId} "${relation.from}" -> "${relation.to}" follows ${frameKind} "${frameIdentity}" ${hit.side} border for ${length}px on segment ${hit.segmentIndex} [${from}] -> [${to}] — ${routeHint}.`;
+    const message = `[composition/container-border-run] ${diagramType} ${relationCollection}[${hit.relationIndex}]${relationId} "${relation.from}" -> "${relation.to}" follows ${frameKind} "${frameIdentity}" ${hit.side} border for ${length}px on segment ${hit.segmentIndex} [${from}] -> [${to}] — ${routeHint}.`;
+    recordDiagnostic({
+      code: 'composition/container-border-run',
+      severity: 'error',
+      message,
+      subject: relationshipSubject(diagramType, relationCollection, hit.relationIndex, relation),
+      evidence: {
+        frameKind,
+        frameId: hit.frame?.id,
+        frameLabel: hit.frame?.label,
+        side: hit.side,
+        segmentIndex: hit.segmentIndex,
+        overlapLengthPx: length,
+        from: hit.overlapStart,
+        to: hit.overlapEnd,
+      },
+      supportedFixes: [routeHint],
+    });
+    return message;
   });
 }
 
@@ -576,7 +776,23 @@ export function cleanRouteRhythmProblems({
     const rule = hit.code === 'composition/micro-segment'
       ? `is below the ${microSegmentPx}px micro-segment floor`
       : `is below the ${interiorSegmentPx}px interior-segment floor`;
-    return `[${hit.code}] showcase ${diagramType} ${relationCollection}[${hit.relationIndex}]${relationId} "${relation.from}" -> "${relation.to}" has a ${length}px ${hit.position} segment ${hit.segmentIndex} [${from}] -> [${to}] that ${rule} — ${routeHint}.`;
+    const message = `[${hit.code}] showcase ${diagramType} ${relationCollection}[${hit.relationIndex}]${relationId} "${relation.from}" -> "${relation.to}" has a ${length}px ${hit.position} segment ${hit.segmentIndex} [${from}] -> [${to}] that ${rule} — ${routeHint}.`;
+    recordDiagnostic({
+      code: hit.code,
+      severity: 'error',
+      message,
+      subject: relationshipSubject(diagramType, relationCollection, hit.relationIndex, relation),
+      evidence: {
+        segmentIndex: hit.segmentIndex,
+        position: hit.position,
+        lengthPx: length,
+        minimumPx: hit.code === 'composition/micro-segment' ? microSegmentPx : interiorSegmentPx,
+        from: hit.start,
+        to: hit.end,
+      },
+      supportedFixes: [routeHint],
+    });
+    return message;
   });
 }
 
@@ -607,7 +823,25 @@ export function cleanLabelRouteClearanceProblems({
     const clearance = Math.round(hit.clearance * 10) / 10;
     const from = hit.start.map((value) => Math.round(value * 10) / 10).join(', ');
     const to = hit.end.map((value) => Math.round(value * 10) / 10).join(', ');
-    return `[composition/label-route-clearance] showcase ${diagramType} label "${hit.label?.label || hit.labelRelation?.label || ''}" on ${describe(hit.labelRelation, hit.labelRelationIndex)} is ${clearance}px from ${describe(hit.otherRelation, hit.otherRelationIndex)} segment ${hit.segmentIndex} [${from}] -> [${to}] (label rect ${formatRect(hit.rect)}; minimum ${threshold}px) — ${routeHint}.`;
+    const message = `[composition/label-route-clearance] showcase ${diagramType} label "${hit.label?.label || hit.labelRelation?.label || ''}" on ${describe(hit.labelRelation, hit.labelRelationIndex)} is ${clearance}px from ${describe(hit.otherRelation, hit.otherRelationIndex)} segment ${hit.segmentIndex} [${from}] -> [${to}] (label rect ${formatRect(hit.rect)}; minimum ${threshold}px) — ${routeHint}.`;
+    recordDiagnostic({
+      code: 'composition/label-route-clearance',
+      severity: 'error',
+      message,
+      subject: relationshipSubject(diagramType, relationCollection, hit.labelRelationIndex, hit.labelRelation),
+      evidence: {
+        label: hit.label?.label || hit.labelRelation?.label || '',
+        otherRelationship: relationshipSubject(diagramType, relationCollection, hit.otherRelationIndex, hit.otherRelation),
+        segmentIndex: hit.segmentIndex,
+        clearancePx: clearance,
+        minimumPx: threshold,
+        labelRect: hit.rect,
+        from: hit.start,
+        to: hit.end,
+      },
+      supportedFixes: [routeHint],
+    });
+    return message;
   });
 }
 
@@ -617,7 +851,7 @@ function segmentPosition(index, segmentCount) {
   return 'interior';
 }
 
-function normalizeRoutePoints(points) {
+export function normalizeRoutePoints(points) {
   const finite = asArray(points).filter((point) => Array.isArray(point) && point.length === 2 && isFinitePoint(...point));
   const deduped = [];
   for (const point of finite) {
@@ -781,6 +1015,85 @@ export function anchor(rect, side) {
     default:
       return [rect.x + rect.width, rect.cy];
   }
+}
+
+const PORT_OUTWARD_VECTOR = {
+  left: [-1, 0],
+  right: [1, 0],
+  top: [0, -1],
+  bottom: [0, 1],
+};
+
+// Automatic port spreading can put otherwise parallel anchors only a few
+// pixels apart. A conventional midpoint dogleg then violates the renderer's
+// own 8px/16px route-rhythm floors. Return a full outside-channel route when
+// that happens, or null when the normal automatic route remains appropriate.
+export function automaticPortRhythmBridge(
+  start,
+  end,
+  fromSide,
+  toSide,
+  { endpointStubPx = 24, interiorSegmentPx = 16, accept } = {},
+) {
+  if (!Array.isArray(start) || !Array.isArray(end)
+      || start.length !== 2 || end.length !== 2
+      || !isFinitePoint(...start, ...end)) return null;
+  const fromVector = PORT_OUTWARD_VECTOR[fromSide];
+  const toVector = PORT_OUTWARD_VECTOR[toSide];
+  if (!fromVector || !toVector) return null;
+
+  const startStub = [
+    start[0] + fromVector[0] * endpointStubPx,
+    start[1] + fromVector[1] * endpointStubPx,
+  ];
+  const endStub = [
+    end[0] + toVector[0] * endpointStubPx,
+    end[1] + toVector[1] * endpointStubPx,
+  ];
+  const candidates = [];
+  const verticalSides = new Set(['top', 'bottom']);
+  const horizontalSides = new Set(['left', 'right']);
+
+  if (verticalSides.has(fromSide) && verticalSides.has(toSide)
+      && Math.abs(start[0] - end[0]) < interiorSegmentPx) {
+    for (const channelX of [
+      Math.max(start[0], end[0]) + interiorSegmentPx,
+      Math.min(start[0], end[0]) - interiorSegmentPx,
+    ]) {
+      candidates.push([
+        start,
+        startStub,
+        [channelX, startStub[1]],
+        [channelX, endStub[1]],
+        endStub,
+        end,
+      ]);
+    }
+  }
+  if (horizontalSides.has(fromSide) && horizontalSides.has(toSide)
+      && Math.abs(start[1] - end[1]) < interiorSegmentPx) {
+    for (const channelY of [
+      Math.max(start[1], end[1]) + interiorSegmentPx,
+      Math.min(start[1], end[1]) - interiorSegmentPx,
+    ]) {
+      candidates.push([
+        start,
+        startStub,
+        [startStub[0], channelY],
+        [endStub[0], channelY],
+        endStub,
+        end,
+      ]);
+    }
+  }
+
+  return candidates
+    .map((points) => normalizeRoutePoints(points))
+    .find((points) => (
+      routeHonorsEndpointSides(points, fromSide, toSide)
+      && collectRouteRhythmIssues({ routedRelations: [{ points }], interiorSegmentPx }).length === 0
+      && (typeof accept !== 'function' || accept(points))
+    )) || null;
 }
 
 // Keep conservative auto-routed fan-out/fan-in relationships visually

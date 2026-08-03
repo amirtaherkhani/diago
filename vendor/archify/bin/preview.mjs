@@ -6,6 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { openLoopbackUrl } from './open-artifact.mjs';
+import { resolveOutputPath } from '../renderers/shared/output-path.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const cliPath = path.join(here, 'archify.mjs');
@@ -29,33 +30,17 @@ function sourceDigest(inputPath) {
   }
 }
 
-function canonicalFuturePath(targetPath) {
-  let current = path.resolve(targetPath);
-  const missingSegments = [];
-  while (true) {
-    try {
-      return path.join(fs.realpathSync(current), ...missingSegments.reverse());
-    } catch {
-      const parent = path.dirname(current);
-      if (parent === current) return path.resolve(targetPath);
-      missingSegments.push(path.basename(current));
-      current = parent;
-    }
-  }
-}
-
-function initialOutputPath(type, inputPath, requestedOutput) {
-  if (requestedOutput) return path.resolve(requestedOutput);
+function initialAuthoredOutput(inputPath) {
   try {
     const source = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
     if (typeof source?.meta?.output === 'string' && source.meta.output) {
-      return path.resolve(source.meta.output);
+      return source.meta.output;
     }
   } catch {
     // An invalid initial source still gets a status shell. Its output target is
     // fixed to the same fallback that `deliver` would use after repair.
   }
-  return path.resolve(`${type}.html`);
+  return undefined;
 }
 
 function previewPage() {
@@ -200,10 +185,15 @@ export async function startPreview(options) {
     throw new Error(`Unknown quality profile "${options.quality}".`);
   }
   const inputPath = path.resolve(options.input);
-  const outputPath = initialOutputPath(type, inputPath, options.output);
-  if (canonicalFuturePath(inputPath) === canonicalFuturePath(outputPath)) {
-    throw new Error('Preview output must not replace its JSON input.');
-  }
+  const outputRequest = {
+    requestedOutput: options.output,
+    authoredOutput: initialAuthoredOutput(inputPath),
+    defaultOutput: `${type}.html`,
+    inputPaths: [inputPath],
+    inputDescription: 'its JSON input',
+    cwd: options.cwd || process.cwd(),
+  };
+  const { outputPath } = resolveOutputPath(outputRequest);
   const outputDirectory = path.dirname(outputPath);
   const debounceMs = Number.isFinite(options.debounceMs) ? options.debounceMs : defaultDebounceMs;
   const pollMs = Number.isFinite(options.pollMs) ? options.pollMs : defaultPollMs;
@@ -414,12 +404,21 @@ export async function startPreview(options) {
   }
 
   function publishFailure(receipt, stdout, stderr, candidatePath, snapshotPath) {
+    const repairDetails = receipt?.diagnostics
+      ?.slice(0, 12)
+      .map((entry) => {
+        const fix = entry.supportedFixes?.length ? `\nFix: ${entry.supportedFixes.join('; ')}` : '';
+        return `[${entry.code}] ${entry.message}${fix}`;
+      }) || [];
     const checkerDetails = receipt?.checker?.checks
       ?.filter((check) => !check.ok)
       .flatMap((check) => check.details || [])
       .filter(Boolean)
       .slice(0, 12) || [];
-    const diagnostic = [receipt?.error, ...checkerDetails].filter(Boolean).join('\n') || stderr || stdout;
+    const diagnostic = [
+      receipt?.error,
+      ...(repairDetails.length ? repairDetails : checkerDetails),
+    ].filter(Boolean).join('\n') || stderr || stdout;
     state.status = 'needs-fix';
     state.failure = {
       stage: receipt?.stage || 'render',
@@ -433,6 +432,7 @@ export async function startPreview(options) {
           [stagingDirectory, '<preview-staging>'],
           [path.resolve(here, '..'), '<archify-skill>'],
           [path.resolve(options.cwd || process.cwd()), '<working-directory>'],
+          ...(options.repoRoot ? [[path.resolve(options.repoRoot), '<repo-root>']] : []),
         ],
       ),
     };
@@ -447,9 +447,7 @@ export async function startPreview(options) {
       if (digest !== receipt?.artifact?.sha256) {
         throw new Error('Verified candidate bytes do not match the delivery receipt.');
       }
-      if (canonicalFuturePath(inputPath) === canonicalFuturePath(outputPath)) {
-        throw new Error('Preview output resolved to its JSON input before commit.');
-      }
+      resolveOutputPath(outputRequest);
       const sameArtifact = state.lastVerified?.sha256 === digest;
       let outputMatches = false;
       if (sameArtifact) {
@@ -510,6 +508,7 @@ export async function startPreview(options) {
     }
     const args = [options.deliveryCli || cliPath, 'deliver', type, snapshotPath, candidatePath, '--json'];
     if (options.quality) args.push('--quality', options.quality);
+    if (options.repoRoot) args.push('--repo-root', path.resolve(options.repoRoot));
     let stdout = '';
     let stderr = '';
     child = spawn(process.execPath, args, {
