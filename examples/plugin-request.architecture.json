@@ -43,7 +43,7 @@
       "id": "agent",
       "type": "backend",
       "label": "Codex / Claude",
-      "sublabel": "engineering-diagram skill",
+      "sublabel": "diago-engineering-diagram skill",
       "pos": [240, 250],
       "size": [160, 70]
     },

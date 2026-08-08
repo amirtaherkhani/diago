@@ -1,5 +1,5 @@
 ---
-name: review-diagram
+name: diago-review-diagram
 description: Review software architecture and engineering diagrams against source evidence, scope, readability, semantics, and implementation intent. Use when auditing a diagram, design document, pull request visual, system map, feature flow, design-pattern explanation, or generated HTML or JSON diagram before sharing or implementation.
 ---
 

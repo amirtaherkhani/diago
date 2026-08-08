@@ -333,12 +333,13 @@
         <div class="section-heading">
           <p class="eyebrow"><span></span> Start in a minute</p>
           <h2>One repository. Your agent of choice.</h2>
-          <p>Install the complete plugin to get skills and native MCP tools together, or use the deterministic CLI on its own.</p>
+          <p>Install the complete plugin, connect the MCP server directly, or use the deterministic CLI on its own.</p>
         </div>
         <div class="install-panel">
           <div class="install-tabs" role="tablist" aria-label="Installation method">
             <button type="button" role="tab" aria-selected="true" data-install-tab="codex">Codex</button>
             <button type="button" role="tab" aria-selected="false" data-install-tab="claude">Claude Code</button>
+            <button type="button" role="tab" aria-selected="false" data-install-tab="mcp">MCP</button>
             <button type="button" role="tab" aria-selected="false" data-install-tab="cli">CLI</button>
           </div>
           <div class="install-content">
@@ -358,7 +359,7 @@ codex plugin add diago@diago</code></pre>
           </div>
           <div class="prompt-strip">
             <span>TRY IT</span>
-            <code>Use $engineering-diagram to visualize this feature from API entry point to persistence.</code>
+            <code>Use $diago-engineering-diagram to visualize this feature from API entry point to persistence.</code>
           </div>
         </div>
       </section>
@@ -373,8 +374,8 @@ codex plugin add diago@diago</code></pre>
             <div>
               <p>Start a new agent thread in the repository you want to explain. Ask Diago to inspect the source, choose the smallest useful diagram, keep assumptions visible, and render a reviewable HTML artifact.</p>
               <div class="agent-invocations" aria-label="Agent invocation examples">
-                <p><span>Codex</span><code>Use $engineering-diagram to…</code></p>
-                <p><span>Claude Code</span><code>/diago:engineering-diagram</code></p>
+                <p><span>Codex</span><code>Use $diago-engineering-diagram to…</code></p>
+                <p><span>Claude Code</span><code>/diago:diago-engineering-diagram</code></p>
               </div>
             </div>
           </div>
@@ -386,7 +387,7 @@ codex plugin add diago@diago</code></pre>
                 <div><small>Feature architecture</small><h3>Map a feature end to end</h3></div>
                 <button type="button" class="copy-button" data-copy-target="usage-feature">Copy</button>
               </div>
-              <pre id="usage-feature"><code>Use $engineering-diagram to map this feature from its API entry point to persistence. Inspect the code, separate facts from assumptions, and render architecture and sequence views.</code></pre>
+              <pre id="usage-feature"><code>Use $diago-engineering-diagram to map this feature from its API entry point to persistence. Inspect the code, separate facts from assumptions, and render architecture and sequence views.</code></pre>
             </article>
 
             <article class="usage-example">
@@ -395,7 +396,7 @@ codex plugin add diago@diago</code></pre>
                 <div><small>Design pattern</small><h3>Explain whether a pattern fits</h3></div>
                 <button type="button" class="copy-button" data-copy-target="usage-pattern">Copy</button>
               </div>
-              <pre id="usage-pattern"><code>Use $engineering-diagram to evaluate whether the Strategy pattern fits this task. Show the current coupling, proposed objects, tradeoffs, and where the pattern should not be used.</code></pre>
+              <pre id="usage-pattern"><code>Use $diago-engineering-diagram to evaluate whether the Strategy pattern fits this task. Show the current coupling, proposed objects, tradeoffs, and where the pattern should not be used.</code></pre>
             </article>
 
             <article class="usage-example">
@@ -404,7 +405,7 @@ codex plugin add diago@diago</code></pre>
                 <div><small>Best-practice workflow</small><h3>Plan a safer rollout</h3></div>
                 <button type="button" class="copy-button" data-copy-target="usage-rollout">Copy</button>
               </div>
-              <pre id="usage-rollout"><code>Use $engineering-diagram to find the safest workflow for rolling out this schema change. Show owners, validation gates, failure paths, rollback steps, and the evidence for each recommendation.</code></pre>
+              <pre id="usage-rollout"><code>Use $diago-engineering-diagram to find the safest workflow for rolling out this schema change. Show owners, validation gates, failure paths, rollback steps, and the evidence for each recommendation.</code></pre>
             </article>
 
             <article class="usage-example">
@@ -413,11 +414,47 @@ codex plugin add diago@diago</code></pre>
                 <div><small>Diagram review</small><h3>Check a diagram against code</h3></div>
                 <button type="button" class="copy-button" data-copy-target="usage-review">Copy</button>
               </div>
-              <pre id="usage-review"><code>Use $review-diagram to audit this diagram against the repository. List unsupported claims, missing boundaries, ambiguous edges, and visual issues, then recommend focused corrections.</code></pre>
+              <pre id="usage-review"><code>Use $diago-review-diagram to audit this diagram against the repository. List unsupported claims, missing boundaries, ambiguous edges, and visual issues, then recommend focused corrections.</code></pre>
+            </article>
+
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">05</span>
+                <div><small>Incident investigation</small><h3>Trace a failure across services</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-incident">Copy</button>
+              </div>
+              <pre id="usage-incident"><code>Use $diago-engineering-diagram to trace this timeout from the incoming request through every service and dependency. Ground the sequence in code and runtime evidence, then show retry, timeout, and failure paths.</code></pre>
+            </article>
+
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">06</span>
+                <div><small>Data flow</small><h3>Follow sensitive data</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-dataflow">Copy</button>
+              </div>
+              <pre id="usage-dataflow"><code>Use $diago-engineering-diagram to follow customer data from collection to deletion. Show trust boundaries, transformations, stores, external processors, retention rules, and any unverified privacy assumptions.</code></pre>
+            </article>
+
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">07</span>
+                <div><small>Entity lifecycle</small><h3>Make state changes explicit</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-lifecycle">Copy</button>
+              </div>
+              <pre id="usage-lifecycle"><code>Use $diago-engineering-diagram to explain the payment lifecycle. Map every state, transition trigger, guard, terminal outcome, timeout, and recovery path, and link verified behavior to its source.</code></pre>
+            </article>
+
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">08</span>
+                <div><small>Refactoring plan</small><h3>Extract a boundary safely</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-refactor">Copy</button>
+              </div>
+              <pre id="usage-refactor"><code>Use $diago-engineering-diagram to plan extracting this module into a service. Compare current and proposed boundaries, dependencies, contracts, migration steps, compatibility risks, and rollback seams.</code></pre>
             </article>
           </div>
 
-          <p class="usage-note"><span>Claude Code</span> Replace <code>$engineering-diagram</code> with <code>/diago:engineering-diagram</code>, or use <code>/diago:review-diagram</code> for review prompts.</p>
+          <p class="usage-note"><span>Claude Code</span> Replace <code>$diago-engineering-diagram</code> with <code>/diago:diago-engineering-diagram</code>, or use <code>/diago:diago-review-diagram</code> for review prompts.</p>
         </div>
       </section>
 
