@@ -46,7 +46,8 @@
           "enum": [
             "classic",
             "signal-flow",
-            "blueprint"
+            "blueprint",
+            "editorial"
           ]
         },
         "quality_profile": {
@@ -57,6 +58,24 @@
         },
         "views": {
           "$ref": "common.schema.json#/$defs/guidedViews"
+        },
+        "legend": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mode": { "$ref": "common.schema.json#/$defs/legendMode" },
+            "entries": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "default": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "emphasis": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "security": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "dashed": { "$ref": "common.schema.json#/$defs/legendEntry" },
+                "database": { "$ref": "common.schema.json#/$defs/legendEntry" }
+              }
+            }
+          }
         },
         "viewBox": {
           "type": "array",
