@@ -2,6 +2,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { esc, renderDefinitions, renderSemanticSigil, textUnits } from '../shared/utils.mjs';
 import { animateAttr, focusEdgeAttrs, focusNodeAttrs, focusNodeTitle, loadDiagram, writeDiagram, svgAccessibleText, svgRootAttrs } from '../shared/cli.mjs';
+import { throwDiagnosticProblems } from '../shared/diagnostics.mjs';
+import { resolveLegend, renderLegend as renderResolvedLegend } from '../shared/legend.mjs';
 import { componentFill, arrowClassMap, rectsOverlap, cleanFlowProblems, cleanCrossingProblems, cleanAmbiguousCorridorProblems, cleanBorderRunProblems, cleanRouteRhythmProblems, cleanLabelRouteClearanceProblems, routePointsValue, asArray, isFinitePoint } from '../shared/geometry.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -48,6 +50,42 @@ const participants = new Map(asArray(sequence.participants).map((participant, in
     cy: layout.topY + layout.participantH / 2
   }
 ]));
+
+function messageGeometry(message) {
+  const from = participants.get(message.from);
+  const to = participants.get(message.to);
+  if (!from || !to || typeof message.y !== 'number') return null;
+  const direction = to.cx > from.cx ? 1 : -1;
+  const start = from.cx + direction * 7;
+  const end = to.cx - direction * 7;
+  return { start, end, center: (start + end) / 2 };
+}
+
+function messageLabelBox(message, relationIndex = null) {
+  const geometry = messageGeometry(message);
+  if (!geometry) return null;
+  const width = Math.max(34, textUnits(message.label) * 5.2 + 12);
+  return {
+    relation: message,
+    relationIndex,
+    label: message.label,
+    x: geometry.center - width / 2,
+    y: message.y - 20,
+    width,
+    height: layout.labelH,
+  };
+}
+
+function messageRouteBox(message) {
+  const geometry = messageGeometry(message);
+  if (!geometry) return null;
+  return {
+    x: Math.min(geometry.start, geometry.end),
+    y: message.y - 2,
+    width: Math.abs(geometry.end - geometry.start),
+    height: 4,
+  };
+}
 
 const compositionFrames = asArray(sequence.segments).map((segment, index) => ({
   id: index,
@@ -183,13 +221,7 @@ function validateSequence() {
   // Label masks can extend well past the arrow span, so check the actual
   // label rectangles too — tangent arrows with long labels still collide.
   const labelRects = asArray(sequence.messages)
-    .map((m, messageIndex) => {
-      if (!participants.has(m.from) || !participants.has(m.to) || typeof m.y !== 'number') return null;
-      const x1 = participants.get(m.from).cx;
-      const x2 = participants.get(m.to).cx;
-      const width = Math.max(34, textUnits(m.label) * 5.2 + 12);
-      return { relation: m, relationIndex: messageIndex, label: m.label, x: (x1 + x2) / 2 - width / 2, y: m.y - 20, width, height: layout.labelH };
-    })
+    .map((m, messageIndex) => messageLabelBox(m, messageIndex))
     .filter(Boolean);
   for (let i = 0; i < labelRects.length; i += 1) {
     for (let j = i + 1; j < labelRects.length; j += 1) {
@@ -230,7 +262,9 @@ function validateSequence() {
   }
 
   if (problems.length) {
-    throw new Error(`Sequence layout validation failed:\n- ${problems.join('\n- ')}`);
+    throwDiagnosticProblems('Sequence layout validation failed', problems, {
+      subject: { diagramType: 'sequence' },
+    });
   }
 }
 
@@ -255,8 +289,23 @@ function renderLifeline(participant) {
 }
 
 function renderSegment(segment, index) {
-  return `        <rect data-graph-role="structural-frame" data-composition-frame-kind="segment" data-composition-frame-id="${index}" x="48" y="${segment.from}" width="${viewBox[0] - 96}" height="${segment.to - segment.from}" rx="10" class="c-lane" stroke-width="1"/>
-        <text x="62" y="${segment.from + 18}" class="t-dim" font-size="9" font-weight="600">${esc(segment.label)}</text>`;
+  return `        <rect data-graph-role="structural-frame" data-composition-frame-kind="segment" data-composition-frame-id="${index}" x="48" y="${segment.from}" width="${viewBox[0] - 96}" height="${segment.to - segment.from}" rx="10" class="c-lane" stroke-width="1"/>`;
+}
+
+function renderSegmentLabel(segment, index) {
+  const labelW = Math.max(42, textUnits(segment.label) * 5.2 + 14);
+  const occupied = asArray(sequence.messages)
+    .flatMap((message) => [messageLabelBox(message), messageRouteBox(message)])
+    .filter(Boolean);
+  const label = { x: 56, y: segment.from - 22, width: labelW, height: 18 };
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    if (!occupied.some((rect) => rectsOverlap(label, rect, 2))) break;
+    label.y -= 22;
+  }
+  return `        <g data-graph-role="segment-label" data-segment-id="${index}">
+          <rect x="${label.x}" y="${label.y}" width="${label.width}" height="${label.height}" rx="3" class="c-mask"/>
+          <text x="${label.x + 6}" y="${label.y + 13}" class="t-dim" font-size="9" font-weight="600">${esc(segment.label)}</text>
+        </g>`;
 }
 
 function renderActivation(activation) {
@@ -269,9 +318,10 @@ function renderActivation(activation) {
 }
 
 function messageLabel(message, x1, x2) {
-  const center = (x1 + x2) / 2;
+  const box = messageLabelBox(message);
+  const center = box ? box.x + box.width / 2 : (x1 + x2) / 2;
   const y = message.y - 10;
-  const labelW = Math.max(34, textUnits(message.label) * 5.2 + 12);
+  const labelW = box?.width || Math.max(34, textUnits(message.label) * 5.2 + 12);
   const accent = message.variant === 'security'
     ? 't-security'
     : message.variant === 'dashed'
@@ -286,11 +336,7 @@ function messageLabel(message, x1, x2) {
 }
 
 function renderMessage(message, index) {
-  const from = participants.get(message.from);
-  const to = participants.get(message.to);
-  const direction = to.cx > from.cx ? 1 : -1;
-  const start = from.cx + direction * 7;
-  const end = to.cx - direction * 7;
+  const { start, end } = messageGeometry(message);
   const [cls, marker] = arrowClass[message.variant || 'default'] || arrowClass.default;
   const strokeWidth = message.variant === 'emphasis' ? 1.8 : 1.4;
   const dash = message.variant === 'return' ? ' stroke-dasharray="3,5"' : '';
@@ -303,17 +349,29 @@ ${messageLabel(message, start, end)}${note}
         </g>`;
 }
 
+const LEGEND_CATALOG = [
+  { kind: 'emphasis', label: 'request', className: 'a-emphasis', marker: 'arrowhead-emphasis', strokeWidth: 1.8 },
+  { kind: 'return', label: 'return', className: 'a-default', marker: 'arrowhead', dash: '3,5' },
+  { kind: 'security', label: 'security', className: 'a-security', marker: 'arrowhead-security' },
+  { kind: 'dashed', label: 'async trace', className: 'a-dashed', marker: 'arrowhead-dashed' },
+  { kind: 'default', label: 'default message', className: 'a-default', marker: 'arrowhead' },
+].map((entry) => ({ ...entry, interactive: false, swatchWidth: 34, swatchGap: 9 }));
+
 function renderLegend() {
-  const y = layout.legendY;
-  return `        <text x="150" y="${y - 20}" class="t-primary" font-size="10" font-weight="600">Legend</text>
-        <path d="M 150 ${y} L 184 ${y}" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <text x="193" y="${y + 3}" class="t-muted" font-size="8">request</text>
-        <path d="M 270 ${y} L 304 ${y}" class="a-default" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
-        <text x="313" y="${y + 3}" class="t-muted" font-size="8">return</text>
-        <path d="M 385 ${y} L 419 ${y}" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <text x="428" y="${y + 3}" class="t-muted" font-size="8">security</text>
-        <path d="M 530 ${y} L 564 ${y}" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <text x="573" y="${y + 3}" class="t-muted" font-size="8">async trace</text>`;
+  const presentKinds = new Set(asArray(sequence.messages).map((message) => message.variant || 'default'));
+  const entries = resolveLegend(sequence.meta?.legend, LEGEND_CATALOG, presentKinds);
+  return renderResolvedLegend({
+    entries,
+    layout: {
+      x: 40,
+      baselineY: layout.legendY,
+      width: viewBox[0] - 80,
+      minTitleY: layout.legendY - 30,
+      unfit: sequence.meta?.legend === undefined ? 'hide' : 'error',
+      diagramType: 'sequence',
+    },
+    renderSwatch: (entry) => `<path d="M ${entry.x} ${entry.baseline - 3} L ${entry.x + 34} ${entry.baseline - 3}" class="${entry.className}" stroke-width="${entry.strokeWidth || 1.4}"${entry.dash ? ` stroke-dasharray="${entry.dash}"` : ''} marker-end="url(#${entry.marker})"/>`,
+  });
 }
 
 function renderSvg() {
@@ -331,11 +389,14 @@ ${asArray(sequence.segments).map(renderSegment).join('\n\n')}
         <!-- Lifelines -->
 ${participantList.map(renderLifeline).join('\n')}
 
+        <!-- Activations -->
+${asArray(sequence.activations).map(renderActivation).join('\n')}
+
         <!-- Messages -->
 ${asArray(sequence.messages).map(renderMessage).join('\n\n')}
 
-        <!-- Activations -->
-${asArray(sequence.activations).map(renderActivation).join('\n')}
+        <!-- Segment Labels -->
+${asArray(sequence.segments).map(renderSegmentLabel).join('\n')}
 
         <!-- Participants -->
 ${participantList.map(renderParticipant).join('\n\n')}

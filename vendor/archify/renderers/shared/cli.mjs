@@ -2,6 +2,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { applyTemplate, renderCards, esc } from './utils.mjs';
 import { validateSchema } from './validator.mjs';
+import { verifyRepositoryEvidence } from './repository-evidence.mjs';
+import { installRendererDiagnosticBoundary, throwDiagnosticProblems } from './diagnostics.mjs';
+import { validateEngineeringProfile } from './engineering-profiles.mjs';
+import { resolveOutputPath } from './output-path.mjs';
+
+installRendererDiagnosticBoundary();
+
+const outputPathGuards = new Map();
 
 // Common CLI head: node render-<type>.mjs [input.json] [output.html]
 export function loadDiagram({ rendererDir, diagramType, defaultExample, argv = process.argv }) {
@@ -11,11 +19,21 @@ export function loadDiagram({ rendererDir, diagramType, defaultExample, argv = p
   validateSchema(diagramType, diagram);
   validateGuidedViews(diagramType, diagram);
   validateRelationshipIds(diagramType, diagram);
+  validateEngineeringProfile(diagramType, diagram);
+  const sourceEvidence = verifyRepositoryEvidence(diagramType, diagram, process.env.ARCHIFY_REPO_ROOT);
   const template = fs.readFileSync(path.join(skillRoot, 'assets/template.html'), 'utf8');
   // Optional chaining: in degraded mode (no ajv) malformed input must still
   // reach the renderer's friendly layout checks instead of crashing here.
-  const outPath = path.resolve(process.cwd(), argv[3] || diagram.meta?.output || `${diagramType}.html`);
-  return { diagram, template, outPath };
+  const outputRequest = {
+    requestedOutput: argv[3],
+    authoredOutput: diagram.meta?.output,
+    defaultOutput: `${diagramType}.html`,
+    inputPaths: [inputPath],
+    cwd: process.cwd(),
+  };
+  const { outputPath: outPath } = resolveOutputPath(outputRequest);
+  outputPathGuards.set(outPath, outputRequest);
+  return { diagram, template, outPath, sourceEvidence };
 }
 
 const START_TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle']);
@@ -23,13 +41,15 @@ const START_TYPES = new Set(['architecture', 'workflow', 'sequence', 'dataflow',
 // Common CLI tail: fill the template and write the standalone HTML file.
 // The keyboard hint and the restrained start link are viewer-only — neither
 // belongs in canonical SVG exports or on paper.
-export function writeDiagram({ outPath, template, diagramType, meta, footerLabel, svg, cards }) {
+export function writeDiagram({ outPath, template, diagramType, meta, footerLabel, svg, cards, sourceEvidence = null }) {
   if (!START_TYPES.has(diagramType)) throw new Error(`writeDiagram: unknown diagram type ${JSON.stringify(diagramType)}`);
+  const outputGuard = outputPathGuards.get(outPath);
+  if (outputGuard) resolveOutputPath(outputGuard);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   const guidedHint = Array.isArray(meta.views) && meta.views.length
     ? ' &bull; <kbd>[</kbd>/<kbd>]</kbd> views &bull; <kbd>P</kbd> play story'
     : '';
-  const startUrl = `https://tt-a1i.github.io/archify/start.html?type=${esc(diagramType)}`;
+  const startUrl = `https://tt-a1i.github.io/archify/start.html?type=${esc(diagramType)}&amp;source=artifact`;
   fs.writeFileSync(outPath, applyTemplate(template, {
     title: meta.title,
     subtitle: meta.subtitle,
@@ -38,7 +58,9 @@ export function writeDiagram({ outPath, template, diagramType, meta, footerLabel
     cards: renderCards(cards),
     visualPreset: meta.visual_preset || 'classic',
     guidedViews: meta.views || [],
+    sourceEvidence,
   }));
+  outputPathGuards.delete(outPath);
   console.log(outPath);
 }
 
@@ -77,7 +99,10 @@ export function validateRelationshipIds(diagramType, diagram) {
   });
 
   if (problems.length) {
-    throw new Error(`Relationship identity validation failed:\n- ${problems.join('\n- ')}`);
+    throwDiagnosticProblems('Relationship identity validation failed', problems, {
+      code: 'relationship/duplicate-id',
+      subject: { diagramType, collection },
+    });
   }
 }
 
@@ -108,7 +133,10 @@ export function validateGuidedViews(diagramType, diagram) {
   });
 
   if (problems.length) {
-    throw new Error(`Guided view validation failed:\n- ${problems.join('\n- ')}`);
+    throwDiagnosticProblems('Guided view validation failed', problems, {
+      code: 'guided-view/invalid',
+      subject: { diagramType, collection: 'meta.views' },
+    });
   }
 }
 
@@ -116,10 +144,13 @@ export function validateGuidedViews(diagramType, diagram) {
 export function svgRootAttrs(meta, kind) {
   const animation = meta.animation === 'trace' ? ' data-animation="trace"' : '';
   const preset = ` data-preset="${esc(meta.visual_preset || 'classic')}"`;
+  const engineeringProfile = meta.engineering_profile
+    ? ` data-engineering-profile="${esc(meta.engineering_profile)}"`
+    : '';
   const requestedProfile = process.env.ARCHIFY_QUALITY_PROFILE || meta.quality_profile;
   const qualityProfile = requestedProfile === 'showcase' ? 'showcase' : 'standard';
   const advisory = requestedProfile ? '' : ' data-quality-gates="advisory"';
-  return `role="img" aria-labelledby="archify-diagram-title archify-diagram-description"${animation}${preset} data-quality-profile="${esc(qualityProfile)}"${advisory}`;
+  return `role="img" aria-labelledby="archify-diagram-title archify-diagram-description"${animation}${preset}${engineeringProfile} data-quality-profile="${esc(qualityProfile)}"${advisory}`;
 }
 
 // Keep the accessible name inside the SVG so it survives standalone SVG
