@@ -12,12 +12,6 @@ export const SUPPORTED_PROTOCOL_VERSIONS = new Set([
   '2025-03-26',
   '2024-11-05',
 ]);
-export const STREAMABLE_HTTP_PROTOCOL_VERSIONS = new Set([
-  LATEST_PROTOCOL_VERSION,
-  '2025-06-18',
-  '2025-03-26',
-]);
-
 const instructions = [
   'Use advise_diagram when the best view is unclear.',
   'Inspect relevant code, contracts, tests, configuration, or runtime evidence before recording facts.',

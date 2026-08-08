@@ -33,7 +33,7 @@
   "scripts": {
     "advise": "node bin/diago.mjs advise",
     "doctor": "node bin/diago.mjs doctor",
-    "mcp:http": "node mcp/http-server.mjs",
+    "mcp": "node mcp/server.mjs",
     "test": "node --test test/*.test.mjs",
     "validate": "node scripts/validate-repo.mjs",
     "check": "npm run validate && npm test",

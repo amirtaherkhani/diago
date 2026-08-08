@@ -19,9 +19,9 @@ const installOptions = {
     command: '/plugin marketplace add amirtaherkhani/diago\n/plugin install diago@diago\n/reload-plugins',
   },
   mcp: {
-    title: 'Connect the MCP server directly',
-    description: 'Clone Diago, register its native stdio server, then restart Codex. The Codex app, CLI, and IDE share this MCP configuration.',
-    command: 'git clone https://github.com/amirtaherkhani/diago.git\ncd diago\ncodex mcp add diago -- node "$PWD/mcp/server.mjs"\ncodex mcp get diago',
+    title: 'Connect the standard stdio MCP server',
+    description: 'Clone Diago and register the same local MCP package with Codex or Claude Code. No cluster, HTTP endpoint, token, or API key is required.',
+    command: 'git clone https://github.com/amirtaherkhani/diago.git\ncd diago\n\n# Codex\ncodex mcp add diago -- node "$PWD/mcp/server.mjs"\n\n# Claude Code\nclaude mcp add --transport stdio diago -- node "$PWD/mcp/server.mjs"',
   },
   cli: {
     title: 'Run the deterministic CLI',

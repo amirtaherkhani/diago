@@ -43,9 +43,6 @@ const codexMarketplace = readJson('.agents/plugins/marketplace.json');
 const mcpConfig = readJson('.mcp.json');
 const upstreams = readJson('vendor/upstreams.lock.json');
 const packageManifest = readJson('package.json');
-const chart = fs.readFileSync(fromRoot('charts', 'diago', 'Chart.yaml'), 'utf8');
-const chartAppVersion = chart.match(/^appVersion:\s*"?([^"\n]+)"?\s*$/m)?.[1];
-readJson('charts/diago/values.schema.json');
 readJson('schemas/diagram-plan.schema.json');
 readJson('schemas/advice.schema.json');
 readJson('knowledge/diagram-recipes.json');
@@ -67,7 +64,8 @@ check(codexMarketplace?.plugins?.[0]?.policy?.authentication === 'ON_INSTALL', '
 check(mcpConfig?.mcpServers?.['engineering-diagrams']?.command === 'node', 'MCP server must use the bundled Node runtime.');
 check(mcpConfig?.mcpServers?.['engineering-diagrams']?.args?.includes('--input-type=module'), 'MCP launcher must use Node ESM mode.');
 check(mcpConfig?.mcpServers?.['engineering-diagrams']?.args?.some((arg) => arg.includes('CLAUDE_PLUGIN_ROOT')), 'MCP launcher must support the Claude plugin root.');
-check(chartAppVersion === packageManifest?.version, 'Helm appVersion must match package.json.');
+check(packageManifest?.scripts?.mcp === 'node mcp/server.mjs', 'The package must expose the standard stdio MCP server.');
+check(!('mcp:http' in (packageManifest?.scripts ?? {})), 'The package must not expose an HTTP MCP transport.');
 
 for (const [name, source] of Object.entries(upstreams?.sources ?? {})) {
   check(/^[0-9a-f]{40}$/.test(source.commit), `${name} must be pinned to a full commit SHA.`);
@@ -84,19 +82,25 @@ for (const relativePath of [
   'vendor/architecture-diagram-skill/LICENSE',
   'vendor/ui-ux-pro-max-skill/LICENSE',
   'mcp/server.mjs',
-  'mcp/http-server.mjs',
   'mcp/protocol.mjs',
   'mcp/tools.mjs',
-  'Dockerfile',
-  'charts/diago/values.yaml',
-  'charts/diago/templates/deployment.yaml',
-  'charts/diago/templates/tests/test-connection.yaml',
-  'docs/kubernetes.md',
   'docs/index.html',
   'LICENSE',
   'THIRD_PARTY_NOTICES.md',
 ]) {
   check(fs.existsSync(fromRoot(relativePath)), `${relativePath} is required.`);
+}
+
+for (const unsupportedPath of [
+  'mcp/http-server.mjs',
+  'test/mcp-http.test.mjs',
+  'Dockerfile',
+  '.dockerignore',
+  'charts/diago',
+  'docs/kubernetes.md',
+  '.github/workflows/container.yml',
+]) {
+  check(!fs.existsSync(fromRoot(unsupportedPath)), `${unsupportedPath} must be removed from the stdio-only package.`);
 }
 
 if (errors.length) {
