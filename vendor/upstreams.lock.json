@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-03",
+  "updatedAt": "2026-08-10",
   "sources": {
     "archify": {
       "repository": "https://github.com/tt-a1i/archify",
@@ -12,7 +12,7 @@
     "architecture-diagram-skill": {
       "repository": "https://github.com/konraddzbik/architecture-diagram-skill",
       "ref": "main",
-      "commit": "410c20f5c552ff58baa9258a17a795341ef4f219",
+      "commit": "486ac078705c873012239124a07e7ef2df8fe783",
       "mode": "methodology-snapshot",
       "path": "vendor/architecture-diagram-skill"
     },
