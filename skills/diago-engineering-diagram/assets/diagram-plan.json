@@ -1,8 +1,23 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "task": "Describe the engineering task or feature.",
   "goal": "State the decision or understanding this diagram must support.",
-  "audience": "Name the primary reader.",
+  "source": {
+    "kind": "prompt",
+    "scope": "Name the prompt, repository, conversation, or mixed evidence boundary.",
+    "references": []
+  },
+  "audience": {
+    "role": "Name the primary reader.",
+    "detail": "technical"
+  },
+  "selection": {
+    "questionKind": "structural-ownership",
+    "semanticPattern": "structural-ownership-dependency",
+    "renderer": "architecture",
+    "profile": "feature-context",
+    "rationale": "Explain why this renderer and profile answer the primary question."
+  },
   "scope": {
     "in": ["List included boundaries."],
     "out": ["List intentionally excluded boundaries."]
@@ -11,23 +26,38 @@
     "facts": [
       {
         "statement": "Add one verified claim.",
-        "source": "path, URL, command, or user statement",
+        "source": "repository-relative path, public URL, command result, or explicit user statement",
         "confidence": "high"
       }
     ],
     "assumptions": [],
-    "recommendations": []
+    "recommendations": [],
+    "superseded": []
+  },
+  "complexity": {
+    "detail": "balanced",
+    "budget": { "components": 12, "connections": 16, "boundaries": 4 },
+    "decomposition": "single"
   },
   "views": [
     {
       "type": "architecture",
+      "profile": "feature-context",
+      "role": "primary",
       "question": "What does this view answer?",
       "focus": ["List the important nodes, flows, or decisions."]
     }
   ],
-  "constraints": ["No secrets or production identifiers."],
+  "fidelity": {
+    "merged": [],
+    "collapsed": [],
+    "omitted": [],
+    "preserved": []
+  },
+  "constraints": ["No secrets, customer data, private hostnames, or local absolute paths."],
   "output": {
     "format": "standalone-html",
-    "quality": "showcase"
+    "quality": "showcase",
+    "destination": "engineering-review"
   }
 }

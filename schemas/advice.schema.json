@@ -3,15 +3,44 @@
   "$id": "https://amirtaherkhani.github.io/diago/schemas/advice.schema.json",
   "title": "Engineering Diagram Advice",
   "type": "object",
-  "required": ["schemaVersion", "query", "recommendation", "alternatives", "evidenceChecklist", "suggestedPrompt"],
+  "additionalProperties": false,
+  "required": ["schemaVersion", "query", "source", "audience", "destination", "recommendation", "alternatives", "evidenceChecklist", "suggestedPrompt"],
   "properties": {
-    "schemaVersion": { "const": 1 },
-    "query": { "type": "string" },
+    "schemaVersion": { "const": 2 },
+    "query": { "type": "string", "minLength": 1 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": { "kind": { "enum": ["prompt", "repository", "conversation", "mixed"] } }
+    },
+    "audience": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["detail"],
+      "properties": { "detail": { "enum": ["technical", "mixed", "executive"] } }
+    },
+    "destination": { "type": "string", "minLength": 1 },
     "recommendation": {
       "type": "object",
-      "required": ["type", "view", "question", "why", "include", "avoid", "quality"]
+      "additionalProperties": false,
+      "required": ["type", "view", "profile", "pattern", "question", "rationale", "why", "include", "avoid", "budget", "decomposition", "quality"],
+      "properties": {
+        "type": { "enum": ["architecture", "sequence", "workflow", "dataflow", "lifecycle", "data-model", "timeline", "layers"] },
+        "view": { "type": "string", "minLength": 1 },
+        "profile": { "type": "string", "minLength": 1 },
+        "pattern": { "type": "string", "minLength": 1 },
+        "question": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string", "minLength": 1 },
+        "why": { "type": "string", "minLength": 1 },
+        "include": { "type": "array", "items": { "type": "string" } },
+        "avoid": { "type": "array", "items": { "type": "string" } },
+        "budget": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 1 } },
+        "decomposition": { "enum": ["single", "overview-detail"] },
+        "quality": { "enum": ["standard", "showcase"] }
+      }
     },
-    "alternatives": { "type": "array" },
+    "alternatives": { "type": "array", "items": { "type": "object" } },
     "evidenceChecklist": { "type": "array", "items": { "type": "string" } },
     "suggestedPrompt": { "type": "string" }
   }

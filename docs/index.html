@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Diago — AI software architecture diagrams</title>
+    <title>Diago — AI software engineering diagrams</title>
     <meta
       name="description"
-      content="Create evidence-grounded software architecture, sequence, workflow, dataflow, and lifecycle diagrams with native MCP tools and AI skills for Codex and Claude."
+      content="Create eight evidence-grounded software engineering diagram types with native MCP tools, deterministic renderers, and AI skills for Codex and Claude."
     >
     <meta name="theme-color" content="#0b1018">
     <meta name="color-scheme" content="dark">
@@ -22,10 +22,10 @@
     <meta property="og:image" content="https://amirtaherkhani.github.io/diago/assets/og-card.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Diago showing an evidence-grounded architecture flow">
+    <meta property="og:image:alt" content="Diago showing an evidence-grounded software engineering diagram workflow">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Diago">
-    <meta name="twitter:description" content="AI-ready architecture diagrams grounded in engineering evidence.">
+    <meta name="twitter:description" content="Eight AI-ready software engineering diagram types grounded in evidence.">
     <meta name="twitter:image" content="https://amirtaherkhani.github.io/diago/assets/og-card.png">
 
     <script type="application/ld+json">
@@ -33,7 +33,7 @@
         "@context": "https://schema.org",
         "@type": "SoftwareSourceCode",
         "name": "Diago",
-        "description": "AI-ready software architecture diagram skills, native MCP tools, and deterministic interactive rendering for Codex and Claude.",
+        "description": "AI-ready software engineering diagram skills, six native MCP tools, and eight deterministic rendering paths for Codex and Claude.",
         "codeRepository": "https://github.com/amirtaherkhani/diago",
         "url": "https://amirtaherkhani.github.io/diago/",
         "license": "https://opensource.org/license/mit",
@@ -43,7 +43,7 @@
           "name": "Amir Taherkhani",
           "url": "https://github.com/amirtaherkhani"
         },
-        "keywords": "AI architecture diagrams, software architecture, system design, MCP tools, Codex skills, Claude Code skills, developer tools"
+        "keywords": "AI engineering diagrams, software architecture, data model diagram, engineering timeline, layered architecture, system design, MCP tools, Codex skills, Claude Code skills"
       }
     </script>
     <script src="./app.js" defer></script>
@@ -80,7 +80,7 @@
     <main id="main">
       <section id="top" class="hero section-shell">
         <div class="hero-copy">
-          <p class="eyebrow"><span></span> AI-native architecture visualization</p>
+          <p class="eyebrow"><span></span> AI-native engineering visualization</p>
           <h1>Make the system visible <em>before</em> you change it.</h1>
           <p class="hero-lede">
             Turn a task, feature, design pattern, or code path into an interactive engineering diagram—grounded in evidence, callable through native MCP tools, and ready for review.
@@ -96,8 +96,8 @@
           </div>
           <ul class="hero-proof" aria-label="Project highlights">
             <li><strong>Codex + Claude</strong><span>one plugin contract</span></li>
-            <li><strong>5 diagram types</strong><span>one question per view</span></li>
-            <li><strong>5 native MCP tools</strong><span>advisor to renderer</span></li>
+            <li><strong>8 diagram types</strong><span>one question per view</span></li>
+            <li><strong>6 native MCP tools</strong><span>catalog to renderer</span></li>
           </ul>
         </div>
 
@@ -246,7 +246,7 @@
             <article>
               <span class="principle-number">02</span>
               <h3>One question per view</h3>
-              <p>Architecture, sequence, workflow, dataflow, and lifecycle views each answer the question they are best at.</p>
+              <p>Eight focused engineering views each answer the question their layout is built to explain.</p>
               <div class="principle-signal"><i></i> decision-focused scope</div>
             </article>
             <article>
@@ -263,7 +263,7 @@
         <div class="section-heading split-heading">
           <div>
             <p class="eyebrow"><span></span> Choose by question</p>
-            <h2>Five views. Zero guesswork.</h2>
+            <h2>Eight views. Zero guesswork.</h2>
           </div>
           <p>Start with the engineering decision. The advisor selects the smallest view that can explain it.</p>
         </div>
@@ -293,6 +293,21 @@
             <div><h3>Lifecycle</h3><p>How an entity changes state and which guards allow each transition.</p></div>
             <code>states · triggers · recovery</code>
           </article>
+          <article>
+            <span class="view-glyph data-model-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div><h3>Data model</h3><p>Which entities, fields, constraints, and relationships define the domain.</p></div>
+            <code>entities · keys · cardinality</code>
+          </article>
+          <article>
+            <span class="view-glyph timeline-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div><h3>Timeline</h3><p>Which engineering milestones occur and how phases depend on one another.</p></div>
+            <code>milestones · phases · dependencies</code>
+          </article>
+          <article>
+            <span class="view-glyph layers-glyph" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div><h3>Layers</h3><p>Where responsibilities, abstractions, controls, and defenses are enforced.</p></div>
+            <code>layers · controls · gaps</code>
+          </article>
         </div>
       </section>
 
@@ -309,22 +324,28 @@
               <li><span>✓</span> Mobile and accessibility gates</li>
             </ul>
           </div>
-          <div class="code-window" aria-label="Example diagram plan JSON">
+          <div class="code-window" aria-label="Diagram plan JSON excerpt">
             <div class="code-window-bar">
-              <span>diagram-plan.json</span>
+              <span>diagram-plan excerpt</span>
               <button type="button" class="copy-button" data-copy-target="plan-code">Copy</button>
             </div>
             <pre id="plan-code"><code><span class="code-punc">{</span>
+  <span class="code-key">"schemaVersion"</span><span class="code-punc">:</span> <span class="code-string">2</span><span class="code-punc">,</span>
   <span class="code-key">"task"</span><span class="code-punc">:</span> <span class="code-string">"Add idempotent checkout"</span><span class="code-punc">,</span>
-  <span class="code-key">"goal"</span><span class="code-punc">:</span> <span class="code-string">"Trace request to payment"</span><span class="code-punc">,</span>
+  <span class="code-key">"source"</span><span class="code-punc">:</span> <span class="code-punc">{</span> <span class="code-key">"kind"</span><span class="code-punc">:</span> <span class="code-string">"repository"</span> <span class="code-punc">},</span>
+  <span class="code-key">"selection"</span><span class="code-punc">:</span> <span class="code-punc">{</span>
+    <span class="code-key">"renderer"</span><span class="code-punc">:</span> <span class="code-string">"architecture"</span><span class="code-punc">,</span>
+    <span class="code-key">"profile"</span><span class="code-punc">:</span> <span class="code-string">"feature-context"</span>
+  <span class="code-punc">},</span>
   <span class="code-key">"evidence"</span><span class="code-punc">:</span> <span class="code-punc">{</span>
     <span class="code-key">"facts"</span><span class="code-punc">:</span> <span class="code-punc">[</span><span class="code-string">"contract: idempotency-key"</span><span class="code-punc">],</span>
     <span class="code-key">"assumptions"</span><span class="code-punc">:</span> <span class="code-punc">[</span><span class="code-string">"reservation expires"</span><span class="code-punc">],</span>
     <span class="code-key">"recommendations"</span><span class="code-punc">:</span> <span class="code-punc">[</span><span class="code-string">"persist replay result"</span><span class="code-punc">]</span>
   <span class="code-punc">},</span>
-  <span class="code-key">"views"</span><span class="code-punc">:</span> <span class="code-punc">[</span><span class="code-string">"architecture"</span><span class="code-punc">,</span> <span class="code-string">"sequence"</span><span class="code-punc">]</span>
+  <span class="code-key">"complexity"</span><span class="code-punc">:</span> <span class="code-punc">{</span> <span class="code-key">"detail"</span><span class="code-punc">:</span> <span class="code-string">"balanced"</span> <span class="code-punc">},</span>
+  <span class="code-key">"fidelity"</span><span class="code-punc">:</span> <span class="code-punc">{</span> <span class="code-key">"omitted"</span><span class="code-punc">:</span> <span class="code-punc">[]</span> <span class="code-punc">}</span>
 <span class="code-punc">}</span></code></pre>
-            <div class="code-proof"><span>schema v1</span><span>review score 100</span><span>showcase ✓</span></div>
+            <div class="code-proof"><span>schema v2 excerpt</span><span>complete examples in repo</span><span>showcase ✓</span></div>
           </div>
         </div>
       </section>
@@ -451,6 +472,33 @@ codex plugin add diago@diago</code></pre>
                 <button type="button" class="copy-button" data-copy-target="usage-refactor">Copy</button>
               </div>
               <pre id="usage-refactor"><code>Use $diago-engineering-diagram to plan extracting this module into a service. Compare current and proposed boundaries, dependencies, contracts, migration steps, compatibility risks, and rollback seams.</code></pre>
+            </article>
+
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">09</span>
+                <div><small>Domain model</small><h3>Verify entities and relationships</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-data-model">Copy</button>
+              </div>
+              <pre id="usage-data-model"><code>Use $diago-engineering-diagram to inspect this repository's order domain and render a data-model view. Show verified entities, keys, constraints, cardinality, and proposed changes without inventing missing relationships.</code></pre>
+            </article>
+
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">10</span>
+                <div><small>Migration timeline</small><h3>Sequence engineering milestones</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-timeline">Copy</button>
+              </div>
+              <pre id="usage-timeline"><code>Use $diago-engineering-diagram to turn this migration plan and repository evidence into an engineering timeline. Show phases, dependencies, owners, validation gates, and rollback milestones; use ordered phases when dates are not confirmed.</code></pre>
+            </article>
+
+            <article class="usage-example">
+              <div class="usage-example-heading">
+                <span class="usage-index">11</span>
+                <div><small>Control placement</small><h3>Show responsibility by layer</h3></div>
+                <button type="button" class="copy-button" data-copy-target="usage-layers">Copy</button>
+              </div>
+              <pre id="usage-layers"><code>Use $diago-engineering-diagram to show where authentication, authorization, validation, observability, and data-protection controls are enforced across this system's layers. Mark gaps and unsupported assumptions explicitly.</code></pre>
             </article>
           </div>
 

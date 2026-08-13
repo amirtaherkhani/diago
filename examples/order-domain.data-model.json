@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "diagram_type": "data-model",
+  "meta": {
+    "title": "Order domain model",
+    "subtitle": "Verified persistence structure and proposed replay storage"
+  },
+  "entities": [
+    {
+      "id": "order",
+      "label": "Order",
+      "status": "verified",
+      "fields": [
+        { "name": "id", "type": "uuid", "key": "primary", "required": true },
+        { "name": "status", "type": "order_status", "required": true },
+        { "name": "customer_id", "type": "uuid", "key": "foreign", "required": true }
+      ],
+      "constraints": ["status transitions are validated"]
+    },
+    {
+      "id": "order_item",
+      "label": "Order item",
+      "status": "verified",
+      "fields": [
+        { "name": "id", "type": "uuid", "key": "primary", "required": true },
+        { "name": "order_id", "type": "uuid", "key": "foreign", "required": true },
+        { "name": "quantity", "type": "integer", "required": true }
+      ]
+    },
+    {
+      "id": "idempotency_record",
+      "label": "Idempotency record",
+      "status": "proposed",
+      "fields": [
+        { "name": "key", "type": "text", "key": "primary", "required": true },
+        { "name": "order_id", "type": "uuid", "key": "foreign", "required": false },
+        { "name": "response", "type": "json", "required": false }
+      ],
+      "constraints": ["key is unique per client"]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "order_contains_items",
+      "from": "order",
+      "to": "order_item",
+      "label": "contains",
+      "fromCardinality": "1",
+      "toCardinality": "1..*",
+      "status": "verified"
+    },
+    {
+      "id": "replay_resolves_order",
+      "from": "idempotency_record",
+      "to": "order",
+      "label": "replays",
+      "fromCardinality": "0..1",
+      "toCardinality": "1",
+      "status": "proposed"
+    }
+  ]
+}

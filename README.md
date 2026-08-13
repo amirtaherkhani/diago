@@ -28,7 +28,7 @@
 
 ![Diago: make the system visible before you change it](./docs/assets/og-card.png)
 
-Diago turns a task, feature, code path, design pattern, incident, or best-practice discussion into the smallest useful software engineering diagram. It combines an evidence-aware agent workflow, five native MCP tools, a deterministic CLI, and an interactive renderer in one repository that works with both OpenAI Codex and Claude Code.
+Diago turns a task, feature, code path, design pattern, incident, or best-practice discussion into the smallest useful software engineering diagram. It provides an evidence-aware agent workflow, six native MCP tools, a deterministic CLI, and interactive standalone renderers for OpenAI Codex and Claude Code.
 
 ## Why this exists
 
@@ -49,6 +49,11 @@ Most generated architecture diagrams fail in one of two ways: they are attractiv
 | Workflow | Which steps and decisions control the outcome? | implementation plans, approvals, incident response, best practices |
 | Dataflow | Where does data originate, transform, and land? | events, queues, analytics, storage, data ownership |
 | Lifecycle | How does an entity change state? | jobs, deployments, orders, sessions, incident states |
+| Data model | Which entities, fields, constraints, and relationships define the domain? | domain models, database schemas, event contracts, cardinality |
+| Timeline | Which engineering milestones occur, and in what temporal relationship? | migrations, releases, incidents, delivery roadmaps |
+| Layers | Where are responsibilities, abstractions, controls, or defenses enforced? | application layers, platform stacks, control placement, defense in depth |
+
+Each renderer exposes engineering-specific profiles, semantic patterns, and validated complexity ceilings. Diago records the selected profile and any information merged, collapsed, or omitted, then splits oversized sources into bounded overview and detail views instead of shrinking text or hiding edges.
 
 ## Install
 
@@ -98,6 +103,7 @@ node bin/diago.mjs doctor
 Choose a diagram, create a plan, review it, then render:
 
 ```bash
+node bin/diago.mjs types --json
 node bin/diago.mjs advise "trace an idempotent checkout API request" --json
 node bin/diago.mjs plan "trace an idempotent checkout API request" --out checkout.plan.json
 node bin/diago.mjs review examples/checkout-feature.diagram-plan.json
@@ -133,7 +139,7 @@ Diago supports the standard local stdio MCP transport for Codex and Claude Code.
 
 ## Use after installation
 
-Open the repository you want to explain, start a new Codex or Claude Code thread, and describe the engineering decision you need to make. Diago inspects the relevant source, selects the smallest useful view, separates verified facts from assumptions and recommendations, validates the diagram, and renders a standalone HTML artifact.
+Open the repository you want to explain, start a new Codex or Claude Code thread, and describe the engineering decision you need to make. You can provide a prompt, a project, the active conversation, selected chat history, or mixed evidence. Diago records that source boundary, selects the smallest useful view, separates verified facts from assumptions, recommendations, and superseded decisions, validates the diagram, and renders a standalone HTML artifact.
 
 For Codex, mention the skill directly:
 
@@ -192,6 +198,24 @@ Use $diago-chat-architecture to turn this conversation into a software architect
 Use $diago-chat-architecture to visualize the architecture discussed in the supplied conversation history. Reconcile later decisions with earlier proposals, show component responsibilities and directed connections, and add a sequence view when ordering is important.
 ```
 
+**Domain data model**
+
+```text
+Use $diago-engineering-diagram to inspect this repository's order domain and render a data-model view. Show verified entities, keys, constraints, cardinality, and proposed schema changes without inventing missing relationships.
+```
+
+**Migration timeline**
+
+```text
+Use $diago-engineering-diagram to turn this migration plan and repository evidence into an engineering timeline. Show phases, dependencies, owners, validation gates, and rollback milestones; use ordered phases when dates are not confirmed.
+```
+
+**Architecture layers and controls**
+
+```text
+Use $diago-engineering-diagram to show where authentication, authorization, validation, observability, and data-protection controls are enforced across this system's layers. Mark gaps and unsupported assumptions explicitly.
+```
+
 In Claude Code, replace `$diago-engineering-diagram` with `/diago:diago-engineering-diagram`, `$diago-chat-architecture` with `/diago:diago-chat-architecture`, and `$diago-review-diagram` with `/diago:diago-review-diagram`.
 
 ## Native MCP tools
@@ -200,6 +224,7 @@ Codex and Claude can call the same deterministic core directly:
 
 | Tool | Purpose | State |
 | --- | --- | --- |
+| `list_diagram_types` | Discover the eight renderers, profiles, semantic patterns, and budgets | read-only |
 | `advise_diagram` | Choose the smallest useful view for a task | read-only |
 | `create_diagram_plan` | Establish scope, evidence lanes, and the primary question | read-only |
 | `review_diagram_plan` | Find unsupported facts and missing decision context | read-only |
@@ -212,13 +237,16 @@ The server implements the standard MCP stdio transport for local Codex and Claud
 
 ### `diago-engineering-diagram`
 
-Inspects source evidence, selects the right view, separates facts from assumptions and recommendations, authors JSON IR, validates the result, and delivers a reviewable standalone diagram.
+Inspects prompt, repository, conversation, or mixed evidence; selects the reader question, semantic pattern, profile, and renderer; authors JSON IR; validates the result; and delivers a reviewable standalone diagram.
 
 Example prompts:
 
 - “Map this feature from controller to database and show the trust boundaries.”
 - “Explain the Strategy pattern for this task, including why it fits and where it does not.”
 - “Visualize the async job lifecycle, retry policy, and terminal failure states.”
+- “Map the verified entities and cardinality in this domain.”
+- “Build a migration timeline without inventing dates.”
+- “Show where security controls are enforced across the architecture layers.”
 - “Find the clearest best-practice workflow for rolling out this schema change.”
 
 ### `diago-chat-architecture`
@@ -253,19 +281,30 @@ source evidence ──► diagram plan ──► diagram JSON IR ──► valid
       └──────────── review findings ◄────────────────────────┘
 ```
 
-The canonical plan keeps three claim lanes:
+New plans use schema v2. The contract preserves evidence lanes and adds the input source, audience, selection rationale, complexity budget, decomposition decision, and fidelity ledger. This compact excerpt highlights the new fields; the linked examples below contain complete, reviewable plans:
 
 ```json
 {
+  "schemaVersion": 2,
+  "source": { "kind": "repository", "scope": "main", "references": ["src/checkout"] },
+  "audience": { "role": "backend engineers", "detail": "technical" },
+  "selection": {
+    "semanticPattern": "trust-boundary-routing",
+    "renderer": "architecture",
+    "profile": "feature-context"
+  },
   "evidence": {
     "facts": [{ "statement": "The API requires an idempotency key.", "source": "openapi.json" }],
     "assumptions": [{ "statement": "Reservations expire.", "source": "product confirmation needed" }],
-    "recommendations": [{ "statement": "Persist replay results.", "source": "toolkit guidance" }]
-  }
+    "recommendations": [{ "statement": "Persist replay results.", "source": "toolkit guidance" }],
+    "superseded": []
+  },
+  "complexity": { "detail": "balanced", "decomposition": "single" },
+  "fidelity": { "merged": [], "collapsed": [], "omitted": [], "preserved": [] }
 }
 ```
 
-See [`schemas/diagram-plan.schema.json`](./schemas/diagram-plan.schema.json), the [checkout plan](./examples/checkout-feature.diagram-plan.json), and the [architecture example](./examples/plugin-request.architecture.json).
+Legacy schema-v1 plans remain reviewable through non-mutating compatibility normalization; newly generated plans are v2. See [`schemas/diagram-plan.schema.json`](./schemas/diagram-plan.schema.json), the [checkout plan](./examples/checkout-feature.diagram-plan.json), the [repository plan](./examples/repository-domain.diagram-plan.json), the [conversation plan](./examples/conversation-architecture.diagram-plan.json), and the native [data model](./examples/order-domain.data-model.json), [timeline](./examples/payment-migration.timeline.json), and [layers](./examples/checkout-controls.layers.json) examples.
 
 ## Dependency updates
 
@@ -312,7 +351,7 @@ npm install --ignore-scripts
 npm run check
 ```
 
-The test suite covers stdio MCP initialization, sessions, tools, recommendation selection, evidence review, plugin health, plan creation, renderer showcase validation, output-root enforcement, overwrite protection, and standalone HTML rendering.
+The test suite covers stdio MCP initialization, six tool contracts, renderer discovery, recommendation selection, schema-v1 compatibility, schema-v2 planning, evidence review, plugin health, all eight renderer paths, output-root enforcement, overwrite protection, and standalone HTML rendering.
 
 ## Contributing
 

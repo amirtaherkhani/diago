@@ -973,6 +973,75 @@ h1 em {
   left: 3px;
 }
 
+.data-model-glyph i:first-child {
+  top: 3px;
+  left: 2px;
+  width: 16px;
+  height: 18px;
+}
+
+.data-model-glyph i:nth-child(2) {
+  right: 2px;
+  bottom: 3px;
+  width: 16px;
+  height: 18px;
+}
+
+.data-model-glyph i:nth-child(3) {
+  display: none;
+}
+
+.data-model-glyph::before {
+  top: 22px;
+  left: 17px;
+  width: 13px;
+  height: 1px;
+  transform: rotate(29deg);
+}
+
+.timeline-glyph::before {
+  top: 22px;
+  left: 3px;
+  width: 40px;
+  height: 1px;
+}
+
+.timeline-glyph i:first-child {
+  top: 17px;
+  left: 3px;
+  border-radius: 50%;
+}
+
+.timeline-glyph i:nth-child(2) {
+  top: 17px;
+  left: 17px;
+  border-radius: 50%;
+}
+
+.timeline-glyph i:nth-child(3) {
+  top: 17px;
+  right: 3px;
+  border-radius: 50%;
+}
+
+.layers-glyph i {
+  left: 3px;
+  width: 40px;
+  height: 8px;
+}
+
+.layers-glyph i:first-child {
+  top: 6px;
+}
+
+.layers-glyph i:nth-child(2) {
+  top: 19px;
+}
+
+.layers-glyph i:nth-child(3) {
+  top: 32px;
+}
+
 .contract-section {
   padding-block: 120px;
   border-block: 1px solid var(--line-soft);

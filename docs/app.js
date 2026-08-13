@@ -25,8 +25,8 @@ const installOptions = {
   },
   cli: {
     title: 'Run the deterministic CLI',
-    description: 'Clone the repository and use the advisor, reviewer, validator, and bundled renderer directly.',
-    command: 'git clone https://github.com/amirtaherkhani/diago.git\ncd diago\nnode bin/diago.mjs doctor',
+    description: 'Clone the repository, inspect the eight-type catalog, and use the advisor, reviewer, validator, and bundled renderers directly.',
+    command: 'git clone https://github.com/amirtaherkhani/diago.git\ncd diago\nnode bin/diago.mjs doctor\nnode bin/diago.mjs types --json',
   },
 };
 

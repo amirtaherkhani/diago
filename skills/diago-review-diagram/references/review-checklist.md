@@ -10,9 +10,18 @@
 ## Decision usefulness
 
 - Restate the decision this view supports.
+- Confirm the renderer, profile, and semantic pattern match that decision.
+- Flag a technically valid diagram when another native view answers the question more directly.
 - Remove detail that does not change that decision.
 - Add missing failure, trust, state, or data boundaries.
 - Separate current behavior from a proposed target state.
+
+## Complexity and fidelity
+
+- Check the renderer-specific budget and validated ceiling.
+- Require overview/detail decomposition instead of shrinking text or hiding edges.
+- Confirm every merge, collapse, omission, and preserved claim is in the fidelity ledger.
+- Confirm superseded decisions never appear as current architecture.
 
 ## Readability
 

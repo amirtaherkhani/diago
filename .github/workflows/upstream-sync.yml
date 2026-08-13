@@ -22,6 +22,7 @@ jobs:
           - archify
           - architecture-diagram-skill
           - ui-ux-pro-max-skill
+          - diagram-design
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

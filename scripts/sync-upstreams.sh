@@ -65,8 +65,18 @@ case "$source_name" in
     cp "$temp_root/source/.claude/skills/ui-ux-pro-max/SKILL.md" "$temp_root/vendor/.claude/skills/ui-ux-pro-max/"
     rsync -a --delete "$temp_root/vendor/" "$repo_root/vendor/ui-ux-pro-max-skill/"
     ;;
+  diagram-design)
+    ref="main"
+    clone_source "https://github.com/cathrynlavery/diagram-design.git" "$ref" "$temp_root/source"
+    commit="$(git -C "$temp_root/source" rev-parse HEAD)"
+    mkdir -p "$temp_root/vendor/methodology"
+    cp "$temp_root/source/LICENSE" "$temp_root/vendor/"
+    cp "$temp_root/source/docs/adr/0002-semantic-patterns-do-not-expand-the-taxonomy.md" \
+      "$temp_root/vendor/methodology/diagram-selection.md"
+    rsync -a --delete "$temp_root/vendor/" "$repo_root/vendor/diagram-design/"
+    ;;
   *)
-    echo "Usage: scripts/sync-upstreams.sh {archify|architecture-diagram-skill|ui-ux-pro-max-skill}" >&2
+    echo "Usage: scripts/sync-upstreams.sh {archify|architecture-diagram-skill|ui-ux-pro-max-skill|diagram-design}" >&2
     exit 2
     ;;
 esac

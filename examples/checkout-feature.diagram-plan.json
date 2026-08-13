@@ -1,8 +1,23 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "task": "Add an idempotent checkout endpoint that reserves stock before creating a payment.",
   "goal": "Show component ownership and the request path from the API to inventory and payment providers.",
-  "audience": "backend engineers and reviewers",
+  "source": {
+    "kind": "prompt",
+    "scope": "Public checkout example requirement",
+    "references": ["examples/plugin-request.architecture.json"]
+  },
+  "audience": {
+    "role": "backend engineers and reviewers",
+    "detail": "technical"
+  },
+  "selection": {
+    "questionKind": "structural-ownership",
+    "semanticPattern": "trust-boundary-routing",
+    "renderer": "architecture",
+    "profile": "feature-context",
+    "rationale": "Ownership and dependency boundaries are the primary decision; request order is a supporting detail."
+  },
   "scope": {
     "in": ["API entry point", "checkout orchestration", "inventory reservation", "payment provider", "idempotency store"],
     "out": ["provider-internal settlement", "warehouse fulfillment"]
@@ -28,23 +43,44 @@
         "source": "toolkit recommendation",
         "confidence": "medium"
       }
-    ]
+    ],
+    "superseded": []
+  },
+  "complexity": {
+    "detail": "balanced",
+    "budget": {
+      "components": 12,
+      "connections": 16,
+      "boundaries": 4
+    },
+    "decomposition": "single"
   },
   "views": [
     {
       "type": "architecture",
+      "profile": "feature-context",
+      "role": "primary",
       "question": "Which components own checkout and how do they depend on inventory and payment?",
       "focus": ["ownership", "trust boundaries", "data stores"]
     },
     {
       "type": "sequence",
+      "profile": "request-walkthrough",
+      "role": "detail",
       "question": "What happens from checkout request to response, including replay and failure?",
       "focus": ["ordering", "idempotency", "compensation"]
     }
   ],
+  "fidelity": {
+    "merged": [],
+    "collapsed": [],
+    "omitted": [],
+    "preserved": ["component ownership", "request ordering", "evidence status"]
+  },
   "constraints": ["Do not expose provider credentials or production identifiers."],
   "output": {
     "format": "standalone-html",
-    "quality": "showcase"
+    "quality": "showcase",
+    "destination": "architecture-review"
   }
 }
