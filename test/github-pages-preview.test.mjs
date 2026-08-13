@@ -92,6 +92,10 @@ class FakeElement extends FakeEventTarget {
     this.title = '';
     this.focused = false;
     this.scrollCalls = [];
+    this.scrollPositionCalls = [];
+    this.scrollLeft = 0;
+    this.clientWidth = 320;
+    this.scrollWidth = 640;
   }
 
   setAttribute(name, value) {
@@ -109,6 +113,11 @@ class FakeElement extends FakeEventTarget {
   scrollIntoView(options) {
     this.scrollCalls.push(options);
   }
+
+  scrollTo(options) {
+    this.scrollPositionCalls.push(options);
+    this.scrollLeft = options.left;
+  }
 }
 
 function createPreviewFixture() {
@@ -116,6 +125,7 @@ function createPreviewFixture() {
   const panels = HERO_VIEWS.map(() => new FakeElement());
   const title = new FakeElement();
   const toggle = new FakeElement();
+  const stage = new FakeElement();
   const ownerDocument = new FakeEventTarget();
   ownerDocument.hidden = false;
   const mediaQuery = new FakeEventTarget();
@@ -123,8 +133,13 @@ function createPreviewFixture() {
   const root = new FakeElement();
   root.ownerDocument = ownerDocument;
   root.querySelectorAll = (selector) => selector === '[data-diagram-view]' ? tabs : panels;
-  root.querySelector = (selector) => selector === '[data-preview-title]' ? title : toggle;
-  root.contains = (element) => element === root || tabs.includes(element) || panels.includes(element) || element === title || element === toggle;
+  root.querySelector = (selector) => {
+    if (selector === '[data-preview-title]') return title;
+    if (selector === '[data-preview-toggle]') return toggle;
+    if (selector === '[data-diagram-stage]') return stage;
+    throw new Error(`Unexpected selector: ${selector}`);
+  };
+  root.contains = (element) => element === root || tabs.includes(element) || panels.includes(element) || element === title || element === toggle || element === stage;
 
   let nextTimerId = 1;
   const timers = new Map();
@@ -148,7 +163,7 @@ function createPreviewFixture() {
   };
 
   const controller = createDiagramPreview(root, environment);
-  return { controller, root, tabs, panels, title, toggle, ownerDocument, mediaQuery, timers, clearedTimers, runNextTimer };
+  return { controller, root, tabs, panels, title, toggle, stage, ownerDocument, mediaQuery, timers, clearedTimers, runNextTimer };
 }
 
 test('hero metadata exposes exactly the eight renderer views in catalog order', () => {
@@ -178,6 +193,10 @@ test('hero markup wires exactly eight accessible tabs to eight panels', () => {
   assert.deepEqual(panels, expectedViews);
   assert.doesNotMatch(html, /data-diagram-view="evidence"/);
   assert.match(html, /data-preview-toggle[^>]*hidden/);
+  assert.match(html, /<p id="diagram-stage-hint" class="diagram-stage-hint">Swipe or use arrow keys to pan the diagram\.<\/p>/);
+  assert.match(html, /<div class="diagram-stage" role="region" tabindex="0" aria-label="Diagram canvas" aria-describedby="diagram-stage-hint" data-diagram-stage>/);
+  assert.match(css, /\.diagram-stage-hint\s*\{[^}]*clip:/s);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*\.diagram-stage-hint\s*\{[^}]*position:\s*static/s);
   assert.match(html, /<script type="module" src="\.\/app\.js"><\/script>/);
   for (const view of expectedViews) {
     assert.match(html, new RegExp(`id="preview-tab-${view}"[^>]+aria-controls="preview-panel-${view}"`));
@@ -187,6 +206,25 @@ test('hero markup wires exactly eight accessible tabs to eight panels', () => {
   for (const view of expectedViews.slice(1)) {
     assert.match(html, new RegExp(`id="preview-panel-${view}"[^>]*hidden`));
   }
+});
+
+test('focused diagram stage pans only its internal overflow with keyboard controls', () => {
+  const fixture = createPreviewFixture();
+  const press = (key) => {
+    const event = { key, defaultPrevented: false, preventDefault() { this.defaultPrevented = true; } };
+    fixture.stage.dispatch('keydown', event);
+    assert.equal(event.defaultPrevented, true);
+  };
+
+  press('ArrowRight');
+  assert.equal(fixture.stage.scrollLeft, 256);
+  press('End');
+  assert.equal(fixture.stage.scrollLeft, 320);
+  press('ArrowLeft');
+  assert.equal(fixture.stage.scrollLeft, 64);
+  press('Home');
+  assert.equal(fixture.stage.scrollLeft, 0);
+  assert.equal(fixture.stage.scrollPositionCalls.at(-1).behavior, 'smooth');
 });
 
 test('controller activation updates the roving tab, mounted panel, and filename', () => {
@@ -282,7 +320,7 @@ test('reduced motion resets the first panel, hides playback, and stops schedulin
 
 test('destroy clears the timer and removes every controller listener', () => {
   const fixture = createPreviewFixture();
-  const listenerTargets = [...fixture.tabs, fixture.toggle, fixture.root, fixture.ownerDocument, fixture.mediaQuery];
+  const listenerTargets = [...fixture.tabs, fixture.toggle, fixture.stage, fixture.root, fixture.ownerDocument, fixture.mediaQuery];
   assert.ok(listenerTargets.some((target) => target.listenerCount() > 0));
 
   fixture.controller.destroy();

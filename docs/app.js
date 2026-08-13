@@ -30,6 +30,7 @@ export function createDiagramPreview(root, environment = globalThis) {
   const panels = [...root.querySelectorAll('[data-view-panel]')];
   const title = root.querySelector('[data-preview-title]');
   const toggle = root.querySelector('[data-preview-toggle]');
+  const stage = root.querySelector('[data-diagram-stage]');
   const reducedMotionQuery = environment.matchMedia('(prefers-reduced-motion: reduce)');
   const holdReasons = new Set();
   let activeIndex = 0;
@@ -100,6 +101,20 @@ export function createDiagramPreview(root, environment = globalThis) {
     return { tab, click, keydown };
   });
 
+  const panStage = (event) => {
+    const maxScrollLeft = Math.max(0, stage.scrollWidth - stage.clientWidth);
+    if (maxScrollLeft === 0) return;
+    const scrollStep = Math.round(stage.clientWidth * 0.8);
+    let scrollLeft = stage.scrollLeft;
+    if (event.key === 'ArrowRight') scrollLeft = Math.min(maxScrollLeft, scrollLeft + scrollStep);
+    else if (event.key === 'ArrowLeft') scrollLeft = Math.max(0, scrollLeft - scrollStep);
+    else if (event.key === 'Home') scrollLeft = 0;
+    else if (event.key === 'End') scrollLeft = maxScrollLeft;
+    else return;
+    event.preventDefault();
+    stage.scrollTo({ left: scrollLeft, behavior: reducedMotionQuery.matches ? 'auto' : 'smooth' });
+  };
+
   const togglePlayback = () => {
     userPaused = !userPaused;
     syncPlayback();
@@ -120,6 +135,7 @@ export function createDiagramPreview(root, environment = globalThis) {
   };
 
   toggle.addEventListener('click', togglePlayback);
+  stage.addEventListener('keydown', panStage);
   root.addEventListener('mouseenter', holdPointer);
   root.addEventListener('mouseleave', releasePointer);
   root.addEventListener('focusin', holdFocus);
@@ -139,6 +155,7 @@ export function createDiagramPreview(root, environment = globalThis) {
         tab.removeEventListener('keydown', keydown);
       });
       toggle.removeEventListener('click', togglePlayback);
+      stage.removeEventListener('keydown', panStage);
       root.removeEventListener('mouseenter', holdPointer);
       root.removeEventListener('mouseleave', releasePointer);
       root.removeEventListener('focusin', holdFocus);

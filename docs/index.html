@@ -118,7 +118,8 @@
             <button id="preview-tab-timeline" type="button" role="tab" aria-selected="false" aria-controls="preview-panel-timeline" tabindex="-1" data-diagram-view="timeline">Timeline</button>
             <button id="preview-tab-layers" type="button" role="tab" aria-selected="false" aria-controls="preview-panel-layers" tabindex="-1" data-diagram-view="layers">Layers</button>
           </div>
-          <div class="diagram-stage">
+          <p id="diagram-stage-hint" class="diagram-stage-hint">Swipe or use arrow keys to pan the diagram.</p>
+          <div class="diagram-stage" role="region" tabindex="0" aria-label="Diagram canvas" aria-describedby="diagram-stage-hint" data-diagram-stage>
             <svg id="preview-panel-architecture" class="diagram-view is-active" data-view-panel="architecture" viewBox="0 0 760 420" role="tabpanel" aria-labelledby="preview-tab-architecture">
               <title id="architecture-title">Checkout feature architecture with API, orchestrator, inventory, payment, and idempotency store</title>
               <defs>
