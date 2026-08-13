@@ -46,7 +46,7 @@
         "keywords": "AI engineering diagrams, software architecture, data model diagram, engineering timeline, layered architecture, system design, MCP tools, Codex skills, Claude Code skills"
       }
     </script>
-    <script src="./app.js" defer></script>
+    <script type="module" src="./app.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -101,19 +101,25 @@
           </ul>
         </div>
 
-        <div class="workbench" aria-label="Interactive diagram preview">
+        <div class="workbench" aria-label="Interactive diagram preview" data-diagram-preview>
           <div class="workbench-bar">
             <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="workbench-title">checkout-feature.diagram.json</span>
+            <span class="workbench-title" data-preview-title>checkout-feature.architecture.json</span>
+            <button class="preview-toggle" type="button" data-preview-toggle hidden>Pause</button>
             <span class="status-pill"><i></i> validated</span>
           </div>
           <div class="view-switcher" role="tablist" aria-label="Diagram preview">
-            <button type="button" role="tab" aria-selected="true" data-diagram-view="architecture">Architecture</button>
-            <button type="button" role="tab" aria-selected="false" data-diagram-view="sequence">Sequence</button>
-            <button type="button" role="tab" aria-selected="false" data-diagram-view="evidence">Evidence</button>
+            <button id="preview-tab-architecture" type="button" role="tab" aria-selected="true" aria-controls="preview-panel-architecture" tabindex="0" data-diagram-view="architecture">Architecture</button>
+            <button id="preview-tab-sequence" type="button" role="tab" aria-selected="false" aria-controls="preview-panel-sequence" tabindex="-1" data-diagram-view="sequence">Sequence</button>
+            <button id="preview-tab-workflow" type="button" role="tab" aria-selected="false" aria-controls="preview-panel-workflow" tabindex="-1" data-diagram-view="workflow">Workflow</button>
+            <button id="preview-tab-dataflow" type="button" role="tab" aria-selected="false" aria-controls="preview-panel-dataflow" tabindex="-1" data-diagram-view="dataflow">Dataflow</button>
+            <button id="preview-tab-lifecycle" type="button" role="tab" aria-selected="false" aria-controls="preview-panel-lifecycle" tabindex="-1" data-diagram-view="lifecycle">Lifecycle</button>
+            <button id="preview-tab-data-model" type="button" role="tab" aria-selected="false" aria-controls="preview-panel-data-model" tabindex="-1" data-diagram-view="data-model">Data model</button>
+            <button id="preview-tab-timeline" type="button" role="tab" aria-selected="false" aria-controls="preview-panel-timeline" tabindex="-1" data-diagram-view="timeline">Timeline</button>
+            <button id="preview-tab-layers" type="button" role="tab" aria-selected="false" aria-controls="preview-panel-layers" tabindex="-1" data-diagram-view="layers">Layers</button>
           </div>
           <div class="diagram-stage">
-            <svg class="diagram-view is-active" data-view-panel="architecture" viewBox="0 0 760 420" role="img" aria-labelledby="architecture-title">
+            <svg id="preview-panel-architecture" class="diagram-view is-active" data-view-panel="architecture" viewBox="0 0 760 420" role="tabpanel" aria-labelledby="preview-tab-architecture">
               <title id="architecture-title">Checkout feature architecture with API, orchestrator, inventory, payment, and idempotency store</title>
               <defs>
                 <marker id="arrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -130,14 +136,14 @@
               </g>
               <rect class="boundary" x="202" y="72" width="354" height="274" rx="20"/>
               <text class="boundary-label" x="224" y="101">CHECKOUT BOUNDARY</text>
-              <g class="flow-lines">
+              <g class="flow-lines" data-animate-edge style="--reveal-index: 0">
                 <path class="flow-primary" d="M156 208H240"/>
                 <path class="flow-primary" d="M362 208H424"/>
                 <path class="flow-secondary" d="M486 178V135H616"/>
                 <path class="flow-primary" d="M548 208H616"/>
                 <path class="flow-secondary" d="M486 238V292H616"/>
               </g>
-              <g class="diagram-node node-external">
+              <g class="diagram-node node-external" data-animate-node style="--reveal-index: 1">
                 <rect x="38" y="174" width="118" height="68" rx="14"/>
                 <circle cx="60" cy="196" r="5"/>
                 <text x="59" y="221">Client</text>
@@ -180,9 +186,9 @@
               </g>
             </svg>
 
-            <svg class="diagram-view" data-view-panel="sequence" viewBox="0 0 760 420" role="img" aria-labelledby="sequence-title">
+            <svg id="preview-panel-sequence" class="diagram-view" data-view-panel="sequence" viewBox="0 0 760 420" role="tabpanel" aria-labelledby="preview-tab-sequence" hidden>
               <title id="sequence-title">Checkout request sequence across client, API, inventory, payment, and idempotency store</title>
-              <g class="sequence-labels">
+              <g class="sequence-labels" data-animate-node style="--reveal-index: 0">
                 <g><rect x="35" y="38" width="116" height="42" rx="10"/><text x="93" y="64">Client</text></g>
                 <g><rect x="184" y="38" width="116" height="42" rx="10"/><text x="242" y="64">API</text></g>
                 <g><rect x="333" y="38" width="116" height="42" rx="10"/><text x="391" y="64">Inventory</text></g>
@@ -192,7 +198,7 @@
               <g class="lifelines">
                 <path d="M93 80V380M242 80V380M391 80V380M540 80V380M679 80V380"/>
               </g>
-              <g class="sequence-messages">
+              <g class="sequence-messages" data-animate-edge style="--reveal-index: 1">
                 <path d="M93 112H242"/><text x="118" y="103">1 · checkout(key)</text>
                 <path d="M242 164H679"/><text x="405" y="155">2 · find replay</text>
                 <path class="async" d="M242 216H391"/><text x="270" y="207">3 · reserve stock</text>
@@ -202,23 +208,123 @@
               </g>
             </svg>
 
-            <div class="diagram-view evidence-panel" data-view-panel="evidence" role="region" aria-label="Evidence contract preview">
-              <div class="evidence-row">
-                <span class="evidence-kind fact">Fact</span>
-                <div><strong>API requires an idempotency key.</strong><small>Source: checkout contract · confidence: high</small></div>
-              </div>
-              <div class="evidence-row">
-                <span class="evidence-kind assumption">Assumption</span>
-                <div><strong>Inventory reservation expires.</strong><small>Source: product confirmation needed · confidence: low</small></div>
-              </div>
-              <div class="evidence-row">
-                <span class="evidence-kind recommendation">Recommendation</span>
-                <div><strong>Persist orchestration result by key.</strong><small>Source: toolkit guidance · confidence: medium</small></div>
-              </div>
-              <div class="evidence-rule">
-                <span>Current behavior</span><i></i><span>Proposed behavior</span><i class="dashed"></i>
-              </div>
-            </div>
+            <svg id="preview-panel-workflow" class="diagram-view" data-view-panel="workflow" viewBox="0 0 760 420" role="tabpanel" aria-labelledby="preview-tab-workflow" hidden>
+              <title id="workflow-title">Schema rollout workflow from draft migration through verification, promotion, and rollback</title>
+              <defs>
+                <marker id="arrow-workflow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
+                <linearGradient id="gradient-workflow" x1="0" x2="1"><stop offset="0" stop-color="#142a28"/><stop offset="1" stop-color="#172331"/></linearGradient>
+              </defs>
+              <g class="diagram-grid" aria-hidden="true"><path d="M0 64H760M0 154H760M0 244H760M0 334H760"/></g>
+              <g class="diagram-node" data-animate-node style="--reveal-index: 0">
+                <text class="boundary-label" x="18" y="50">AUTHOR</text><text class="boundary-label" x="18" y="140">CI</text><text class="boundary-label" x="18" y="230">DATABASE</text><text class="boundary-label" x="18" y="320">OPERATOR</text>
+                <g><rect x="32" y="76" width="120" height="48" rx="12" fill="url(#gradient-workflow)"/><text x="92" y="105" text-anchor="middle">Draft migration</text></g>
+                <g><rect x="165" y="130" width="130" height="48" rx="12"/><text x="230" y="159" text-anchor="middle">Backup verified</text></g>
+                <g><rect x="309" y="220" width="130" height="48" rx="12"/><text x="374" y="249" text-anchor="middle">Shadow schema</text></g>
+                <g><rect x="455" y="130" width="130" height="48" rx="12"/><text x="520" y="159" text-anchor="middle">Read checks</text></g>
+                <g class="node-highlight"><rect x="600" y="310" width="120" height="48" rx="12"/><text x="660" y="339" text-anchor="middle">Promote</text></g>
+                <g class="node-provider"><rect x="455" y="310" width="130" height="48" rx="12"/><text x="520" y="339" text-anchor="middle">Rollback</text></g>
+              </g>
+              <g data-animate-edge style="--reveal-index: 1" fill="none" marker-end="url(#arrow-workflow)">
+                <path class="flow-primary" d="M92 124C92 154 230 100 230 130M295 154C334 154 334 220 374 220M439 244C480 244 480 178 520 178M585 154C630 154 660 265 660 310"/>
+                <path class="flow-secondary" d="M520 178V310"/><text x="532" y="250">failed read checks</text>
+              </g>
+            </svg>
+
+            <svg id="preview-panel-dataflow" class="diagram-view" data-view-panel="dataflow" viewBox="0 0 760 420" role="tabpanel" aria-labelledby="preview-tab-dataflow" hidden>
+              <title id="dataflow-title">Tokenized payment events flowing from gateway through normalization to ledger and warehouse</title>
+              <defs>
+                <marker id="arrow-dataflow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
+                <linearGradient id="gradient-dataflow" x1="0" x2="1"><stop offset="0" stop-color="#142332"/><stop offset="1" stop-color="#142a28"/></linearGradient>
+              </defs>
+              <g class="diagram-node" data-animate-node style="--reveal-index: 0">
+                <g class="node-provider"><rect x="34" y="170" width="122" height="76" rx="14"/><text x="95" y="213" text-anchor="middle">Gateway</text></g>
+                <g><rect x="175" y="170" width="122" height="76" rx="14" fill="url(#gradient-dataflow)"/><text x="236" y="204" text-anchor="middle">Normalizer</text><text class="node-meta" x="236" y="226" text-anchor="middle">tokenized</text></g>
+                <g class="node-highlight"><rect x="316" y="170" width="122" height="76" rx="14"/><text x="377" y="213" text-anchor="middle">Event bus</text></g>
+                <g class="node-store"><rect x="457" y="96" width="122" height="76" rx="14"/><text x="518" y="139" text-anchor="middle">Ledger</text></g>
+                <g class="node-store"><rect x="598" y="270" width="122" height="76" rx="14"/><text x="659" y="313" text-anchor="middle">Warehouse</text></g>
+              </g>
+              <g data-animate-edge style="--reveal-index: 1" fill="none" marker-end="url(#arrow-dataflow)">
+                <path class="flow-primary" d="M156 208H175M297 208H316M438 198C468 198 488 172 500 172"/>
+                <path class="flow-secondary" d="M438 220C510 220 560 308 598 308"/><text x="472" y="271">analytics copy</text>
+              </g>
+            </svg>
+
+            <svg id="preview-panel-lifecycle" class="diagram-view" data-view-panel="lifecycle" viewBox="0 0 760 420" role="tabpanel" aria-labelledby="preview-tab-lifecycle" hidden>
+              <title id="lifecycle-title">Payment lifecycle from creation to settlement with failed and refunded paths</title>
+              <defs>
+                <marker id="arrow-lifecycle" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
+                <linearGradient id="gradient-lifecycle" x1="0" x2="1"><stop offset="0" stop-color="#172331"/><stop offset="1" stop-color="#142a28"/></linearGradient>
+              </defs>
+              <g class="diagram-node" data-animate-node style="--reveal-index: 0">
+                <g><rect x="38" y="82" width="116" height="60" rx="30" fill="url(#gradient-lifecycle)"/><text x="96" y="117" text-anchor="middle">Created</text></g>
+                <g><rect x="228" y="82" width="116" height="60" rx="30"/><text x="286" y="117" text-anchor="middle">Authorized</text></g>
+                <g><rect x="418" y="82" width="116" height="60" rx="30"/><text x="476" y="117" text-anchor="middle">Captured</text></g>
+                <g class="node-highlight"><rect x="606" y="82" width="116" height="60" rx="30"/><text x="664" y="117" text-anchor="middle">Settled</text></g>
+                <g class="node-provider"><rect x="228" y="270" width="116" height="60" rx="30"/><text x="286" y="305" text-anchor="middle">Failed</text></g>
+                <g class="node-store"><rect x="512" y="270" width="116" height="60" rx="30"/><text x="570" y="305" text-anchor="middle">Refunded</text></g>
+              </g>
+              <g data-animate-edge style="--reveal-index: 1" fill="none" marker-end="url(#arrow-lifecycle)">
+                <path class="flow-primary" d="M154 112H228M344 112H418M534 112H606"/>
+                <path class="flow-secondary" d="M286 142V270M476 142C476 215 335 215 300 270M476 142C476 220 540 230 560 270M664 142C664 220 610 230 580 270"/>
+              </g>
+            </svg>
+
+            <svg id="preview-panel-data-model" class="diagram-view" data-view-panel="data-model" viewBox="0 0 760 420" role="tabpanel" aria-labelledby="preview-tab-data-model" hidden>
+              <title id="data-model-title">Order domain relationships among orders, payment attempts, idempotency keys, and refunds</title>
+              <defs>
+                <marker id="arrow-data-model" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
+                <linearGradient id="gradient-data-model" x1="0" x2="1"><stop offset="0" stop-color="#142332"/><stop offset="1" stop-color="#172331"/></linearGradient>
+              </defs>
+              <g class="diagram-node" data-animate-node style="--reveal-index: 0">
+                <g><rect x="42" y="72" width="170" height="122" rx="14" fill="url(#gradient-data-model)"/><text x="62" y="104">Order</text><text class="node-meta" x="62" y="134">id · status</text></g>
+                <g class="node-highlight"><rect x="294" y="52" width="178" height="142" rx="14"/><text x="314" y="84">PaymentAttempt</text><text class="node-meta" x="314" y="114">id · orderId · keyId</text></g>
+                <g><rect x="548" y="72" width="170" height="122" rx="14"/><text x="568" y="104">IdempotencyKey</text><text class="node-meta" x="568" y="134">id · fingerprint</text></g>
+                <g class="node-store"><rect x="294" y="256" width="178" height="108" rx="14"/><text x="314" y="288">Refund</text><text class="node-meta" x="314" y="318">id · attemptId</text></g>
+              </g>
+              <g data-animate-edge style="--reveal-index: 1" fill="none" marker-end="url(#arrow-data-model)">
+                <path class="flow-primary" d="M212 123H294M472 123H548"/><text x="230" y="112">1:N</text><text x="495" y="112">N:1</text>
+                <path class="flow-secondary" d="M383 194V256"/><text x="395" y="232">1:0..N</text>
+              </g>
+            </svg>
+
+            <svg id="preview-panel-timeline" class="diagram-view" data-view-panel="timeline" viewBox="0 0 760 420" role="tabpanel" aria-labelledby="preview-tab-timeline" hidden>
+              <title id="timeline-title">Payment migration timeline across application, data, and operations tracks</title>
+              <defs>
+                <marker id="arrow-timeline" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
+                <linearGradient id="gradient-timeline" x1="0" x2="1"><stop offset="0" stop-color="#142a28"/><stop offset="1" stop-color="#172331"/></linearGradient>
+              </defs>
+              <g class="diagram-node" data-animate-node style="--reveal-index: 0">
+                <text class="boundary-label" x="18" y="78">APPLICATION</text><text class="boundary-label" x="18" y="196">DATA</text><text class="boundary-label" x="18" y="314">OPERATIONS</text>
+                <g><circle cx="105" cy="92" r="12"/><text x="105" y="72" text-anchor="middle">Dual write</text></g>
+                <g><circle cx="278" cy="210" r="12"/><text x="278" y="190" text-anchor="middle">Backfill</text></g>
+                <g class="node-highlight"><circle cx="451" cy="92" r="12"/><text x="451" y="72" text-anchor="middle">Read switch</text></g>
+                <g><circle cx="624" cy="328" r="12" fill="url(#gradient-timeline)"/><text x="624" y="308" text-anchor="middle">Cleanup</text><text class="node-meta" x="624" y="360" text-anchor="middle">assumption · Sep 30</text></g>
+                <g class="node-provider"><rect x="358" y="292" width="150" height="46" rx="12"/><text x="433" y="320" text-anchor="middle">Rollback checkpoint</text></g>
+              </g>
+              <g data-animate-edge style="--reveal-index: 1" fill="none" marker-end="url(#arrow-timeline)">
+                <path class="flow-primary" d="M117 92C170 92 225 210 266 210M290 210C340 210 395 92 439 92M463 92C520 92 570 328 612 328"/>
+                <path class="flow-secondary" d="M433 292V120"/>
+              </g>
+            </svg>
+
+            <svg id="preview-panel-layers" class="diagram-view" data-view-panel="layers" viewBox="0 0 760 420" role="tabpanel" aria-labelledby="preview-tab-layers" hidden>
+              <title id="layers-title">Checkout responsibility layers with an observability and policy cross-cut and authorization gap</title>
+              <defs>
+                <marker id="arrow-layers" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
+                <linearGradient id="gradient-layers" x1="0" x2="1"><stop offset="0" stop-color="#142a28"/><stop offset="1" stop-color="#142332"/></linearGradient>
+              </defs>
+              <g class="diagram-node" data-animate-node style="--reveal-index: 0">
+                <rect x="40" y="48" width="66" height="304" rx="14" fill="url(#gradient-layers)"/><text x="73" y="200" text-anchor="middle" transform="rotate(-90 73 200)">Observability + proposed policy</text>
+                <g><rect x="142" y="48" width="538" height="58" rx="12"/><text x="411" y="82" text-anchor="middle">Interface</text></g>
+                <g class="node-provider"><rect x="142" y="126" width="538" height="58" rx="12"/><text x="411" y="160" text-anchor="middle">Application · authorization gap</text></g>
+                <g class="node-highlight"><rect x="142" y="204" width="538" height="58" rx="12"/><text x="411" y="238" text-anchor="middle">Domain</text></g>
+                <g><rect x="142" y="282" width="538" height="58" rx="12"/><text x="411" y="316" text-anchor="middle">Infrastructure</text></g>
+              </g>
+              <g data-animate-edge style="--reveal-index: 1" fill="none" marker-end="url(#arrow-layers)">
+                <path class="flow-primary" d="M411 106V126M411 184V204M411 262V282"/>
+                <path class="flow-secondary" d="M106 77H142M106 155H142M106 233H142M106 311H142"/>
+              </g>
+            </svg>
           </div>
           <div class="workbench-footer">
             <span><i class="legend-dot verified"></i> verified</span>
