@@ -122,6 +122,7 @@ validateSkill('diago-chat-architecture');
 validateSkill('diago-review-diagram');
 
 for (const relativePath of [
+  'DESIGN.md',
   'vendor/archify/bin/archify.mjs',
   'vendor/archify/LICENSE',
   'vendor/architecture-diagram-skill/LICENSE',
