@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "diagram_type": "timeline",
+  "meta": {
+    "title": "Payment storage migration",
+    "subtitle": "Ordered phases without invented calendar precision"
+  },
+  "tracks": [
+    { "id": "application", "label": "Application" },
+    { "id": "data", "label": "Data" },
+    { "id": "operations", "label": "Operations" }
+  ],
+  "milestones": [
+    {
+      "id": "contract",
+      "track": "application",
+      "position": 1,
+      "phase": "Phase 1",
+      "label": "Introduce storage contract",
+      "status": "completed"
+    },
+    {
+      "id": "shadow_write",
+      "track": "application",
+      "position": 2,
+      "phase": "Phase 2",
+      "label": "Shadow write",
+      "status": "current"
+    },
+    {
+      "id": "backfill",
+      "track": "data",
+      "position": 3,
+      "phase": "Phase 3",
+      "label": "Backfill verified records",
+      "status": "current"
+    },
+    {
+      "id": "reconcile",
+      "track": "operations",
+      "position": 4,
+      "phase": "Phase 4",
+      "label": "Reconcile and approve",
+      "status": "risk"
+    },
+    {
+      "id": "cutover",
+      "track": "application",
+      "position": 5,
+      "phase": "Phase 5",
+      "label": "Cut over",
+      "status": "proposed"
+    }
+  ],
+  "dependencies": [
+    { "from": "contract", "to": "shadow_write", "label": "contract available", "status": "completed" },
+    { "from": "shadow_write", "to": "backfill", "label": "writes verified", "status": "current" },
+    { "from": "backfill", "to": "reconcile", "label": "counts match", "status": "risk" },
+    { "from": "reconcile", "to": "cutover", "label": "approval", "status": "proposed" }
+  ]
+}

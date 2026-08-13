@@ -91,3 +91,70 @@ test('data-model escapes untrusted labels in standalone HTML', () => {
   assert.doesNotMatch(rendered.first, /<script>alert\(1\)<\/script>/);
   assert.match(rendered.first, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
 });
+
+test('timeline renders ordered phased milestones on bounded tracks', () => {
+  // Given a migration with evidence-honest phases and parallel owners
+  const diagram = readExample('payment-migration.timeline.json');
+
+  // When the timeline is validated and rendered twice
+  const validation = validateDiagramDocument({ type: 'timeline', diagram });
+  const rendered = renderTwice('timeline', diagram);
+
+  // Then chronology, accessibility, and determinism are preserved
+  assert.equal(validation.ok, true);
+  assert.equal(validation.composition.metrics.tracks, 3);
+  assert.ok(rendered.first.indexOf('Shadow write') < rendered.first.indexOf('Cut over'));
+  assert.match(rendered.first, /role="img"/);
+  assert.match(rendered.first, /Phase 5/);
+  assert.equal(rendered.first, rendered.second);
+});
+
+test('timeline rejects milestones without a known track', () => {
+  // Given a milestone assigned to an unavailable engineering track
+  const diagram = readExample('payment-migration.timeline.json');
+  diagram.milestones[0].track = 'missing_track';
+
+  // When validation runs, then the invalid ownership reference is explicit
+  assert.throws(
+    () => validateDiagramDocument({ type: 'timeline', diagram }),
+    /unknown track/i,
+  );
+});
+
+test('timeline rejects false temporal precision gaps', () => {
+  // Given a milestone with neither an observed date nor an ordered phase
+  const diagram = readExample('payment-migration.timeline.json');
+  delete diagram.milestones[0].phase;
+
+  // When validation runs, then Diago requires honest temporal context
+  assert.throws(
+    () => validateDiagramDocument({ type: 'timeline', diagram }),
+    /date or phase/i,
+  );
+});
+
+test('timeline rejects unknown dependency endpoints and oversized sources', () => {
+  // Given an invalid dependency and thirteen milestones
+  const invalidEndpoint = readExample('payment-migration.timeline.json');
+  invalidEndpoint.dependencies[0].to = 'missing_milestone';
+  const oversized = readExample('payment-migration.timeline.json');
+  oversized.milestones = Array.from({ length: 13 }, (_, index) => ({
+    id: `milestone_${index}`,
+    track: 'application',
+    position: index + 1,
+    phase: `Phase ${index + 1}`,
+    label: `Milestone ${index + 1}`,
+    status: 'proposed',
+  }));
+  oversized.dependencies = [];
+
+  // When validation runs, then both structural failures are actionable
+  assert.throws(
+    () => validateDiagramDocument({ type: 'timeline', diagram: invalidEndpoint }),
+    /unknown endpoint/i,
+  );
+  assert.throws(
+    () => validateDiagramDocument({ type: 'timeline', diagram: oversized }),
+    /12 milestones|overview-detail/i,
+  );
+});

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amirtaherkhani.github.io/diago/schemas/timeline.schema.json",
+  "title": "Diago Engineering Timeline",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "diagram_type", "meta", "tracks", "milestones", "dependencies"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "diagram_type": { "const": "timeline" },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "subtitle": { "type": "string" }
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "label": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "track", "position", "label", "status"],
+        "anyOf": [{ "required": ["date"] }, { "required": ["phase"] }],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "track": { "$ref": "#/$defs/id" },
+          "position": { "type": "integer", "minimum": 1 },
+          "date": { "type": "string", "minLength": 1 },
+          "phase": { "type": "string", "minLength": 1 },
+          "label": { "type": "string", "minLength": 1 },
+          "status": { "$ref": "#/$defs/status" }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from", "to", "label", "status"],
+        "properties": {
+          "from": { "$ref": "#/$defs/id" },
+          "to": { "$ref": "#/$defs/id" },
+          "label": { "type": "string", "minLength": 1 },
+          "status": { "$ref": "#/$defs/status" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+    "status": { "enum": ["completed", "current", "proposed", "risk"] }
+  }
+}
