@@ -2,6 +2,24 @@
 
 All notable changes to Diago are documented here.
 
+## [0.4.0] - 2026-08-13
+
+### Added
+
+- An animated eight-view GitHub Pages workbench with architecture, sequence, workflow, dataflow, lifecycle, data-model, timeline, and layers examples.
+- Keyboard-accessible diagram canvases with mobile panning guidance and Arrow, Home, and End controls.
+- Pause, resume, temporary interaction holds, and reduced-motion behavior for the hero preview.
+
+### Changed
+
+- The hero workbench now uses documented semantic material, typography, spacing, geometry, stroke, and dash tokens.
+- Responsive layouts keep all eight views discoverable in a desktop/tablet grid and a contained mobile tab rail without page overflow.
+
+### Fixed
+
+- Restored visible relationship strokes, markers, and labels across every preview view.
+- Separated timeline lane and milestone labels to prevent overlap at desktop, tablet, and mobile widths.
+
 ## [0.3.0] - 2026-08-13
 
 ### Added
