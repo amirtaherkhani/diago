@@ -48,7 +48,8 @@ test('preview primitives keep semantic edges readable and diagrams pannable on n
   assert.match(css, /@media \(max-width: 760px\)[\s\S]*\.diagram-stage \.diagram-view\s*\{[^}]*min-width:\s*640px/s);
   assert.match(reducedMotionCss, /\.view-switcher button::after[\s\S]*opacity:\s*0/);
   assert.doesNotMatch(html, /gradient-(workflow|dataflow|lifecycle|data-model|timeline|layers)/);
-  assert.match(html, /class="timeline-first-milestone" data-timeline-track="application"/);
+  assert.match(html, /class="timeline-first-milestone" data-timeline-track="application"><circle cx="17[0-9]" cy="92" r="12"\/><text x="17[0-9]" y="72"/);
+  assert.match(html, /<path class="flow-primary" d="M18[2-9] 92C/);
 });
 
 class FakeEventTarget {
