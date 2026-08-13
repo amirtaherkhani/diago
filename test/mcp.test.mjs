@@ -18,8 +18,22 @@ function readExample() {
 }
 
 test('MCP handlers advise, plan, and review without writing files', () => {
-  assert.equal(TOOL_DEFINITIONS.length, 5);
+  assert.equal(TOOL_DEFINITIONS.length, 6);
   assert.ok(TOOL_DEFINITIONS.every((tool) => tool.inputSchema.type === 'object'));
+
+  const catalog = callTool('list_diagram_types', {});
+  assert.equal(catalog.isError, false);
+  assert.deepEqual(catalog.structuredContent.types.map(({ type }) => type), [
+    'architecture',
+    'sequence',
+    'workflow',
+    'dataflow',
+    'lifecycle',
+    'data-model',
+    'timeline',
+    'layers',
+  ]);
+  assert.equal(callTool('list_diagram_types', { extra: true }).isError, true);
 
   const advice = callTool('advise_diagram', {
     task: 'Trace an API request and its retry response',
@@ -30,8 +44,15 @@ test('MCP handlers advise, plan, and review without writing files', () => {
 
   const plan = callTool('create_diagram_plan', {
     task: 'Trace an API request and its retry response',
+    sourceKind: 'conversation',
+    audienceDetail: 'mixed',
+    destination: 'design-review',
   });
   assert.equal(plan.isError, false);
+  assert.equal(plan.structuredContent.schemaVersion, 2);
+  assert.equal(plan.structuredContent.source.kind, 'conversation');
+  assert.equal(plan.structuredContent.audience.detail, 'mixed');
+  assert.equal(plan.structuredContent.output.destination, 'design-review');
   assert.equal(plan.structuredContent.views[0].type, 'sequence');
 
   const review = callTool('review_diagram_plan', {
@@ -198,7 +219,7 @@ test('stdio MCP server negotiates, lists tools, and returns protocol errors', ()
   assert.equal(responses[0].error.code, -32002);
   assert.equal(responses[1].result.protocolVersion, '2025-11-25');
   assert.equal(responses[1].result.serverInfo.version, '0.2.0');
-  assert.equal(responses[2].result.tools.length, 5);
+  assert.equal(responses[2].result.tools.length, 6);
   assert.equal(responses[3].result.structuredContent.views[0].type, 'sequence');
   assert.equal(responses[4].error.code, -32602);
 });

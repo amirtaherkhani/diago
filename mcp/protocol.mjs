@@ -13,9 +13,10 @@ export const SUPPORTED_PROTOCOL_VERSIONS = new Set([
   '2024-11-05',
 ]);
 const instructions = [
+  'Use list_diagram_types when the native capability or profile is unclear.',
   'Use advise_diagram when the best view is unclear.',
   'Inspect relevant code, contracts, tests, configuration, or runtime evidence before recording facts.',
-  'Create and review a plan, author Archify JSON, validate it, then render.',
+  'Create and review a schema-v2 plan, author renderer JSON, validate it, then render.',
   'Never present assumptions or recommendations as verified behavior.',
   'render_diagram writes only the requested absolute HTML path and requires explicit overwrite permission for an existing artifact.',
 ].join(' ');
