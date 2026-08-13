@@ -5,6 +5,11 @@
   --surface-strong: #172331;
   --line: #253345;
   --line-soft: rgba(137, 164, 190, 0.16);
+  --line-strong: #34465a;
+  --surface-verified: #142a28;
+  --line-verified: rgba(110, 243, 197, 0.66);
+  --line-structure: rgba(108, 168, 255, 0.34);
+  --line-risk: rgba(255, 127, 159, 0.62);
   --text: #f5f8fb;
   --muted: #91a2b5;
   --muted-strong: #b8c4d0;
@@ -21,6 +26,13 @@
   --radius-sm: 10px;
   --radius-md: 18px;
   --radius-lg: 28px;
+  --preview-cycle: 5000ms;
+  --preview-enter: 260ms;
+  --preview-resolve: 320ms;
+  --preview-trace: 420ms;
+  --preview-stagger: 55ms;
+  --preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --preview-lift: 8px;
 }
 
 * {
@@ -397,7 +409,14 @@ h1 em {
   box-shadow: 0 0 8px currentColor;
 }
 
-.view-switcher,
+.view-switcher {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  padding: 8px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
 .install-tabs {
   display: flex;
   gap: 4px;
@@ -416,6 +435,43 @@ h1 em {
   font-family: var(--mono);
   font-size: 0.64rem;
   font-weight: 700;
+}
+
+.preview-toggle {
+  flex: 0 0 auto;
+  margin-inline: 10px;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted-strong);
+  cursor: pointer;
+  font: 700 0.58rem/1 var(--mono);
+}
+
+.view-switcher button {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.view-switcher button::after {
+  position: absolute;
+  right: 8px;
+  bottom: 2px;
+  left: 8px;
+  height: 1px;
+  content: "";
+  background: var(--mint);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+[data-preview-running="true"] .view-switcher button.is-progressing::after {
+  opacity: 0.9;
+  animation: preview-progress var(--preview-cycle) linear both;
 }
 
 .view-switcher button[aria-selected="true"],
@@ -442,6 +498,17 @@ h1 em {
 
 .diagram-view.is-active {
   display: block;
+  animation: preview-panel-in var(--preview-enter) var(--preview-ease) both;
+}
+
+.diagram-view.is-active [data-animate-node] {
+  animation: preview-resolve var(--preview-resolve) var(--preview-ease) both;
+  animation-delay: calc(var(--reveal-index) * var(--preview-stagger));
+}
+
+.diagram-view.is-active [data-animate-edge] {
+  animation: preview-trace var(--preview-trace) var(--preview-ease) both;
+  animation-delay: calc(var(--reveal-index) * var(--preview-stagger));
 }
 
 .diagram-grid path {
@@ -468,7 +535,11 @@ h1 em {
   stroke-width: 1.7;
   marker-end: url("#arrow-a");
   stroke-dasharray: 7 5;
-  animation: flow 7s linear infinite;
+}
+
+.diagram-view.is-active .flow-lines path {
+  animation: preview-trace var(--preview-trace) var(--preview-ease) both;
+  animation-delay: calc(var(--reveal-index) * var(--preview-stagger));
 }
 
 .flow-lines .flow-secondary {
@@ -561,6 +632,76 @@ h1 em {
   fill: #a9b9c8;
   font-family: var(--mono);
   font-size: 9px;
+}
+
+.preview-lane,
+.preview-track-line {
+  fill: none;
+  stroke: rgba(145, 162, 181, 0.22);
+  stroke-dasharray: 4 6;
+}
+
+.preview-card rect,
+.preview-state rect,
+.preview-entity rect,
+.preview-layer rect {
+  fill: var(--surface);
+  stroke: var(--line-strong);
+}
+
+.preview-card.is-verified rect,
+.preview-state.is-verified rect,
+.preview-layer.is-verified rect {
+  fill: var(--surface-verified);
+  stroke: var(--line-verified);
+}
+
+.preview-card.is-risk rect,
+.preview-state.is-risk rect {
+  stroke: var(--line-risk);
+}
+
+.preview-label {
+  fill: var(--text);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 720;
+}
+
+.preview-meta,
+.preview-edge-label,
+.preview-cardinality {
+  fill: var(--muted);
+  font-family: var(--mono);
+  font-size: 8.5px;
+}
+
+.preview-edge {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 1.7;
+}
+
+.preview-edge.is-proposed {
+  stroke: var(--mint);
+  stroke-dasharray: 4 5;
+}
+
+.preview-edge.is-risk {
+  stroke: var(--rose);
+  stroke-dasharray: 3 5;
+}
+
+.preview-assumption {
+  fill: var(--yellow);
+  font-family: var(--mono);
+  font-size: 8px;
+}
+
+.preview-crosscut {
+  fill: color-mix(in srgb, var(--blue) 7%, transparent);
+  stroke: var(--line-structure);
+  stroke-dasharray: 4 5;
 }
 
 .evidence-panel {
@@ -1396,9 +1537,45 @@ footer {
   color: var(--text);
 }
 
-@keyframes flow {
+@keyframes preview-progress {
   to {
-    stroke-dashoffset: -120;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes preview-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--preview-lift));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes preview-resolve {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--preview-lift) * 0.625));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes preview-trace {
+  from {
+    opacity: 0;
+    stroke-dashoffset: 48;
+  }
+
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
   }
 }
 
@@ -1503,8 +1680,30 @@ footer {
     gap: 17px;
   }
 
+  .view-switcher {
+    display: flex;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .view-switcher::-webkit-scrollbar {
+    display: none;
+  }
+
+  .view-switcher button {
+    flex: 0 0 auto;
+    min-width: max-content;
+    scroll-snap-align: start;
+  }
+
   .workbench-title {
-    max-width: 170px;
+    max-width: 150px;
+  }
+
+  .preview-toggle {
+    margin-inline: 6px;
   }
 
   .diagram-stage {
@@ -1666,5 +1865,18 @@ footer {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .diagram-view,
+  .diagram-view [data-animate-node],
+  .diagram-view [data-animate-edge],
+  .view-switcher button::after {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+
+  .flow-lines path {
+    animation: none !important;
   }
 }

@@ -22,6 +22,18 @@ const expectedViews = [
 ];
 
 const html = fs.readFileSync(fromRoot('docs', 'index.html'), 'utf8');
+const css = fs.readFileSync(fromRoot('docs', 'styles.css'), 'utf8');
+
+test('preview CSS defines eight-view geometry, playback progress, and reduced-motion safety', () => {
+  assert.match(css, /\.view-switcher\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*repeat\(4,/s);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*\.view-switcher\s*\{[^}]*overflow-x:\s*auto/s);
+  assert.match(css, /scroll-snap-type:\s*x mandatory/);
+  assert.match(css, /\[data-preview-running="true"\]/);
+  assert.match(css, /@keyframes preview-progress/);
+  assert.match(css, /@keyframes preview-panel-in/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.diagram-view/s);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.flow-lines path\s*\{[^}]*animation:\s*none !important/s);
+});
 
 class FakeEventTarget {
   constructor() {
