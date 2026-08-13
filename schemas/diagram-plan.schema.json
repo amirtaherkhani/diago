@@ -3,69 +3,124 @@
   "$id": "https://amirtaherkhani.github.io/diago/schemas/diagram-plan.schema.json",
   "title": "Engineering Diagram Plan",
   "type": "object",
-  "required": ["schemaVersion", "task", "goal", "audience", "scope", "evidence", "views", "output"],
+  "additionalProperties": false,
+  "required": ["schemaVersion", "task", "goal", "source", "audience", "selection", "scope", "evidence", "complexity", "views", "fidelity", "constraints", "output"],
   "properties": {
-    "schemaVersion": { "const": 1 },
+    "schemaVersion": { "const": 2 },
     "task": { "type": "string", "minLength": 6 },
     "goal": { "type": "string", "minLength": 6 },
-    "audience": { "type": "string", "minLength": 3 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "scope", "references"],
+      "properties": {
+        "kind": { "enum": ["prompt", "repository", "conversation", "mixed"] },
+        "scope": { "type": "string", "minLength": 6 },
+        "references": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "audience": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "detail"],
+      "properties": {
+        "role": { "type": "string", "minLength": 6 },
+        "detail": { "enum": ["technical", "mixed", "executive"] }
+      }
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questionKind", "semanticPattern", "renderer", "profile", "rationale"],
+      "properties": {
+        "questionKind": { "type": "string", "minLength": 1 },
+        "semanticPattern": { "type": "string", "minLength": 1 },
+        "renderer": { "$ref": "#/$defs/renderer" },
+        "profile": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string", "minLength": 6 }
+      }
+    },
     "scope": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["in", "out"],
       "properties": {
         "in": { "type": "array", "items": { "type": "string" } },
         "out": { "type": "array", "items": { "type": "string" } }
-      },
-      "additionalProperties": false
+      }
     },
     "evidence": {
       "type": "object",
-      "required": ["facts", "assumptions", "recommendations"],
+      "additionalProperties": false,
+      "required": ["facts", "assumptions", "recommendations", "superseded"],
       "properties": {
         "facts": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
         "assumptions": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
-        "recommendations": { "type": "array", "items": { "$ref": "#/$defs/claim" } }
-      },
-      "additionalProperties": false
+        "recommendations": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "superseded": { "type": "array", "items": { "$ref": "#/$defs/claim" } }
+      }
+    },
+    "complexity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["detail", "budget", "decomposition"],
+      "properties": {
+        "detail": { "enum": ["overview", "balanced", "detailed"] },
+        "budget": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "integer", "minimum": 1 } },
+        "decomposition": { "enum": ["single", "overview-detail"] }
+      }
     },
     "views": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["type", "question", "focus"],
+        "additionalProperties": false,
+        "required": ["type", "profile", "role", "question", "focus"],
         "properties": {
-          "type": {
-            "enum": ["architecture", "workflow", "sequence", "dataflow", "lifecycle"]
-          },
+          "type": { "$ref": "#/$defs/renderer" },
+          "profile": { "type": "string", "minLength": 1 },
+          "role": { "enum": ["primary", "detail"] },
           "question": { "type": "string", "minLength": 6 },
           "focus": { "type": "array", "items": { "type": "string" } }
-        },
-        "additionalProperties": false
+        }
+      }
+    },
+    "fidelity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["merged", "collapsed", "omitted", "preserved"],
+      "properties": {
+        "merged": { "type": "array", "items": { "type": "string" } },
+        "collapsed": { "type": "array", "items": { "type": "string" } },
+        "omitted": { "type": "array", "items": { "type": "string" } },
+        "preserved": { "type": "array", "items": { "type": "string" } }
       }
     },
     "constraints": { "type": "array", "items": { "type": "string" } },
     "output": {
       "type": "object",
-      "required": ["format", "quality"],
+      "additionalProperties": false,
+      "required": ["format", "quality", "destination"],
       "properties": {
         "format": { "const": "standalone-html" },
-        "quality": { "enum": ["standard", "showcase"] }
-      },
-      "additionalProperties": false
+        "quality": { "enum": ["standard", "showcase"] },
+        "destination": { "type": "string", "minLength": 1 }
+      }
     }
   },
   "$defs": {
+    "renderer": { "enum": ["architecture", "sequence", "workflow", "dataflow", "lifecycle", "data-model", "timeline", "layers"] },
     "claim": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["statement", "source"],
       "properties": {
-        "statement": { "type": "string", "minLength": 3 },
+        "statement": { "type": "string", "minLength": 6 },
         "source": { "type": "string", "minLength": 1 },
-        "confidence": { "enum": ["high", "medium", "low"] }
-      },
-      "additionalProperties": false
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "environment": { "type": "string", "minLength": 1 }
+      }
     }
-  },
-  "additionalProperties": false
+  }
 }

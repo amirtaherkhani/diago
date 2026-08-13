@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "task": "Trace an idempotent checkout request",
+  "goal": "Explain the request and retry behavior",
+  "audience": "software engineers and technical reviewers",
+  "scope": {
+    "in": ["API", "checkout service", "payment provider"],
+    "out": ["provider settlement"]
+  },
+  "evidence": {
+    "facts": [
+      {
+        "statement": "The API accepts an idempotency key.",
+        "source": "openapi.json"
+      }
+    ],
+    "assumptions": [],
+    "recommendations": []
+  },
+  "views": [
+    {
+      "type": "sequence",
+      "question": "What happens from request to response?",
+      "focus": ["ordered calls", "retry response"]
+    }
+  ],
+  "constraints": ["Keep assumptions separate from facts."],
+  "output": {
+    "format": "standalone-html",
+    "quality": "showcase"
+  }
+}
