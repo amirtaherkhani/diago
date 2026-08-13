@@ -531,7 +531,7 @@ h1 em {
 
 .flow-lines path {
   fill: none;
-  stroke: #6ca8ff;
+  stroke: var(--blue);
   stroke-width: 1.7;
   marker-end: url("#arrow-a");
   stroke-dasharray: 7 5;
@@ -543,13 +543,40 @@ h1 em {
 }
 
 .flow-lines .flow-secondary {
-  stroke: #6ef3c5;
+  stroke: var(--mint);
   stroke-dasharray: 3 5;
 }
 
+.diagram-view [data-animate-edge] .flow-primary {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 1.7;
+}
+
+.diagram-view [data-animate-edge] .flow-secondary {
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 1.7;
+  stroke-dasharray: 4 5;
+}
+
+.diagram-view [data-animate-edge] text {
+  fill: var(--muted);
+  font-family: var(--mono);
+  font-size: 8.5px;
+}
+
+.diagram-view marker path {
+  fill: context-stroke;
+}
+
 .diagram-node rect {
+  fill: var(--surface);
+  stroke: var(--line-strong);
+}
+
+#preview-panel-architecture .diagram-node rect {
   fill: url("#node-sheen");
-  stroke: #34465a;
 }
 
 .diagram-node circle {
@@ -570,20 +597,44 @@ h1 em {
   font-weight: 500;
 }
 
-.diagram-node.node-highlight rect {
-  fill: #142a28;
-  stroke: rgba(110, 243, 197, 0.66);
+.diagram-node .node-highlight rect {
+  fill: var(--surface-verified);
+  stroke: var(--line-verified);
 }
 
+.diagram-node.node-highlight rect {
+  fill: var(--surface-verified);
+  stroke: var(--line-verified);
+}
+
+.diagram-node .node-highlight circle,
 .diagram-node.node-highlight circle,
+.diagram-node .node-store circle,
 .diagram-node.node-store circle {
   fill: var(--mint);
 }
 
-.diagram-node.node-store rect {
-  stroke: rgba(110, 243, 197, 0.4);
+.diagram-node .node-store rect {
+  fill: var(--surface-verified);
+  stroke: var(--line-verified);
 }
 
+.diagram-node.node-store rect {
+  fill: var(--surface-verified);
+  stroke: var(--line-verified);
+}
+
+.diagram-node .node-provider rect {
+  fill: var(--surface-strong);
+  stroke: var(--orange);
+}
+
+.diagram-node.node-provider rect {
+  fill: var(--surface-strong);
+  stroke: var(--orange);
+}
+
+.diagram-node .node-provider circle,
 .diagram-node.node-provider circle {
   fill: var(--orange);
 }
@@ -1708,9 +1759,13 @@ footer {
 
   .diagram-stage {
     min-height: 280px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
   }
 
-  .diagram-stage svg {
+  .diagram-stage .diagram-view {
+    min-width: 640px;
     min-height: 280px;
   }
 
@@ -1869,10 +1924,15 @@ footer {
 
   .diagram-view,
   .diagram-view [data-animate-node],
-  .diagram-view [data-animate-edge],
-  .view-switcher button::after {
+  .diagram-view [data-animate-edge] {
     animation: none !important;
     opacity: 1;
+    transform: none;
+  }
+
+  .view-switcher button::after {
+    animation: none !important;
+    opacity: 0;
     transform: none;
   }
 

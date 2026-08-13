@@ -35,6 +35,22 @@ test('preview CSS defines eight-view geometry, playback progress, and reduced-mo
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.flow-lines path\s*\{[^}]*animation:\s*none !important/s);
 });
 
+test('preview primitives keep semantic edges readable and diagrams pannable on narrow screens', () => {
+  const reducedMotionCss = css.split('@media (prefers-reduced-motion: reduce)')[1] ?? '';
+
+  assert.match(css, /\.diagram-view \[data-animate-edge\] \.flow-primary\s*\{[^}]*stroke:\s*var\(--blue\)[^}]*stroke-width:\s*1\.7/s);
+  assert.match(css, /\.diagram-view \[data-animate-edge\] \.flow-secondary\s*\{[^}]*stroke:\s*var\(--mint\)[^}]*stroke-dasharray:\s*4 5/s);
+  assert.match(css, /\.diagram-view marker path\s*\{[^}]*fill:\s*context-stroke/s);
+  assert.match(css, /\.diagram-view \[data-animate-edge\] text\s*\{[^}]*fill:\s*var\(--muted\)/s);
+  assert.match(css, /\.diagram-node \.node-highlight rect\s*\{[^}]*fill:\s*var\(--surface-verified\)/s);
+  assert.match(css, /\.diagram-node \.node-provider rect\s*\{[^}]*stroke:\s*var\(--orange\)/s);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*\.diagram-stage\s*\{[^}]*overflow-x:\s*auto/s);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*\.diagram-stage \.diagram-view\s*\{[^}]*min-width:\s*640px/s);
+  assert.match(reducedMotionCss, /\.view-switcher button::after[\s\S]*opacity:\s*0/);
+  assert.doesNotMatch(html, /gradient-(workflow|dataflow|lifecycle|data-model|timeline|layers)/);
+  assert.match(html, /class="timeline-first-milestone" data-timeline-track="application"/);
+});
+
 class FakeEventTarget {
   constructor() {
     this.listeners = new Map();

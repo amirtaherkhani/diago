@@ -212,12 +212,11 @@
               <title id="workflow-title">Schema rollout workflow from draft migration through verification, promotion, and rollback</title>
               <defs>
                 <marker id="arrow-workflow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
-                <linearGradient id="gradient-workflow" x1="0" x2="1"><stop offset="0" stop-color="#142a28"/><stop offset="1" stop-color="#172331"/></linearGradient>
               </defs>
               <g class="diagram-grid" aria-hidden="true"><path d="M0 64H760M0 154H760M0 244H760M0 334H760"/></g>
               <g class="diagram-node" data-animate-node style="--reveal-index: 0">
                 <text class="boundary-label" x="18" y="50">AUTHOR</text><text class="boundary-label" x="18" y="140">CI</text><text class="boundary-label" x="18" y="230">DATABASE</text><text class="boundary-label" x="18" y="320">OPERATOR</text>
-                <g><rect x="32" y="76" width="120" height="48" rx="12" fill="url(#gradient-workflow)"/><text x="92" y="105" text-anchor="middle">Draft migration</text></g>
+                <g><rect x="32" y="76" width="120" height="48" rx="12"/><text x="92" y="105" text-anchor="middle">Draft migration</text></g>
                 <g><rect x="165" y="130" width="130" height="48" rx="12"/><text x="230" y="159" text-anchor="middle">Backup verified</text></g>
                 <g><rect x="309" y="220" width="130" height="48" rx="12"/><text x="374" y="249" text-anchor="middle">Shadow schema</text></g>
                 <g><rect x="455" y="130" width="130" height="48" rx="12"/><text x="520" y="159" text-anchor="middle">Read checks</text></g>
@@ -234,11 +233,10 @@
               <title id="dataflow-title">Tokenized payment events flowing from gateway through normalization to ledger and warehouse</title>
               <defs>
                 <marker id="arrow-dataflow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
-                <linearGradient id="gradient-dataflow" x1="0" x2="1"><stop offset="0" stop-color="#142332"/><stop offset="1" stop-color="#142a28"/></linearGradient>
               </defs>
               <g class="diagram-node" data-animate-node style="--reveal-index: 0">
                 <g class="node-provider"><rect x="34" y="170" width="122" height="76" rx="14"/><text x="95" y="213" text-anchor="middle">Gateway</text></g>
-                <g><rect x="175" y="170" width="122" height="76" rx="14" fill="url(#gradient-dataflow)"/><text x="236" y="204" text-anchor="middle">Normalizer</text><text class="node-meta" x="236" y="226" text-anchor="middle">tokenized</text></g>
+                <g><rect x="175" y="170" width="122" height="76" rx="14"/><text x="236" y="204" text-anchor="middle">Normalizer</text><text class="node-meta" x="236" y="226" text-anchor="middle">tokenized</text></g>
                 <g class="node-highlight"><rect x="316" y="170" width="122" height="76" rx="14"/><text x="377" y="213" text-anchor="middle">Event bus</text></g>
                 <g class="node-store"><rect x="457" y="96" width="122" height="76" rx="14"/><text x="518" y="139" text-anchor="middle">Ledger</text></g>
                 <g class="node-store"><rect x="598" y="270" width="122" height="76" rx="14"/><text x="659" y="313" text-anchor="middle">Warehouse</text></g>
@@ -253,10 +251,9 @@
               <title id="lifecycle-title">Payment lifecycle from creation to settlement with failed and refunded paths</title>
               <defs>
                 <marker id="arrow-lifecycle" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
-                <linearGradient id="gradient-lifecycle" x1="0" x2="1"><stop offset="0" stop-color="#172331"/><stop offset="1" stop-color="#142a28"/></linearGradient>
               </defs>
               <g class="diagram-node" data-animate-node style="--reveal-index: 0">
-                <g><rect x="38" y="82" width="116" height="60" rx="30" fill="url(#gradient-lifecycle)"/><text x="96" y="117" text-anchor="middle">Created</text></g>
+                <g><rect x="38" y="82" width="116" height="60" rx="30"/><text x="96" y="117" text-anchor="middle">Created</text></g>
                 <g><rect x="228" y="82" width="116" height="60" rx="30"/><text x="286" y="117" text-anchor="middle">Authorized</text></g>
                 <g><rect x="418" y="82" width="116" height="60" rx="30"/><text x="476" y="117" text-anchor="middle">Captured</text></g>
                 <g class="node-highlight"><rect x="606" y="82" width="116" height="60" rx="30"/><text x="664" y="117" text-anchor="middle">Settled</text></g>
@@ -273,10 +270,9 @@
               <title id="data-model-title">Order domain relationships among orders, payment attempts, idempotency keys, and refunds</title>
               <defs>
                 <marker id="arrow-data-model" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
-                <linearGradient id="gradient-data-model" x1="0" x2="1"><stop offset="0" stop-color="#142332"/><stop offset="1" stop-color="#172331"/></linearGradient>
               </defs>
               <g class="diagram-node" data-animate-node style="--reveal-index: 0">
-                <g><rect x="42" y="72" width="170" height="122" rx="14" fill="url(#gradient-data-model)"/><text x="62" y="104">Order</text><text class="node-meta" x="62" y="134">id · status</text></g>
+                <g><rect x="42" y="72" width="170" height="122" rx="14"/><text x="62" y="104">Order</text><text class="node-meta" x="62" y="134">id · status</text></g>
                 <g class="node-highlight"><rect x="294" y="52" width="178" height="142" rx="14"/><text x="314" y="84">PaymentAttempt</text><text class="node-meta" x="314" y="114">id · orderId · keyId</text></g>
                 <g><rect x="548" y="72" width="170" height="122" rx="14"/><text x="568" y="104">IdempotencyKey</text><text class="node-meta" x="568" y="134">id · fingerprint</text></g>
                 <g class="node-store"><rect x="294" y="256" width="178" height="108" rx="14"/><text x="314" y="288">Refund</text><text class="node-meta" x="314" y="318">id · attemptId</text></g>
@@ -291,18 +287,17 @@
               <title id="timeline-title">Payment migration timeline across application, data, and operations tracks</title>
               <defs>
                 <marker id="arrow-timeline" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
-                <linearGradient id="gradient-timeline" x1="0" x2="1"><stop offset="0" stop-color="#142a28"/><stop offset="1" stop-color="#172331"/></linearGradient>
               </defs>
               <g class="diagram-node" data-animate-node style="--reveal-index: 0">
                 <text class="boundary-label" x="18" y="78">APPLICATION</text><text class="boundary-label" x="18" y="196">DATA</text><text class="boundary-label" x="18" y="314">OPERATIONS</text>
-                <g><circle cx="105" cy="92" r="12"/><text x="105" y="72" text-anchor="middle">Dual write</text></g>
+                <g class="timeline-first-milestone" data-timeline-track="application"><circle cx="145" cy="92" r="12"/><text x="145" y="72" text-anchor="middle">Dual write</text></g>
                 <g><circle cx="278" cy="210" r="12"/><text x="278" y="190" text-anchor="middle">Backfill</text></g>
                 <g class="node-highlight"><circle cx="451" cy="92" r="12"/><text x="451" y="72" text-anchor="middle">Read switch</text></g>
-                <g><circle cx="624" cy="328" r="12" fill="url(#gradient-timeline)"/><text x="624" y="308" text-anchor="middle">Cleanup</text><text class="node-meta" x="624" y="360" text-anchor="middle">assumption · Sep 30</text></g>
+                <g><circle cx="624" cy="328" r="12"/><text x="624" y="308" text-anchor="middle">Cleanup</text><text class="node-meta" x="624" y="360" text-anchor="middle">assumption · Sep 30</text></g>
                 <g class="node-provider"><rect x="358" y="292" width="150" height="46" rx="12"/><text x="433" y="320" text-anchor="middle">Rollback checkpoint</text></g>
               </g>
               <g data-animate-edge style="--reveal-index: 1" fill="none" marker-end="url(#arrow-timeline)">
-                <path class="flow-primary" d="M117 92C170 92 225 210 266 210M290 210C340 210 395 92 439 92M463 92C520 92 570 328 612 328"/>
+                <path class="flow-primary" d="M157 92C190 92 225 210 266 210M290 210C340 210 395 92 439 92M463 92C520 92 570 328 612 328"/>
                 <path class="flow-secondary" d="M433 292V120"/>
               </g>
             </svg>
@@ -311,10 +306,9 @@
               <title id="layers-title">Checkout responsibility layers with an observability and policy cross-cut and authorization gap</title>
               <defs>
                 <marker id="arrow-layers" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z"/></marker>
-                <linearGradient id="gradient-layers" x1="0" x2="1"><stop offset="0" stop-color="#142a28"/><stop offset="1" stop-color="#142332"/></linearGradient>
               </defs>
               <g class="diagram-node" data-animate-node style="--reveal-index: 0">
-                <rect x="40" y="48" width="66" height="304" rx="14" fill="url(#gradient-layers)"/><text x="73" y="200" text-anchor="middle" transform="rotate(-90 73 200)">Observability + proposed policy</text>
+                <rect x="40" y="48" width="66" height="304" rx="14"/><text x="73" y="200" text-anchor="middle" transform="rotate(-90 73 200)">Observability + proposed policy</text>
                 <g><rect x="142" y="48" width="538" height="58" rx="12"/><text x="411" y="82" text-anchor="middle">Interface</text></g>
                 <g class="node-provider"><rect x="142" y="126" width="538" height="58" rx="12"/><text x="411" y="160" text-anchor="middle">Application · authorization gap</text></g>
                 <g class="node-highlight"><rect x="142" y="204" width="538" height="58" rx="12"/><text x="411" y="238" text-anchor="middle">Domain</text></g>
