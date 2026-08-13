@@ -21,6 +21,7 @@ Diago uses a restrained engineering-workbench aesthetic: near-black layered surf
 | Muted text | `--muted` | `#91a2b5` |
 | Strong muted text | `--muted-strong` | `#b8c4d0` |
 | Verified | `--mint` | `#6ef3c5` |
+| Verified hover | `--mint-strong` | `#39dca9` |
 | Current relationship | `--blue` | `#6ca8ff` |
 | Provider | `--orange` | `#ff9d6c` |
 | Risk | `--rose` | `#ff7f9f` |
@@ -46,6 +47,45 @@ Diago uses a restrained engineering-workbench aesthetic: near-black layered surf
 | Workbench shell surface | `--workbench-shell-surface` | `#0d141e` |
 | Workbench shell shadow | `--workbench-shell-shadow` | `0 38px 90px rgba(0, 0, 0, 0.36)` |
 | Idle workbench dot | `--workbench-dot-idle` | `#344356` |
+| Page background start | `--page-background-start` | `rgba(11, 16, 24, 0.94)` |
+| Page background end | `--page-background-end` | `rgba(11, 16, 24, 0.98)` |
+| Page grid line | `--page-grid-line` | `rgba(255, 255, 255, 0.018)` |
+| Page ambient glow | `--page-ambient-glow` | `rgba(108, 168, 255, 0.09)` |
+| Text on accent | `--text-on-accent` | `#07120f` |
+| Header border | `--header-border` | `rgba(145, 162, 181, 0.14)` |
+| Header surface | `--header-surface` | `rgba(11, 16, 24, 0.78)` |
+| Brand ring | `--brand-ring` | `rgba(110, 243, 197, 0.2)` |
+| Primary button shadow | `--button-primary-shadow` | `0 12px 34px rgba(57, 220, 169, 0.13)` |
+| Primary button hover | `--button-primary-hover` | `#8af8d2` |
+| Interactive surface | `--surface-interactive` | `rgba(18, 27, 39, 0.56)` |
+| Interactive border hover | `--line-interactive-hover` | `#43556b` |
+| Fact evidence border | `--evidence-fact-border` | `rgba(110, 243, 197, 0.4)` |
+| Assumption evidence border | `--evidence-assumption-border` | `rgba(242, 212, 122, 0.45)` |
+| Recommendation evidence border | `--evidence-recommendation-border` | `rgba(108, 168, 255, 0.5)` |
+| Section surface | `--section-surface` | `rgba(16, 23, 34, 0.72)` |
+| Verified signal glow | `--signal-glow` | `0 0 8px rgba(110, 243, 197, 0.5)` |
+| View code text | `--view-code-text` | `#7890a8` |
+| Diagram glyph surface | `--glyph-surface` | `#101925` |
+| Diagram glyph line | `--glyph-line` | `#3a5b78` |
+| Contract section surface | `--contract-surface` | `#0e151f` |
+| Code window border | `--code-window-border` | `#2a3a4d` |
+| Code window surface | `--code-window-surface` | `#0a1017` |
+| Code window shadow | `--code-window-shadow` | `0 30px 80px rgba(0, 0, 0, 0.25)` |
+| Code text | `--code-text` | `#c8d6e3` |
+| Code punctuation | `--code-punctuation` | `#8094a8` |
+| Install panel surface | `--install-panel-surface` | `rgba(15, 23, 34, 0.86)` |
+| Terminal border | `--terminal-border` | `#2c3d50` |
+| Terminal surface | `--terminal-surface` | `#080d13` |
+| Footer surface | `--footer-surface` | `#080c12` |
+| Mobile menu surface | `--mobile-menu-surface` | `#101721` |
+| Mobile navigation surface | `--mobile-nav-surface` | `#0d141e` |
+| Mobile navigation shadow | `--mobile-nav-shadow` | `0 20px 50px rgba(0, 0, 0, 0.35)` |
+| Sans type stack | `--sans` | `Inter, ui-sans-serif, system sans` |
+| Monospace type stack | `--mono` | `SFMono-Regular, Consolas, Liberation Mono` |
+| Content maximum width | `--max` | `1180px` |
+| Small radius | `--radius-sm` | `10px` |
+| Medium radius | `--radius-md` | `18px` |
+| Large radius | `--radius-lg` | `28px` |
 | Strong workbench weight | `--font-weight-strong` | `700` |
 | Diagram label weight | `--font-weight-diagram-label` | `720` |
 | Diagram metadata weight | `--font-weight-meta` | `500` |
@@ -119,6 +159,8 @@ The hero remains two columns above 1050px and stacks at 1050px and below. The wo
 
 ## 6. Motion
 Panels enter with opacity and an 8px vertical transform using the existing ease-out character. Nodes resolve in reading order at 55ms intervals. Edges trace once after their source nodes. The selected tab carries one 5-second progress line only while the timer is active. Temporary holds stop and restart the cycle; they do not add decorative motion.
+
+Each animated SVG group sets the local `--reveal-index` sequencing value in markup. It is a per-element motion input rather than a global design token.
 
 ## 7. Accessibility Constraints
 Use the WAI-ARIA tabs pattern with roving tabindex, `aria-controls`, `aria-labelledby`, Left/Right/Home/End keys, and visible focus. Automatic changes have an adjacent pause control and stop on hover, focus within the workbench, document hiding, or reduced-motion preference. Color never carries evidence meaning alone.

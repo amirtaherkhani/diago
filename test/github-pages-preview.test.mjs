@@ -24,32 +24,21 @@ const css = fs.readFileSync(fromRoot('docs', 'styles.css'), 'utf8');
 const design = fs.readFileSync(fromRoot('DESIGN.md'), 'utf8');
 const previewStart = html.indexOf('data-diagram-preview');
 const previewMarkup = html.slice(previewStart, html.indexOf('</section>', previewStart));
-const previewTokens = [
-  '--workbench-shell-border',
-  '--workbench-shell-surface',
-  '--workbench-shell-shadow',
-  '--workbench-tab-selected-surface',
-  '--workbench-tab-selected-border',
-  '--workbench-type-chrome',
-  '--workbench-type-tab',
-  '--diagram-stage-grid',
-  '--diagram-grid-line',
-  '--diagram-node-sheen-start',
-  '--diagram-node-sheen-end',
-  '--diagram-stroke-primary',
-  '--diagram-dash-standard',
-  '--preview-lane-line',
-];
+test('every root design token and local motion input is documented', () => {
+  const rootTokens = [...css.matchAll(/^\s*(--[\w-]+):/gm)].map((match) => match[1]);
 
-test('preview material tokens are defined in CSS and documented', () => {
-  for (const token of previewTokens) {
-    assert.match(css, new RegExp(`${token}:`));
-    assert.match(design, new RegExp('`' + token + '`'));
-  }
+  for (const token of rootTokens) assert.match(design, new RegExp('`' + token + '`'));
+  assert.match(design, /`--reveal-index`/);
 });
 
 test('preview markup contains no raw paint literals', () => {
   assert.doesNotMatch(previewMarkup, /#[0-9a-f]{3,8}\b|rgba?\(/i);
+});
+
+test('rendered site paint is declared only in the root token layer', () => {
+  const componentCss = css.replace(/:root\s*\{[\s\S]*?\n\}/, '');
+
+  assert.doesNotMatch(componentCss, /#[0-9a-f]{3,8}\b|rgba?\(/i);
 });
 
 test('hero metadata exposes exactly the eight renderer views in catalog order', () => {
