@@ -45,6 +45,7 @@ test('data-model validates endpoints and renders accessible cardinality', () => 
   assert.match(rendered.first, /<desc id=/);
   assert.match(rendered.first, /tabindex="0"/);
   assert.match(rendered.first, /1\.\.\*/);
+  assert.match(rendered.first, /data-route="outer"[^>]+aria-label="replays"|aria-label="replays"[\s\S]+data-route="outer"/);
   assert.match(rendered.first, /prefers-reduced-motion/);
   assert.equal(rendered.first, rendered.second);
 });
