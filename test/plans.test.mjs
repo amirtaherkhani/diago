@@ -99,6 +99,32 @@ test('review blocks local absolute paths from public evidence', () => {
   assert.ok(result.findings.some(({ code }) => code === 'unsafe-source-label'));
 });
 
+test('review reports malformed source references without throwing', () => {
+  // Given an otherwise valid plan with a non-array source reference contract
+  const plan = createPlan('Explain checkout ownership and dependencies');
+  plan.source.references = { private: 'src/checkout' };
+
+  // When the plan is reviewed
+  const result = reviewPlan(plan);
+
+  // Then malformed external input becomes a finding instead of a runtime error
+  assert.equal(result.ok, false);
+  assert.ok(result.findings.some(({ code }) => code === 'invalid-source-references'));
+});
+
+test('review rejects empty or non-object complexity budgets', () => {
+  // Given two schema-invalid budget shapes
+  for (const budget of [{}, [1]]) {
+    const plan = createPlan('Explain checkout ownership and dependencies');
+    plan.complexity.budget = budget;
+
+    // When each plan is reviewed, then its budget contract blocks delivery
+    const result = reviewPlan(plan);
+    assert.equal(result.ok, false);
+    assert.ok(result.findings.some(({ code }) => code === 'invalid-complexity-budget'));
+  }
+});
+
 test('schema v2 checkout example passes review without findings', () => {
   // Given the public checkout plan example
   const plan = readJson('examples', 'checkout-feature.diagram-plan.json');
