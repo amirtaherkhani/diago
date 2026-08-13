@@ -87,3 +87,31 @@ test('bundled Archify validates and renders the showcase example', () => {
     fs.rmSync(temporary, { recursive: true, force: true });
   }
 });
+
+test('CLI validates and renders every Diago-owned native example', () => {
+  // Given the three Diago-owned renderer examples
+  const examples = [
+    ['data-model', 'order-domain.data-model.json'],
+    ['timeline', 'payment-migration.timeline.json'],
+    ['layers', 'checkout-controls.layers.json'],
+  ];
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'diago-native-cli-'));
+
+  try {
+    for (const [type, file] of examples) {
+      // When each example is validated and rendered through the public CLI
+      const input = fromRoot('examples', file);
+      const output = path.join(temporary, `${type}.html`);
+      const validation = run(['validate', type, input, '--json']);
+      const render = run(['render', type, input, output]);
+
+      // Then the same native contract is available without MCP
+      assert.equal(validation.status, 0, validation.stderr);
+      assert.equal(JSON.parse(validation.stdout).ok, true);
+      assert.equal(render.status, 0, render.stderr);
+      assert.match(fs.readFileSync(output, 'utf8'), /role="img"/);
+    }
+  } finally {
+    fs.rmSync(temporary, { recursive: true, force: true });
+  }
+});

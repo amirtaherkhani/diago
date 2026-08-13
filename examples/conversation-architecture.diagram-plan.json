@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
-  "task": "Visualize the software architecture discussed in the accessible conversation.",
-  "goal": "Explain the parts, responsibilities, directed connections, and collaboration.",
+  "task": "Visualize the software architecture accepted in the accessible conversation.",
+  "goal": "Explain component responsibilities, directed connections, and control placement.",
   "source": {
     "kind": "conversation",
-    "scope": "State the active, history-tool, or user-supplied conversation window.",
+    "scope": "Active visible conversation and explicitly accepted decisions",
     "references": ["active-visible conversation window"]
   },
   "audience": {
-    "role": "Name the primary reader.",
+    "role": "software engineers and design reviewers",
     "detail": "technical"
   },
   "selection": {
@@ -16,23 +16,29 @@
     "semanticPattern": "structural-ownership-dependency",
     "renderer": "architecture",
     "profile": "feature-context",
-    "rationale": "Architecture is primary because the conversation asks how parts own and connect."
+    "rationale": "Component ownership and collaboration are primary; control placement is a bounded detail."
   },
   "scope": {
-    "in": ["List included system boundaries."],
-    "out": ["List excluded topics and unavailable history."]
+    "in": ["accepted components", "responsibilities", "directed connections", "control placement"],
+    "out": ["unavailable chat history", "superseded proposals as current behavior"]
   },
   "evidence": {
     "facts": [
       {
-        "statement": "Add one explicit or verified architecture claim.",
-        "source": "visible conversation statement, authorized tool result, or repository-relative source",
+        "statement": "Architecture is the primary view requested for the conversation.",
+        "source": "explicit user statement in active-visible conversation",
         "confidence": "high"
       }
     ],
     "assumptions": [],
     "recommendations": [],
-    "superseded": []
+    "superseded": [
+      {
+        "statement": "An earlier deployment option was replaced by local standard stdio MCP.",
+        "source": "later explicit decision in active-visible conversation",
+        "confidence": "high"
+      }
+    ]
   },
   "complexity": {
     "detail": "balanced",
@@ -44,8 +50,15 @@
       "type": "architecture",
       "profile": "feature-context",
       "role": "primary",
-      "question": "What are the parts, how do they connect, and what does each part own?",
+      "question": "What are the accepted parts, what does each own, and how do they connect?",
       "focus": ["components", "boundaries", "directed connections", "responsibilities"]
+    },
+    {
+      "type": "layers",
+      "profile": "control-enforcement",
+      "role": "detail",
+      "question": "At which layers are the accepted controls enforced?",
+      "focus": ["responsibilities", "controls", "allowed dependencies", "gaps"]
     }
   ],
   "fidelity": {

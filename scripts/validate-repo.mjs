@@ -2,7 +2,10 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { listDiagramTypes } from '../lib/diagram-catalog.mjs';
 import { fromRoot } from '../lib/paths.mjs';
+import { validateDiagramDocument } from '../lib/renderer-registry.mjs';
+import { reviewPlan } from '../lib/reviewer.mjs';
 
 const errors = [];
 
@@ -44,10 +47,49 @@ const mcpConfig = readJson('.mcp.json');
 const upstreams = readJson('vendor/upstreams.lock.json');
 const packageManifest = readJson('package.json');
 readJson('schemas/diagram-plan.schema.json');
+readJson('schemas/diagram-plan-v1.schema.json');
 readJson('schemas/advice.schema.json');
+readJson('schemas/data-model.schema.json');
+readJson('schemas/timeline.schema.json');
+readJson('schemas/layers.schema.json');
 readJson('knowledge/diagram-recipes.json');
-readJson('examples/checkout-feature.diagram-plan.json');
+const planExamples = [
+  'examples/checkout-feature.diagram-plan.json',
+  'examples/repository-domain.diagram-plan.json',
+  'examples/conversation-architecture.diagram-plan.json',
+  'skills/diago-engineering-diagram/assets/diagram-plan.json',
+  'skills/diago-chat-architecture/assets/diago-chat-architecture-plan.json',
+];
+for (const file of planExamples) {
+  const plan = readJson(file);
+  if (plan) check(reviewPlan(plan).ok, `${file} must pass diagram plan review.`);
+}
 readJson('examples/plugin-request.architecture.json');
+
+const nativeExamples = {
+  'data-model': 'examples/order-domain.data-model.json',
+  timeline: 'examples/payment-migration.timeline.json',
+  layers: 'examples/checkout-controls.layers.json',
+};
+for (const [type, file] of Object.entries(nativeExamples)) {
+  const diagram = readJson(file);
+  if (!diagram) continue;
+  try {
+    validateDiagramDocument({ type, diagram });
+  } catch (error) {
+    errors.push(`${file}: ${error.message}`);
+  }
+}
+
+const catalog = listDiagramTypes();
+check(catalog.length === 8, 'The public catalog must expose exactly eight native renderers.');
+check(new Set(catalog.map(({ type }) => type)).size === catalog.length, 'Renderer catalog types must be unique.');
+for (const renderer of catalog) {
+  const schema = renderer.engine === 'archify'
+    ? fromRoot('vendor', 'archify', 'schemas', `${renderer.type}.schema.json`)
+    : fromRoot('schemas', `${renderer.type}.schema.json`);
+  check(fs.existsSync(schema), `${renderer.type} renderer schema is missing.`);
+}
 
 check(codexManifest?.name === 'diago', 'Codex plugin name is incorrect.');
 check(codexManifest?.version === packageManifest?.version, 'Codex plugin version must match package.json.');

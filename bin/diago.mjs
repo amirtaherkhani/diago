@@ -4,10 +4,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { runArchify } from '../lib/archify.mjs';
-import { DIAGRAM_TYPES, listDiagramTypes } from '../lib/diagram-catalog.mjs';
+import { parseContextArgs, parseNativeOptions } from '../lib/cli-options.mjs';
+import { DIAGRAM_TYPES, getDiagramType, listDiagramTypes } from '../lib/diagram-catalog.mjs';
 import { createPlan } from '../lib/planner.mjs';
 import { advise, formatAdvice } from '../lib/recommender.mjs';
-import { runRendererCommand } from '../lib/renderer-registry.mjs';
+import {
+  renderDiagramDocument,
+  runRendererCommand,
+  validateDiagramDocument,
+} from '../lib/renderer-registry.mjs';
 import { reviewPlan } from '../lib/reviewer.mjs';
 import { fromRoot } from '../lib/paths.mjs';
 
@@ -35,48 +40,19 @@ function fail(message, code = 2) {
   process.exit(code);
 }
 
-function optionValue(args, index, name) {
-  const value = args[index + 1];
-  if (!value || value.startsWith('--')) fail(`${name} requires a value.`);
-  return value;
-}
-
-function parseContextArgs(args, allowOutput) {
-  const positional = [];
-  const context = {};
-  let json = false;
-  let output = null;
-
-  for (let index = 0; index < args.length; index += 1) {
-    const arg = args[index];
-    if (arg === '--json') {
-      json = true;
-    } else if (arg === '--source') {
-      context.sourceKind = optionValue(args, index, '--source');
-      index += 1;
-    } else if (arg === '--audience') {
-      context.audienceDetail = optionValue(args, index, '--audience');
-      index += 1;
-    } else if (arg === '--destination') {
-      context.destination = optionValue(args, index, '--destination');
-      index += 1;
-    } else if (arg === '--out' && allowOutput) {
-      output = optionValue(args, index, '--out');
-      index += 1;
-    } else if (arg.startsWith('--')) {
-      fail(`Unknown option "${arg}".`);
-    } else {
-      positional.push(arg);
-    }
-  }
-  return { positional, context, json, output };
-}
-
 function readJson(file) {
   try {
     return JSON.parse(fs.readFileSync(path.resolve(file), 'utf8'));
   } catch (error) {
     fail(`Could not read JSON from "${file}": ${error.message}`);
+  }
+}
+
+function parseCliInput(callback) {
+  try {
+    return callback();
+  } catch (error) {
+    fail(error instanceof Error ? error.message : 'Could not parse command options.');
   }
 }
 
@@ -94,7 +70,7 @@ function commandTypes(args) {
 }
 
 function commandAdvise(args) {
-  const parsed = parseContextArgs(args, false);
+  const parsed = parseCliInput(() => parseContextArgs(args));
   const query = parsed.positional.join(' ').trim();
   if (!query) fail(usage());
   try {
@@ -106,7 +82,7 @@ function commandAdvise(args) {
 }
 
 function commandPlan(args) {
-  const parsed = parseContextArgs(args, true);
+  const parsed = parseCliInput(() => parseContextArgs(args, { allowOutput: true }));
   const task = parsed.positional.join(' ').trim();
   if (!task) fail(usage());
   let plan;
@@ -160,9 +136,48 @@ function commandExamples() {
   for (const file of fs.readdirSync(fromRoot('examples')).sort()) console.log(file);
 }
 
+function commandNativeRenderer(name, type, args) {
+  const parsed = parseNativeOptions(args);
+  const [inputPath, outputPath] = parsed.positional;
+  if (!inputPath) fail(usage());
+  const diagram = readJson(inputPath);
+  if (name === 'validate') {
+    const validation = validateDiagramDocument({ type, diagram, quality: parsed.quality });
+    if (parsed.json) console.log(JSON.stringify(validation, null, 2));
+    else console.log(`PASS · ${type} · ${validation.checks.length} checks`);
+    return;
+  }
+  if (!['render', 'deliver'].includes(name)) {
+    fail(`Native renderer "${type}" supports validate, render, and deliver.`, 1);
+  }
+  if (!outputPath) fail(`${name} requires an output .html path.`);
+  const receipt = renderDiagramDocument({
+    type,
+    diagram,
+    outputPath: path.resolve(outputPath),
+    quality: parsed.quality,
+  });
+  if (parsed.json) console.log(JSON.stringify(receipt, null, 2));
+  else console.log(`Rendered ${type} diagram to ${receipt.output}. SHA-256: ${receipt.artifact.sha256}`);
+}
+
 function commandRenderer(name, args) {
   const [type, ...rendererArgs] = args;
   if (!type) fail(usage());
+  let renderer;
+  try {
+    renderer = getDiagramType(type);
+  } catch (error) {
+    fail(error instanceof Error ? error.message : 'Unknown renderer type.');
+  }
+  if (renderer.engine === 'native') {
+    try {
+      commandNativeRenderer(name, type, rendererArgs);
+    } catch (error) {
+      fail(error instanceof Error ? error.message : 'Native renderer command failed.', 1);
+    }
+    return;
+  }
   let result;
   try {
     result = runRendererCommand(name, type, rendererArgs);

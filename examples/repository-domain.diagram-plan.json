@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 2,
+  "task": "Explain the order persistence model in this repository.",
+  "goal": "Show entity ownership, fields, constraints, and verified cardinality.",
+  "source": {
+    "kind": "repository",
+    "scope": "Selected repository revision and order persistence modules",
+    "references": ["src/orders", "migrations/order_tables.sql"]
+  },
+  "audience": {
+    "role": "backend engineers and data reviewers",
+    "detail": "technical"
+  },
+  "selection": {
+    "questionKind": "entity-relationship",
+    "semanticPattern": "entity-relationship-cardinality",
+    "renderer": "data-model",
+    "profile": "persistence-schema",
+    "rationale": "Fields, constraints, and cardinality carry the repository decision."
+  },
+  "scope": {
+    "in": ["order entity", "order items", "idempotency records", "foreign keys"],
+    "out": ["provider-internal settlement", "analytics projections"]
+  },
+  "evidence": {
+    "facts": [
+      {
+        "statement": "Order items reference their owning order.",
+        "source": "migrations/order_tables.sql",
+        "confidence": "high"
+      }
+    ],
+    "assumptions": [],
+    "recommendations": [],
+    "superseded": []
+  },
+  "complexity": {
+    "detail": "balanced",
+    "budget": { "entities": 8, "relationships": 12 },
+    "decomposition": "single"
+  },
+  "views": [
+    {
+      "type": "data-model",
+      "profile": "persistence-schema",
+      "role": "primary",
+      "question": "Which order entities, fields, constraints, and relationships are persisted?",
+      "focus": ["keys", "constraints", "cardinality", "evidence status"]
+    }
+  ],
+  "fidelity": {
+    "merged": [],
+    "collapsed": [],
+    "omitted": [],
+    "preserved": ["verified fields", "keys", "relationship cardinality"]
+  },
+  "constraints": ["Use repository-relative evidence labels only."],
+  "output": {
+    "format": "standalone-html",
+    "quality": "showcase",
+    "destination": "data-model-review"
+  }
+}
