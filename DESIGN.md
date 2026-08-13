@@ -36,6 +36,8 @@ Diago uses a restrained engineering-workbench aesthetic: near-black layered surf
 | Diagram primary label | `--diagram-primary-text` | `#ecf3f9` |
 | Diagram metadata | `--diagram-meta-text` | `#8297ab` |
 | Diagram edge label | `--diagram-edge-label` | `#93a9bd` |
+| Diagram node sheen start | `--diagram-node-sheen-start` | `#142332` |
+| Diagram node sheen end | `--diagram-node-sheen-end` | `#101924` |
 | Sequence label surface | `--sequence-label-surface` | `#14202d` |
 | Sequence lifeline | `--sequence-lifeline` | `#2f4256` |
 | Sequence message text | `--sequence-message-text` | `#a9b9c8` |

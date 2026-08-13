@@ -55,6 +55,20 @@ test('workbench paint roles are tokenized without changing their approved values
   }
 });
 
+test('preview SVG paint stays token-driven through its node sheen stops', () => {
+  const rootCss = css.match(/:root\s*\{[\s\S]*?\n\}/)?.[0] ?? '';
+  const previewStart = html.indexOf('data-diagram-preview');
+  const previewMarkup = html.slice(previewStart, html.indexOf('</section>', previewStart));
+
+  assert.doesNotMatch(previewMarkup, /#[0-9a-f]{3,8}\b|rgba?\(/i);
+  assert.match(rootCss, /--diagram-node-sheen-start:\s*#142332/);
+  assert.match(rootCss, /--diagram-node-sheen-end:\s*#101924/);
+  assert.match(html, /<stop class="node-sheen-start" offset="0"\/>/);
+  assert.match(html, /<stop class="node-sheen-end" offset="1"\/>/);
+  assert.match(css, /\.node-sheen-start\s*\{[^}]*stop-color:\s*var\(--diagram-node-sheen-start\)/s);
+  assert.match(css, /\.node-sheen-end\s*\{[^}]*stop-color:\s*var\(--diagram-node-sheen-end\)/s);
+});
+
 test('preview CSS defines eight-view geometry, playback progress, and reduced-motion safety', () => {
   assert.match(css, /\.view-switcher\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*repeat\(4,/s);
   assert.match(css, /@media \(max-width: 760px\)[\s\S]*\.view-switcher\s*\{[^}]*overflow-x:\s*auto/s);

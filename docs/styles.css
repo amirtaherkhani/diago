@@ -30,6 +30,8 @@
   --diagram-primary-text: #ecf3f9;
   --diagram-meta-text: #8297ab;
   --diagram-edge-label: #93a9bd;
+  --diagram-node-sheen-start: #142332;
+  --diagram-node-sheen-end: #101924;
   --sequence-label-surface: #14202d;
   --sequence-lifeline: #2f4256;
   --sequence-message-text: #a9b9c8;
@@ -599,6 +601,14 @@ h1 em {
 .diagram-node rect {
   fill: var(--surface);
   stroke: var(--line-strong);
+}
+
+.node-sheen-start {
+  stop-color: var(--diagram-node-sheen-start);
+}
+
+.node-sheen-end {
+  stop-color: var(--diagram-node-sheen-end);
 }
 
 #preview-panel-architecture .diagram-node rect {
