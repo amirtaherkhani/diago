@@ -4,6 +4,7 @@ node_modules/
 coverage/
 tmp/
 dist/
+.worktrees/
 .archify-delivery-*/
 examples/*.html
 !docs/**/*.html
