@@ -36,6 +36,60 @@
   --sequence-lifeline: #2f4256;
   --sequence-message-text: #a9b9c8;
   --preview-lane-line: rgba(145, 162, 181, 0.22);
+  --workbench-shell-border: #2b3a4d;
+  --workbench-shell-surface: #0d141e;
+  --workbench-shell-shadow: 0 38px 90px rgba(0, 0, 0, 0.36);
+  --workbench-dot-idle: #344356;
+  --font-weight-strong: 700;
+  --font-weight-diagram-label: 720;
+  --font-weight-meta: 500;
+  --workbench-type-chrome: 0.62rem;
+  --workbench-type-tab: 0.64rem;
+  --workbench-type-control: 0.58rem;
+  --diagram-type-boundary: 10px;
+  --diagram-type-edge: 8.5px;
+  --diagram-type-node: 13px;
+  --diagram-type-meta: 8.7px;
+  --diagram-type-caption: 8px;
+  --diagram-type-sequence-label: 11px;
+  --diagram-type-message: 9px;
+  --diagram-type-preview-label: 12px;
+  --diagram-tracking-boundary: 0.1em;
+  --workbench-border-width: 1px;
+  --workbench-shell-accent-offset: -1px;
+  --workbench-shell-accent-height: 1px;
+  --workbench-chrome-height: 42px;
+  --workbench-chrome-padding-inline: 16px;
+  --workbench-dot-gap: 5px;
+  --workbench-dot-offset: 14px;
+  --workbench-dot-size: 7px;
+  --workbench-status-gap: 6px;
+  --workbench-status-dot-size: 5px;
+  --workbench-status-glow: 0 0 8px currentColor;
+  --workbench-tab-rail-gap: 6px;
+  --workbench-tab-rail-padding: 8px;
+  --workbench-install-tab-gap: 4px;
+  --workbench-tab-button-padding: 7px 12px;
+  --workbench-tab-button-radius: 7px;
+  --workbench-toggle-margin: 10px;
+  --workbench-toggle-padding: 5px 8px;
+  --workbench-toggle-radius: 6px;
+  --workbench-progress-inline-inset: 8px;
+  --workbench-progress-block-inset: 2px;
+  --workbench-progress-height: 1px;
+  --diagram-stage-min-height: 350px;
+  --diagram-grid-line-offset: 24px;
+  --diagram-grid-step: 25px;
+  --workbench-sr-size: 1px;
+  --workbench-sr-offset: -1px;
+  --diagram-stroke-primary: 1.7;
+  --diagram-stroke-message: 1.5;
+  --diagram-dash-boundary: 5 6;
+  --diagram-dash-primary: 7 5;
+  --diagram-dash-short: 3 5;
+  --diagram-dash-standard: 4 5;
+  --diagram-dash-async: 5 4;
+  --diagram-dash-lane: 4 6;
   --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --max: 1180px;
@@ -351,17 +405,17 @@ h1 em {
 .workbench {
   position: relative;
   overflow: hidden;
-  border: 1px solid #2b3a4d;
+  border: var(--workbench-border-width) solid var(--workbench-shell-border);
   border-radius: var(--radius-md);
-  background: #0d141e;
-  box-shadow: 0 38px 90px rgba(0, 0, 0, 0.36);
+  background: var(--workbench-shell-surface);
+  box-shadow: var(--workbench-shell-shadow);
 }
 
 .workbench::before {
   position: absolute;
-  inset: -1px auto auto 8%;
+  inset: var(--workbench-shell-accent-offset) auto auto 8%;
   width: 45%;
-  height: 1px;
+  height: var(--workbench-shell-accent-height);
   content: "";
   background: linear-gradient(90deg, transparent, var(--mint), transparent);
 }
@@ -370,25 +424,25 @@ h1 em {
 .workbench-footer {
   display: flex;
   align-items: center;
-  min-height: 42px;
-  padding-inline: 16px;
-  border-bottom: 1px solid var(--line-soft);
+  min-height: var(--workbench-chrome-height);
+  padding-inline: var(--workbench-chrome-padding-inline);
+  border-bottom: var(--workbench-border-width) solid var(--line-soft);
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: var(--workbench-type-chrome);
 }
 
 .window-dots {
   display: flex;
-  gap: 5px;
-  margin-right: 14px;
+  gap: var(--workbench-dot-gap);
+  margin-right: var(--workbench-dot-offset);
 }
 
 .window-dots i {
-  width: 7px;
-  height: 7px;
+  width: var(--workbench-dot-size);
+  height: var(--workbench-dot-size);
   border-radius: 50%;
-  background: #344356;
+  background: var(--workbench-dot-idle);
 }
 
 .window-dots i:first-child {
@@ -413,56 +467,59 @@ h1 em {
 .status-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--workbench-status-gap);
   color: var(--mint);
 }
 
 .status-pill i {
-  width: 5px;
-  height: 5px;
+  width: var(--workbench-status-dot-size);
+  height: var(--workbench-status-dot-size);
   border-radius: 50%;
   background: currentColor;
-  box-shadow: 0 0 8px currentColor;
+  box-shadow: var(--workbench-status-glow);
 }
 
 .view-switcher {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
-  padding: 8px;
-  border-bottom: 1px solid var(--line-soft);
+  gap: var(--workbench-tab-rail-gap);
+  padding: var(--workbench-tab-rail-padding);
+  border-bottom: var(--workbench-border-width) solid var(--line-soft);
 }
 
 .install-tabs {
   display: flex;
-  gap: 4px;
-  padding: 8px;
-  border-bottom: 1px solid var(--line-soft);
+  gap: var(--workbench-install-tab-gap);
+  padding: var(--workbench-tab-rail-padding);
+  border-bottom: var(--workbench-border-width) solid var(--line-soft);
 }
 
 .view-switcher button,
 .install-tabs button {
-  padding: 7px 12px;
+  padding: var(--workbench-tab-button-padding);
   border: 0;
-  border-radius: 7px;
+  border-radius: var(--workbench-tab-button-radius);
   background: transparent;
   color: var(--muted);
   cursor: pointer;
   font-family: var(--mono);
-  font-size: 0.64rem;
-  font-weight: 700;
+  font-size: var(--workbench-type-tab);
+  font-weight: var(--font-weight-strong);
 }
 
 .preview-toggle {
   flex: 0 0 auto;
-  margin-inline: 10px;
-  padding: 5px 8px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  margin-inline: var(--workbench-toggle-margin);
+  padding: var(--workbench-toggle-padding);
+  border: var(--workbench-border-width) solid var(--line);
+  border-radius: var(--workbench-toggle-radius);
   background: var(--surface);
   color: var(--muted-strong);
   cursor: pointer;
-  font: 700 0.58rem/1 var(--mono);
+  font-family: var(--mono);
+  font-size: var(--workbench-type-control);
+  font-weight: var(--font-weight-strong);
+  line-height: 1;
 }
 
 .view-switcher button {
@@ -474,10 +531,10 @@ h1 em {
 
 .view-switcher button::after {
   position: absolute;
-  right: 8px;
-  bottom: 2px;
-  left: 8px;
-  height: 1px;
+  right: var(--workbench-progress-inline-inset);
+  bottom: var(--workbench-progress-block-inset);
+  left: var(--workbench-progress-inline-inset);
+  height: var(--workbench-progress-height);
   content: "";
   background: var(--mint);
   opacity: 0;
@@ -494,24 +551,24 @@ h1 em {
 .install-tabs button[aria-selected="true"] {
   background: var(--workbench-tab-selected-surface);
   color: var(--text);
-  box-shadow: inset 0 0 0 1px var(--workbench-tab-selected-border);
+  box-shadow: inset 0 0 0 var(--workbench-border-width) var(--workbench-tab-selected-border);
 }
 
 .diagram-stage {
   position: relative;
-  min-height: 350px;
+  min-height: var(--diagram-stage-min-height);
   background:
-    linear-gradient(transparent 24px, var(--diagram-stage-grid) 25px),
-    linear-gradient(90deg, transparent 24px, var(--diagram-stage-grid) 25px);
-  background-size: 25px 25px;
+    linear-gradient(transparent var(--diagram-grid-line-offset), var(--diagram-stage-grid) var(--diagram-grid-step)),
+    linear-gradient(90deg, transparent var(--diagram-grid-line-offset), var(--diagram-stage-grid) var(--diagram-grid-step));
+  background-size: var(--diagram-grid-step) var(--diagram-grid-step);
 }
 
 .diagram-stage-hint {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: var(--workbench-sr-size);
+  height: var(--workbench-sr-size);
   padding: 0;
-  margin: -1px;
+  margin: var(--workbench-sr-offset);
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -547,22 +604,22 @@ h1 em {
 .boundary {
   fill: var(--diagram-boundary-fill);
   stroke: var(--diagram-boundary-border);
-  stroke-dasharray: 5 6;
+  stroke-dasharray: var(--diagram-dash-boundary);
 }
 
 .boundary-label {
   fill: var(--diagram-boundary-label);
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
+  font-size: var(--diagram-type-boundary);
+  letter-spacing: var(--diagram-tracking-boundary);
 }
 
 .flow-lines path {
   fill: none;
   stroke: var(--blue);
-  stroke-width: 1.7;
+  stroke-width: var(--diagram-stroke-primary);
   marker-end: url("#arrow-a");
-  stroke-dasharray: 7 5;
+  stroke-dasharray: var(--diagram-dash-primary);
 }
 
 .diagram-view.is-active .flow-lines path {
@@ -572,26 +629,26 @@ h1 em {
 
 .flow-lines .flow-secondary {
   stroke: var(--mint);
-  stroke-dasharray: 3 5;
+  stroke-dasharray: var(--diagram-dash-short);
 }
 
 .diagram-view [data-animate-edge] .flow-primary {
   fill: none;
   stroke: var(--blue);
-  stroke-width: 1.7;
+  stroke-width: var(--diagram-stroke-primary);
 }
 
 .diagram-view [data-animate-edge] .flow-secondary {
   fill: none;
   stroke: var(--mint);
-  stroke-width: 1.7;
-  stroke-dasharray: 4 5;
+  stroke-width: var(--diagram-stroke-primary);
+  stroke-dasharray: var(--diagram-dash-standard);
 }
 
 .diagram-view [data-animate-edge] text {
   fill: var(--muted);
   font-family: var(--mono);
-  font-size: 8.5px;
+  font-size: var(--diagram-type-edge);
 }
 
 .diagram-view marker path {
@@ -622,15 +679,15 @@ h1 em {
 .diagram-node text {
   fill: var(--diagram-primary-text);
   font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 720;
+  font-size: var(--diagram-type-node);
+  font-weight: var(--font-weight-diagram-label);
 }
 
 .diagram-node .node-meta {
   fill: var(--diagram-meta-text);
   font-family: var(--mono);
-  font-size: 8.7px;
-  font-weight: 500;
+  font-size: var(--diagram-type-meta);
+  font-weight: var(--font-weight-meta);
 }
 
 .diagram-node .node-highlight rect {
@@ -678,7 +735,7 @@ h1 em {
 .edge-labels text {
   fill: var(--diagram-edge-label);
   font-family: var(--mono);
-  font-size: 8px;
+  font-size: var(--diagram-type-caption);
 }
 
 .sequence-labels rect {
@@ -689,26 +746,26 @@ h1 em {
 .sequence-labels text {
   fill: var(--diagram-primary-text);
   font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: var(--diagram-type-sequence-label);
+  font-weight: var(--font-weight-strong);
   text-anchor: middle;
 }
 
 .lifelines path {
   stroke: var(--sequence-lifeline);
-  stroke-dasharray: 4 5;
+  stroke-dasharray: var(--diagram-dash-standard);
 }
 
 .sequence-messages path {
   fill: none;
   stroke: var(--blue);
-  stroke-width: 1.5;
+  stroke-width: var(--diagram-stroke-message);
   marker-end: url("#arrow-a");
 }
 
 .sequence-messages path.async {
   stroke: var(--mint);
-  stroke-dasharray: 5 4;
+  stroke-dasharray: var(--diagram-dash-async);
 }
 
 .sequence-messages path.return {
@@ -718,14 +775,14 @@ h1 em {
 .sequence-messages text {
   fill: var(--sequence-message-text);
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: var(--diagram-type-message);
 }
 
 .preview-lane,
 .preview-track-line {
   fill: none;
   stroke: var(--preview-lane-line);
-  stroke-dasharray: 4 6;
+  stroke-dasharray: var(--diagram-dash-lane);
 }
 
 .preview-card rect,
@@ -751,8 +808,8 @@ h1 em {
 .preview-label {
   fill: var(--text);
   font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 720;
+  font-size: var(--diagram-type-preview-label);
+  font-weight: var(--font-weight-diagram-label);
 }
 
 .preview-meta,
@@ -760,35 +817,35 @@ h1 em {
 .preview-cardinality {
   fill: var(--muted);
   font-family: var(--mono);
-  font-size: 8.5px;
+  font-size: var(--diagram-type-edge);
 }
 
 .preview-edge {
   fill: none;
   stroke: var(--blue);
-  stroke-width: 1.7;
+  stroke-width: var(--diagram-stroke-primary);
 }
 
 .preview-edge.is-proposed {
   stroke: var(--mint);
-  stroke-dasharray: 4 5;
+  stroke-dasharray: var(--diagram-dash-standard);
 }
 
 .preview-edge.is-risk {
   stroke: var(--rose);
-  stroke-dasharray: 3 5;
+  stroke-dasharray: var(--diagram-dash-short);
 }
 
 .preview-assumption {
   fill: var(--yellow);
   font-family: var(--mono);
-  font-size: 8px;
+  font-size: var(--diagram-type-caption);
 }
 
 .preview-crosscut {
   fill: color-mix(in srgb, var(--blue) 7%, transparent);
   stroke: var(--line-structure);
-  stroke-dasharray: 4 5;
+  stroke-dasharray: var(--diagram-dash-standard);
 }
 
 .evidence-panel {

@@ -23,6 +23,7 @@ const expectedViews = [
 
 const html = fs.readFileSync(fromRoot('docs', 'index.html'), 'utf8');
 const css = fs.readFileSync(fromRoot('docs', 'styles.css'), 'utf8');
+const design = fs.readFileSync(fromRoot('DESIGN.md'), 'utf8');
 
 test('workbench paint roles are tokenized without changing their approved values', () => {
   const rootCss = css.match(/:root\s*\{[\s\S]*?\n\}/)?.[0] ?? '';
@@ -69,6 +70,31 @@ test('preview SVG paint stays token-driven through its node sheen stops', () => 
   assert.match(css, /\.node-sheen-end\s*\{[^}]*stop-color:\s*var\(--diagram-node-sheen-end\)/s);
 });
 
+test('workbench component uses documented material, typography, and geometry tokens', () => {
+  const rootCss = css.match(/:root\s*\{[\s\S]*?\n\}/)?.[0] ?? '';
+  const componentCss = css.slice(css.indexOf('.workbench {'), css.indexOf('.evidence-panel {'));
+
+  assert.doesNotMatch(componentCss, /#[0-9a-f]{3,8}\b|rgba?\(/i);
+  assert.doesNotMatch(componentCss, /-?\d+(?:\.\d+)?(?:px|rem)\b/);
+  for (const token of [
+    '--workbench-shell-border',
+    '--workbench-shell-surface',
+    '--workbench-shell-shadow',
+    '--workbench-dot-idle',
+    '--workbench-type-chrome',
+    '--workbench-type-tab',
+    '--diagram-type-node',
+    '--diagram-stroke-primary',
+    '--diagram-dash-standard',
+    '--workbench-chrome-height',
+    '--workbench-tab-button-padding',
+    '--diagram-grid-step',
+  ]) {
+    assert.match(rootCss, new RegExp(`${token}:`));
+    assert.match(design, new RegExp(`\`${token}\``));
+  }
+});
+
 test('preview CSS defines eight-view geometry, playback progress, and reduced-motion safety', () => {
   assert.match(css, /\.view-switcher\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*repeat\(4,/s);
   assert.match(css, /@media \(max-width: 760px\)[\s\S]*\.view-switcher\s*\{[^}]*overflow-x:\s*auto/s);
@@ -83,8 +109,8 @@ test('preview CSS defines eight-view geometry, playback progress, and reduced-mo
 test('preview primitives keep semantic edges readable and diagrams pannable on narrow screens', () => {
   const reducedMotionCss = css.split('@media (prefers-reduced-motion: reduce)')[1] ?? '';
 
-  assert.match(css, /\.diagram-view \[data-animate-edge\] \.flow-primary\s*\{[^}]*stroke:\s*var\(--blue\)[^}]*stroke-width:\s*1\.7/s);
-  assert.match(css, /\.diagram-view \[data-animate-edge\] \.flow-secondary\s*\{[^}]*stroke:\s*var\(--mint\)[^}]*stroke-dasharray:\s*4 5/s);
+  assert.match(css, /\.diagram-view \[data-animate-edge\] \.flow-primary\s*\{[^}]*stroke:\s*var\(--blue\)[^}]*stroke-width:\s*var\(--diagram-stroke-primary\)/s);
+  assert.match(css, /\.diagram-view \[data-animate-edge\] \.flow-secondary\s*\{[^}]*stroke:\s*var\(--mint\)[^}]*stroke-dasharray:\s*var\(--diagram-dash-standard\)/s);
   assert.match(css, /\.diagram-view marker path\s*\{[^}]*fill:\s*context-stroke/s);
   assert.match(css, /\.diagram-view \[data-animate-edge\] text\s*\{[^}]*fill:\s*var\(--muted\)/s);
   assert.match(css, /\.diagram-node \.node-highlight rect\s*\{[^}]*fill:\s*var\(--surface-verified\)/s);

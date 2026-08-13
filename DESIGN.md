@@ -42,6 +42,60 @@ Diago uses a restrained engineering-workbench aesthetic: near-black layered surf
 | Sequence lifeline | `--sequence-lifeline` | `#2f4256` |
 | Sequence message text | `--sequence-message-text` | `#a9b9c8` |
 | Preview lane line | `--preview-lane-line` | `rgba(145, 162, 181, 0.22)` |
+| Workbench shell border | `--workbench-shell-border` | `#2b3a4d` |
+| Workbench shell surface | `--workbench-shell-surface` | `#0d141e` |
+| Workbench shell shadow | `--workbench-shell-shadow` | `0 38px 90px rgba(0, 0, 0, 0.36)` |
+| Idle workbench dot | `--workbench-dot-idle` | `#344356` |
+| Strong workbench weight | `--font-weight-strong` | `700` |
+| Diagram label weight | `--font-weight-diagram-label` | `720` |
+| Diagram metadata weight | `--font-weight-meta` | `500` |
+| Workbench chrome type | `--workbench-type-chrome` | `0.62rem` |
+| Workbench tab type | `--workbench-type-tab` | `0.64rem` |
+| Workbench control type | `--workbench-type-control` | `0.58rem` |
+| Diagram boundary type | `--diagram-type-boundary` | `10px` |
+| Diagram edge type | `--diagram-type-edge` | `8.5px` |
+| Diagram node type | `--diagram-type-node` | `13px` |
+| Diagram metadata type | `--diagram-type-meta` | `8.7px` |
+| Diagram caption type | `--diagram-type-caption` | `8px` |
+| Sequence label type | `--diagram-type-sequence-label` | `11px` |
+| Sequence message type | `--diagram-type-message` | `9px` |
+| Preview label type | `--diagram-type-preview-label` | `12px` |
+| Diagram boundary tracking | `--diagram-tracking-boundary` | `0.1em` |
+| Workbench border width | `--workbench-border-width` | `1px` |
+| Workbench accent offset | `--workbench-shell-accent-offset` | `-1px` |
+| Workbench accent height | `--workbench-shell-accent-height` | `1px` |
+| Workbench chrome height | `--workbench-chrome-height` | `42px` |
+| Workbench chrome inline padding | `--workbench-chrome-padding-inline` | `16px` |
+| Workbench dot gap | `--workbench-dot-gap` | `5px` |
+| Workbench dot offset | `--workbench-dot-offset` | `14px` |
+| Workbench dot size | `--workbench-dot-size` | `7px` |
+| Workbench status gap | `--workbench-status-gap` | `6px` |
+| Workbench status dot size | `--workbench-status-dot-size` | `5px` |
+| Workbench status glow | `--workbench-status-glow` | `0 0 8px currentColor` |
+| Workbench tab rail gap | `--workbench-tab-rail-gap` | `6px` |
+| Workbench tab rail padding | `--workbench-tab-rail-padding` | `8px` |
+| Workbench install-tab gap | `--workbench-install-tab-gap` | `4px` |
+| Workbench tab button padding | `--workbench-tab-button-padding` | `7px 12px` |
+| Workbench tab button radius | `--workbench-tab-button-radius` | `7px` |
+| Workbench playback margin | `--workbench-toggle-margin` | `10px` |
+| Workbench playback padding | `--workbench-toggle-padding` | `5px 8px` |
+| Workbench playback radius | `--workbench-toggle-radius` | `6px` |
+| Workbench progress inline inset | `--workbench-progress-inline-inset` | `8px` |
+| Workbench progress block inset | `--workbench-progress-block-inset` | `2px` |
+| Workbench progress height | `--workbench-progress-height` | `1px` |
+| Diagram stage minimum height | `--diagram-stage-min-height` | `350px` |
+| Diagram grid offset | `--diagram-grid-line-offset` | `24px` |
+| Diagram grid step | `--diagram-grid-step` | `25px` |
+| Diagram screen-reader size | `--workbench-sr-size` | `1px` |
+| Diagram screen-reader offset | `--workbench-sr-offset` | `-1px` |
+| Diagram primary stroke | `--diagram-stroke-primary` | `1.7` |
+| Diagram message stroke | `--diagram-stroke-message` | `1.5` |
+| Diagram boundary dash | `--diagram-dash-boundary` | `5 6` |
+| Diagram primary dash | `--diagram-dash-primary` | `7 5` |
+| Diagram short dash | `--diagram-dash-short` | `3 5` |
+| Diagram standard dash | `--diagram-dash-standard` | `4 5` |
+| Diagram async dash | `--diagram-dash-async` | `5 4` |
+| Diagram lane dash | `--diagram-dash-lane` | `4 6` |
 | Preview cycle | `--preview-cycle` | `5000ms` |
 | Preview enter | `--preview-enter` | `260ms` |
 | Preview resolve | `--preview-resolve` | `320ms` |
