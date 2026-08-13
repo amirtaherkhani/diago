@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "diagram_type": "layers",
+  "meta": {
+    "title": "Checkout control layers",
+    "subtitle": "Responsibility, allowed dependencies, and enforcement gaps"
+  },
+  "layers": [
+    {
+      "id": "interface",
+      "order": 1,
+      "label": "Interface",
+      "status": "verified",
+      "responsibilities": ["HTTP contract", "input parsing", "authentication context"]
+    },
+    {
+      "id": "application",
+      "order": 2,
+      "label": "Application",
+      "status": "verified",
+      "responsibilities": ["checkout orchestration", "idempotency decision", "transaction boundary"]
+    },
+    {
+      "id": "domain",
+      "order": 3,
+      "label": "Domain",
+      "status": "verified",
+      "responsibilities": ["reservation policy", "payment invariants", "state transitions"]
+    },
+    {
+      "id": "infrastructure",
+      "order": 4,
+      "label": "Infrastructure",
+      "status": "verified",
+      "responsibilities": ["database adapters", "provider clients", "message delivery"]
+    }
+  ],
+  "dependencies": [
+    { "from": "interface", "to": "application", "label": "invokes use case", "status": "verified" },
+    { "from": "application", "to": "domain", "label": "applies policy", "status": "verified" },
+    { "from": "infrastructure", "to": "domain", "label": "implements ports", "status": "proposed" }
+  ],
+  "concerns": [
+    {
+      "id": "authorization",
+      "label": "Authorization",
+      "status": "verified",
+      "appliesTo": ["interface", "application"],
+      "responsibility": "Enforce actor and resource permissions"
+    },
+    {
+      "id": "observability",
+      "label": "Observability",
+      "status": "proposed",
+      "appliesTo": ["application", "infrastructure"],
+      "responsibility": "Trace orchestration and provider outcomes"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "replay_audit",
+      "label": "Replay audit owner unresolved",
+      "status": "assumption",
+      "layer": "application"
+    }
+  ]
+}
