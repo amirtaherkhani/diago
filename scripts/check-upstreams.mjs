@@ -23,11 +23,13 @@ async function github(path) {
 const tags = await github('/repos/tt-a1i/archify/tags?per_page=1');
 const architecture = await github('/repos/konraddzbik/architecture-diagram-skill/commits/main');
 const uiUx = await github('/repos/nextlevelbuilder/ui-ux-pro-max-skill/commits/main');
+const diagramDesign = await github('/repos/cathrynlavery/diagram-design/commits/main');
 
 const latest = {
   archify: { ref: tags[0].name, commit: tags[0].commit.sha },
   'architecture-diagram-skill': { ref: 'main', commit: architecture.sha },
   'ui-ux-pro-max-skill': { ref: 'main', commit: uiUx.sha },
+  'diagram-design': { ref: 'main', commit: diagramDesign.sha },
 };
 
 const result = Object.fromEntries(

@@ -123,6 +123,8 @@ for (const relativePath of [
   'vendor/archify/LICENSE',
   'vendor/architecture-diagram-skill/LICENSE',
   'vendor/ui-ux-pro-max-skill/LICENSE',
+  'vendor/diagram-design/LICENSE',
+  'vendor/diagram-design/methodology/diagram-selection.md',
   'mcp/server.mjs',
   'mcp/protocol.mjs',
   'mcp/tools.mjs',
