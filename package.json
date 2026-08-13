@@ -1,7 +1,7 @@
 {
   "name": "diago",
-  "version": "0.2.0",
-  "description": "AI-ready software architecture diagram skills, native MCP tools, and deterministic rendering for Codex and Claude.",
+  "version": "0.3.0",
+  "description": "Evidence-grounded software engineering diagram skills, native MCP tools, and deterministic rendering for Codex and Claude.",
   "type": "module",
   "private": true,
   "license": "MIT",
@@ -14,7 +14,11 @@
   "keywords": [
     "ai",
     "architecture-diagrams",
+    "software-engineering-diagrams",
     "software-architecture",
+    "data-model-diagram",
+    "engineering-timeline",
+    "layered-architecture",
     "system-design",
     "developer-tools",
     "codex",

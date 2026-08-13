@@ -1,7 +1,7 @@
 {
   "name": "diago",
   "description": "Create and review evidence-grounded software engineering diagrams with agent skills and native MCP tools.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Amir Taherkhani",
     "email": "amirtaherkhani@outlook.com",

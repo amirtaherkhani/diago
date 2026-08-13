@@ -57,7 +57,7 @@ test('stdio MCP server negotiates, lists tools, and returns protocol errors', ()
   assert.equal(responses.length, 5);
   assert.equal(responses[0].error.code, -32002);
   assert.equal(responses[1].result.protocolVersion, '2025-11-25');
-  assert.equal(responses[1].result.serverInfo.version, '0.2.0');
+  assert.equal(responses[1].result.serverInfo.version, '0.3.0');
   assert.equal(responses[2].result.tools.length, 6);
   assert.equal(responses[3].result.structuredContent.views[0].type, 'sequence');
   assert.equal(responses[4].error.code, -32602);

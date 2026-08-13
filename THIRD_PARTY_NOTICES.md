@@ -14,14 +14,14 @@ Archify's original copyright and MIT license are preserved with the vendored run
 ## Architecture Diagram Skill
 
 - Source: https://github.com/konraddzbik/architecture-diagram-skill
-- Pinned revision: `410c20f5c552ff58baa9258a17a795341ef4f219`
+- Pinned revision: `486ac078705c873012239124a07e7ef2df8fe783`
 - Integration: methodology snapshot used to inform interaction and walkthrough patterns
 - License: `vendor/architecture-diagram-skill/LICENSE`
 
 ## UI UX Pro Max Skill
 
 - Source: https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
-- Pinned revision: `14ddef5c05e52d7c253b8f0129de7bcd1045ae5b`
+- Pinned revision: `abb7f2fd5a083fa1ff55c326a963ff0d95c33f99`
 - Integration: methodology snapshot used to inform visual quality, accessibility, and design-system guidance
 - License: `vendor/ui-ux-pro-max-skill/LICENSE`
 

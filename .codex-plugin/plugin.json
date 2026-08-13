@@ -1,7 +1,7 @@
 {
   "name": "diago",
-  "version": "0.2.0",
-  "description": "Evidence-grounded software architecture diagram skills and native MCP tools for engineering decisions.",
+  "version": "0.3.0",
+  "description": "Evidence-grounded software engineering diagram skills and native MCP tools for engineering decisions.",
   "author": {
     "name": "Amir Taherkhani",
     "email": "amirtaherkhani@outlook.com",

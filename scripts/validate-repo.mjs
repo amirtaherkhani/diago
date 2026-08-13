@@ -46,6 +46,7 @@ const codexMarketplace = readJson('.agents/plugins/marketplace.json');
 const mcpConfig = readJson('.mcp.json');
 const upstreams = readJson('vendor/upstreams.lock.json');
 const packageManifest = readJson('package.json');
+const packageLock = readJson('package-lock.json');
 readJson('schemas/diagram-plan.schema.json');
 readJson('schemas/diagram-plan-v1.schema.json');
 readJson('schemas/advice.schema.json');
@@ -92,6 +93,8 @@ for (const renderer of catalog) {
 }
 
 check(codexManifest?.name === 'diago', 'Codex plugin name is incorrect.');
+check(packageLock?.version === packageManifest?.version, 'Package lock version must match package.json.');
+check(packageLock?.packages?.['']?.version === packageManifest?.version, 'Package lock root package version must match package.json.');
 check(codexManifest?.version === packageManifest?.version, 'Codex plugin version must match package.json.');
 check(codexManifest?.skills === './skills/', 'Codex skills path must be ./skills/.');
 check(codexManifest?.mcpServers === './.mcp.json', 'Codex MCP config path must be ./.mcp.json.');
@@ -131,6 +134,7 @@ for (const relativePath of [
   'docs/index.html',
   'LICENSE',
   'THIRD_PARTY_NOTICES.md',
+  'CHANGELOG.md',
 ]) {
   check(fs.existsSync(fromRoot(relativePath)), `${relativePath} is required.`);
 }
