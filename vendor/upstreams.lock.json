@@ -19,7 +19,7 @@
     "ui-ux-pro-max-skill": {
       "repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
       "ref": "main",
-      "commit": "14ddef5c05e52d7c253b8f0129de7bcd1045ae5b",
+      "commit": "abb7f2fd5a083fa1ff55c326a963ff0d95c33f99",
       "mode": "methodology-snapshot",
       "path": "vendor/ui-ux-pro-max-skill"
     },
