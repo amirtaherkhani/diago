@@ -20,6 +20,20 @@
   --rose: #ff7f9f;
   --yellow: #f2d47a;
   --focus: #a8e8ff;
+  --workbench-tab-selected-surface: #1a2634;
+  --workbench-tab-selected-border: #2c3b4d;
+  --diagram-stage-grid: rgba(108, 168, 255, 0.025);
+  --diagram-grid-line: rgba(121, 151, 180, 0.045);
+  --diagram-boundary-fill: rgba(108, 168, 255, 0.025);
+  --diagram-boundary-border: rgba(108, 168, 255, 0.28);
+  --diagram-boundary-label: #6f89a4;
+  --diagram-primary-text: #ecf3f9;
+  --diagram-meta-text: #8297ab;
+  --diagram-edge-label: #93a9bd;
+  --sequence-label-surface: #14202d;
+  --sequence-lifeline: #2f4256;
+  --sequence-message-text: #a9b9c8;
+  --preview-lane-line: rgba(145, 162, 181, 0.22);
   --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --max: 1180px;
@@ -476,17 +490,17 @@ h1 em {
 
 .view-switcher button[aria-selected="true"],
 .install-tabs button[aria-selected="true"] {
-  background: #1a2634;
+  background: var(--workbench-tab-selected-surface);
   color: var(--text);
-  box-shadow: inset 0 0 0 1px #2c3b4d;
+  box-shadow: inset 0 0 0 1px var(--workbench-tab-selected-border);
 }
 
 .diagram-stage {
   position: relative;
   min-height: 350px;
   background:
-    linear-gradient(transparent 24px, rgba(108, 168, 255, 0.025) 25px),
-    linear-gradient(90deg, transparent 24px, rgba(108, 168, 255, 0.025) 25px);
+    linear-gradient(transparent 24px, var(--diagram-stage-grid) 25px),
+    linear-gradient(90deg, transparent 24px, var(--diagram-stage-grid) 25px);
   background-size: 25px 25px;
 }
 
@@ -525,17 +539,17 @@ h1 em {
 
 .diagram-grid path {
   fill: none;
-  stroke: rgba(121, 151, 180, 0.045);
+  stroke: var(--diagram-grid-line);
 }
 
 .boundary {
-  fill: rgba(108, 168, 255, 0.025);
-  stroke: rgba(108, 168, 255, 0.28);
+  fill: var(--diagram-boundary-fill);
+  stroke: var(--diagram-boundary-border);
   stroke-dasharray: 5 6;
 }
 
 .boundary-label {
-  fill: #6f89a4;
+  fill: var(--diagram-boundary-label);
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.1em;
@@ -596,14 +610,14 @@ h1 em {
 }
 
 .diagram-node text {
-  fill: #ecf3f9;
+  fill: var(--diagram-primary-text);
   font-family: var(--sans);
   font-size: 13px;
   font-weight: 720;
 }
 
 .diagram-node .node-meta {
-  fill: #8297ab;
+  fill: var(--diagram-meta-text);
   font-family: var(--mono);
   font-size: 8.7px;
   font-weight: 500;
@@ -652,18 +666,18 @@ h1 em {
 }
 
 .edge-labels text {
-  fill: #93a9bd;
+  fill: var(--diagram-edge-label);
   font-family: var(--mono);
   font-size: 8px;
 }
 
 .sequence-labels rect {
-  fill: #14202d;
-  stroke: #34465a;
+  fill: var(--sequence-label-surface);
+  stroke: var(--line-strong);
 }
 
 .sequence-labels text {
-  fill: #ecf3f9;
+  fill: var(--diagram-primary-text);
   font-family: var(--sans);
   font-size: 11px;
   font-weight: 700;
@@ -671,7 +685,7 @@ h1 em {
 }
 
 .lifelines path {
-  stroke: #2f4256;
+  stroke: var(--sequence-lifeline);
   stroke-dasharray: 4 5;
 }
 
@@ -692,7 +706,7 @@ h1 em {
 }
 
 .sequence-messages text {
-  fill: #a9b9c8;
+  fill: var(--sequence-message-text);
   font-family: var(--mono);
   font-size: 9px;
 }
@@ -700,7 +714,7 @@ h1 em {
 .preview-lane,
 .preview-track-line {
   fill: none;
-  stroke: rgba(145, 162, 181, 0.22);
+  stroke: var(--preview-lane-line);
   stroke-dasharray: 4 6;
 }
 

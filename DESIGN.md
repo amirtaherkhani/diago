@@ -26,6 +26,20 @@ Diago uses a restrained engineering-workbench aesthetic: near-black layered surf
 | Risk | `--rose` | `#ff7f9f` |
 | Assumption | `--yellow` | `#f2d47a` |
 | Focus | `--focus` | `#a8e8ff` |
+| Selected workbench tab surface | `--workbench-tab-selected-surface` | `#1a2634` |
+| Selected workbench tab border | `--workbench-tab-selected-border` | `#2c3b4d` |
+| Diagram stage grid | `--diagram-stage-grid` | `rgba(108, 168, 255, 0.025)` |
+| Diagram grid line | `--diagram-grid-line` | `rgba(121, 151, 180, 0.045)` |
+| Diagram boundary fill | `--diagram-boundary-fill` | `rgba(108, 168, 255, 0.025)` |
+| Diagram boundary border | `--diagram-boundary-border` | `rgba(108, 168, 255, 0.28)` |
+| Diagram boundary label | `--diagram-boundary-label` | `#6f89a4` |
+| Diagram primary label | `--diagram-primary-text` | `#ecf3f9` |
+| Diagram metadata | `--diagram-meta-text` | `#8297ab` |
+| Diagram edge label | `--diagram-edge-label` | `#93a9bd` |
+| Sequence label surface | `--sequence-label-surface` | `#14202d` |
+| Sequence lifeline | `--sequence-lifeline` | `#2f4256` |
+| Sequence message text | `--sequence-message-text` | `#a9b9c8` |
+| Preview lane line | `--preview-lane-line` | `rgba(145, 162, 181, 0.22)` |
 | Preview cycle | `--preview-cycle` | `5000ms` |
 | Preview enter | `--preview-enter` | `260ms` |
 | Preview resolve | `--preview-resolve` | `320ms` |

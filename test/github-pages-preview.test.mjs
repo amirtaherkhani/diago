@@ -24,6 +24,37 @@ const expectedViews = [
 const html = fs.readFileSync(fromRoot('docs', 'index.html'), 'utf8');
 const css = fs.readFileSync(fromRoot('docs', 'styles.css'), 'utf8');
 
+test('workbench paint roles are tokenized without changing their approved values', () => {
+  const rootCss = css.match(/:root\s*\{[\s\S]*?\n\}/)?.[0] ?? '';
+  const workbenchCss = css.slice(
+    css.indexOf('.view-switcher button[aria-selected="true"]'),
+    css.indexOf('.preview-card rect'),
+  );
+
+  assert.doesNotMatch(workbenchCss, /#[0-9a-f]{3,8}\b|rgba?\(/i);
+  const expectedTokens = {
+    '--workbench-tab-selected-surface': '#1a2634',
+    '--workbench-tab-selected-border': '#2c3b4d',
+    '--diagram-stage-grid': 'rgba(108, 168, 255, 0.025)',
+    '--diagram-grid-line': 'rgba(121, 151, 180, 0.045)',
+    '--diagram-boundary-fill': 'rgba(108, 168, 255, 0.025)',
+    '--diagram-boundary-border': 'rgba(108, 168, 255, 0.28)',
+    '--diagram-boundary-label': '#6f89a4',
+    '--diagram-primary-text': '#ecf3f9',
+    '--diagram-meta-text': '#8297ab',
+    '--diagram-edge-label': '#93a9bd',
+    '--sequence-label-surface': '#14202d',
+    '--line-strong': '#34465a',
+    '--sequence-lifeline': '#2f4256',
+    '--sequence-message-text': '#a9b9c8',
+    '--preview-lane-line': 'rgba(145, 162, 181, 0.22)',
+  };
+
+  for (const [token, value] of Object.entries(expectedTokens)) {
+    assert.match(rootCss, new RegExp(`${token}:\\s*${value.replace(/[()]/g, '\\$&')}`));
+  }
+});
+
 test('preview CSS defines eight-view geometry, playback progress, and reduced-motion safety', () => {
   assert.match(css, /\.view-switcher\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*repeat\(4,/s);
   assert.match(css, /@media \(max-width: 760px\)[\s\S]*\.view-switcher\s*\{[^}]*overflow-x:\s*auto/s);
