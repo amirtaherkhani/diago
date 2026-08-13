@@ -1,6 +1,6 @@
 {
   "name": "Diago",
-  "short_name": "Diagram Toolkit",
+  "short_name": "Diago",
   "description": "Evidence-grounded software engineering diagrams for Codex and Claude.",
   "start_url": "./",
   "display": "standalone",
