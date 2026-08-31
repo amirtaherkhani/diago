@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-13",
+  "updatedAt": "2026-08-31",
   "sources": {
     "archify": {
       "repository": "https://github.com/tt-a1i/archify",
-      "ref": "v2.13.0",
-      "commit": "2c1f8ac2ca28a26d0b68043ec80c9554e20ff0e3",
+      "ref": "v2.16.0",
+      "commit": "c826e6c3a7abad19c0f3cd1ca57207d54b1ad8de",
       "mode": "vendored-runtime",
       "path": "vendor/archify"
     },
