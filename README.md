@@ -270,6 +270,16 @@ Example prompts:
 - “Check whether current behavior and the proposed design are visually distinct.”
 - “Validate this JSON and inspect the HTML at mobile and desktop widths.”
 
+### `diago-update-upstreams`
+
+Checks every base project recorded in the upstream lock, synchronizes changed snapshots sequentially, reviews licensing and compatibility, adapts applicable behavior into canonical Diago, and verifies the combined repository before integration.
+
+Example prompts:
+
+- “Update Diago from every upstream project and merge the reviewed changes.”
+- “Check all base projects, sync anything newer, and report what stayed current.”
+- “Refresh every upstream, create the next release, push it, and update the Codex plugin.”
+
 ## How it works
 
 ```text
@@ -333,6 +343,7 @@ skills/
   diago-chat-architecture/ architecture extraction from active chat or history
   diago-engineering-diagram/      creation workflow and evidence contract
   diago-review-diagram/           correctness and visual review workflow
+  diago-update-upstreams/         reviewed all-source synchronization workflow
 bin/                        zero-dependency CLI
 mcp/                        standard stdio MCP server and native tools
 knowledge/                  diagram selection recipes

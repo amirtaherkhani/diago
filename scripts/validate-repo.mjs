@@ -117,9 +117,11 @@ for (const [name, source] of Object.entries(upstreams?.sources ?? {})) {
   check(fs.existsSync(fromRoot(source.path)), `${name} snapshot is missing at ${source.path}.`);
 }
 
-validateSkill('diago-engineering-diagram');
-validateSkill('diago-chat-architecture');
-validateSkill('diago-review-diagram');
+const skillNames = fs.readdirSync(fromRoot('skills'), { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .sort();
+for (const skillName of skillNames) validateSkill(skillName);
 
 for (const relativePath of [
   'DESIGN.md',
