@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-13",
+  "updatedAt": "2026-09-22",
   "sources": {
     "archify": {
       "repository": "https://github.com/tt-a1i/archify",
-      "ref": "v2.13.0",
-      "commit": "2c1f8ac2ca28a26d0b68043ec80c9554e20ff0e3",
+      "ref": "v2.16.0",
+      "commit": "c826e6c3a7abad19c0f3cd1ca57207d54b1ad8de",
       "mode": "vendored-runtime",
       "path": "vendor/archify"
     },
@@ -19,14 +19,14 @@
     "ui-ux-pro-max-skill": {
       "repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
       "ref": "main",
-      "commit": "abb7f2fd5a083fa1ff55c326a963ff0d95c33f99",
+      "commit": "dcc40ff5133ef78276117db0cc34e7b83cc8aeba",
       "mode": "methodology-snapshot",
       "path": "vendor/ui-ux-pro-max-skill"
     },
     "diagram-design": {
       "repository": "https://github.com/cathrynlavery/diagram-design",
       "ref": "main",
-      "commit": "f3622cf66a3c557cb2ead57b687a3c1ff63f5a2b",
+      "commit": "dc1ace47b99a419e42d01a03cb6ace5346efa8ae",
       "mode": "methodology-snapshot",
       "path": "vendor/diagram-design"
     }

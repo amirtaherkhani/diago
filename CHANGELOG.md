@@ -2,6 +2,22 @@
 
 All notable changes to Diago are documented here.
 
+## [0.5.0] - 2026-09-22
+
+### Added
+
+- Archify workflow schema v2 with constraint-driven layout, migration support, and stable layout diagnostics while preserving legacy schema-v1 rendering.
+- Built-in brand marks, safe URL-based mark capture, localized Viewer UI, visual presets, and opt-in sequence-column spreading.
+
+### Changed
+
+- Updated the bundled Archify runtime from `v2.13.0` to `v2.16.0` and refreshed the pinned UI UX Pro Max and Diagram Design methodology snapshots.
+- Diagram authoring guidance now covers desktop readability, multilingual output, brand identity, relationship-label preservation, and deployment-ownership checks.
+
+### Fixed
+
+- Pulled upstream renderer corrections for automatic routing, label measurement, viewport fitting, navigation-dock clearance, XML-safe SVG markers, emoji text fitting, and vertical data-flow edges.
+
 ## [0.4.0] - 2026-08-13
 
 ### Added
