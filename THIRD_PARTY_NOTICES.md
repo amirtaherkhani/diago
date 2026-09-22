@@ -5,7 +5,7 @@ Diago preserves required notices for four MIT-licensed upstream sources. Their p
 ## Archify
 
 - Source: https://github.com/tt-a1i/archify
-- Pinned version: `v2.13.0`
+- Pinned version: `v2.16.0`
 - Integration: bundled runtime, schemas, renderer, templates, and original skill snapshot
 - License: `vendor/archify/LICENSE`
 
@@ -21,14 +21,14 @@ Archify's original copyright and MIT license are preserved with the vendored run
 ## UI UX Pro Max Skill
 
 - Source: https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
-- Pinned revision: `abb7f2fd5a083fa1ff55c326a963ff0d95c33f99`
+- Pinned revision: `dcc40ff5133ef78276117db0cc34e7b83cc8aeba`
 - Integration: methodology snapshot used to inform visual quality, accessibility, and design-system guidance
 - License: `vendor/ui-ux-pro-max-skill/LICENSE`
 
 ## Diagram Design
 
 - Source: https://github.com/cathrynlavery/diagram-design
-- Pinned revision: `f3622cf66a3c557cb2ead57b687a3c1ff63f5a2b`
+- Pinned revision: `dc1ace47b99a419e42d01a03cb6ace5346efa8ae`
 - Integration: minimal methodology snapshot used to inform question-first selection, semantic-pattern separation, and bounded decomposition
 - License: `vendor/diagram-design/LICENSE`
 
