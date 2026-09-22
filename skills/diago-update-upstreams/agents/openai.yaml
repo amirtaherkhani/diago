@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diago Update Upstreams"
+  short_description: "Sync every Diago upstream safely"
+  default_prompt: "Use $diago-update-upstreams to check every Diago base project, sync all available updates, and integrate the reviewed result."
