@@ -1,15 +1,16 @@
 # Third-party notices
 
-Diago preserves required notices for four MIT-licensed upstream sources. Their pinned source versions are recorded in `vendor/upstreams.lock.json`.
+Diago preserves required notices for four MIT-licensed upstream sources and the bundled JetBrains Mono font. Pinned source versions are recorded in `vendor/upstreams.lock.json`.
 
 ## Archify
 
 - Source: https://github.com/tt-a1i/archify
-- Pinned version: `v2.16.0`
+- Pinned version: `v3.0.1`
 - Integration: bundled runtime, schemas, renderer, templates, and original skill snapshot
 - License: `vendor/archify/LICENSE`
 
 Archify's original copyright and MIT license are preserved with the vendored runtime.
+The viewer template also bundles JetBrains Mono font subsets under the SIL Open Font License 1.1; its license text is preserved in `vendor/archify/assets/JetBrainsMono-OFL.txt`.
 
 ## Architecture Diagram Skill
 
@@ -21,14 +22,14 @@ Archify's original copyright and MIT license are preserved with the vendored run
 ## UI UX Pro Max Skill
 
 - Source: https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
-- Pinned revision: `dcc40ff5133ef78276117db0cc34e7b83cc8aeba`
+- Pinned revision: `09170eec67eefd46a7ae85de61b40c194020f997`
 - Integration: methodology snapshot used to inform visual quality, accessibility, and design-system guidance
 - License: `vendor/ui-ux-pro-max-skill/LICENSE`
 
 ## Diagram Design
 
 - Source: https://github.com/cathrynlavery/diagram-design
-- Pinned revision: `dc1ace47b99a419e42d01a03cb6ace5346efa8ae`
+- Pinned revision: `f903933a534ba92cde1c85a28186267b3a317bb2`
 - Integration: minimal methodology snapshot used to inform question-first selection, semantic-pattern separation, and bounded decomposition
 - License: `vendor/diagram-design/LICENSE`
 
