@@ -96,3 +96,13 @@ test('sitemap lists canonical public pages with actual content dates', () => {
   assert.equal(dates[1], structuredData(pages[1].html)['@graph'][0].dateModified);
   assert.doesNotMatch(sitemap, /<priority>|<changefreq>/);
 });
+
+test('both public footers link to the author social destinations', () => {
+  for (const { html } of pages) {
+    const footer = html.match(/<footer>([\s\S]*?)<\/footer>/)[1];
+    assert.match(footer, /aria-label="Author social profiles"/);
+    for (const url of ['https://x.com/amirmo_th', 'https://nestjs-skills.hashnode.dev', 'https://dev.to/amirtaherkhani']) {
+      assert.ok(footer.includes(`href="${url}"`), `Missing footer social link: ${url}`);
+    }
+  }
+});
