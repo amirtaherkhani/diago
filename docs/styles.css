@@ -1733,7 +1733,7 @@ footer {
 
 .footer-inner {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 24px;
   align-items: center;
   min-height: 110px;
@@ -1743,14 +1743,28 @@ footer {
   margin: 0;
   color: var(--muted);
   font-size: 0.7rem;
+  text-align: center;
 }
 
-.footer-inner > div {
+.footer-links,
+.footer-nav {
   display: flex;
-  justify-content: end;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 20px;
   color: var(--muted);
   font-size: 0.7rem;
+}
+
+.footer-links {
+  justify-content: end;
+  gap: 12px 20px;
+}
+
+.footer-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .footer-inner a:hover {
@@ -1759,29 +1773,35 @@ footer {
 
 .footer-socials {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 8px 24px;
-  padding-block: 16px 24px;
-  border-top: 1px solid var(--line-soft);
-  font-size: 0.8rem;
-}
-
-.footer-socials > span {
-  color: var(--muted);
+  gap: 2px;
+  padding-left: 16px;
+  border-left: 1px solid var(--line-soft);
 }
 
 .footer-socials a {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  min-height: 44px;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
   color: var(--muted-strong);
+}
+
+.footer-socials svg {
+  display: block;
+  fill: currentColor;
 }
 
 .footer-socials a:hover,
 .footer-socials a:focus-visible {
   color: var(--primary);
+  background: var(--surface-interactive);
+}
+
+.footer-socials a:focus-visible {
+  outline-color: var(--primary);
 }
 
 @keyframes preview-progress {
@@ -1827,6 +1847,17 @@ footer {
 }
 
 @media (max-width: 1050px) {
+  .footer-inner {
+    grid-template-columns: 1fr auto;
+    padding-block: 24px;
+  }
+
+  .footer-inner p {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    text-align: left;
+  }
+
   .hero {
     grid-template-columns: 1fr;
     padding-top: 80px;
@@ -2117,8 +2148,13 @@ footer {
     text-align: left;
   }
 
-  .footer-inner > div {
+  .footer-links {
     justify-content: start;
+  }
+
+  .footer-socials {
+    padding-left: 0;
+    border-left: 0;
   }
 }
 
