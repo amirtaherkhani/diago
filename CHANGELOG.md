@@ -14,6 +14,7 @@ All notable changes to Diago are documented here.
 
 - Adopted the yellow interlocking D logo and midnight-blue brand across the plugin, GitHub Pages, repository banner, and social previews.
 - Redesigned the README with a playful navy-and-yellow header, GitHub callouts, expandable setup and prompt recipes, contribution checklists, and a maintainer guide to discoverability.
+- Replaced the GitHub Pages header's GitHub text button with an accessible GitHub icon link.
 
 ## [0.6.0] - 2026-10-08
 
