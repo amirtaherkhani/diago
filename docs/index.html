@@ -452,6 +452,40 @@
         </div>
       </section>
 
+      <section id="evidence-workflows" class="views-section section-shell" aria-labelledby="evidence-workflows-title">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> Evidence workflows · available on main</p>
+          <h2 id="evidence-workflows-title">Inspect independent sources together.</h2>
+          <p>Plan source inspections and dependent cross-checks before authoring a diagram. Available from the source checkout; the published v0.6.0 plugin does not include this feature.</p>
+        </div>
+        <div class="principles">
+          <article>
+            <span class="principle-number">01</span>
+            <h3>Follow dependencies</h3>
+            <p>The planner identifies ready tasks within a concurrency limit. A completed branch can unlock its next task while unrelated work continues.</p>
+          </article>
+          <article>
+            <span class="principle-number">02</span>
+            <h3>Contain failures</h3>
+            <p>Keep successful source reports when another task fails. Track elapsed time, retry only eligible failures, and stop at the attempt budget.</p>
+          </article>
+          <article>
+            <span class="principle-number">03</span>
+            <h3>Keep conflicts visible</h3>
+            <p>Preserve citations and separate supported, unverified, and contradicted reports. Conflicting claims stay out of diagram-plan facts.</p>
+          </article>
+        </div>
+        <div class="code-window" aria-label="Run the evidence workflow example from the repository root">
+          <div class="code-window-bar">
+            <span>Source checkout · CLI</span>
+            <button type="button" class="copy-button" data-copy-target="evidence-command">Copy</button>
+          </div>
+          <pre id="evidence-command"><code>node bin/diago.mjs evidence examples/checkout.evidence-workflow.json --json</code></pre>
+        </div>
+        <p>The host performs inspections, verifies claims, and stops timed-out workers. Diago evaluates the supplied snapshot and returns the next eligible work; it does not launch agents or independently prove claims.</p>
+        <p><a href="https://github.com/amirtaherkhani/diago/blob/main/docs/evidence-workflows.md">Read the workflow guide</a> · <a href="https://github.com/amirtaherkhani/diago/blob/main/examples/checkout.evidence-workflow.json">Open the example JSON</a></p>
+      </section>
+
       <section id="install" class="install-section section-shell">
         <div class="section-heading">
           <p class="eyebrow"><span></span> Start in a minute</p>

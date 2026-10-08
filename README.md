@@ -181,7 +181,7 @@ Diago's core is deterministic. The agent inspects sources and authors a plan; th
 | `list_diagram_types` | Discover renderers, profiles, patterns, and budgets |
 | `advise_diagram` | Select a useful view for a task |
 | `create_diagram_plan` | Establish scope, evidence, and the reader's question |
-| `plan_evidence_workflow` | Schedule ready evidence work and surface failures, retry limits, and claim conflicts |
+| `plan_evidence_workflow` | Identify ready evidence work and surface failures, retry limits, and claim conflicts |
 | `review_diagram_plan` | Find unsupported claims and missing context |
 | `validate_diagram` | Check schema, renderer, accessibility, and composition rules |
 | `render_diagram` | Write validated standalone HTML to an absolute local path |
@@ -200,6 +200,8 @@ Only `render_diagram` writes an artifact. The server uses local stdio transport.
 </details>
 
 ## Evidence workflows
+
+**Available on `main`; not included in the published v0.6.0 plugin.** Run the command below from an updated source checkout. See the [draft v0.7.0 notes](./docs/releases/v0.7.0.md).
 
 Use `diago evidence` or the read-only `plan_evidence_workflow` MCP tool when a diagram needs evidence from independent sources and dependent cross-checks:
 
