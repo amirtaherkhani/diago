@@ -62,8 +62,7 @@
       "label": "Archify runtime",
       "sublabel": "validate + render",
       "pos": [680, 250],
-      "size": [160, 70],
-      "tag": "v2.12.0"
+      "size": [160, 70]
     },
     {
       "id": "artifact",

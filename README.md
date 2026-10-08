@@ -38,7 +38,11 @@
 
 ## ✨ Turn “how does this work?” into “now I see it.”
 
-Point Diago at a repository, a feature, or an architecture conversation. It helps your agent turn the evidence into a focused diagram you can open locally and share for review.
+**Diago is an open-source MCP toolkit for software architecture diagrams in Codex and Claude Code.** It combines agent skills, a local Model Context Protocol server, and deterministic renderers to turn repository evidence into interactive HTML diagrams.
+
+Point Diago at a repository, a feature, or an architecture conversation. Keep the diagram JSON and standalone HTML together so you can review, share, and regenerate the result.
+
+[Getting started guide](https://amirtaherkhani.github.io/diago/guide/) · [Frequently asked questions](https://amirtaherkhani.github.io/diago/#faq)
 
 | 🔎 Follow the evidence | 🧩 Find the right view | 🎁 Keep the artifact |
 | :--- | :--- | :--- |

@@ -52,6 +52,7 @@ test('controller schedules playback and wraps after the final view', () => {
   assert.equal(fixture.root.dataset.activeView, 'architecture');
   assert.equal(fixture.timers.size, 1);
   assert.equal([...fixture.timers.values()][0].delay, 5000);
+  assert.ok(fixture.tabs.every((tab) => tab.scrollCalls.length === 0), 'passive playback must not scroll the document');
 });
 
 test('playback control cancels and restores scheduling with an accessible label', () => {
@@ -105,7 +106,7 @@ test('reduced motion resets the first panel, hides playback, and stops schedulin
   assert.equal(fixture.panels[5].hidden, true);
   assert.equal(fixture.toggle.hidden, true);
   assert.equal(fixture.timers.size, 0);
-  assert.equal(fixture.tabs[0].scrollCalls.at(-1).behavior, 'auto');
+  assert.ok(fixture.tabs.every((tab) => tab.scrollCalls.length === 0), 'motion preference changes must not scroll the document');
 
   fixture.mediaQuery.matches = false;
   fixture.mediaQuery.dispatch('change');

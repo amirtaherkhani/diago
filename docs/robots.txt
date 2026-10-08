@@ -1,3 +1,5 @@
+# On GitHub project Pages this file is served at /diago/robots.txt.
+# Crawlers use /robots.txt at the host root; see docs/SEARCH.md in the repository.
 User-agent: *
 Allow: /
 

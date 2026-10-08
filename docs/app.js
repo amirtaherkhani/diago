@@ -71,7 +71,7 @@ export function createDiagramPreview(root, environment = globalThis) {
     if (!running) return;
     timerId = environment.setTimeout(() => {
       activeIndex = nextDiagramIndex(activeIndex, tabs.length);
-      render({ scroll: true });
+      render();
       syncPlayback();
     }, 5000);
   };
@@ -130,7 +130,7 @@ export function createDiagramPreview(root, environment = globalThis) {
   const syncMotionPreference = () => {
     toggle.hidden = reducedMotionQuery.matches;
     if (reducedMotionQuery.matches) activeIndex = 0;
-    render({ scroll: true });
+    render();
     syncPlayback();
   };
 
