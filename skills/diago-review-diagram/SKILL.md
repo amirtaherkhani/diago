@@ -23,6 +23,12 @@ Audit the diagram as an engineering artifact, not as decoration. Treat correctne
 6. Render and inspect 1440 px and 360 px output. Exercise available themes, steps, modes, focus states, and details panels.
 7. Return findings ordered by severity with the exact unsupported claim, type/profile mismatch, fidelity loss, visual problem, or missing decision context.
 
+## Verification and repair bounds
+
+For findings about security boundaries, ownership, or dependency direction, check the exact claim against its cited source and look for contradictory evidence before reporting it as verified. Deterministic validation proves the IR contract, not the truth of the depicted system. Record an unresolved source conflict as an open question.
+
+Group repairs by the failed gate and rerun that gate after each change. Keep a short record of findings and rejected candidates so the same unsupported conclusion is not rediscovered. Limit an automatic repair loop to two rounds; stop earlier when the same finding recurs without new evidence. Report remaining blockers instead of weakening the acceptance criteria. A changed artifact must pass the complete applicable acceptance checks before delivery.
+
 ## Severity
 
 - Blocker: materially false system behavior, security boundary, data ownership, or dependency.
