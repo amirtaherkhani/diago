@@ -286,16 +286,26 @@ svg {
 }
 
 .site-nav .nav-github {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 9px 13px;
-  border: 1px solid var(--line);
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   border-radius: 9px;
   color: var(--text);
 }
 
-.site-nav svg,
+.site-nav .nav-github:hover {
+  color: var(--primary);
+}
+
+.nav-github svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
 .button svg {
   width: 15px;
   height: 15px;
@@ -1838,7 +1848,6 @@ footer {
   }
 
   .site-nav .nav-github {
-    justify-content: space-between;
     margin-top: 4px;
   }
 

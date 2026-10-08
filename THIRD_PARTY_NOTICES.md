@@ -1,6 +1,12 @@
 # Third-party notices
 
-Diago preserves required notices for four MIT-licensed upstream sources and the bundled JetBrains Mono font. Pinned source versions are recorded in `vendor/upstreams.lock.json`.
+Diago preserves required notices for four MIT-licensed upstream sources, the GitHub Octicons mark, and the bundled JetBrains Mono font. Pinned upstream versions are recorded in `vendor/upstreams.lock.json`.
+
+## GitHub Octicons
+
+- Source: https://github.com/primer/octicons/blob/main/icons/mark-github-16.svg
+- Integration: GitHub mark in the GitHub Pages header
+- License: `docs/assets/licenses/octicons-MIT.txt`
 
 ## Archify
 
