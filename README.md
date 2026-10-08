@@ -28,7 +28,7 @@
 
 ![Diago: make the system visible before you change it](./docs/assets/og-card.png)
 
-Diago turns a task, feature, code path, design pattern, incident, or best-practice discussion into the smallest useful software engineering diagram. It provides an evidence-aware agent workflow, six native MCP tools, a deterministic CLI, and interactive standalone renderers for OpenAI Codex and Claude Code.
+Diago turns a task, feature, code path, design pattern, incident, or best-practice discussion into the smallest useful software engineering diagram. It provides an evidence-aware agent workflow, seven native MCP tools, a deterministic CLI, and interactive standalone renderers for OpenAI Codex and Claude Code.
 
 ## Why this exists
 
@@ -227,6 +227,7 @@ Codex and Claude can call the same deterministic core directly:
 | `list_diagram_types` | Discover the eight renderers, profiles, semantic patterns, and budgets | read-only |
 | `advise_diagram` | Choose the smallest useful view for a task | read-only |
 | `create_diagram_plan` | Establish scope, evidence lanes, and the primary question | read-only |
+| `plan_evidence_workflow` | Schedule ready evidence work and surface failures, retry limits, and claim conflicts | read-only |
 | `review_diagram_plan` | Find unsupported facts and missing decision context | read-only |
 | `validate_diagram` | Run schema, renderer, accessibility, and composition checks | read-only |
 | `render_diagram` | Deliver validated standalone HTML to an absolute path | local write |
@@ -316,6 +317,18 @@ New plans use schema v2. The contract preserves evidence lanes and adds the inpu
 
 Legacy schema-v1 plans remain reviewable through non-mutating compatibility normalization; newly generated plans are v2. See [`schemas/diagram-plan.schema.json`](./schemas/diagram-plan.schema.json), the [checkout plan](./examples/checkout-feature.diagram-plan.json), the [repository plan](./examples/repository-domain.diagram-plan.json), the [conversation plan](./examples/conversation-architecture.diagram-plan.json), and the native [data model](./examples/order-domain.data-model.json), [timeline](./examples/payment-migration.timeline.json), and [layers](./examples/checkout-controls.layers.json) examples.
 
+## Evidence workflows
+
+Use `diago evidence` or the read-only `plan_evidence_workflow` MCP tool when a diagram needs evidence from independent sources and dependent cross-checks:
+
+```bash
+node bin/diago.mjs evidence examples/checkout.evidence-workflow.json --json
+```
+
+The planner returns up to the configured number of ready tasks. The host inspects sources, records attempts and verification verdicts in the JSON snapshot, then evaluates it again. Failed branches retain their errors while independent work continues; only explicit retryable failures and timeouts get another attempt. Conflicting claims stay out of the plan's facts.
+
+See [the workflow guide](./docs/evidence-workflows.md) for the snapshot contract, concurrency and timeout handling, evidence reconciliation, and a complete example. Source inspection and verification are performed by the host: Diago neither launches workers nor independently proves the reported claims.
+
 ## Dependency updates
 
 The scheduled dependency workflow checks pinned sources every week. Each update is isolated in a reviewable pull request with checks for:
@@ -364,7 +377,7 @@ npm install --ignore-scripts
 npm run check
 ```
 
-The test suite covers stdio MCP initialization, six tool contracts, renderer discovery, recommendation selection, schema-v1 compatibility, schema-v2 planning, evidence review, plugin health, all eight renderer paths, output-root enforcement, overwrite protection, and standalone HTML rendering.
+The test suite covers stdio MCP initialization, seven tool contracts, renderer discovery, recommendation selection, schema-v1 compatibility, schema-v2 planning, evidence review, plugin health, all eight renderer paths, output-root enforcement, overwrite protection, and standalone HTML rendering.
 
 ## Contributing
 

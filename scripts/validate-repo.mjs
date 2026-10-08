@@ -5,6 +5,7 @@ import path from 'node:path';
 import { listDiagramTypes } from '../lib/diagram-catalog.mjs';
 import { fromRoot } from '../lib/paths.mjs';
 import { validateDiagramDocument } from '../lib/renderer-registry.mjs';
+import { planEvidenceWorkflow } from '../lib/evidence-workflow.mjs';
 import { reviewPlan } from '../lib/reviewer.mjs';
 
 const errors = [];
@@ -50,6 +51,13 @@ const packageLock = readJson('package-lock.json');
 readJson('schemas/diagram-plan.schema.json');
 readJson('schemas/diagram-plan-v1.schema.json');
 readJson('schemas/advice.schema.json');
+readJson('schemas/evidence-workflow.schema.json');
+const evidenceExample = readJson('examples/checkout.evidence-workflow.json');
+if (evidenceExample) {
+  try {
+    check(planEvidenceWorkflow(evidenceExample).ready.length === 2, 'Evidence example must expose two independent ready tasks.');
+  } catch (error) { errors.push(`Evidence workflow example: ${error.message}`); }
+}
 readJson('schemas/data-model.schema.json');
 readJson('schemas/timeline.schema.json');
 readJson('schemas/layers.schema.json');
