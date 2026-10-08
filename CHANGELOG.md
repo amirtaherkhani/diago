@@ -2,6 +2,25 @@
 
 All notable changes to Diago are documented here.
 
+## [Unreleased]
+
+### Added
+
+- An upstream-update skill covering complete source discovery, sequential snapshot synchronization, compatibility review, and repository integration.
+
+### Changed
+
+- Updated the bundled Archify runtime to `v3.0.1` and refreshed the UI UX Pro Max and Diagram Design pins; preserved the bundled JetBrains Mono font license.
+- Evidence collection now follows actual dependencies, records unavailable sources explicitly, and bounds verification repair loops.
+
+### Performance
+
+- Upstream discovery runs up to four independent GitHub requests concurrently.
+
+### Fixed
+
+- Upstream discovery now times out stalled requests, validates returned refs and commit SHAs, and retains successful results when another source fails. Incomplete checks exit nonzero and report unresolved sources explicitly.
+
 ## [0.5.0] - 2026-09-22
 
 ### Added

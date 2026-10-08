@@ -28,6 +28,8 @@ Never edit an installed Codex plugin cache as the source repository. If the chec
    npm run upstreams:check -- --json
    ```
 
+   Discovery requests run concurrently with a four-request limit and per-request timeouts. A failed source has `latest: null`, `changed: null`, and an `error`; the command exits nonzero while retaining successful results. Never interpret `changed: null` as current.
+
    Compare its keys with every source in `vendor/upstreams.lock.json`. Stop if a configured source is omitted, the GitHub API fails, or the latest ref cannot be resolved. Do not describe a partial result as an all-upstream check.
 4. For each source whose `changed` value is `true`, run the canonical sync sequentially:
 

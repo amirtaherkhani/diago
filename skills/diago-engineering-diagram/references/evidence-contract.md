@@ -24,3 +24,11 @@ If a source is stale or environment-specific, show that limitation in the diagra
 ## Sensitive data
 
 Exclude credentials, tokens, customer data, internal hostnames, and production identifiers from public diagrams. Replace them with semantic labels while preserving the architecture boundary.
+
+## Dependency-aware collection
+
+For evidence spanning multiple modules or sources, split collection by independent questions. Inspect a producer's output contract before tracing consumers that depend on it; unrelated modules can be inspected concurrently with bounded concurrency. Use ordinary code for sorting, deduplication, and validation. Reuse the claim shape above for every result and retain source scope when combining results.
+
+Combine results only where the reader's question requires them. Record unavailable evidence as an open question; a failed lookup never proves that a component or dependency is absent. Rerun only failed collection work, with at most one retry for a transient failure. Shared plan files and diagram outputs have one writer.
+
+When depicting concurrent systems, draw dependency edges only when supported by a data or control contract. Distinguish conditional routes, joins that require all inputs, and paths that tolerate partial results. Preserve these semantics in the fidelity ledger when simplifying a graph. Diago visualizes the observed workflow; it does not execute or schedule agent fleets.
