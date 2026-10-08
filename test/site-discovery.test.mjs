@@ -97,12 +97,29 @@ test('sitemap lists canonical public pages with actual content dates', () => {
   assert.doesNotMatch(sitemap, /<priority>|<changefreq>/);
 });
 
-test('both public footers link to the author social destinations', () => {
-  for (const { html } of pages) {
+test('both public footers group accessible social logos with the footer navigation', () => {
+  const profiles = [
+    ['https://x.com/amirmo_th', 'Amir on X', 'x'],
+    ['https://hashnode.com/@amirtaherkhani', 'Amir on Hashnode', 'hashnode'],
+    ['https://dev.to/amirtaherkhani', 'Amir on DEV', 'devdotto'],
+  ];
+  const sprite = fs.readFileSync(fromRoot('docs', 'assets', 'social-icons.svg'), 'utf8');
+  for (const { html, url: pageUrl } of pages) {
     const footer = html.match(/<footer>([\s\S]*?)<\/footer>/)[1];
-    assert.match(footer, /aria-label="Author social profiles"/);
-    for (const url of ['https://x.com/amirmo_th', 'https://hashnode.com/@amirtaherkhani', 'https://dev.to/amirtaherkhani']) {
-      assert.ok(footer.includes(`href="${url}"`), `Missing footer social link: ${url}`);
+    assert.match(footer, /<div class="footer-links">\s*<nav class="footer-nav"[\s\S]*?<\/nav>\s*<nav class="footer-socials"/);
+    assert.doesNotMatch(footer, /Follow Amir|section-shell footer-socials/);
+    const socials = footer.match(/<nav class="footer-socials" aria-label="Author social profiles">([\s\S]*?)<\/nav>/)[1];
+    const links = [...socials.matchAll(/<a\b([^>]+)>([\s\S]*?)<\/a>/g)];
+    assert.equal(links.length, profiles.length);
+    for (const [url, label, icon] of profiles) {
+      const link = links.find(([, attributes]) => attributes.includes(`href="${url}"`));
+      assert.ok(link, `Missing footer social link: ${url}`);
+      assert.ok(link[1].includes(`aria-label="${label}"`));
+      assert.ok(link[1].includes(`title="${label}"`));
+      assert.match(link[2], /<svg[^>]+aria-hidden="true"[^>]+focusable="false"/);
+      const reference = link[2].match(/<use href="([^"]+)"/)[1];
+      assert.equal(new URL(reference, pageUrl).href, `${base}assets/social-icons.svg#${icon}`);
+      assert.ok(sprite.includes(`<symbol id="${icon}" viewBox="0 0 24 24"><path d="`));
     }
   }
 });
