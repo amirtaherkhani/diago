@@ -1,59 +1,67 @@
+<a name="top"></a>
+
 <p align="center">
   <a href="https://amirtaherkhani.github.io/diago/">
     <img src="./docs/assets/banner.png" alt="Diago — Make the system visible before you change it." width="100%">
   </a>
 </p>
 
-<h1 align="center">Engineering diagrams, grounded in your code.</h1>
+<h1 align="center">A little clarity for your next big change. ✨</h1>
 
 <p align="center">
-  Turn a feature, code path, or architecture conversation into an interactive diagram.<br>
-  Built for <strong>Codex</strong> and <strong>Claude Code</strong>. Powered by evidence, native MCP tools, and deterministic renderers.
+  <strong>Your code has a story. Diago helps you draw it.</strong><br>
+  Evidence-grounded, interactive engineering diagrams for <strong>Codex</strong> and <strong>Claude Code</strong>.
+</p>
+
+<p align="center">
+  <a href="https://amirtaherkhani.github.io/diago/"><img alt="Try the live demo" src="https://img.shields.io/badge/Try_the_demo-FFBE0B?style=for-the-badge&labelColor=080F20"></a>
+  <a href="#install"><img alt="Get started with Diago" src="https://img.shields.io/badge/Get_started-1F242D?style=for-the-badge&labelColor=080F20"></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/amirtaherkhani/diago/actions/workflows/ci.yml"><img alt="CI status" src="https://github.com/amirtaherkhani/diago/actions/workflows/ci.yml/badge.svg"></a>
-  <a href="https://github.com/amirtaherkhani/diago/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/amirtaherkhani/diago?style=flat&color=ffbe0b&labelColor=080f20"></a>
-  <a href="./LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-ffbe0b?labelColor=080f20"></a>
-  <a href="./package.json"><img alt="Node.js 18 or newer" src="https://img.shields.io/badge/Node.js-18%2B-ffbe0b?labelColor=080f20"></a>
-  <a href="https://github.com/amirtaherkhani/diago/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/amirtaherkhani/diago?style=flat&color=ffbe0b&labelColor=080f20"></a>
+  <a href="https://github.com/amirtaherkhani/diago/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/amirtaherkhani/diago?style=flat-square&color=ffbe0b&labelColor=080f20"></a>
+  <a href="./LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-ffbe0b?style=flat-square&labelColor=080f20"></a>
+  <a href="./package.json"><img alt="Node.js 18 or newer" src="https://img.shields.io/badge/Node.js-18%2B-ffbe0b?style=flat-square&labelColor=080f20"></a>
 </p>
 
 <p align="center">
-  <a href="https://amirtaherkhani.github.io/diago/"><strong>Live demo ↗</strong></a> ·
-  <a href="#install">Quick start</a> ·
-  <a href="#what-you-can-build">Examples</a> ·
-  <a href="./docs/USAGE.md">Usage guide</a> ·
-  <a href="#contributing">Contribute</a>
+  <a href="#what-you-can-build">🧩 Diagram gallery</a> &nbsp;·&nbsp;
+  <a href="#use-after-installation">🪄 Prompt recipes</a> &nbsp;·&nbsp;
+  <a href="#contributing">🌱 Contribute</a> &nbsp;·&nbsp;
+  <a href="./docs/USAGE.md">📖 Docs</a>
 </p>
+
+<p align="center"><sub>8 diagram views &nbsp; / &nbsp; 4 agent skills &nbsp; / &nbsp; Standalone HTML &nbsp; / &nbsp; Zero runtime npm dependencies</sub></p>
 
 ---
 
-## From a question to a shared understanding
+## ✨ Turn “how does this work?” into “now I see it.”
 
-**Diago helps engineers explain a system before changing it.** Point your agent at a repository, an engineering task, or a conversation. Diago selects a useful view, records the supporting evidence, and produces a standalone HTML diagram you can open locally and share for review.
+Point Diago at a repository, a feature, or an architecture conversation. It helps your agent turn the evidence into a focused diagram you can open locally and share for review.
 
-| Ground it | Keep it focused | Make it usable |
+| 🔎 Follow the evidence | 🧩 Find the right view | 🎁 Keep the artifact |
 | :--- | :--- | :--- |
-| Trace important claims to code, contracts, or runtime evidence. Label assumptions and proposed changes. | Choose from eight diagram types. Split oversized systems into overview and detail views. | Validate the JSON source and render interactive HTML with responsive layouts, keyboard controls, and reduced-motion support. |
-
-**8 diagram types · 7 MCP tools · 4 agent skills · No runtime npm dependencies**
+| Trace claims to code and contracts. Keep assumptions visible. | Pick the diagram that answers your question. Split crowded systems into smaller views. | Get validated JSON and interactive HTML with responsive layouts and keyboard controls. |
 
 > [!TIP]
-> [Explore all eight views in the live demo](https://amirtaherkhani.github.io/diago/#top). Use the tabs to switch diagrams and the pause control to inspect one at your own pace.
+> **Just looking around?** [Try the live demo](https://amirtaherkhani.github.io/diago/#top) before installing. Switch between all eight views and pause on the one you want to explore.
 
-## Install
+<a name="install"></a>
 
-Requires **Node.js 18+**. Choose the agent you use.
+## ⚡ Your first diagram starts here
 
-### Codex
+You need **Node.js 18+**. Pick your favorite agent, install Diago, and open a new thread in the project you want to understand.
+
+<details open>
+<summary><strong>① Codex — install, then ask</strong></summary>
 
 ```bash
 codex plugin marketplace add amirtaherkhani/diago
 codex plugin add diago@diago
 ```
 
-Open a new thread in the repository you want to understand, then ask:
+Your first prompt:
 
 ```text
 Use $diago-engineering-diagram to map this feature from its API entry point
@@ -61,7 +69,10 @@ through the service layer to persistence. Inspect the code, label assumptions,
 and render an architecture view and a sequence view.
 ```
 
-### Claude Code
+</details>
+
+<details>
+<summary><strong>② Claude Code — install, then ask</strong></summary>
 
 Run inside Claude Code:
 
@@ -71,7 +82,7 @@ Run inside Claude Code:
 /reload-plugins
 ```
 
-Then ask:
+Then start with:
 
 ```text
 /diago:diago-engineering-diagram
@@ -79,10 +90,10 @@ Map this feature from its API entry point to persistence. Inspect the code,
 label assumptions, and render architecture and sequence views.
 ```
 
-Both plugins start the bundled `engineering-diagrams` MCP server automatically. Diago needs no separate API key or hosted service; your agent's own access requirements still apply.
+</details>
 
 <details>
-<summary><strong>Prefer the CLI? Render an example locally.</strong></summary>
+<summary><strong>③ CLI — render a ready-made example</strong></summary>
 
 ```bash
 git clone https://github.com/amirtaherkhani/diago.git
@@ -100,37 +111,45 @@ node bin/diago.mjs plan "trace an idempotent checkout API request" --out checkou
 node bin/diago.mjs review examples/checkout-feature.diagram-plan.json
 ```
 
-For direct MCP registration without the plugin, see the [Codex and Claude setup guide](./docs/USAGE.md#connect-the-mcp-server-directly-to-codex).
+Want to connect the MCP server directly? [Use the setup guide →](./docs/USAGE.md#connect-the-mcp-server-directly-to-codex)
 
 </details>
 
-## What you can build
+Both plugins start the bundled `engineering-diagrams` MCP server automatically. Diago needs no separate API key or hosted service; your agent's own access requirements still apply.
 
-| View | The question it answers | Try it |
+<a name="what-you-can-build"></a>
+
+## 🧩 One question. The right diagram.
+
+| You want to understand… | Reach for… | Open an example |
 | :--- | :--- | :--- |
-| **Architecture** | What exists, and what depends on it? | [Plugin request source](./examples/plugin-request.architecture.json) |
-| **Sequence** | What happens in what order? | [Live preview](https://amirtaherkhani.github.io/diago/#top) → Sequence |
-| **Workflow** | Which steps and decisions control the outcome? | [Live preview](https://amirtaherkhani.github.io/diago/#top) → Workflow |
-| **Dataflow** | Where does data originate, transform, and land? | [Live preview](https://amirtaherkhani.github.io/diago/#top) → Dataflow |
-| **Lifecycle** | How does an entity change state? | [Live preview](https://amirtaherkhani.github.io/diago/#top) → Lifecycle |
-| **Data model** | Which entities, keys, and relationships define the domain? | [Order domain source](./examples/order-domain.data-model.json) |
-| **Timeline** | How do engineering phases and milestones relate? | [Migration source](./examples/payment-migration.timeline.json) |
-| **Layers** | Where are responsibilities and controls enforced? | [Checkout controls source](./examples/checkout-controls.layers.json) |
+| **The big picture** — components, ownership, dependencies | Architecture | [Plugin request JSON](./examples/plugin-request.architecture.json) |
+| **The conversation** — calls, responses, ordering | Sequence | [Live demo](https://amirtaherkhani.github.io/diago/#top) → Sequence |
+| **The next step** — decisions, branches, approvals | Workflow | [Live demo](https://amirtaherkhani.github.io/diago/#top) → Workflow |
+| **The journey** — data sources, transformations, destinations | Dataflow | [Live demo](https://amirtaherkhani.github.io/diago/#top) → Dataflow |
+| **The state changes** — triggers, retries, terminal outcomes | Lifecycle | [Live demo](https://amirtaherkhani.github.io/diago/#top) → Lifecycle |
+| **The domain** — entities, keys, relationships | Data model | [Order domain JSON](./examples/order-domain.data-model.json) |
+| **The milestones** — phases, dependencies, timing | Timeline | [Migration JSON](./examples/payment-migration.timeline.json) |
+| **The boundaries** — responsibilities and controls | Layers | [Checkout controls JSON](./examples/checkout-controls.layers.json) |
 
-Each renderer has profiles and complexity limits. Diago records what was merged, collapsed, or omitted so readers can see the scope of the view.
+<sub>The live-demo links open the same workbench. Choose the named tab to see that view.</sub>
 
-## Use after installation
+<a name="use-after-installation"></a>
 
-### Prompts worth trying
+## 🪄 A few prompts to borrow
 
-**Understand a feature**
+<details open>
+<summary><strong>🔍 “Help me understand this feature.”</strong></summary>
 
 ```text
 Use $diago-engineering-diagram to trace checkout from API entry to payment
 and persistence. Show ownership, trust boundaries, and failure paths.
 ```
 
-**Turn a discussion into architecture**
+</details>
+
+<details>
+<summary><strong>💬 “Turn our conversation into architecture.”</strong></summary>
 
 ```text
 Use $diago-chat-architecture to visualize the architecture in this conversation.
@@ -138,41 +157,48 @@ Show components, responsibilities, and directed relationships. Separate
 accepted decisions from proposals, assumptions, and unresolved questions.
 ```
 
-**Review before you ship**
+</details>
+
+<details>
+<summary><strong>🧐 “Give this diagram a second pair of eyes.”</strong></summary>
 
 ```text
 Use $diago-review-diagram to audit this diagram against the repository.
 List unsupported claims, missing boundaries, and ambiguous relationships.
 ```
 
-In Claude Code, replace `$diago-engineering-diagram` with `/diago:diago-engineering-diagram`, and use the same namespace for the other skills. [See the full prompt library →](./docs/USAGE.md#example-prompts)
+</details>
 
-### Get a better diagram
+In Claude Code, use `/diago:diago-engineering-diagram` instead of `$diago-engineering-diagram`, and the same namespace for the other skills. [More recipes →](./docs/USAGE.md#example-prompts)
 
-1. **Name the decision.** “Explain retry ownership in checkout” gives a clearer scope than “diagram the whole repo.”
-2. **Point to evidence.** Supply the entry point, relevant folders, API contract, logs, or selected conversation.
-3. **Name the reader.** Ask for an overview for reviewers or a detailed trace for implementers.
-4. **Separate now from next.** Require current behavior, proposed changes, and assumptions to stay distinct.
-5. **Review the source.** Keep the JSON and HTML together, check unsupported claims, and split crowded views.
+> [!TIP]
+> **The tiny recipe for a useful prompt:** name the **decision**, point to the **evidence**, and name the **reader**. Then ask Diago to separate current behavior from proposed changes.
+>
+> *Example: “Explain retry ownership in checkout for a backend reviewer. Start at `src/checkout` and mark anything you cannot verify.”*
 
-## How it works
+<a name="how-it-works"></a>
+
+## 🛠 A peek under the hood
 
 ```text
-Question + source evidence
-           ↓
-      Diagram plan       scope, audience, facts, assumptions
-           ↓
-      Diagram JSON       selected renderer and bounded detail
-           ↓
-   Validate → Render     interactive standalone HTML
-           ↓
-      Review findings → refine the source
+Your question + source evidence
+               ↓
+         Diagram plan       scope · audience · facts · assumptions
+               ↓
+         Diagram JSON       focused view · bounded detail
+               ↓
+      Validate → Render     interactive standalone HTML
+               ↓
+         Review & refine
 ```
 
-Diago's core is deterministic. The agent inspects sources and authors a plan; the CLI and MCP tools review, validate, and render it. Schema-v2 plans track selection rationale, evidence lanes, complexity, and fidelity. Legacy v1 plans remain reviewable. [Explore the plan contract →](./docs/USAGE.md#how-it-works)
+The agent inspects sources and authors the diagram. Diago's deterministic core reviews, validates, and renders it. Each view records what was merged, collapsed, or omitted. Keep the JSON and HTML together so the diagram stays reviewable.
+
+> [!NOTE]
+> **Release or source checkout?** The toolbox below describes `main`. Its seventh tool, `plan_evidence_workflow`, is not included in the published **v0.6.0** plugin. [See what has shipped →](https://github.com/amirtaherkhani/diago/releases)
 
 <details>
-<summary><strong>Native MCP tools and included skills</strong></summary>
+<summary><strong>🔌 Explore the MCP toolbox and agent skills</strong></summary>
 
 ### Native MCP tools
 
@@ -199,9 +225,14 @@ Only `render_diagram` writes an artifact. The server uses local stdio transport.
 
 </details>
 
-## Evidence workflows
+<a name="evidence-workflows"></a>
 
-**Available on `main`; not included in the published v0.6.0 plugin.** Run the command below from an updated source checkout. See the [draft v0.7.0 notes](./docs/releases/v0.7.0.md).
+<details>
+<summary><strong>🧪 Evidence workflows · available on main</strong></summary>
+
+### How evidence planning works
+
+**Available on `main`; not included in the published v0.6.0 plugin.** Run this from an updated source checkout. See the [draft v0.7.0 notes](./docs/releases/v0.7.0.md).
 
 Use `diago evidence` or the read-only `plan_evidence_workflow` MCP tool when a diagram needs evidence from independent sources and dependent cross-checks:
 
@@ -213,19 +244,32 @@ The planner returns up to the configured number of ready tasks. The host inspect
 
 See [the workflow guide](./docs/evidence-workflows.md) for the snapshot contract, concurrency and timeout handling, evidence reconciliation, and a complete example. Source inspection and verification are performed by the host: Diago neither launches workers nor independently proves the reported claims.
 
-## Contributing
+</details>
 
-**A useful first contribution can be one small, well-explained example.** Fork the project, choose a focused change, and open a pull request with the engineering question it solves.
+<a name="contributing"></a>
 
-| Start here | What to include |
+## 🌱 Small contributions are very welcome
+
+A clearer sentence, a useful prompt, or one well-explained diagram can make someone's first experience better.
+
+| Your kind of contribution | A lovely place to start |
 | :--- | :--- |
-| Add a diagram example | Source JSON, the reader's question, and evidence references |
-| Improve a recipe or prompt | A concrete before/after example and expected result |
-| Fix accessibility or layout | Reproduction steps, viewport size, and screenshots |
-| Improve agent compatibility | Agent/version, sanitized input, and observed behavior |
+| 📝 **Words** | Improve a setup step or explain a confusing concept |
+| 🧩 **Examples** | Add diagram JSON with its question and evidence references |
+| 🎨 **Polish** | Improve layout, keyboard navigation, or small-screen readability |
+| 🔧 **Code** | Fix a reproducible issue or improve agent compatibility |
+
+<details>
+<summary><strong>My first pull request — a small checklist</strong></summary>
+
+- [ ] Read the [contribution guide](./CONTRIBUTING.md) and pick one focused change.
+- [ ] [Fork Diago](https://github.com/amirtaherkhani/diago/fork) and create a branch.
+- [ ] Explain the engineering question or problem your change solves.
+- [ ] Run `npm run check`; include screenshots for visual changes.
+- [ ] Remove secrets and private details from examples.
+- [ ] Open a pull request with the result and verification notes.
 
 ```bash
-# Clone your fork, then create a focused branch.
 git clone https://github.com/YOUR-USERNAME/diago.git
 cd diago
 git switch -c docs/add-diagram-example
@@ -233,34 +277,59 @@ npm install --ignore-scripts
 npm run check
 ```
 
-Read the [contribution guide](./CONTRIBUTING.md), [browse issues](https://github.com/amirtaherkhani/diago/issues), or [propose a use case](https://github.com/amirtaherkhani/diago/issues/new?template=feature_request.yml). Remove secrets and private repository details from shared examples.
+</details>
 
-### Help more engineers find Diago
+[Browse issues](https://github.com/amirtaherkhani/diago/issues) · [Suggest a use case](https://github.com/amirtaherkhani/diago/issues/new?template=feature_request.yml) · [Report a bug](https://github.com/amirtaherkhani/diago/issues/new?template=bug_report.yml)
 
-- **Star the repository** if it is useful to your work. It helps others discover the project.
-- **Fork it for your workflow** and contribute useful recipes or examples back.
-- **Share a diagram** with the question it answered and a link to Diago, so others can reproduce the approach.
-- **Report what was confusing** in setup or output. A small, reproducible issue is a useful contribution.
+<a name="help-diago-grow"></a>
 
-<p align="center">
-  <a href="https://github.com/amirtaherkhani/diago"><strong>☆ Star Diago</strong></a> ·
-  <a href="https://github.com/amirtaherkhani/diago/fork"><strong>Fork the project ↗</strong></a> ·
-  <a href="https://github.com/amirtaherkhani/diago/issues/new?template=bug_report.yml">Report an issue</a>
-</p>
+## 💛 Help this little project grow
 
-## Development & reference
+**If Diago gave you an “aha!” moment, pass it on.**
 
-| Resource | Contents |
-| :--- | :--- |
-| [Usage guide](./docs/USAGE.md) | MCP setup, prompt library, plan schema, upstream updates |
-| [Evidence workflows](./docs/evidence-workflows.md) | Dependency-aware evidence planning, retry limits, and claim reconciliation |
-| [Contributing](./CONTRIBUTING.md) | Development workflow and diagram quality rules |
-| [Design system](./DESIGN.md) | Brand assets, semantic colors, layout, motion, accessibility |
-| [Examples](./examples/) | Reviewable plans and renderer source JSON |
-| [Changelog](./CHANGELOG.md) · [Releases](https://github.com/amirtaherkhani/diago/releases) | Product changes and release notes |
+- **Leave a star** to show the project was useful to you.
+- **Fork and make it yours** — try a new recipe, example, or integration, then share the improvement back.
+- **Show what you built** — share a diagram with the question it answered, the prompt, and a link to Diago.
+- **Tell us what got in the way** — a clear issue can make the next person's setup easier.
 
 <details>
-<summary><strong>Repository map</strong></summary>
+<summary><strong>💌 A short introduction you can share</strong></summary>
+
+```text
+Meet Diago: engineering diagrams for Codex and Claude Code.
+Turn a feature, code path, or architecture conversation into an interactive
+HTML diagram, with evidence and assumptions kept visible.
+
+Try the eight-view demo: https://amirtaherkhani.github.io/diago/
+Source and setup: https://github.com/amirtaherkhani/diago
+```
+
+Add your own screenshot, prompt, and what you learned. Share it where it answers a relevant engineering question.
+
+</details>
+
+<p align="center">
+  <a href="https://github.com/amirtaherkhani/diago/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/amirtaherkhani/diago?style=for-the-badge&color=ffbe0b&labelColor=080f20&label=Stars"></a>
+  <a href="https://github.com/amirtaherkhani/diago/fork"><img alt="Fork Diago" src="https://img.shields.io/github/forks/amirtaherkhani/diago?style=for-the-badge&color=ffbe0b&labelColor=080f20&label=Forks"></a>
+</p>
+
+<p align="center"><strong><a href="https://github.com/amirtaherkhani/diago">☆ Star Diago</a> &nbsp; · &nbsp; <a href="https://github.com/amirtaherkhani/diago/fork">⑂ Make a fork</a></strong></p>
+
+<a name="development--reference"></a>
+
+## 📚 The reading corner
+
+| Resource | Find your next step |
+| :--- | :--- |
+| [Usage guide](./docs/USAGE.md) | Direct MCP setup, more prompts, and plan contracts |
+| [Evidence workflows](./docs/evidence-workflows.md) | Dependency-aware planning and claim reconciliation |
+| [Contributing](./CONTRIBUTING.md) | Development and diagram quality rules |
+| [Design system](./DESIGN.md) | Logo, colors, layout, and accessibility |
+| [Maintainer growth checklist](./docs/COMMUNITY.md) | Practical ideas for discoverability, demos, and first contributions |
+| [Changelog](./CHANGELOG.md) · [Releases](https://github.com/amirtaherkhani/diago/releases) | What's changed and what's shipped |
+
+<details>
+<summary><strong>🗂 Repository map & local development</strong></summary>
 
 ```text
 skills/       Agent creation, conversation, review, and upstream workflows
@@ -282,4 +351,12 @@ Run `npm run check` for repository validation and tests. Run `npm run upstreams:
 
 ## License
 
-[MIT](./LICENSE). Third-party copyright and license notices are preserved in [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
+[MIT](./LICENSE), with required [third-party notices](./THIRD_PARTY_NOTICES.md) preserved.
+
+---
+
+<p align="center">
+  <img src="./docs/assets/favicon.svg" width="36" height="36" alt="Diago"><br>
+  <sub>Small diagrams. Clearer decisions. Made for curious engineers.</sub><br><br>
+  <a href="#top">↑ Back to the top</a>
+</p>
