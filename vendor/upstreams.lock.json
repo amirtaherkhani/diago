@@ -4,8 +4,8 @@
   "sources": {
     "archify": {
       "repository": "https://github.com/tt-a1i/archify",
-      "ref": "v3.0.1",
-      "commit": "2ab3cae7ac2c2a55d7386ca789d03c4fcd31816c",
+      "ref": "main",
+      "commit": "bb990b17b886e83d633e273221615eb259a92c78",
       "mode": "vendored-runtime",
       "path": "vendor/archify"
     },
