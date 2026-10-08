@@ -6,6 +6,7 @@ import process from 'node:process';
 import { runArchify } from '../lib/archify.mjs';
 import { parseContextArgs, parseNativeOptions } from '../lib/cli-options.mjs';
 import { DIAGRAM_TYPES, getDiagramType, listDiagramTypes } from '../lib/diagram-catalog.mjs';
+import { planEvidenceWorkflow } from '../lib/evidence-workflow.mjs';
 import { createPlan } from '../lib/planner.mjs';
 import { advise, formatAdvice } from '../lib/recommender.mjs';
 import {
@@ -26,6 +27,7 @@ Usage:
   diago advise <task or feature> [--source kind] [--audience detail] [--destination label] [--json]
   diago plan <task or feature> [--source kind] [--audience detail] [--destination label] [--out diagram-plan.json]
   diago review <diagram-plan.json> [--json]
+  diago evidence <evidence-workflow.json> [--json]
   diago render <type> <input.json> [output.html] [renderer options]
   diago validate <type> <input.json> [renderer options]
   diago doctor [--json]
@@ -116,6 +118,19 @@ function commandReview(args) {
   if (!result.ok) process.exitCode = 1;
 }
 
+function commandEvidence(args) {
+  const positional = args.filter((arg) => arg !== '--json');
+  if (positional.length !== 1 || positional[0].startsWith('--')) fail(usage());
+  const result = parseCliInput(() => planEvidenceWorkflow(readJson(positional[0])));
+  if (args.includes('--json')) console.log(JSON.stringify(result, null, 2));
+  else {
+    console.log(`${result.status.toUpperCase()} · ${result.ready.length} ready tasks`);
+    for (const node of result.nodes) console.log(`- ${node.id}: ${node.status} (${node.reason})`);
+    console.log(`Evidence: ${result.evidence.facts.length} facts, ${result.conflicts.length} conflicts, ${result.rejected.length} rejected, ${result.unresolved.length} unresolved.`);
+  }
+  if (result.status === 'incomplete') process.exitCode = 1;
+}
+
 function commandDoctor(args) {
   const checks = [
     { name: 'node', ok: Number(process.versions.node.split('.')[0]) >= 18, detail: `Node ${process.versions.node}` },
@@ -193,6 +208,7 @@ switch (command) {
   case 'advise': commandAdvise(rawArgs); break;
   case 'plan': commandPlan(rawArgs); break;
   case 'review': commandReview(rawArgs); break;
+  case 'evidence': commandEvidence(rawArgs); break;
   case 'render':
   case 'validate':
   case 'deliver':

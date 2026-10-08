@@ -21,6 +21,26 @@ const taskProperty = {
 };
 const adviceOutput = JSON.parse(fs.readFileSync(fromRoot('schemas', 'advice.schema.json'), 'utf8'));
 const planOutput = JSON.parse(fs.readFileSync(fromRoot('schemas', 'diagram-plan.schema.json'), 'utf8'));
+const workflowInput = JSON.parse(fs.readFileSync(fromRoot('schemas', 'evidence-workflow.schema.json'), 'utf8'));
+const workflowOutput = {
+  type: 'object',
+  required: ['schemaVersion', 'status', 'ok', 'limits', 'ready', 'nodes', 'evidence', 'conflicts', 'rejected', 'unresolved'],
+  additionalProperties: false,
+  properties: {
+    schemaVersion: { const: 1 },
+    status: { enum: ['pending', 'complete', 'incomplete'] },
+    ok: { type: 'boolean' },
+    limits: { type: 'object' },
+    ready: { type: 'array', items: { type: 'object' } },
+    nodes: { type: 'array', items: { type: 'object' } },
+    evidence: { ...planOutput.properties.evidence, properties: Object.fromEntries(
+      Object.keys(planOutput.properties.evidence.properties).map((key) => [key, { type: 'array', items: planOutput.$defs.claim }]),
+    ) },
+    conflicts: { type: 'array', items: { type: 'object' } },
+    rejected: { type: 'array', items: { type: 'object' } },
+    unresolved: { type: 'array', items: { type: 'object' } },
+  },
+};
 const catalogOutput = {
   type: 'object',
   required: ['schemaVersion', 'types'],
@@ -70,6 +90,20 @@ const renderOutput = {
 };
 
 export const TOOL_DEFINITIONS = [
+  {
+    name: 'plan_evidence_workflow',
+    title: 'Plan dependency-aware evidence work',
+    description: 'Evaluate a caller-owned evidence workflow snapshot. Return bounded ready work, local failures, retry limits, and merged evidence with conflicts retained. Does not launch workers, fetch sources, or independently verify reported claims.',
+    inputSchema: {
+      type: 'object',
+      properties: { workflow: workflowInput },
+      required: ['workflow'],
+      additionalProperties: false,
+    },
+    outputSchema: workflowOutput,
+    annotations: closedWorldReadOnly,
+    execution: { taskSupport: 'forbidden' },
+  },
   {
     name: 'list_diagram_types',
     title: 'List native engineering diagram types',

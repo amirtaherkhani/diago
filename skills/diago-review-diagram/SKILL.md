@@ -23,6 +23,8 @@ Audit the diagram as an engineering artifact, not as decoration. Treat correctne
 6. Render and inspect 1440 px and 360 px output. Exercise available themes, steps, modes, focus states, and details panels.
 7. Return findings ordered by severity with the exact unsupported claim, type/profile mismatch, fidelity loss, visual problem, or missing decision context.
 
+When an evidence workflow snapshot accompanies the diagram, evaluate it with `plan_evidence_workflow`. Inspect the reported sources behind every material claim; `ok: true` means the supplied reports are complete and consistent, not that Diago independently checked them. Treat `incomplete`, claim conflicts, and exhausted attempts as unresolved evidence.
+
 ## Verification and repair bounds
 
 For findings about security boundaries, ownership, or dependency direction, check the exact claim against its cited source and look for contradictory evidence before reporting it as verified. Deterministic validation proves the IR contract, not the truth of the depicted system. Record an unresolved source conflict as an open question.

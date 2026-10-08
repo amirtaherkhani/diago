@@ -10,7 +10,7 @@ Turn engineering evidence into a diagram that answers one explicit question. Pre
 ## Workflow
 
 1. Name the input source as `prompt`, `repository`, `conversation`, or `mixed`. State the audience detail, delivery destination, decision, and system boundary.
-2. Inspect evidence before drawing. Read relevant code, configuration, contracts, tests, migrations, logs, traces, runtime state, or accepted conversation decisions.
+2. Inspect evidence before drawing. Read relevant code, configuration, contracts, tests, migrations, logs, traces, runtime state, or accepted conversation decisions. For multiple independent sources and dependent cross-checks, use `plan_evidence_workflow` or `diago evidence <workflow.json> --json`; follow the evidence contract for snapshot ownership and verification limits.
 3. Separate verified facts, assumptions, recommendations, and superseded decisions. Never render an assumption or superseded proposal as current behavior.
 4. Choose the reader question before the visual type. Read `references/diagram-selection.md`. When the native capability or profile is unclear, call `list_diagram_types`; then call `advise_diagram` with the task and available context. Otherwise run:
 

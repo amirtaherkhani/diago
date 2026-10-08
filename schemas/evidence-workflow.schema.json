@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amirtaherkhani.github.io/diago/schemas/evidence-workflow.schema.json",
+  "title": "Evidence workflow snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "nodes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "concurrency": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4,
+      "default": 3
+    },
+    "maxAttempts": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3,
+      "default": 2
+    },
+    "timeoutMs": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 300000,
+      "default": 15000
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "question",
+          "dependsOn",
+          "attempts"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+          },
+          "question": {
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 2000
+          },
+          "dependsOn": {
+            "type": "array",
+            "maxItems": 31,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            }
+          },
+          "attempts": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status",
+                "elapsedMs"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "running",
+                    "succeeded",
+                    "failed",
+                    "timed-out"
+                  ]
+                },
+                "elapsedMs": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "retryable": {
+                  "type": "boolean"
+                },
+                "error": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                },
+                "claims": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 20,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "statement",
+                      "source",
+                      "verdict",
+                      "reason"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+                      },
+                      "statement": {
+                        "type": "string",
+                        "minLength": 6,
+                        "maxLength": 2000
+                      },
+                      "source": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2000
+                      },
+                      "verdict": {
+                        "enum": [
+                          "supported",
+                          "unverified",
+                          "contradicted"
+                        ]
+                      },
+                      "reason": {
+                        "type": "string",
+                        "minLength": 6,
+                        "maxLength": 2000
+                      }
+                    }
+                  }
+                }
+              },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "status": {
+                        "const": "succeeded"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "claims"
+                    ],
+                    "not": {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "error"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "retryable"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "else": {
+                    "not": {
+                      "required": [
+                        "claims"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "status": {
+                        "const": "failed"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "error",
+                      "retryable"
+                    ]
+                  },
+                  "else": {
+                    "not": {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "error"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "retryable"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

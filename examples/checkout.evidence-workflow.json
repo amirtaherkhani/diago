@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "concurrency": 2,
+  "maxAttempts": 2,
+  "timeoutMs": 15000,
+  "nodes": [
+    {
+      "id": "api",
+      "question": "Which API entry point creates the order?",
+      "dependsOn": [],
+      "attempts": []
+    },
+    {
+      "id": "storage",
+      "question": "Where are orders persisted?",
+      "dependsOn": [],
+      "attempts": []
+    },
+    {
+      "id": "verify",
+      "question": "Do API writes match the storage contract?",
+      "dependsOn": [
+        "api",
+        "storage"
+      ],
+      "attempts": []
+    }
+  ]
+}
