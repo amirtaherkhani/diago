@@ -13,7 +13,7 @@ function readExample() {
 }
 
 test('MCP handlers advise, plan, and review without writing files', () => {
-  assert.equal(TOOL_DEFINITIONS.length, 6);
+  assert.equal(TOOL_DEFINITIONS.length, 7);
   assert.ok(TOOL_DEFINITIONS.every((tool) => tool.inputSchema.type === 'object'));
 
   const catalog = callTool('list_diagram_types', {});

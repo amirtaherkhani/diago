@@ -1,4 +1,5 @@
 import { listDiagramTypes } from '../lib/diagram-catalog.mjs';
+import { planEvidenceWorkflow } from '../lib/evidence-workflow.mjs';
 import { createPlan } from '../lib/planner.mjs';
 import { advise } from '../lib/recommender.mjs';
 import { renderDiagramDocument, validateDiagramDocument } from '../lib/renderer-registry.mjs';
@@ -76,6 +77,9 @@ export function callTool(name, args = {}) {
       case 'create_diagram_plan':
         requireKeys(args, ['task', 'sourceKind', 'audienceDetail', 'destination'], ['task']);
         return textResult(createPlan(requireTask(args.task), requireContext(args)));
+      case 'plan_evidence_workflow':
+        requireKeys(args, ['workflow'], ['workflow']);
+        return textResult(planEvidenceWorkflow(requireObject(args.workflow, 'workflow')));
       case 'review_diagram_plan':
         requireKeys(args, ['plan'], ['plan']);
         return textResult(reviewPlan(requireObject(args.plan, 'plan')));

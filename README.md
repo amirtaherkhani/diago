@@ -37,7 +37,7 @@
 | :--- | :--- | :--- |
 | Trace important claims to code, contracts, or runtime evidence. Label assumptions and proposed changes. | Choose from eight diagram types. Split oversized systems into overview and detail views. | Validate the JSON source and render interactive HTML with responsive layouts, keyboard controls, and reduced-motion support. |
 
-**8 diagram types · 6 MCP tools · 4 agent skills · No runtime npm dependencies**
+**8 diagram types · 7 MCP tools · 4 agent skills · No runtime npm dependencies**
 
 > [!TIP]
 > [Explore all eight views in the live demo](https://amirtaherkhani.github.io/diago/#top). Use the tabs to switch diagrams and the pause control to inspect one at your own pace.
@@ -181,6 +181,7 @@ Diago's core is deterministic. The agent inspects sources and authors a plan; th
 | `list_diagram_types` | Discover renderers, profiles, patterns, and budgets |
 | `advise_diagram` | Select a useful view for a task |
 | `create_diagram_plan` | Establish scope, evidence, and the reader's question |
+| `plan_evidence_workflow` | Schedule ready evidence work and surface failures, retry limits, and claim conflicts |
 | `review_diagram_plan` | Find unsupported claims and missing context |
 | `validate_diagram` | Check schema, renderer, accessibility, and composition rules |
 | `render_diagram` | Write validated standalone HTML to an absolute local path |
@@ -197,6 +198,18 @@ Only `render_diagram` writes an artifact. The server uses local stdio transport.
 | `diago-update-upstreams` | Check every pinned source and integrate reviewed updates |
 
 </details>
+
+## Evidence workflows
+
+Use `diago evidence` or the read-only `plan_evidence_workflow` MCP tool when a diagram needs evidence from independent sources and dependent cross-checks:
+
+```bash
+node bin/diago.mjs evidence examples/checkout.evidence-workflow.json --json
+```
+
+The planner returns up to the configured number of ready tasks. The host inspects sources, records attempts and verification verdicts in the JSON snapshot, then evaluates it again. Failed branches retain their errors while independent work continues; only explicit retryable failures and timeouts get another attempt. Conflicting claims stay out of the plan's facts.
+
+See [the workflow guide](./docs/evidence-workflows.md) for the snapshot contract, concurrency and timeout handling, evidence reconciliation, and a complete example. Source inspection and verification are performed by the host: Diago neither launches workers nor independently proves the reported claims.
 
 ## Contributing
 
@@ -238,6 +251,7 @@ Read the [contribution guide](./CONTRIBUTING.md), [browse issues](https://github
 | Resource | Contents |
 | :--- | :--- |
 | [Usage guide](./docs/USAGE.md) | MCP setup, prompt library, plan schema, upstream updates |
+| [Evidence workflows](./docs/evidence-workflows.md) | Dependency-aware evidence planning, retry limits, and claim reconciliation |
 | [Contributing](./CONTRIBUTING.md) | Development workflow and diagram quality rules |
 | [Design system](./DESIGN.md) | Brand assets, semantic colors, layout, motion, accessibility |
 | [Examples](./examples/) | Reviewable plans and renderer source JSON |

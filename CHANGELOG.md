@@ -4,6 +4,12 @@ All notable changes to Diago are documented here.
 
 ## [Unreleased]
 
+### Added
+
+- Dependency-aware evidence planning through `diago evidence` and the read-only `plan_evidence_workflow` MCP tool, with a versioned workflow schema and checkout example.
+- Bounded ready-task selection, local failure reporting, elapsed-time timeout accounting, and per-node retry limits without blocking unrelated evidence work.
+- Claim reconciliation that preserves citations, flags contradictory reports, and keeps unverified or rejected claims out of diagram-plan facts.
+
 ### Changed
 
 - Adopted the yellow interlocking D logo and midnight-blue brand across the plugin, GitHub Pages, repository banner, and social previews.

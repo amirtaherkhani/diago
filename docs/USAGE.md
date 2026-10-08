@@ -146,6 +146,18 @@ New plans use schema v2. The contract preserves evidence lanes and adds the inpu
 
 Legacy schema-v1 plans remain reviewable through non-mutating compatibility normalization; newly generated plans are v2. See [`schemas/diagram-plan.schema.json`](../schemas/diagram-plan.schema.json), the [checkout plan](../examples/checkout-feature.diagram-plan.json), the [repository plan](../examples/repository-domain.diagram-plan.json), the [conversation plan](../examples/conversation-architecture.diagram-plan.json), and the native [data model](../examples/order-domain.data-model.json), [timeline](../examples/payment-migration.timeline.json), and [layers](../examples/checkout-controls.layers.json) examples.
 
+## Evidence workflows
+
+Use `diago evidence` or the read-only `plan_evidence_workflow` MCP tool when a diagram needs evidence from independent sources and dependent cross-checks:
+
+```bash
+node bin/diago.mjs evidence examples/checkout.evidence-workflow.json --json
+```
+
+The planner returns up to the configured number of ready tasks. The host inspects sources, records attempts and verification verdicts in the JSON snapshot, then evaluates it again. Failed branches retain their errors while independent work continues; only explicit retryable failures and timeouts get another attempt. Conflicting claims stay out of the plan's facts.
+
+See [the workflow guide](./evidence-workflows.md) for the snapshot contract, concurrency and timeout handling, evidence reconciliation, and a complete example. Source inspection and verification are performed by the host: Diago neither launches workers nor independently proves the reported claims.
+
 ## Dependency updates
 
 The scheduled dependency workflow checks pinned sources every week. Each update is isolated in a reviewable pull request with checks for:
