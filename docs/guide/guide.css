@@ -1,0 +1,72 @@
+.guide-shell {
+  width: min(calc(100% - 40px), 800px);
+  margin-inline: auto;
+  padding-block: 64px 96px;
+}
+
+.guide-heading nav,
+.guide-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.guide-heading .eyebrow { margin-top: 44px; color: var(--primary); }
+.guide-heading h1 { font-size: clamp(2.25rem, 6vw, 3.7rem); line-height: 1.08; }
+.guide-lede { margin-block: 24px; font-size: 1.15rem; }
+.guide-shell p,
+.guide-shell li { color: var(--muted-strong); line-height: 1.8; }
+.guide-shell strong { color: var(--text); }
+.guide-shell a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+.guide-shell p { margin-block: 16px; }
+.guide-shell li { margin-block: 10px; }
+.guide-shell ul { padding-left: 24px; }
+.guide-shell section { padding-top: 52px; }
+.guide-shell h2 { font-size: clamp(1.6rem, 4vw, 2rem); letter-spacing: -0.035em; }
+.guide-shell h3 { margin-top: 28px; font-size: 1.1rem; }
+.guide-shell code { font-family: var(--mono); font-size: 0.85em; overflow-wrap: anywhere; }
+
+.guide-shell pre {
+  margin-block: 20px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  line-height: 1.75;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.guide-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  margin-top: 32px;
+  padding-block: 22px;
+  border-block: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+
+.guide-note {
+  margin-block: 24px;
+  padding: 20px 24px;
+  border-left: 3px solid var(--primary);
+  background: var(--surface);
+  color: var(--muted-strong);
+  line-height: 1.8;
+}
+
+.guide-table { overflow-x: auto; margin-block: 24px; }
+.guide-table table { width: 100%; border-collapse: collapse; }
+.guide-table th,
+.guide-table td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; }
+.guide-table th { color: var(--primary); }
+.guide-table td { color: var(--muted-strong); }
+
+@media (max-width: 760px) {
+  .guide-shell { width: min(calc(100% - 28px), 800px); padding-top: 36px; }
+  .guide-shell pre { padding: 16px; }
+  .guide-table th,
+  .guide-table td { padding: 12px 8px; }
+  .site-header .text-link { font-size: 0.8rem; }
+}

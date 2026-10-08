@@ -3,48 +3,80 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Diago — AI software engineering diagrams</title>
+    <title>Diago — Architecture Diagrams for Codex &amp; Claude Code</title>
     <meta
       name="description"
-      content="Create eight evidence-grounded software engineering diagram types with native MCP tools, deterministic renderers, and AI skills for Codex and Claude."
+      content="Create interactive software architecture diagrams with Diago, an open-source MCP toolkit for Codex and Claude Code. Trace code, review evidence, and share HTML."
     >
     <meta name="theme-color" content="#080f20">
     <meta name="color-scheme" content="dark">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://amirtaherkhani.github.io/diago/">
+    <link rel="sitemap" type="application/xml" href="./sitemap.xml">
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="stylesheet" href="./styles.css">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Diago">
-    <meta property="og:description" content="Make the system visible before you change it.">
+    <meta property="og:site_name" content="Diago">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Diago — Architecture Diagrams for Codex &amp; Claude Code">
+    <meta property="og:description" content="An open-source MCP toolkit for interactive, evidence-grounded software diagrams. Inspect code, choose a view, and share standalone HTML.">
     <meta property="og:url" content="https://amirtaherkhani.github.io/diago/">
     <meta property="og:image" content="https://amirtaherkhani.github.io/diago/assets/og-card.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Diago: Make the system visible before you change it. Yellow and white D mark on midnight blue.">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Diago">
-    <meta name="twitter:description" content="Eight AI-ready software engineering diagram types grounded in evidence.">
+    <meta name="twitter:title" content="Diago — Architecture Diagrams for Codex &amp; Claude Code">
+    <meta name="twitter:description" content="An open-source MCP toolkit for interactive, evidence-grounded software diagrams. Inspect code, choose a view, and share standalone HTML.">
     <meta name="twitter:image" content="https://amirtaherkhani.github.io/diago/assets/og-card.png">
+    <meta name="twitter:image:alt" content="Diago — Make the system visible before you change it.">
 
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareSourceCode",
-        "name": "Diago",
-        "description": "AI-ready software engineering diagram skills, seven native MCP tools, and eight deterministic rendering paths for Codex and Claude.",
-        "codeRepository": "https://github.com/amirtaherkhani/diago",
-        "url": "https://amirtaherkhani.github.io/diago/",
-        "license": "https://opensource.org/license/mit",
-        "programmingLanguage": ["JavaScript", "HTML", "CSS"],
-        "author": {
-          "@type": "Person",
-          "name": "Amir Taherkhani",
-          "url": "https://github.com/amirtaherkhani"
-        },
-        "keywords": "AI engineering diagrams, software architecture, data model diagram, engineering timeline, layered architecture, system design, MCP tools, Codex skills, Claude Code skills"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://amirtaherkhani.github.io/diago/#website",
+            "name": "Diago",
+            "url": "https://amirtaherkhani.github.io/diago/",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://amirtaherkhani.github.io/diago/#author" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://amirtaherkhani.github.io/diago/#webpage",
+            "url": "https://amirtaherkhani.github.io/diago/",
+            "name": "Diago — Architecture Diagrams for Codex & Claude Code",
+            "description": "An open-source MCP toolkit for interactive, evidence-grounded software diagrams in Codex and Claude Code.",
+            "inLanguage": "en",
+            "isPartOf": { "@id": "https://amirtaherkhani.github.io/diago/#website" },
+            "mainEntity": { "@id": "https://amirtaherkhani.github.io/diago/#software" },
+            "primaryImageOfPage": { "@type": "ImageObject", "url": "https://amirtaherkhani.github.io/diago/assets/og-card.png" }
+          },
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://amirtaherkhani.github.io/diago/#software",
+            "name": "Diago",
+            "description": "Open-source MCP tools and agent skills that turn repository evidence into eight types of interactive software engineering diagrams.",
+            "codeRepository": "https://github.com/amirtaherkhani/diago",
+            "url": "https://amirtaherkhani.github.io/diago/",
+            "license": "https://github.com/amirtaherkhani/diago/blob/main/LICENSE",
+            "programmingLanguage": ["JavaScript", "HTML", "CSS"],
+            "runtimePlatform": "Node.js 18 or newer",
+            "image": "https://amirtaherkhani.github.io/diago/assets/icon-512.png",
+            "author": { "@id": "https://amirtaherkhani.github.io/diago/#author" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://amirtaherkhani.github.io/diago/#author",
+            "name": "Amir Taherkhani",
+            "url": "https://github.com/amirtaherkhani"
+          }
+        ]
       }
     </script>
     <script type="module" src="./app.js"></script>
@@ -68,6 +100,7 @@
           <a href="#views">Views</a>
           <a href="#install">Install</a>
           <a href="#usage">Use it</a>
+          <a href="./guide/">Guide</a>
           <a class="nav-github" href="https://github.com/amirtaherkhani/diago" aria-label="Diago on GitHub" title="Diago on GitHub">
             <!-- GitHub Octicons mark; MIT license: ./assets/licenses/octicons-MIT.txt -->
             <svg viewBox="0 0 16 16" width="24" height="24" aria-hidden="true" focusable="false">
@@ -84,7 +117,7 @@
           <p class="eyebrow"><span></span> AI-native engineering visualization</p>
           <h1>Make the system <em>visible</em> before you change it.</h1>
           <p class="hero-lede">
-            Turn a task, feature, design pattern, or code path into an interactive engineering diagram—grounded in evidence, callable through native MCP tools, and ready for review.
+            Diago is an open-source MCP toolkit for software architecture diagrams in Codex and Claude Code. Turn code, tasks, and conversations into interactive diagrams with evidence you can review.
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#install">Install the plugin</a>
@@ -491,6 +524,7 @@
           <p class="eyebrow"><span></span> Start in a minute</p>
           <h2>One repository. Your agent of choice.</h2>
           <p>Install the complete plugin, connect the standard local stdio MCP server directly, or use the deterministic CLI on its own. No cluster or remote endpoint is required.</p>
+          <p><a class="text-link" href="./guide/#install">Read the complete Codex, Claude Code, and CLI setup guide →</a></p>
         </div>
         <div class="install-panel">
           <div class="install-tabs" role="tablist" aria-label="Installation method">
@@ -642,6 +676,40 @@ codex plugin add diago@diago</code></pre>
         </div>
       </section>
 
+      <section id="faq" class="faq-section section-shell" aria-labelledby="faq-title">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> A few useful answers</p>
+          <h2 id="faq-title">What to know before your first diagram.</h2>
+          <p>Quick answers about Diago, its MCP tools, and the artifacts you can keep.</p>
+        </div>
+        <div class="faq-grid">
+          <article id="what-is-diago">
+            <h3>What is Diago?</h3>
+            <p>Diago is an open-source software engineering diagram toolkit for Codex and Claude Code. It combines agent skills, a local Model Context Protocol (MCP) server, and deterministic renderers to turn source evidence into interactive HTML diagrams.</p>
+          </article>
+          <article id="supported-diagrams">
+            <h3>Which diagrams can Diago create?</h3>
+            <p>Diago supports eight views: architecture, sequence, workflow, dataflow, lifecycle, data model, timeline, and layers. Choose a view for the question you need to answer, such as request ordering or entity relationships. <a href="#views">Explore all eight views.</a></p>
+          </article>
+          <article id="how-diago-works">
+            <h3>Does Diago automatically understand my code?</h3>
+            <p>Your agent inspects the repository and authors the diagram JSON. Diago helps plan the view, validate the input, render the result, and review the plan. Evidence references and assumptions remain explicit; you still review claims against their sources.</p>
+          </article>
+          <article id="local-setup">
+            <h3>Does Diago need a hosted service or API key?</h3>
+            <p>Diago runs locally on Node.js 18 or newer through stdio MCP or its CLI. It needs no separate Diago account, hosted endpoint, or API key. Your chosen agent's account, model access, and data-handling settings still apply. <a href="./guide/#install">See setup options.</a></p>
+          </article>
+          <article id="share-diagrams">
+            <h3>Can I share and update the diagrams?</h3>
+            <p>Yes. Keep the source JSON and generated standalone HTML together. Open the HTML in a browser, share it for review, and regenerate it when the source changes. Check the content for private information before sharing outside your team.</p>
+          </article>
+          <article id="license-and-release">
+            <h3>Is Diago free, and which features are released?</h3>
+            <p>Diago is available under the MIT license, with third-party notices preserved. The published v0.6.0 plugin includes eight views and six MCP tools. Evidence workflow planning adds a seventh tool on <code>main</code> and is not yet in that release. <a href="https://github.com/amirtaherkhani/diago/releases">Check releases.</a></p>
+          </article>
+        </div>
+      </section>
+
       <section class="final-cta section-shell">
         <div>
           <p class="eyebrow"><span></span> Build with shared understanding</p>
@@ -662,6 +730,8 @@ codex plugin add diago@diago</code></pre>
         </a>
         <p>Open source under MIT · Built for clearer engineering decisions.</p>
         <div>
+          <a href="./guide/">Getting started</a>
+          <a href="#faq">FAQ</a>
           <a href="https://github.com/amirtaherkhani/diago/blob/main/CONTRIBUTING.md">Contribute</a>
           <a href="https://github.com/amirtaherkhani/diago/blob/main/LICENSE">License</a>
           <a href="https://github.com/amirtaherkhani">Author</a>

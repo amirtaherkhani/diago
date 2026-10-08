@@ -6,15 +6,21 @@ All notable changes to Diago are documented here.
 
 ### Added
 
+- A public getting-started guide and FAQ covering installation, diagram outputs, local MCP operation, and released versus source-only features.
 - Dependency-aware evidence planning through `diago evidence` and the read-only `plan_evidence_workflow` MCP tool, with a versioned workflow schema and checkout example.
 - Bounded ready-task selection, local failure reporting, elapsed-time timeout accounting, and per-node retry limits without blocking unrelated evidence work.
 - Claim reconciliation that preserves citations, flags contradictory reports, and keeps unverified or rejected claims out of diagram-plan facts.
 
 ### Changed
 
+- Improved search and sharing metadata, linked website and software structured data, and refreshed sitemap entries for the homepage and guide.
 - Adopted the yellow interlocking D logo and midnight-blue brand across the plugin, GitHub Pages, repository banner, and social previews.
 - Redesigned the README with a playful navy-and-yellow header, GitHub callouts, expandable setup and prompt recipes, contribution checklists, and a maintainer guide to discoverability.
 - Replaced the GitHub Pages header's GitHub text button with an accessible GitHub icon link.
+
+### Fixed
+
+- Stopped automatic hero preview transitions and motion-preference changes from scrolling readers away from lower page sections.
 
 ## [0.6.0] - 2026-10-08
 

@@ -4,9 +4,11 @@
 
 A practical checklist for maintainers: make the first useful result easy to reach, show real examples, and give people a small way to join in. Treat these as experiments; compare results before deciding what to repeat.
 
+For indexing, query coverage, and measurement, use the [search visibility checklist](./SEARCH.md).
+
 ## 1. Make the first visit count
 
-- [ ] Keep the repository description focused on the audience and result: **“Evidence-grounded, interactive engineering diagrams for Codex and Claude Code.”**
+- [ ] Keep the repository description focused on the audience and result: **“Open-source MCP toolkit for Codex and Claude Code. Create interactive software architecture diagrams from code evidence and share standalone HTML.”**
 - [ ] Review the existing topics for relevance, such as `architecture-diagrams`, `developer-tools`, `mcp`, `codex`, and `claude-code`. GitHub topics help people find related repositories. [GitHub topic guidance](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics).
 - [ ] Set the repository's social preview in **Settings → General → Social preview**, using the [brand artwork](./assets/og-card.png). The website's Open Graph image and GitHub's repository preview are configured separately. [GitHub social-preview guidance](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview).
 - [ ] Keep the demo link, installation steps, and release availability accurate after every release.
