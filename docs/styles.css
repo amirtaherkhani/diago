@@ -1757,6 +1757,33 @@ footer {
   color: var(--text);
 }
 
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  padding-block: 16px 24px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 0.8rem;
+}
+
+.footer-socials > span {
+  color: var(--muted);
+}
+
+.footer-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--muted-strong);
+}
+
+.footer-socials a:hover,
+.footer-socials a:focus-visible {
+  color: var(--primary);
+}
+
 @keyframes preview-progress {
   to {
     transform: scaleX(1);
