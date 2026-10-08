@@ -101,7 +101,7 @@ test('both public footers link to the author social destinations', () => {
   for (const { html } of pages) {
     const footer = html.match(/<footer>([\s\S]*?)<\/footer>/)[1];
     assert.match(footer, /aria-label="Author social profiles"/);
-    for (const url of ['https://x.com/amirmo_th', 'https://nestjs-skills.hashnode.dev', 'https://dev.to/amirtaherkhani']) {
+    for (const url of ['https://x.com/amirmo_th', 'https://hashnode.com/@amirtaherkhani', 'https://dev.to/amirtaherkhani']) {
       assert.ok(footer.includes(`href="${url}"`), `Missing footer social link: ${url}`);
     }
   }
