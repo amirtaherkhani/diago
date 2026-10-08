@@ -40,7 +40,7 @@
       "Choose the best diagram for this engineering task.",
       "Review this architecture diagram against the code."
     ],
-    "brandColor": "#6EF3C5",
+    "brandColor": "#FFBE0B",
     "composerIcon": "./assets/icon.png",
     "logo": "./assets/logo.png"
   }
