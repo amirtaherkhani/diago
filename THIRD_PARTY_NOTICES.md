@@ -22,14 +22,14 @@ The viewer template also bundles JetBrains Mono font subsets under the SIL Open 
 ## UI UX Pro Max Skill
 
 - Source: https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
-- Pinned revision: `09170eec67eefd46a7ae85de61b40c194020f997`
+- Pinned revision: `1a2c459b35f26116fd165b0a0f30597f252749ff`
 - Integration: methodology snapshot used to inform visual quality, accessibility, and design-system guidance
 - License: `vendor/ui-ux-pro-max-skill/LICENSE`
 
 ## Diagram Design
 
 - Source: https://github.com/cathrynlavery/diagram-design
-- Pinned revision: `f903933a534ba92cde1c85a28186267b3a317bb2`
+- Pinned revision: `f4547ee95f88e5b28a52517feff6b6c11cc657f9`
 - Integration: minimal methodology snapshot used to inform question-first selection, semantic-pattern separation, and bounded decomposition
 - License: `vendor/diagram-design/LICENSE`
 
