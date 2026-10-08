@@ -2,6 +2,10 @@
 
 Diago evaluates a dependency graph of evidence tasks and returns what the host can run next. It is a deterministic, read-only planner: it performs no source reads, network calls, agent launches, cancellation, or background execution. The caller owns source inspection, independent verification, timekeeping, and snapshot persistence.
 
+## Availability
+
+Available in the source checkout on `main`; not included in the published v0.6.0 plugin. Run the CLI from the repository root, or use an MCP server configured to this checkout. The [v0.7.0 release notes](./releases/v0.7.0.md) are a draft, not a published release.
+
 ## Start
 
 ```bash

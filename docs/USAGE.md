@@ -148,6 +148,8 @@ Legacy schema-v1 plans remain reviewable through non-mutating compatibility norm
 
 ## Evidence workflows
 
+This feature is available from the current source checkout on `main`. The published v0.6.0 plugin does not include the command or MCP tool. Updating repository files alone does not update an installed plugin.
+
 Use `diago evidence` or the read-only `plan_evidence_workflow` MCP tool when a diagram needs evidence from independent sources and dependent cross-checks:
 
 ```bash
@@ -157,6 +159,22 @@ node bin/diago.mjs evidence examples/checkout.evidence-workflow.json --json
 The planner returns up to the configured number of ready tasks. The host inspects sources, records attempts and verification verdicts in the JSON snapshot, then evaluates it again. Failed branches retain their errors while independent work continues; only explicit retryable failures and timeouts get another attempt. Conflicting claims stay out of the plan's facts.
 
 See [the workflow guide](./evidence-workflows.md) for the snapshot contract, concurrency and timeout handling, evidence reconciliation, and a complete example. Source inspection and verification are performed by the host: Diago neither launches workers nor independently proves the reported claims.
+
+### Follow the workflow result
+
+1. Evaluate the snapshot and dispatch only tasks listed in `ready`, within the host's authorization and concurrency limits.
+2. Mark dispatched tasks running, record elapsed time, then record their final outcome and source-backed claim verdicts.
+3. Reevaluate after each completion. Only nodes whose dependencies succeeded become eligible; independent branches can continue after another branch fails.
+4. Review `conflicts`, `rejected`, and `unresolved` before transferring the returned evidence to a diagram plan. The host verifies sources and stops expired workers before retrying them.
+
+| Report status | CLI exit | Next action |
+|---|---|---|
+| `pending` | 0 | Run ready work or update running attempts |
+| `complete` | 0 | Review reported evidence, then prepare the diagram plan |
+| `incomplete` | 1 | Resolve failed tasks or conflicting evidence |
+| Invalid input | 2 | Correct the workflow contract or dependency graph |
+
+Exit 0 alone does not mean the evidence is complete. `ok: true` describes consistency of the supplied reports; it is not independent source verification.
 
 ## Dependency updates
 
