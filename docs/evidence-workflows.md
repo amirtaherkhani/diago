@@ -4,7 +4,7 @@ Diago evaluates a dependency graph of evidence tasks and returns what the host c
 
 ## Availability
 
-Available in the source checkout on `main`; not included in the published v0.6.0 plugin. Run the CLI from the repository root, or use an MCP server configured to this checkout. The [v0.7.0 release notes](./releases/v0.7.0.md) are a draft, not a published release.
+Available in Diago v0.7.0 through the plugin's `plan_evidence_workflow` MCP tool and the CLI. Update an older plugin installation, or run the CLI from the repository root of a v0.7.0 checkout. See the [release notes](./releases/v0.7.0.md).
 
 ## Start
 

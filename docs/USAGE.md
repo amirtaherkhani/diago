@@ -148,7 +148,7 @@ Legacy schema-v1 plans remain reviewable through non-mutating compatibility norm
 
 ## Evidence workflows
 
-This feature is available from the current source checkout on `main`. The published v0.6.0 plugin does not include the command or MCP tool. Updating repository files alone does not update an installed plugin.
+Available in Diago v0.7.0. Update an older plugin installation to use `plan_evidence_workflow`, or run the CLI from a v0.7.0 source checkout. Updating repository files alone does not update an installed plugin.
 
 Use `diago evidence` or the read-only `plan_evidence_workflow` MCP tool when a diagram needs evidence from independent sources and dependent cross-checks:
 

@@ -199,7 +199,7 @@ Your question + source evidence
 The agent inspects sources and authors the diagram. Diago's deterministic core reviews, validates, and renders it. Each view records what was merged, collapsed, or omitted. Keep the JSON and HTML together so the diagram stays reviewable.
 
 > [!NOTE]
-> **Release or source checkout?** The toolbox below describes `main`. Its seventh tool, `plan_evidence_workflow`, is not included in the published **v0.6.0** plugin. [See what has shipped →](https://github.com/amirtaherkhani/diago/releases)
+> **Diago v0.7.0 includes all seven MCP tools**, including `plan_evidence_workflow`. Update an older plugin installation to use evidence planning. [Release notes →](./docs/releases/v0.7.0.md)
 
 <details>
 <summary><strong>🔌 Explore the MCP toolbox and agent skills</strong></summary>
@@ -232,11 +232,11 @@ Only `render_diagram` writes an artifact. The server uses local stdio transport.
 <a name="evidence-workflows"></a>
 
 <details>
-<summary><strong>🧪 Evidence workflows · available on main</strong></summary>
+<summary><strong>🧪 Evidence workflows · new in v0.7.0</strong></summary>
 
 ### How evidence planning works
 
-**Available on `main`; not included in the published v0.6.0 plugin.** Run this from an updated source checkout. See the [draft v0.7.0 notes](./docs/releases/v0.7.0.md).
+**Available in Diago v0.7.0.** Use the MCP tool from the updated plugin, or run the CLI example below from a v0.7.0 source checkout. See the [release notes](./docs/releases/v0.7.0.md).
 
 Use `diago evidence` or the read-only `plan_evidence_workflow` MCP tool when a diagram needs evidence from independent sources and dependent cross-checks:
 

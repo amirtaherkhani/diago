@@ -4,6 +4,8 @@ All notable changes to Diago are documented here.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-10-08
+
 ### Added
 
 - Accessible X, Hashnode, and DEV logo links beside the navigation in the homepage and getting-started guide footers.

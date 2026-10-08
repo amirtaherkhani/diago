@@ -5,6 +5,7 @@ import test from 'node:test';
 import { fromRoot } from '../lib/paths.mjs';
 
 const base = 'https://amirtaherkhani.github.io/diago/';
+const version = JSON.parse(fs.readFileSync(fromRoot('package.json'), 'utf8')).version;
 const pages = [
   { file: 'index.html', url: base },
   { file: 'guide/index.html', url: `${base}guide/` },
@@ -62,7 +63,11 @@ test('FAQ answers and all setup options are present in static HTML', () => {
   assert.match(home, /id="faq"/);
   assert.match(home, /What is Diago\?/);
   assert.match(home, /Model Context Protocol/);
-  assert.match(home, /not yet in that release/);
+  for (const { html } of pages) {
+    assert.ok(html.includes(`v${version}`), 'Public release availability must match the package version.');
+    assert.match(html, /eight diagram views and seven MCP tools/);
+    assert.doesNotMatch(html, /not yet in that release|not included in the published|available on main/i);
+  }
   assert.match(guide, /codex plugin add diago@diago/);
   assert.match(guide, /\/plugin install diago@diago/);
   assert.match(guide, /node bin\/diago.mjs render architecture/);
