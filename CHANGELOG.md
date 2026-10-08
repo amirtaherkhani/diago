@@ -4,6 +4,11 @@ All notable changes to Diago are documented here.
 
 ## [Unreleased]
 
+### Changed
+
+- Adopted the yellow interlocking D logo and midnight-blue brand across the plugin, GitHub Pages, repository banner, and social previews.
+- Reorganized the README around quick setup, real examples, prompt tips, and contribution paths, with detailed guidance in a separate usage guide.
+
 ## [0.6.0] - 2026-10-08
 
 ### Added

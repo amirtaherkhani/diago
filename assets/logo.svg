@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title">
   <title id="title">Diago interlocking D mark</title>
+  <rect width="160" height="160" rx="32" fill="#080F20"/>
   <path fill="#F5F8FB" d="M102 60h22a20 20 0 0 1 20 20v38a20 20 0 0 1-20 20H76a20 20 0 0 1-20-20v-16h22a24 24 0 0 0 24-24V60Z"/>
   <path fill="#FFBE0B" d="M36 24h46a20 20 0 0 1 20 20v34a24 24 0 0 0-24-24H56v48H36a20 20 0 0 1-20-20V44a20 20 0 0 1 20-20Z"/>
 </svg>

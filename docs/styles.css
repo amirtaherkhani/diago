@@ -1,9 +1,9 @@
 :root {
-  --bg: #0b1018;
-  --bg-elevated: #101722;
-  --surface: #121b27;
-  --surface-strong: #172331;
-  --line: #253345;
+  --bg: #080f20;
+  --bg-elevated: #0d1628;
+  --surface: #111c30;
+  --surface-strong: #18263c;
+  --line: #28374e;
   --line-soft: rgba(137, 164, 190, 0.16);
   --line-strong: #34465a;
   --surface-verified: #142a28;
@@ -13,6 +13,7 @@
   --text: #f5f8fb;
   --muted: #91a2b5;
   --muted-strong: #b8c4d0;
+  --primary: #ffbe0b;
   --mint: #6ef3c5;
   --mint-strong: #39dca9;
   --blue: #6ca8ff;
@@ -37,41 +38,40 @@
   --sequence-message-text: #a9b9c8;
   --preview-lane-line: rgba(145, 162, 181, 0.22);
   --workbench-shell-border: #2b3a4d;
-  --workbench-shell-surface: #0d141e;
+  --workbench-shell-surface: #0b1425;
   --workbench-shell-shadow: 0 38px 90px rgba(0, 0, 0, 0.36);
   --workbench-dot-idle: #344356;
-  --page-background-start: rgba(11, 16, 24, 0.94);
-  --page-background-end: rgba(11, 16, 24, 0.98);
+  --page-background-start: rgba(8, 15, 32, 0.96);
+  --page-background-end: rgba(8, 15, 32, 0.99);
   --page-grid-line: rgba(255, 255, 255, 0.018);
   --page-ambient-glow: rgba(108, 168, 255, 0.09);
-  --text-on-accent: #07120f;
+  --text-on-accent: #080f20;
   --header-border: rgba(145, 162, 181, 0.14);
-  --header-surface: rgba(11, 16, 24, 0.78);
-  --brand-ring: rgba(110, 243, 197, 0.2);
-  --button-primary-shadow: 0 12px 34px rgba(57, 220, 169, 0.13);
-  --button-primary-hover: #8af8d2;
-  --surface-interactive: rgba(18, 27, 39, 0.56);
+  --header-surface: rgba(8, 15, 32, 0.88);
+  --button-primary-shadow: 0 12px 34px rgba(255, 190, 11, 0.14);
+  --button-primary-hover: #ffd24d;
+  --surface-interactive: rgba(17, 28, 48, 0.56);
   --line-interactive-hover: #43556b;
   --evidence-fact-border: rgba(110, 243, 197, 0.4);
   --evidence-assumption-border: rgba(242, 212, 122, 0.45);
   --evidence-recommendation-border: rgba(108, 168, 255, 0.5);
-  --section-surface: rgba(16, 23, 34, 0.72);
+  --section-surface: rgba(13, 22, 40, 0.72);
   --signal-glow: 0 0 8px rgba(110, 243, 197, 0.5);
   --view-code-text: #7890a8;
   --glyph-surface: #101925;
   --glyph-line: #3a5b78;
-  --contract-surface: #0e151f;
+  --contract-surface: #0b1425;
   --code-window-border: #2a3a4d;
-  --code-window-surface: #0a1017;
+  --code-window-surface: #091222;
   --code-window-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
   --code-text: #c8d6e3;
   --code-punctuation: #8094a8;
-  --install-panel-surface: rgba(15, 23, 34, 0.86);
+  --install-panel-surface: rgba(13, 22, 40, 0.86);
   --terminal-border: #2c3d50;
-  --terminal-surface: #080d13;
-  --footer-surface: #080c12;
-  --mobile-menu-surface: #101721;
-  --mobile-nav-surface: #0d141e;
+  --terminal-surface: #060d1b;
+  --footer-surface: #060d1b;
+  --mobile-menu-surface: #111c30;
+  --mobile-nav-surface: #0b1425;
   --mobile-nav-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   --font-weight-strong: 700;
   --font-weight-diagram-label: 720;
@@ -155,7 +155,8 @@ body {
   min-width: 320px;
   background:
     linear-gradient(var(--page-background-start), var(--page-background-end)),
-    repeating-linear-gradient(90deg, transparent 0 79px, var(--page-grid-line) 80px);
+    repeating-linear-gradient(90deg, transparent 0 79px, var(--page-grid-line) 80px),
+    var(--bg);
   color: var(--text);
   font-family: var(--sans);
   line-height: 1.6;
@@ -196,7 +197,7 @@ svg {
 }
 
 ::selection {
-  background: var(--mint);
+  background: var(--primary);
   color: var(--text-on-accent);
 }
 
@@ -219,7 +220,7 @@ svg {
   z-index: 100;
   padding: 10px 14px;
   border-radius: 8px;
-  background: var(--mint);
+  background: var(--primary);
   color: var(--text-on-accent);
   font-weight: 700;
   transform: translateY(-150%);
@@ -258,14 +259,13 @@ svg {
   display: inline-flex;
   align-items: center;
   gap: 11px;
-  font-size: 0.9rem;
-  font-weight: 720;
-  letter-spacing: -0.01em;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.035em;
 }
 
 .brand img {
   border-radius: 9px;
-  box-shadow: 0 0 0 1px var(--brand-ring);
 }
 
 .site-nav {
@@ -324,7 +324,7 @@ svg {
   align-items: center;
   gap: 10px;
   margin: 0 0 22px;
-  color: var(--mint);
+  color: var(--primary);
   font-family: var(--mono);
   font-size: 0.72rem;
   font-weight: 700;
@@ -356,9 +356,9 @@ h1 {
 }
 
 h1 em {
-  color: var(--mint);
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 500;
+  color: var(--primary);
+  font-style: normal;
+  font-weight: inherit;
 }
 
 .hero-lede {
@@ -393,7 +393,7 @@ h1 em {
 }
 
 .button-primary {
-  background: var(--mint);
+  background: var(--primary);
   color: var(--text-on-accent);
   box-shadow: var(--button-primary-shadow);
 }
@@ -450,7 +450,7 @@ h1 em {
   width: 45%;
   height: var(--workbench-shell-accent-height);
   content: "";
-  background: linear-gradient(90deg, transparent, var(--mint), transparent);
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
 }
 
 .workbench-bar,
@@ -569,7 +569,7 @@ h1 em {
   left: var(--workbench-progress-inline-inset);
   height: var(--workbench-progress-height);
   content: "";
-  background: var(--mint);
+  background: var(--primary);
   opacity: 0;
   transform: scaleX(0);
   transform-origin: left;
@@ -1043,7 +1043,7 @@ h1 em {
 }
 
 .principle-number {
-  color: var(--mint);
+  color: var(--primary);
   font-family: var(--mono);
   font-size: 0.68rem;
 }
@@ -1423,8 +1423,8 @@ h1 em {
 }
 
 .copy-button:hover {
-  border-color: var(--mint);
-  color: var(--mint);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .code-window pre,
@@ -1495,7 +1495,7 @@ h1 em {
 .install-step {
   display: inline-block;
   margin-bottom: 45px;
-  color: var(--mint);
+  color: var(--primary);
   font-family: var(--mono);
   font-size: 0.72rem;
 }
@@ -1519,7 +1519,7 @@ h1 em {
 
 .terminal pre {
   min-height: 130px;
-  color: var(--mint);
+  color: var(--primary);
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -1608,7 +1608,7 @@ h1 em {
 
 .usage-index {
   padding-top: 3px;
-  color: var(--mint);
+  color: var(--primary);
   font-family: var(--mono);
   font-size: 0.65rem;
 }
@@ -1680,7 +1680,7 @@ h1 em {
 
 .text-link span {
   margin-left: 6px;
-  color: var(--mint);
+  color: var(--primary);
 }
 
 footer {

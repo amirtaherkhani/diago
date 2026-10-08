@@ -1,16 +1,16 @@
 # Diago Web Design System
 
 ## 1. Product and Surface
-Diago uses a restrained engineering-workbench aesthetic: near-black layered surfaces, cool blue structure, mint verification, amber uncertainty, and orange external-provider emphasis. The hero workbench is the signature material—bordered, gridded, dimensional, and evidence-aware—not a generic dashboard card.
+Diago uses a restrained engineering-workbench aesthetic: midnight-blue layered surfaces, yellow brand and interaction accents, cool blue structure, mint verification, amber uncertainty, and orange external-provider emphasis. The hero workbench is the signature material—bordered, gridded, dimensional, and evidence-aware—not a generic dashboard card.
 
 ## 2. Tokens
 | Role | Token | Value |
 |---|---|---|
-| Page background | `--bg` | `#0b1018` |
-| Elevated background | `--bg-elevated` | `#101722` |
-| Surface | `--surface` | `#121b27` |
-| Strong surface | `--surface-strong` | `#172331` |
-| Border | `--line` | `#253345` |
+| Page background | `--bg` | `#080f20` |
+| Elevated background | `--bg-elevated` | `#0d1628` |
+| Surface | `--surface` | `#111c30` |
+| Strong surface | `--surface-strong` | `#18263c` |
+| Border | `--line` | `#28374e` |
 | Strong diagram border | `--line-strong` | `#34465a` |
 | Soft border | `--line-soft` | `rgba(137, 164, 190, 0.16)` |
 | Verified surface | `--surface-verified` | `#142a28` |
@@ -20,6 +20,7 @@ Diago uses a restrained engineering-workbench aesthetic: near-black layered surf
 | Primary text | `--text` | `#f5f8fb` |
 | Muted text | `--muted` | `#91a2b5` |
 | Strong muted text | `--muted-strong` | `#b8c4d0` |
+| Brand / primary action | `--primary` | `#ffbe0b` |
 | Verified | `--mint` | `#6ef3c5` |
 | Verified hover | `--mint-strong` | `#39dca9` |
 | Current relationship | `--blue` | `#6ca8ff` |
@@ -44,41 +45,40 @@ Diago uses a restrained engineering-workbench aesthetic: near-black layered surf
 | Sequence message text | `--sequence-message-text` | `#a9b9c8` |
 | Preview lane line | `--preview-lane-line` | `rgba(145, 162, 181, 0.22)` |
 | Workbench shell border | `--workbench-shell-border` | `#2b3a4d` |
-| Workbench shell surface | `--workbench-shell-surface` | `#0d141e` |
+| Workbench shell surface | `--workbench-shell-surface` | `#0b1425` |
 | Workbench shell shadow | `--workbench-shell-shadow` | `0 38px 90px rgba(0, 0, 0, 0.36)` |
 | Idle workbench dot | `--workbench-dot-idle` | `#344356` |
-| Page background start | `--page-background-start` | `rgba(11, 16, 24, 0.94)` |
-| Page background end | `--page-background-end` | `rgba(11, 16, 24, 0.98)` |
+| Page background start | `--page-background-start` | `rgba(8, 15, 32, 0.96)` |
+| Page background end | `--page-background-end` | `rgba(8, 15, 32, 0.99)` |
 | Page grid line | `--page-grid-line` | `rgba(255, 255, 255, 0.018)` |
 | Page ambient glow | `--page-ambient-glow` | `rgba(108, 168, 255, 0.09)` |
-| Text on accent | `--text-on-accent` | `#07120f` |
+| Text on accent | `--text-on-accent` | `#080f20` |
 | Header border | `--header-border` | `rgba(145, 162, 181, 0.14)` |
-| Header surface | `--header-surface` | `rgba(11, 16, 24, 0.78)` |
-| Brand ring | `--brand-ring` | `rgba(110, 243, 197, 0.2)` |
-| Primary button shadow | `--button-primary-shadow` | `0 12px 34px rgba(57, 220, 169, 0.13)` |
-| Primary button hover | `--button-primary-hover` | `#8af8d2` |
-| Interactive surface | `--surface-interactive` | `rgba(18, 27, 39, 0.56)` |
+| Header surface | `--header-surface` | `rgba(8, 15, 32, 0.88)` |
+| Primary button shadow | `--button-primary-shadow` | `0 12px 34px rgba(255, 190, 11, 0.14)` |
+| Primary button hover | `--button-primary-hover` | `#ffd24d` |
+| Interactive surface | `--surface-interactive` | `rgba(17, 28, 48, 0.56)` |
 | Interactive border hover | `--line-interactive-hover` | `#43556b` |
 | Fact evidence border | `--evidence-fact-border` | `rgba(110, 243, 197, 0.4)` |
 | Assumption evidence border | `--evidence-assumption-border` | `rgba(242, 212, 122, 0.45)` |
 | Recommendation evidence border | `--evidence-recommendation-border` | `rgba(108, 168, 255, 0.5)` |
-| Section surface | `--section-surface` | `rgba(16, 23, 34, 0.72)` |
+| Section surface | `--section-surface` | `rgba(13, 22, 40, 0.72)` |
 | Verified signal glow | `--signal-glow` | `0 0 8px rgba(110, 243, 197, 0.5)` |
 | View code text | `--view-code-text` | `#7890a8` |
 | Diagram glyph surface | `--glyph-surface` | `#101925` |
 | Diagram glyph line | `--glyph-line` | `#3a5b78` |
-| Contract section surface | `--contract-surface` | `#0e151f` |
+| Contract section surface | `--contract-surface` | `#0b1425` |
 | Code window border | `--code-window-border` | `#2a3a4d` |
-| Code window surface | `--code-window-surface` | `#0a1017` |
+| Code window surface | `--code-window-surface` | `#091222` |
 | Code window shadow | `--code-window-shadow` | `0 30px 80px rgba(0, 0, 0, 0.25)` |
 | Code text | `--code-text` | `#c8d6e3` |
 | Code punctuation | `--code-punctuation` | `#8094a8` |
-| Install panel surface | `--install-panel-surface` | `rgba(15, 23, 34, 0.86)` |
+| Install panel surface | `--install-panel-surface` | `rgba(13, 22, 40, 0.86)` |
 | Terminal border | `--terminal-border` | `#2c3d50` |
-| Terminal surface | `--terminal-surface` | `#080d13` |
-| Footer surface | `--footer-surface` | `#080c12` |
-| Mobile menu surface | `--mobile-menu-surface` | `#101721` |
-| Mobile navigation surface | `--mobile-nav-surface` | `#0d141e` |
+| Terminal surface | `--terminal-surface` | `#060d1b` |
+| Footer surface | `--footer-surface` | `#060d1b` |
+| Mobile menu surface | `--mobile-menu-surface` | `#111c30` |
+| Mobile navigation surface | `--mobile-nav-surface` | `#0b1425` |
 | Mobile navigation shadow | `--mobile-nav-shadow` | `0 20px 50px rgba(0, 0, 0, 0.35)` |
 | Sans type stack | `--sans` | `Inter, ui-sans-serif, system sans` |
 | Monospace type stack | `--mono` | `SFMono-Regular, Consolas, Liberation Mono` |
@@ -167,3 +167,17 @@ Use the WAI-ARIA tabs pattern with roving tabindex, `aria-controls`, `aria-label
 
 ## 8. Accepted Debt and Handoff
 The marketing preview uses representative compact SVG rather than loading full renderer output to keep GitHub Pages dependency-free. This is accepted only while every panel remains truthful to a supported renderer and its engineering question. Recheck all eight panels whenever the public renderer catalog changes.
+
+## 9. Brand assets
+
+The approved mark uses two offset rounded modules with a D-shaped opening. The yellow (`#FFBE0B`) and white (`#F5F8FB`) mark sits on midnight navy (`#080F20`). Keep the geometry, color order, and proportions intact. Leave clear space of at least one quarter of the mark height.
+
+- `docs/assets/mark.svg`: transparent vector for navigation.
+- `docs/assets/favicon.svg`: navy tile for legibility in both light and dark browser chrome.
+- `assets/logo.svg`: square vector master for plugin and app icons.
+- `assets/icon.png` and `assets/logo.png`: 256px and 512px plugin exports.
+- `docs/assets/banner.png`: approved 3:1 repository banner, 2172 × 724px.
+- `docs/assets/og-card.svg` and `docs/assets/og-card.png`: 1200 × 630px social card using the approved banner. The SVG source references its sibling `banner.png`.
+- `docs/assets/icon-192.png`, `icon-512.png`, and `apple-touch-icon.png`: web icons.
+
+Yellow identifies the brand and primary actions. Mint still means verified evidence; muted amber still means an assumption. Keep those meanings distinct. The website wordmark uses live text in the system sans stack for legibility.
