@@ -4,6 +4,8 @@ All notable changes to Diago are documented here.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-10-08
+
 ### Added
 
 - An upstream-update skill covering complete source discovery, sequential snapshot synchronization, compatibility review, and repository integration.

@@ -5,6 +5,7 @@ import os from 'node:os';
 import test from 'node:test';
 import { fromRoot } from '../lib/paths.mjs';
 
+const packageVersion = JSON.parse(fs.readFileSync(fromRoot('package.json'), 'utf8')).version;
 const server = fromRoot('mcp', 'server.mjs');
 const mcpConfig = JSON.parse(fs.readFileSync(fromRoot('.mcp.json'), 'utf8'))
   .mcpServers['engineering-diagrams'];
@@ -57,7 +58,7 @@ test('stdio MCP server negotiates, lists tools, and returns protocol errors', ()
   assert.equal(responses.length, 5);
   assert.equal(responses[0].error.code, -32002);
   assert.equal(responses[1].result.protocolVersion, '2025-11-25');
-  assert.equal(responses[1].result.serverInfo.version, '0.5.0');
+  assert.equal(responses[1].result.serverInfo.version, packageVersion);
   assert.equal(responses[2].result.tools.length, 6);
   assert.equal(responses[3].result.structuredContent.views[0].type, 'sequence');
   assert.equal(responses[4].error.code, -32602);
