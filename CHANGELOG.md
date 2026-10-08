@@ -4,6 +4,10 @@ All notable changes to Diago are documented here.
 
 ## [Unreleased]
 
+### Changed
+
+- Refreshed the bundled Archify snapshot to main commit `bb990b17` and switched upstream discovery and synchronization to track main, including updates newer than release tags. The renderer and schema contracts remain unchanged.
+
 ## [0.7.0] - 2026-10-08
 
 ### Added

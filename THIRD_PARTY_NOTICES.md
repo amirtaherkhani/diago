@@ -17,7 +17,7 @@ Diago preserves notices for four MIT-licensed upstream sources, the GitHub Octic
 ## Archify
 
 - Source: https://github.com/tt-a1i/archify
-- Pinned version: `v3.0.1`
+- Pinned source: `main` at `bb990b17b886e83d633e273221615eb259a92c78`
 - Integration: bundled runtime, schemas, renderer, templates, and original skill snapshot
 - License: `vendor/archify/LICENSE`
 

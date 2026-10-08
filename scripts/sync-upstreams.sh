@@ -28,9 +28,15 @@ require_command rsync
 
 case "$source_name" in
   archify)
-    ref="$(gh api repos/tt-a1i/archify/tags --jq '.[0].name')"
-    commit="$(gh api repos/tt-a1i/archify/tags --jq '.[0].commit.sha')"
-    clone_source "https://github.com/tt-a1i/archify.git" "$ref" "$temp_root/source"
+    ref="main"
+    # Avoid downloading the upstream website, release archive, and benchmark assets.
+    git -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --no-checkout \
+      --branch "$ref" "https://github.com/tt-a1i/archify.git" "$temp_root/source"
+    git -C "$temp_root/source" sparse-checkout set --no-cone \
+      /archify/assets/ /archify/bin/ /archify/recipes/ /archify/renderers/ \
+      /archify/schemas/ /archify/scripts/ /archify/LICENSE /archify/SKILL.md /archify/package.json
+    git -C "$temp_root/source" -c http.version=HTTP/1.1 checkout "$ref"
+    commit="$(git -C "$temp_root/source" rev-parse HEAD)"
     mkdir -p "$temp_root/vendor"
     rsync -a \
       "$temp_root/source/archify/assets" \

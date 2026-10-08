@@ -63,7 +63,7 @@ test('times out a stalled source while preserving successful results', async () 
 
 test('rejects malformed API contracts including empty tags and non-string SHAs', async () => {
   for (const body of [[], {}, { sha: 'short' }, { sha: [oldSha] }]) {
-    const result = await checkUpstreams({ archify: source, branch: source }, { fetchImpl: async () => response(body) });
+    const result = await checkUpstreams({ archify: { ...source, ref: 'v3.0.1' }, branch: source }, { fetchImpl: async () => response(body) });
     assert.equal(result.archify.changed, null);
     assert.equal(result.branch.changed, null);
   }
@@ -71,7 +71,7 @@ test('rejects malformed API contracts including empty tags and non-string SHAs',
 
 test('resolves tags and configured refs without leaking transport errors', async () => {
   const urls = [];
-  const result = await checkUpstreams({ archify: source, branch: { ...source, ref: 'release/next' }, broken: source }, {
+  const result = await checkUpstreams({ archify: { ...source, ref: 'v3.0.1' }, branch: { ...source, ref: 'release/next' }, broken: source }, {
     fetchImpl: async (url) => {
       urls.push(url);
       if (urls.length === 3) throw new Error('private-token-value');
@@ -111,4 +111,14 @@ test('rejects empty discovery and isolates malformed pins', async () => {
   assert.equal(result.good.changed, false);
   assert.equal(result.malformed.changed, null);
   assert.match(result.malformed.error, /Invalid pinned/);
+});
+
+test('Archify main pins track branch commits instead of release tags', async () => {
+  const result = await checkUpstreams({ archify: source }, { fetchImpl: async (url) => {
+    assert.ok(url.endsWith('/commits/main'));
+    return response({ sha: newSha });
+  } });
+  assert.equal(result.archify.latest.ref, 'main');
+  assert.equal(result.archify.latest.commit, newSha);
+  assert.equal(result.archify.changed, true);
 });

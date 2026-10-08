@@ -193,4 +193,6 @@ npm run upstreams:check
 
 The checker reads every configured source with at most four concurrent GitHub requests and a 15-second timeout per request. It preserves lockfile order and successful results when another source fails. With `--json`, successful entries keep `current`, `latest`, and `changed`; failed entries return `latest: null`, `changed: null`, and an `error` message. Any failed check exits with status 1, so partial discovery cannot be treated as a complete check. Snapshot synchronization remains sequential because it writes the shared lockfile.
 
+Archify updates track its `main` branch, including changes newer than the latest release tag. Each synchronization records the exact copied commit in `vendor/upstreams.lock.json`; the bundled runtime may still report the last upstream release version.
+
 Dependency updates never silently rewrite the canonical skills.
