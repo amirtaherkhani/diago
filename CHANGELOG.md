@@ -12,6 +12,8 @@ All notable changes to Diago are documented here.
 
 ### Changed
 
+- Unified theme controls across all eight renderers and Explorer: one accessible sun/moon switch in the top-right header tools, with consistent dimensions and pressed state.
+
 - Reduced arrowhead dimensions by 25% across all eight diagram renderers and Explorer, preserving marker proportions, endpoint alignment, and exported SVG geometry.
 
 - Reduced decorative shadows and replaced saturated gradients with subtle pastel blue/lilac washes across renderer presets, native outputs, Explorer, and the public site. Cards and buttons remain flat; floating panels use one small low-opacity shadow.

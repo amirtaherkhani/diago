@@ -13,6 +13,8 @@ Diago's architecture explorer and eight specialized renderers now present engine
 
 ## Changed
 
+- Unified theme controls across all eight renderers and Explorer: one accessible sun/moon switch in the top-right header tools, with consistent dimensions and pressed state.
+
 - Reduced arrowhead dimensions by 25% across all eight diagram renderers and Explorer, preserving marker proportions, endpoint alignment, and exported SVG geometry.
 
 - Subtle pastel decoration across light/dark renderer presets; removed heavy card and button shadows and reduced Explorer and website elevation.

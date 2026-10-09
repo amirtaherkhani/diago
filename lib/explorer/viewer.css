@@ -449,6 +449,11 @@ aside {
   .brand {
     font-size:19px
   }
+  .tools {
+    width:100%;
+    justify-content:flex-end;
+    order:-1
+  }
   .tools button {
     font-size:11px;
     padding:6px 8px
