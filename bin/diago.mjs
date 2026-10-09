@@ -155,7 +155,7 @@ function commandDoctor(args) {
   const checks = [
     { name: 'node', ok: Number(process.versions.node.split('.')[0]) >= 18, detail: `Node ${process.versions.node}` },
     { name: 'archify-runtime', ok: fs.existsSync(fromRoot('vendor', 'archify', 'bin', 'archify.mjs')), detail: 'Bundled Archify CLI' },
-    { name: 'renderer-catalog', ok: listDiagramTypes().length === 8, detail: 'Eight native engineering types' },
+    { name: 'renderer-catalog', ok: listDiagramTypes().length === 11, detail: 'Eleven engineering diagram types' },
     { name: 'codex-plugin', ok: fs.existsSync(fromRoot('.codex-plugin', 'plugin.json')), detail: 'Codex plugin manifest' },
     { name: 'claude-plugin', ok: fs.existsSync(fromRoot('.claude-plugin', 'plugin.json')), detail: 'Claude plugin manifest' },
     { name: 'mcp-server', ok: fs.existsSync(fromRoot('mcp', 'server.mjs')), detail: 'Bundled stdio MCP tools' },

@@ -12,6 +12,9 @@ Choose the view from the question, not from the nouns in the task.
 | Which entities, fields, constraints, and relationships define the domain? | data-model | migrations, schema, entity definitions, cardinality |
 | Which engineering milestones occur, and in what temporal relationship? | timeline | release evidence, migration phases, incident timestamps |
 | Where are responsibilities, abstractions, controls, or defenses enforced? | layers | module boundaries, dependency rules, policy controls |
+| Which modules share dependencies or form cycles? | dependency | imports, manifests, dependency rules |
+| Who can access each resource, and how? | security-matrix | role bindings, policy rules, explicit unknowns |
+| Which investigated causes explain one observed effect? | fishbone | incident metrics, hypotheses, evidence and exclusions |
 
 ## Profiles
 
@@ -23,6 +26,9 @@ Choose the view from the question, not from the nouns in the task.
 - Data model: domain model, persistence schema, event model.
 - Timeline: delivery roadmap, migration plan, incident timeline, release history.
 - Layers: application layers, platform stack, control enforcement, defense layers.
+- Dependency: module-dependencies.
+- Security matrix: access-review.
+- Fishbone: incident-cause-analysis.
 
 Use two linked views when one question cannot carry both structure and time, model and behavior, or ownership and enforcement. Prefer architecture plus sequence for a feature, architecture plus dataflow for analytics, data-model plus lifecycle for an entity, architecture plus layers for control placement, and timeline plus workflow when chronology and decision gates are both essential.
 
@@ -38,5 +44,8 @@ Use two linked views when one question cannot carry both structure and time, mod
 | Data model | 8 entities, 12 relationships |
 | Timeline | 12 milestones, 4 tracks |
 | Layers | 7 layers, 24 responsibilities |
+| Dependency | 9 nodes, 14 edges, 4 condensed ranks |
+| Security matrix | 6 roles, 12 resources, 72 cells |
+| Fishbone | 6 categories, 3 causes each |
 
 Avoid a single "everything diagram." Split by audience or decision when a ceiling is exceeded, labels need paragraphs, edges cross repeatedly, or more than nine walkthrough steps are required. If prose, a table, or a checklist answers the engineering decision more clearly, recommend that instead of forcing a diagram.

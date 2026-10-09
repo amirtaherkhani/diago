@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dependency",
+  "meta": {
+    "title": "Shared packages. One cycle.",
+    "subtitle": "Illustrative engineering example. Sources and findings are fictional."
+  },
+  "nodes": [
+    {
+      "id": "web",
+      "label": "Web app",
+      "kind": "module",
+      "status": "verified",
+      "evidence": "Illustrative source: web/package.json"
+    },
+    {
+      "id": "api",
+      "label": "API gateway",
+      "kind": "module",
+      "status": "verified",
+      "evidence": "Illustrative source: api/package.json"
+    },
+    {
+      "id": "orders",
+      "label": "Orders",
+      "kind": "module",
+      "status": "verified",
+      "evidence": "Illustrative source: orders/package.json"
+    },
+    {
+      "id": "billing",
+      "label": "Billing",
+      "kind": "module",
+      "status": "verified",
+      "evidence": "Illustrative source: billing/package.json"
+    },
+    {
+      "id": "contracts",
+      "label": "Shared contracts",
+      "kind": "package",
+      "status": "verified",
+      "evidence": "Illustrative source: contracts/package.json"
+    }
+  ],
+  "edges": [
+    {
+      "from": "web",
+      "to": "api",
+      "label": "Calls API client",
+      "status": "verified",
+      "evidence": "Illustrative import: web imports api"
+    },
+    {
+      "from": "api",
+      "to": "orders",
+      "label": "Imports order service",
+      "status": "verified",
+      "evidence": "Illustrative import: api imports orders"
+    },
+    {
+      "from": "api",
+      "to": "billing",
+      "label": "Imports billing service",
+      "status": "verified",
+      "evidence": "Illustrative import: api imports billing"
+    },
+    {
+      "from": "orders",
+      "to": "billing",
+      "label": "Requests invoice",
+      "status": "verified",
+      "evidence": "Illustrative import: orders imports billing"
+    },
+    {
+      "from": "billing",
+      "to": "orders",
+      "label": "Reads order summary",
+      "status": "verified",
+      "evidence": "Illustrative import: billing imports orders"
+    },
+    {
+      "from": "orders",
+      "to": "contracts",
+      "label": "Imports event types",
+      "status": "verified",
+      "evidence": "Illustrative import: orders imports contracts"
+    },
+    {
+      "from": "billing",
+      "to": "contracts",
+      "label": "Imports event types",
+      "status": "verified",
+      "evidence": "Illustrative import: billing imports contracts"
+    }
+  ]
+}

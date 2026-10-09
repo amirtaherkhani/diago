@@ -3,7 +3,7 @@ import test from 'node:test';
 import { listDiagramTypes } from '../lib/diagram-catalog.mjs';
 import { advise } from '../lib/recommender.mjs';
 
-test('catalog lists only the eight enabled native engineering renderers', () => {
+test('catalog lists only the eleven enabled engineering engineering renderers', () => {
   // Given the registered renderer catalog
   // When supported native types are listed
   const types = listDiagramTypes();
@@ -18,6 +18,9 @@ test('catalog lists only the eight enabled native engineering renderers', () => 
     'data-model',
     'timeline',
     'layers',
+    'dependency',
+    'security-matrix',
+    'fishbone',
   ]);
   assert.ok(types.every(({ supported }) => supported));
 });

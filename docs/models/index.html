@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Preview Diago dependency graphs, permission matrices, and incident fishbones in light and dark themes."><title>New engineering models · Diago</title><style>
+button.diago-theme {position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;width:56px!important;min-width:56px!important;height:44px!important;min-height:44px!important;padding:0!important;border:0!important;border-radius:10px!important;background:transparent!important;box-shadow:none!important;cursor:pointer}
+button.diago-theme::before,button.diago-theme::after {content:none!important;display:none!important}
+.diago-theme-track {display:block;width:42px;height:20px;border-radius:999px;background:color-mix(in srgb,var(--text) 9%,transparent)}
+.diago-theme-thumb {display:block;position:relative;width:18px;height:18px;top:1px;left:23px;border-radius:50%;background:#3b4a63;color:#c7d2fe;transition:left .18s ease}
+.diago-theme-thumb::after {content:'☾';display:block;font:14px/18px system-ui,sans-serif;text-align:center}
+button.diago-theme[aria-pressed="true"] .diago-theme-thumb {left:1px;background:var(--panel);color:#936600}
+button.diago-theme[aria-pressed="true"] .diago-theme-thumb::after {content:'☀'}
+button.diago-theme:hover .diago-theme-track {background:color-mix(in srgb,var(--text) 13%,transparent)}
+button.diago-theme:focus-visible {outline:2px solid var(--text)!important;outline-offset:2px}
+.diago-theme-group {display:flex;align-items:center;padding:0 4px;border:1px solid var(--line);border-radius:11px;background:var(--panel)}
+.diago-native-tools {position:absolute;top:32px;right:clamp(16px,4vw,56px)}
+main.diago-native {position:relative}main.diago-native header {padding-right:84px}
+@media(max-width:760px){.diago-native-tools{position:static;display:flex;justify-content:flex-end;margin-bottom:16px}main.diago-native header{padding-right:0}}
+@media(prefers-reduced-motion:reduce){.diago-theme-thumb{transition:none}}
+@media print{.diago-native-tools{display:none}}
+
+
+[data-theme="dark"][data-theme], :root:not([data-theme]) {
+ --bg:#080f20;--panel:#111c30;--mask:#111c30;--text:#f5f8fb;--muted:#91a2b5;
+ --line:#28374e;--primary:#ffbe0b;--mint:#6ef3c5;--cyan:#6ca8ff;--amber:#f2d47a;--violet:#b9a4ff;--rose:#ff7f9f;
+ --text-muted:var(--muted);--text-dim:#91a2b5;--text-faint:#b8c4d0;
+ --grid:#18263c;--canvas-dot:rgba(108,168,255,.12);--panel-border:var(--line);
+ --lane-fill:#0d1628;--lane-stroke:#34465a;--arrow:#91a2b5;--arrow-emphasis:var(--mint);
+ --toolbar-bg:#111c30;--toolbar-border:#34465a;--toolbar-text:var(--text);--toolbar-hover:#18263c;--toolbar-menu-bg:#0d1628;
+ --frontend-stroke:var(--cyan);--backend-stroke:var(--mint);--cloud-stroke:var(--amber);--security-stroke:var(--rose);--messagebus-stroke:#ff9d6c;
+ --pastel-blue:rgba(186,215,239,.035);--pastel-lilac:rgba(220,205,238,.025);--soft-shadow:0 3px 12px rgba(186,205,230,.055);
+ color-scheme:dark;
+}
+[data-theme="light"][data-theme] {
+ --bg:#f3f5fa;--panel:#fff;--mask:#fff;--text:#152039;--muted:#53637c;
+ --line:#d7dfeb;--primary:#936600;--mint:#157254;--cyan:#285eb6;--amber:#946200;--violet:#7546ad;--rose:#b32d53;
+ --text-muted:var(--muted);--text-dim:#53637c;--text-faint:#53637c;
+ --grid:#e6ebf3;--canvas-dot:#d7dfeb;--panel-border:var(--line);
+ --lane-fill:#f9faff;--lane-stroke:#b2bfd1;--arrow:#53637c;--arrow-emphasis:var(--mint);
+ --toolbar-bg:#fff;--toolbar-border:#d7dfeb;--toolbar-text:var(--text);--toolbar-hover:#f3f5fa;--toolbar-menu-bg:#fff;
+ --frontend-stroke:var(--cyan);--backend-stroke:var(--mint);--cloud-stroke:var(--amber);--security-stroke:var(--rose);--messagebus-stroke:#a94b19;
+ --pastel-blue:rgba(186,215,239,.12);--pastel-lilac:rgba(220,205,238,.09);--soft-shadow:0 3px 12px rgba(166,188,218,.12);
+ color-scheme:light;
+}
+body {background:var(--bg)}
+/* Uniform low-intensity decoration across presets; semantic strokes remain intact. */
+html[data-preset] body {background-image:none!important}
+html[data-preset] .diagram-container,html[data-preset] .card,.canvas {
+ background:linear-gradient(135deg,var(--pastel-blue),var(--pastel-lilac)),var(--panel)!important;
+ box-shadow:none!important;
+}
+html .toolbar-group::before,html .toolbar button::before,html .toolbar button::after,
+html .pulse-dot,html .card-dot,html .semantic-lens-swatch,html .motion-control-dot,
+html .header-row::after,html .overview-map-live,html .diagram-guide-stats::before,
+html .semantic-passport-evidence-status::before,html .route-probe-node[aria-current="step"] {box-shadow:none!important}
+html .diagram-nav,html .overview-map,html .overview-map-feedback,html .semantic-lens,
+html .route-probe,html .focus-chip,html .diagram-guide,html .node-finder,
+html .reader-rail,html .rail-reveal,html .preset-menu,html .export-menu,html .archify-toast {
+ background:var(--panel)!important;box-shadow:var(--soft-shadow)!important;
+}
+svg [data-node-id],svg [data-node-id] > rect,svg [data-edge-from],svg [data-focus-selected],
+svg .semantic-flow-token,svg .relationship-flow-pulse,svg .route-probe-flow,svg .route-journey-flow,
+svg [data-relationship-preview],svg [data-route-journey-current],
+.diagram-node:hover rect,.diagram-node:focus-visible rect {filter:none!important}
+
+.diago-brand,.eyebrow {color:var(--primary);font:700 12px/1.5 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.diago-brand {display:block;margin-bottom:12px}
+html .header h1,html[data-preset] .header h1,html[data-preset] .card h3 {font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+/* One painted surface; suppress upstream decorative layers and inset focus ring. */
+html .toolbar #btn-export {background:#ffbe0b;color:#080f20;border:0;box-shadow:none;outline:none;border-radius:11px}
+html .toolbar #btn-export:hover,
+html .toolbar #btn-export[aria-expanded="true"] {background:#ffd24d;color:#080f20}
+html .toolbar #btn-export::before,
+html .toolbar #btn-export::after {content:none;display:none;box-shadow:none}
+html .toolbar #btn-export:focus-visible {outline:none;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+html[data-preset] .pulse-dot {background:var(--primary);border-color:var(--primary)}
+.diagram-node:focus-visible rect {stroke:var(--primary)}
+
+body{font:16px/1.7 system-ui,sans-serif;color:var(--text);margin:0}main{max-width:960px;margin:auto;padding:32px 24px}h1{font-size:clamp(28px,5vw,48px);line-height:1.1}h2{font-size:22px}a{color:var(--primary)}article{padding:16px 0;border-top:1px solid var(--line)}header{display:flex;justify-content:space-between;align-items:center}p{color:var(--muted)}a:focus-visible{outline:2px solid var(--primary);outline-offset:4px}
+</style><script>
+(function(){
+ var root=document.documentElement;
+ var requested=new URLSearchParams(location.search).get('theme');
+ var theme=requested==='light'||requested==='dark'?requested:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+ root.dataset.theme=theme;
+ document.addEventListener('DOMContentLoaded',function(){
+  var button=document.querySelector('.diago-theme');
+  function sync(){button.setAttribute('aria-pressed', String(root.dataset.theme==='light'));}
+  button.addEventListener('click',function(){root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';sync();});
+  sync();
+ });
+})();
+</script></head><body><main><header><a href="../">Diago</a><div class="diago-theme-group"><button id="btn-theme" class="diago-theme" type="button" aria-label="Toggle color theme" title="Toggle color theme" aria-pressed="false"><span class="diago-theme-track" aria-hidden="true"><span class="diago-theme-thumb"></span></span><span id="theme-icon" hidden></span><span id="theme-label" hidden>Dark</span></button></div></header><h1>Three new engineering perspectives.</h1><p>Source checkout additions after v0.7.0. All examples are illustrative, with fictional evidence. The catalog now includes 11 specialized models.</p><article><h2>dependency</h2><p><a href="dependency.html?theme=light">Light</a> · <a href="dependency.html?theme=dark">Dark</a></p></article>
+<article><h2>security-matrix</h2><p><a href="security-matrix.html?theme=light">Light</a> · <a href="security-matrix.html?theme=dark">Dark</a></p></article>
+<article><h2>fishbone</h2><p><a href="fishbone.html?theme=light">Light</a> · <a href="fishbone.html?theme=dark">Dark</a></p></article><p><a href="https://github.com/amirtaherkhani/diago/blob/main/docs/engineering-models.md">Authoring guide</a> · <a href="https://github.com/amirtaherkhani/diago/blob/main/docs/upstreams/diagram-design-engineering-review.md">Upstream research and selection</a></p></main></body></html>

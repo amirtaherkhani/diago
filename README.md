@@ -135,6 +135,9 @@ Both plugins start the bundled `engineering-diagrams` MCP server automatically. 
 | **The domain** — entities, keys, relationships | Data model | [Order domain JSON](./examples/order-domain.data-model.json) |
 | **The milestones** — phases, dependencies, timing | Timeline | [Migration JSON](./examples/payment-migration.timeline.json) |
 | **The boundaries** — responsibilities and controls | Layers | [Checkout controls JSON](./examples/checkout-controls.layers.json) |
+| **Coupling and reuse** — shared packages, direct dependents, cycles | Dependency (source checkout) | [Dependency JSON](./examples/checkout.dependency.json) |
+| **Access permissions** — roles, resources, explicit unknowns | Security matrix (source checkout) | [Access JSON](./examples/platform.security-matrix.json) |
+| **Incident causes** — hypotheses, contributors, exclusions | Fishbone (source checkout) | [Investigation JSON](./examples/latency.fishbone.json) |
 
 <sub>The live-demo links open the same workbench. Choose the named tab to see that view.</sub>
 
@@ -377,8 +380,19 @@ Run `npm run check` for repository validation and tests. Run `npm run upstreams:
 
 ## Unified renderer presentation (source checkout)
 
-All eight specialized outputs now share Diago’s navy/yellow visual language, with light/dark themes and preserved evidence colors. CLI and MCP deliver the same branded files. [Presentation and local gallery](docs/renderer-presentation.md). Existing v0.7.0 installations require an update before these changes are available.
+All eleven specialized outputs now share Diago’s navy/yellow visual language, with light/dark themes and preserved evidence colors. CLI and MCP deliver the same branded files. [Presentation and local gallery](docs/renderer-presentation.md). Existing v0.7.0 installations require an update before these changes are available.
 
 ## Guided walkthrough (source checkout)
 
-All eight specialized outputs include an optional step player with source/target highlighting, connection filtering, node-click navigation, and a companion Markdown download. It adapts Architecture Diagram Skill’s teaching ideas to Diago without inventing runtime flows. [Walkthrough guide](docs/guided-walkthrough.md).
+Nine connection-based outputs include an optional step player with source/target highlighting, connection filtering, node-click navigation, and a companion Markdown download. It adapts Architecture Diagram Skill’s teaching ideas to Diago without inventing runtime flows. [Walkthrough guide](docs/guided-walkthrough.md).
+
+
+### Additional engineering models (source checkout)
+
+The catalog now has **11 specialized models**, adding:
+
+- **Dependency** — shared packages, direct dependents, and explicit structural cycles.
+- **Security matrix** — role/resource permissions, including unknown access.
+- **Fishbone** — incident hypotheses, confirmed contributors, and ruled-out causes.
+
+All three support offline light/dark output and readable mobile views. [Authoring guide](docs/engineering-models.md) · [Live examples](https://amirtaherkhani.github.io/diago/models/) · [Review of all 44 Diagram Design references](docs/upstreams/diagram-design-engineering-review.md). These additions are newer than v0.7.0; installed plugins require a future update or use of this source checkout.

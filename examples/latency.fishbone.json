@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "diagram_type": "fishbone",
+  "meta": {
+    "title": "Investigate checkout latency",
+    "subtitle": "Illustrative engineering example. Sources and findings are fictional."
+  },
+  "effect": {
+    "label": "Checkout p99 exceeded 2 seconds",
+    "evidence": "Illustrative incident metric: p99 = 2.4 s during the release window."
+  },
+  "categories": [
+    {
+      "id": "data",
+      "label": "Data access",
+      "causes": [
+        {
+          "id": "scan",
+          "label": "Full table scan",
+          "status": "confirmed",
+          "evidence": "Illustrative query plan: missing index produces a scan."
+        },
+        {
+          "id": "lock",
+          "label": "Row lock contention",
+          "status": "ruled-out",
+          "evidence": "Illustrative lock sampling: no concurrent lock waits."
+        }
+      ]
+    },
+    {
+      "id": "runtime",
+      "label": "Runtime",
+      "causes": [
+        {
+          "id": "pool",
+          "label": "Connection pool exhausted",
+          "status": "hypothesis",
+          "evidence": "Open question: correlate pool saturation with slow requests."
+        },
+        {
+          "id": "gc",
+          "label": "Long GC pause",
+          "status": "ruled-out",
+          "evidence": "Illustrative runtime trace: pauses under 10 ms."
+        }
+      ]
+    },
+    {
+      "id": "release",
+      "label": "Release",
+      "causes": [
+        {
+          "id": "query",
+          "label": "New unbounded query",
+          "status": "confirmed",
+          "evidence": "Illustrative diff: pagination was removed from a hot path."
+        }
+      ]
+    },
+    {
+      "id": "traffic",
+      "label": "Traffic",
+      "causes": [
+        {
+          "id": "burst",
+          "label": "Unexpected request burst",
+          "status": "hypothesis",
+          "evidence": "Open question: inspect request-rate measurements."
+        }
+      ]
+    }
+  ]
+}

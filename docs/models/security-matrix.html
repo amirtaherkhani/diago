@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Who can access what? · Diago</title>
+  <style>
+    :root{--radius:18px}
+    *{box-sizing:border-box}html{background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{margin:0;min-width:320px;background:var(--bg)}main{width:min(1280px,100%);margin:0 auto;padding:32px clamp(16px,4vw,56px) 48px}header{display:grid;gap:8px;margin-bottom:24px}.eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}h1{font-size:clamp(28px,5vw,52px);line-height:1.04;margin:0;max-width:18ch}header p{color:var(--muted);font-size:clamp(14px,2vw,18px);line-height:1.6;margin:0;max-width:72ch}.canvas{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:color-mix(in srgb,var(--panel) 92%,transparent);box-shadow:none}.diagram-view{display:block;width:100%;height:auto}.diagram-mobile{display:none}.diagram-node{outline:none;cursor:default}.diagram-node rect{transition:stroke .16s ease,filter .16s ease}.diagram-node:hover rect,.diagram-node:focus-visible rect{stroke:var(--mint);filter:none}.node-title{fill:var(--text);font-size:17px;font-weight:750}.node-copy{fill:var(--muted);font-size:12px}.node-key{fill:var(--mint);font-size:10px;font-weight:800}.status-verified{--status:var(--mint)}.status-proposed{--status:var(--cyan)}.status-assumption{--status:var(--amber)}.status-completed{--status:var(--mint)}.status-current{--status:var(--cyan)}.status-risk{--status:var(--rose)}.relationship{fill:none;stroke:var(--line);stroke-width:2}.relationship.status-proposed{stroke:var(--cyan);stroke-dasharray:8 7}.relationship.status-assumption{stroke:var(--amber);stroke-dasharray:3 6}.relationship-label{fill:var(--text);font-size:11px;font-weight:700;paint-order:stroke;stroke:var(--bg);stroke-width:5px;stroke-linejoin:round}.legend{display:flex;flex-wrap:wrap;gap:14px;padding:14px 18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.legend span{display:inline-flex;align-items:center;gap:7px}.legend i{width:9px;height:9px;border-radius:50%;background:var(--status)}footer{color:var(--muted);font-size:12px;padding-top:16px}@media(max-width:760px){main{padding:20px 12px 32px}.canvas{border-radius:14px}.diagram-desktop{display:none}.diagram-mobile{display:block}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+    .engineering-details{margin-top:24px}.engineering-details h2{font-size:20px}.engineering-table{overflow-x:auto;border:1px solid var(--line);border-radius:12px}.engineering-table table{width:100%;border-collapse:collapse;font-size:13px;text-align:left}.engineering-table caption{padding:12px;color:var(--muted);text-align:left}.engineering-table th,.engineering-table td{padding:12px;vertical-align:top;border-top:1px solid var(--line);overflow-wrap:anywhere;min-width:110px}.engineering-table td{color:var(--muted)}
+
+button.diago-theme {position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;width:56px!important;min-width:56px!important;height:44px!important;min-height:44px!important;padding:0!important;border:0!important;border-radius:10px!important;background:transparent!important;box-shadow:none!important;cursor:pointer}
+button.diago-theme::before,button.diago-theme::after {content:none!important;display:none!important}
+.diago-theme-track {display:block;width:42px;height:20px;border-radius:999px;background:color-mix(in srgb,var(--text) 9%,transparent)}
+.diago-theme-thumb {display:block;position:relative;width:18px;height:18px;top:1px;left:23px;border-radius:50%;background:#3b4a63;color:#c7d2fe;transition:left .18s ease}
+.diago-theme-thumb::after {content:'☾';display:block;font:14px/18px system-ui,sans-serif;text-align:center}
+button.diago-theme[aria-pressed="true"] .diago-theme-thumb {left:1px;background:var(--panel);color:#936600}
+button.diago-theme[aria-pressed="true"] .diago-theme-thumb::after {content:'☀'}
+button.diago-theme:hover .diago-theme-track {background:color-mix(in srgb,var(--text) 13%,transparent)}
+button.diago-theme:focus-visible {outline:2px solid var(--text)!important;outline-offset:2px}
+.diago-theme-group {display:flex;align-items:center;padding:0 4px;border:1px solid var(--line);border-radius:11px;background:var(--panel)}
+.diago-native-tools {position:absolute;top:32px;right:clamp(16px,4vw,56px)}
+main.diago-native {position:relative}main.diago-native header {padding-right:84px}
+@media(max-width:760px){.diago-native-tools{position:static;display:flex;justify-content:flex-end;margin-bottom:16px}main.diago-native header{padding-right:0}}
+@media(prefers-reduced-motion:reduce){.diago-theme-thumb{transition:none}}
+@media print{.diago-native-tools{display:none}}
+
+
+[data-theme="dark"][data-theme], :root:not([data-theme]) {
+ --bg:#080f20;--panel:#111c30;--mask:#111c30;--text:#f5f8fb;--muted:#91a2b5;
+ --line:#28374e;--primary:#ffbe0b;--mint:#6ef3c5;--cyan:#6ca8ff;--amber:#f2d47a;--violet:#b9a4ff;--rose:#ff7f9f;
+ --text-muted:var(--muted);--text-dim:#91a2b5;--text-faint:#b8c4d0;
+ --grid:#18263c;--canvas-dot:rgba(108,168,255,.12);--panel-border:var(--line);
+ --lane-fill:#0d1628;--lane-stroke:#34465a;--arrow:#91a2b5;--arrow-emphasis:var(--mint);
+ --toolbar-bg:#111c30;--toolbar-border:#34465a;--toolbar-text:var(--text);--toolbar-hover:#18263c;--toolbar-menu-bg:#0d1628;
+ --frontend-stroke:var(--cyan);--backend-stroke:var(--mint);--cloud-stroke:var(--amber);--security-stroke:var(--rose);--messagebus-stroke:#ff9d6c;
+ --pastel-blue:rgba(186,215,239,.035);--pastel-lilac:rgba(220,205,238,.025);--soft-shadow:0 3px 12px rgba(186,205,230,.055);
+ color-scheme:dark;
+}
+[data-theme="light"][data-theme] {
+ --bg:#f3f5fa;--panel:#fff;--mask:#fff;--text:#152039;--muted:#53637c;
+ --line:#d7dfeb;--primary:#936600;--mint:#157254;--cyan:#285eb6;--amber:#946200;--violet:#7546ad;--rose:#b32d53;
+ --text-muted:var(--muted);--text-dim:#53637c;--text-faint:#53637c;
+ --grid:#e6ebf3;--canvas-dot:#d7dfeb;--panel-border:var(--line);
+ --lane-fill:#f9faff;--lane-stroke:#b2bfd1;--arrow:#53637c;--arrow-emphasis:var(--mint);
+ --toolbar-bg:#fff;--toolbar-border:#d7dfeb;--toolbar-text:var(--text);--toolbar-hover:#f3f5fa;--toolbar-menu-bg:#fff;
+ --frontend-stroke:var(--cyan);--backend-stroke:var(--mint);--cloud-stroke:var(--amber);--security-stroke:var(--rose);--messagebus-stroke:#a94b19;
+ --pastel-blue:rgba(186,215,239,.12);--pastel-lilac:rgba(220,205,238,.09);--soft-shadow:0 3px 12px rgba(166,188,218,.12);
+ color-scheme:light;
+}
+body {background:var(--bg)}
+/* Uniform low-intensity decoration across presets; semantic strokes remain intact. */
+html[data-preset] body {background-image:none!important}
+html[data-preset] .diagram-container,html[data-preset] .card,.canvas {
+ background:linear-gradient(135deg,var(--pastel-blue),var(--pastel-lilac)),var(--panel)!important;
+ box-shadow:none!important;
+}
+html .toolbar-group::before,html .toolbar button::before,html .toolbar button::after,
+html .pulse-dot,html .card-dot,html .semantic-lens-swatch,html .motion-control-dot,
+html .header-row::after,html .overview-map-live,html .diagram-guide-stats::before,
+html .semantic-passport-evidence-status::before,html .route-probe-node[aria-current="step"] {box-shadow:none!important}
+html .diagram-nav,html .overview-map,html .overview-map-feedback,html .semantic-lens,
+html .route-probe,html .focus-chip,html .diagram-guide,html .node-finder,
+html .reader-rail,html .rail-reveal,html .preset-menu,html .export-menu,html .archify-toast {
+ background:var(--panel)!important;box-shadow:var(--soft-shadow)!important;
+}
+svg [data-node-id],svg [data-node-id] > rect,svg [data-edge-from],svg [data-focus-selected],
+svg .semantic-flow-token,svg .relationship-flow-pulse,svg .route-probe-flow,svg .route-journey-flow,
+svg [data-relationship-preview],svg [data-route-journey-current],
+.diagram-node:hover rect,.diagram-node:focus-visible rect {filter:none!important}
+
+.diago-brand,.eyebrow {color:var(--primary);font:700 12px/1.5 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.diago-brand {display:block;margin-bottom:12px}
+html .header h1,html[data-preset] .header h1,html[data-preset] .card h3 {font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+/* One painted surface; suppress upstream decorative layers and inset focus ring. */
+html .toolbar #btn-export {background:#ffbe0b;color:#080f20;border:0;box-shadow:none;outline:none;border-radius:11px}
+html .toolbar #btn-export:hover,
+html .toolbar #btn-export[aria-expanded="true"] {background:#ffd24d;color:#080f20}
+html .toolbar #btn-export::before,
+html .toolbar #btn-export::after {content:none;display:none;box-shadow:none}
+html .toolbar #btn-export:focus-visible {outline:none;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+html[data-preset] .pulse-dot {background:var(--primary);border-color:var(--primary)}
+.diagram-node:focus-visible rect {stroke:var(--primary)}
+
+  </style>
+  <script>
+(function(){
+ var root=document.documentElement;
+ var requested=new URLSearchParams(location.search).get('theme');
+ var theme=requested==='light'||requested==='dark'?requested:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+ root.dataset.theme=theme;
+ document.addEventListener('DOMContentLoaded',function(){
+  var button=document.querySelector('.diago-theme');
+  function sync(){button.setAttribute('aria-pressed', String(root.dataset.theme==='light'));}
+  button.addEventListener('click',function(){root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';sync();});
+  sync();
+ });
+})();
+</script>
+</head>
+<body class="quality-showcase">
+  <main class="diago-native">
+    <div class="diago-native-tools"><div class="diago-theme-group"><button id="btn-theme" class="diago-theme" type="button" aria-label="Toggle color theme" title="Toggle color theme" aria-pressed="false"><span class="diago-theme-track" aria-hidden="true"><span class="diago-theme-thumb"></span></span><span id="theme-icon" hidden></span><span id="theme-label" hidden>Dark</span></button></div></div>
+    <header><span class="eyebrow">Diago · security-matrix</span><h1>Who can access what?</h1><p>Illustrative engineering example. Sources and findings are fictional.</p></header>
+    <section class="canvas" aria-label="Who can access what?">
+      <svg class="diagram-view diagram-desktop" role="group" aria-labelledby="diago-security-matrix-title diago-security-matrix-desc" viewBox="0 0 670 504" tabindex="0">
+        <title id="diago-security-matrix-title">Who can access what?</title>
+        <desc id="diago-security-matrix-desc">An access review of authored permissions, not a policy evaluator. Missing cells are unknown, never a deny decision. The permission register contains complete values and sources.</desc>
+        <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.25" markerHeight="5.25" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--cyan)"/></marker></defs>
+        <text class="node-copy" x="24" y="28" text-anchor="start" textLength="428.8" lengthAdjust="spacingAndGlyphs">Resources × roles · color encodes access level, not verification</text><text class="node-copy" x="285" y="60" text-anchor="middle" textLength="67.0" lengthAdjust="spacingAndGlyphs">Operations</text><text class="node-copy" x="435" y="60" text-anchor="middle" textLength="80.4" lengthAdjust="spacingAndGlyphs">Order worker</text><text class="node-copy" x="585" y="60" text-anchor="middle" textLength="60.3" lengthAdjust="spacingAndGlyphs">Analytics</text><text class="node-copy" x="24" y="154" text-anchor="start" textLength="80.4" lengthAdjust="spacingAndGlyphs">Orders table</text><g role="img" aria-label="Orders table; Operations; admin: DB owner. Illustrative policy: ops/orders"><title>Illustrative policy: ops/orders</title><rect x="210" y="124" width="136" height="78" rx="9" fill="var(--rose)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="222" y="147" text-anchor="start" textLength="53.6" lengthAdjust="spacingAndGlyphs">DB owner</text><text class="node-key" style="fill:var(--rose)" x="222" y="189">admin</text></g><g role="img" aria-label="Orders table; Order worker; write: SELECT / UPDATE. Illustrative policy: writer/orders"><title>Illustrative policy: writer/orders</title><rect x="360" y="124" width="136" height="78" rx="9" fill="var(--amber)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="372" y="147" text-anchor="start" textLength="100.5" lengthAdjust="spacingAndGlyphs">SELECT / UPDATE</text><text class="node-key" style="fill:var(--amber)" x="372" y="189">write</text></g><g role="img" aria-label="Orders table; Analytics; read: SELECT. Illustrative policy: reader/orders"><title>Illustrative policy: reader/orders</title><rect x="510" y="124" width="136" height="78" rx="9" fill="var(--cyan)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="522" y="147" text-anchor="start" textLength="40.2" lengthAdjust="spacingAndGlyphs">SELECT</text><text class="node-key" style="fill:var(--cyan)" x="522" y="189">read</text></g><text class="node-copy" x="24" y="244" text-anchor="start" textLength="80.4" lengthAdjust="spacingAndGlyphs">Event stream</text><g role="img" aria-label="Event stream; Operations; admin: Manage topics. Illustrative policy: ops/events"><title>Illustrative policy: ops/events</title><rect x="210" y="214" width="136" height="78" rx="9" fill="var(--rose)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="222" y="237" text-anchor="start" textLength="87.1" lengthAdjust="spacingAndGlyphs">Manage topics</text><text class="node-key" style="fill:var(--rose)" x="222" y="279">admin</text></g><g role="img" aria-label="Event stream; Order worker; write: Publish. Illustrative policy: writer/events"><title>Illustrative policy: writer/events</title><rect x="360" y="214" width="136" height="78" rx="9" fill="var(--amber)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="372" y="237" text-anchor="start" textLength="46.9" lengthAdjust="spacingAndGlyphs">Publish</text><text class="node-key" style="fill:var(--amber)" x="372" y="279">write</text></g><g role="img" aria-label="Event stream; Analytics; read: Subscribe. Illustrative policy: reader/events"><title>Illustrative policy: reader/events</title><rect x="510" y="214" width="136" height="78" rx="9" fill="var(--cyan)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="522" y="237" text-anchor="start" textLength="60.3" lengthAdjust="spacingAndGlyphs">Subscribe</text><text class="node-key" style="fill:var(--cyan)" x="522" y="279">read</text></g><text class="node-copy" x="24" y="334" text-anchor="start" textLength="60.3" lengthAdjust="spacingAndGlyphs">Audit log</text><g role="img" aria-label="Audit log; Operations; read: Read. Illustrative policy: ops/audit"><title>Illustrative policy: ops/audit</title><rect x="210" y="304" width="136" height="78" rx="9" fill="var(--cyan)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="222" y="327" text-anchor="start" textLength="26.8" lengthAdjust="spacingAndGlyphs">Read</text><text class="node-key" style="fill:var(--cyan)" x="222" y="369">read</text></g><g role="img" aria-label="Audit log; Order worker; write: Append. Illustrative policy: writer/audit"><title>Illustrative policy: writer/audit</title><rect x="360" y="304" width="136" height="78" rx="9" fill="var(--amber)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="372" y="327" text-anchor="start" textLength="40.2" lengthAdjust="spacingAndGlyphs">Append</text><text class="node-key" style="fill:var(--amber)" x="372" y="369">write</text></g><g role="img" aria-label="Audit log; Analytics; none: Explicit deny. Illustrative policy: reader/audit"><title>Illustrative policy: reader/audit</title><rect x="510" y="304" width="136" height="78" rx="9" fill="var(--muted)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="522" y="327" text-anchor="start" textLength="87.1" lengthAdjust="spacingAndGlyphs">Explicit deny</text><text class="node-key" style="fill:var(--muted)" x="522" y="369">none</text></g><text class="node-copy" x="24" y="424" text-anchor="start" textLength="80.4" lengthAdjust="spacingAndGlyphs">Secret store</text><g role="img" aria-label="Secret store; Operations; read: Read. Illustrative policy: ops/secrets"><title>Illustrative policy: ops/secrets</title><rect x="210" y="394" width="136" height="78" rx="9" fill="var(--cyan)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="222" y="417" text-anchor="start" textLength="26.8" lengthAdjust="spacingAndGlyphs">Read</text><text class="node-key" style="fill:var(--cyan)" x="222" y="459">read</text></g><g role="img" aria-label="Secret store; Order worker; unknown: Unknown. No permission evidence supplied."><title>No permission evidence supplied.</title><rect x="360" y="394" width="136" height="78" rx="9" fill="var(--muted)" fill-opacity=".09" stroke="var(--line)" stroke-dasharray="3 5"/><text class="node-copy" x="372" y="417" text-anchor="start" textLength="46.9" lengthAdjust="spacingAndGlyphs">Unknown</text><text class="node-key" style="fill:var(--muted)" x="372" y="459">unknown</text></g><g role="img" aria-label="Secret store; Analytics; none: Explicit deny. Illustrative policy: reader/secrets"><title>Illustrative policy: reader/secrets</title><rect x="510" y="394" width="136" height="78" rx="9" fill="var(--muted)" fill-opacity=".09" stroke="var(--line)" /><text class="node-copy" x="522" y="417" text-anchor="start" textLength="87.1" lengthAdjust="spacingAndGlyphs">Explicit deny</text><text class="node-key" style="fill:var(--muted)" x="522" y="459">none</text></g>
+      </svg>
+      <svg class="diagram-view diagram-mobile" role="group" aria-labelledby="diago-security-matrix-mobile-title diago-security-matrix-mobile-desc" viewBox="0 0 320 1714" tabindex="0">
+        <title id="diago-security-matrix-mobile-title">Who can access what?</title>
+        <desc id="diago-security-matrix-mobile-desc">An access review of authored permissions, not a policy evaluator. Missing cells are unknown, never a deny decision. The permission register contains complete values and sources.</desc>
+        <defs><marker id="arrow-mobile" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.25" markerHeight="5.25" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--cyan)"/></marker></defs>
+        <text class="node-title" x="20" y="30" text-anchor="start" textLength="96.0" lengthAdjust="spacingAndGlyphs">Orders table</text><g role="img" aria-label="Orders table; Operations; admin: DB owner. Illustrative policy: ops/orders"><rect x="16" y="68" width="288" height="105" rx="8" fill="var(--rose)" fill-opacity=".08"/><text class="node-copy" x="28" y="86" text-anchor="start" textLength="67.0" lengthAdjust="spacingAndGlyphs">Operations</text><text class="node-copy" x="28" y="132" text-anchor="start" textLength="100.5" lengthAdjust="spacingAndGlyphs">admin: DB owner</text></g><g role="img" aria-label="Orders table; Order worker; write: SELECT / UPDATE. Illustrative policy: writer/orders"><rect x="16" y="183" width="288" height="105" rx="8" fill="var(--amber)" fill-opacity=".08"/><text class="node-copy" x="28" y="201" text-anchor="start" textLength="80.4" lengthAdjust="spacingAndGlyphs">Order worker</text><text class="node-copy" x="28" y="247" text-anchor="start" textLength="147.4" lengthAdjust="spacingAndGlyphs">write: SELECT / UPDATE</text></g><g role="img" aria-label="Orders table; Analytics; read: SELECT. Illustrative policy: reader/orders"><rect x="16" y="298" width="288" height="105" rx="8" fill="var(--cyan)" fill-opacity=".08"/><text class="node-copy" x="28" y="316" text-anchor="start" textLength="60.3" lengthAdjust="spacingAndGlyphs">Analytics</text><text class="node-copy" x="28" y="362" text-anchor="start" textLength="80.4" lengthAdjust="spacingAndGlyphs">read: SELECT</text></g><text class="node-title" x="20" y="451" text-anchor="start" textLength="96.0" lengthAdjust="spacingAndGlyphs">Event stream</text><g role="img" aria-label="Event stream; Operations; admin: Manage topics. Illustrative policy: ops/events"><rect x="16" y="489" width="288" height="105" rx="8" fill="var(--rose)" fill-opacity=".08"/><text class="node-copy" x="28" y="507" text-anchor="start" textLength="67.0" lengthAdjust="spacingAndGlyphs">Operations</text><text class="node-copy" x="28" y="553" text-anchor="start" textLength="134.0" lengthAdjust="spacingAndGlyphs">admin: Manage topics</text></g><g role="img" aria-label="Event stream; Order worker; write: Publish. Illustrative policy: writer/events"><rect x="16" y="604" width="288" height="105" rx="8" fill="var(--amber)" fill-opacity=".08"/><text class="node-copy" x="28" y="622" text-anchor="start" textLength="80.4" lengthAdjust="spacingAndGlyphs">Order worker</text><text class="node-copy" x="28" y="668" text-anchor="start" textLength="93.8" lengthAdjust="spacingAndGlyphs">write: Publish</text></g><g role="img" aria-label="Event stream; Analytics; read: Subscribe. Illustrative policy: reader/events"><rect x="16" y="719" width="288" height="105" rx="8" fill="var(--cyan)" fill-opacity=".08"/><text class="node-copy" x="28" y="737" text-anchor="start" textLength="60.3" lengthAdjust="spacingAndGlyphs">Analytics</text><text class="node-copy" x="28" y="783" text-anchor="start" textLength="100.5" lengthAdjust="spacingAndGlyphs">read: Subscribe</text></g><text class="node-title" x="20" y="872" text-anchor="start" textLength="72.0" lengthAdjust="spacingAndGlyphs">Audit log</text><g role="img" aria-label="Audit log; Operations; read: Read. Illustrative policy: ops/audit"><rect x="16" y="910" width="288" height="105" rx="8" fill="var(--cyan)" fill-opacity=".08"/><text class="node-copy" x="28" y="928" text-anchor="start" textLength="67.0" lengthAdjust="spacingAndGlyphs">Operations</text><text class="node-copy" x="28" y="974" text-anchor="start" textLength="67.0" lengthAdjust="spacingAndGlyphs">read: Read</text></g><g role="img" aria-label="Audit log; Order worker; write: Append. Illustrative policy: writer/audit"><rect x="16" y="1025" width="288" height="105" rx="8" fill="var(--amber)" fill-opacity=".08"/><text class="node-copy" x="28" y="1043" text-anchor="start" textLength="80.4" lengthAdjust="spacingAndGlyphs">Order worker</text><text class="node-copy" x="28" y="1089" text-anchor="start" textLength="87.1" lengthAdjust="spacingAndGlyphs">write: Append</text></g><g role="img" aria-label="Audit log; Analytics; none: Explicit deny. Illustrative policy: reader/audit"><rect x="16" y="1140" width="288" height="105" rx="8" fill="var(--muted)" fill-opacity=".08"/><text class="node-copy" x="28" y="1158" text-anchor="start" textLength="60.3" lengthAdjust="spacingAndGlyphs">Analytics</text><text class="node-copy" x="28" y="1204" text-anchor="start" textLength="127.3" lengthAdjust="spacingAndGlyphs">none: Explicit deny</text></g><text class="node-title" x="20" y="1293" text-anchor="start" textLength="96.0" lengthAdjust="spacingAndGlyphs">Secret store</text><g role="img" aria-label="Secret store; Operations; read: Read. Illustrative policy: ops/secrets"><rect x="16" y="1331" width="288" height="105" rx="8" fill="var(--cyan)" fill-opacity=".08"/><text class="node-copy" x="28" y="1349" text-anchor="start" textLength="67.0" lengthAdjust="spacingAndGlyphs">Operations</text><text class="node-copy" x="28" y="1395" text-anchor="start" textLength="67.0" lengthAdjust="spacingAndGlyphs">read: Read</text></g><g role="img" aria-label="Secret store; Order worker; unknown: Unknown. No permission evidence supplied."><rect x="16" y="1446" width="288" height="105" rx="8" fill="var(--muted)" fill-opacity=".08"/><text class="node-copy" x="28" y="1464" text-anchor="start" textLength="80.4" lengthAdjust="spacingAndGlyphs">Order worker</text><text class="node-copy" x="28" y="1510" text-anchor="start" textLength="107.2" lengthAdjust="spacingAndGlyphs">unknown: Unknown</text></g><g role="img" aria-label="Secret store; Analytics; none: Explicit deny. Illustrative policy: reader/secrets"><rect x="16" y="1561" width="288" height="105" rx="8" fill="var(--muted)" fill-opacity=".08"/><text class="node-copy" x="28" y="1579" text-anchor="start" textLength="60.3" lengthAdjust="spacingAndGlyphs">Analytics</text><text class="node-copy" x="28" y="1625" text-anchor="start" textLength="127.3" lengthAdjust="spacingAndGlyphs">none: Explicit deny</text></g>
+      </svg>
+      <div class="legend" aria-label="Evidence status legend"><span><i style="background:var(--rose)"></i>admin</span><span><i style="background:var(--amber)"></i>write</span><span><i style="background:var(--cyan)"></i>read</span><span><i style="background:var(--muted)"></i>none</span><span><i style="background:var(--muted)"></i>unknown</span></div>
+    </section>
+    <section class="engineering-details"><h2>Permission register</h2><div class="engineering-table" tabindex="0" role="region" aria-label="Permission register"><table><caption>Permission register — complete authored values</caption><thead><tr><th scope="col">Resource</th><th scope="col">Role</th><th scope="col">Permission</th><th scope="col">Evidence</th></tr></thead><tbody><tr><th scope="row">Orders table</th><td>Operations</td><td>admin: DB owner</td><td>Illustrative policy: ops/orders</td></tr><tr><th scope="row">Orders table</th><td>Order worker</td><td>write: SELECT / UPDATE</td><td>Illustrative policy: writer/orders</td></tr><tr><th scope="row">Orders table</th><td>Analytics</td><td>read: SELECT</td><td>Illustrative policy: reader/orders</td></tr><tr><th scope="row">Event stream</th><td>Operations</td><td>admin: Manage topics</td><td>Illustrative policy: ops/events</td></tr><tr><th scope="row">Event stream</th><td>Order worker</td><td>write: Publish</td><td>Illustrative policy: writer/events</td></tr><tr><th scope="row">Event stream</th><td>Analytics</td><td>read: Subscribe</td><td>Illustrative policy: reader/events</td></tr><tr><th scope="row">Audit log</th><td>Operations</td><td>read: Read</td><td>Illustrative policy: ops/audit</td></tr><tr><th scope="row">Audit log</th><td>Order worker</td><td>write: Append</td><td>Illustrative policy: writer/audit</td></tr><tr><th scope="row">Audit log</th><td>Analytics</td><td>none: Explicit deny</td><td>Illustrative policy: reader/audit</td></tr><tr><th scope="row">Secret store</th><td>Operations</td><td>read: Read</td><td>Illustrative policy: ops/secrets</td></tr><tr><th scope="row">Secret store</th><td>Order worker</td><td>unknown: Unknown</td><td>No permission evidence supplied.</td></tr><tr><th scope="row">Secret store</th><td>Analytics</td><td>none: Explicit deny</td><td>Illustrative policy: reader/secrets</td></tr></tbody></table></div></section>
+    <footer>Standalone HTML · deterministic native renderer · source evidence remains authoritative</footer>
+  </main>
+<style>.diago-walkthrough{margin:16px 0;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font:14px/1.5 system-ui,sans-serif}
+.diago-walkthrough summary{cursor:pointer;font-weight:700;color:var(--primary)}
+.diago-walkthrough .walk-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}
+.diago-walkthrough button,.diago-walkthrough select{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px;min-height:40px;max-width:100%;cursor:pointer}
+.diago-walkthrough button:disabled{opacity:.45;cursor:default}
+.diago-walkthrough :focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+.diago-walkthrough p{margin:6px 0;overflow-wrap:anywhere}
+.diago-walkthrough .walk-note{color:var(--muted);font-size:12px}
+.diago-walkthrough progress{width:min(100%,320px);accent-color:var(--primary)}
+svg [data-diago-walk="dimmed"]{opacity:.25!important}
+svg [data-diago-walk="participant"]{opacity:.8!important}
+svg [data-diago-walk="active"],svg [data-diago-walk="source"]{opacity:1!important}
+svg [data-node-id][data-diago-walk="active"]>rect,svg [data-node-id][data-diago-walk="active"]>circle{stroke:var(--primary)!important;stroke-width:3px!important}
+svg [data-node-id][data-diago-walk="source"]>rect{stroke:var(--primary)!important;stroke-dasharray:4 3}
+svg path[data-edge-from][data-diago-walk="active"],svg line[data-edge-from][data-diago-walk="active"],svg [data-edge-from][data-diago-walk="active"]>path{stroke-width:3px!important}
+svg [data-edge-from][data-diago-walk="active"]>rect{stroke:var(--primary)!important;stroke-width:3px}
+@media print{.diago-walkthrough{display:none}svg [data-diago-walk]{opacity:1!important}}
+</style><script>// Read rendered, escaped metadata instead of duplicating diagram JSON in the output.
+(() => {
+  function boot() {
+    const host = document.querySelector('.diagram-container, .canvas');
+    if (!host) return;
+    const graphs = [...host.querySelectorAll('svg')].filter(s => s.querySelector('[data-node-id]'));
+    if (!graphs.length) return;
+    const graph = () => graphs.find(s => s.getBoundingClientRect().width > 0) || graphs[0];
+    const root = document.createElement('details');
+    root.className = 'diago-walkthrough';
+    root.innerHTML = `<summary>Guided walkthrough</summary><p class="walk-note">Review authored connections in diagram order. This is not an inferred execution sequence. While open, click a node to jump to its first connection.</p><div class="walk-controls"><label>Connections <select aria-label="Walkthrough connections"></select></label><button type="button" data-action="previous">Previous</button><button type="button" data-action="next">Next</button><button type="button" data-action="play">Play</button><button type="button" data-action="markdown">Download walkthrough Markdown</button></div><progress aria-label="Walkthrough progress" value="0" max="1"></progress><div role="status" aria-live="polite"><p class="walk-title"></p><p class="walk-route"></p><p class="walk-description"></p></div>`;
+    host.before(root);
+    const select = root.querySelector('select');
+    const title = root.querySelector('.walk-title');
+    const route = root.querySelector('.walk-route');
+    const description = root.querySelector('.walk-description');
+    const progress = root.querySelector('progress');
+    const button = action => root.querySelector(`[data-action="${action}"]`);
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let index = 0, timer = null, steps = [], nodes = new Map(), all = [];
+    const option = (label, value) => { const o = document.createElement('option'); o.textContent = label; o.value = value; select.append(o); };
+    const label = id => nodes.get(id)?.dataset.nodeLabel || id;
+    function clear() { host.querySelectorAll('[data-diago-walk]').forEach(e => e.removeAttribute('data-diago-walk')); }
+    function stop() { clearInterval(timer); timer = null; button('play').textContent = 'Play'; button('play').setAttribute('aria-pressed', 'false'); }
+    function collect() {
+      const g = graph();
+      nodes = new Map([...g.querySelectorAll('[data-node-id]')].map(n => [n.dataset.nodeId, n]));
+      all = [...g.querySelectorAll('[data-edge-from][data-edge-to]')].filter(e => nodes.has(e.dataset.edgeFrom) && nodes.has(e.dataset.edgeTo));
+      // A renderer may repeat one edge for a hit target; keep distinct authored edges.
+      const seen = new Set();
+      all = all.filter(e => { const k = e.dataset.edgeId || e.dataset.edgeKey; if (!k) return true; if (seen.has(k)) return false; seen.add(k); return true; });
+      const chosen = select.value;
+      select.replaceChildren(); option('All connections', '');
+      for (const [id] of nodes) if (all.some(e => e.dataset.edgeFrom === id || e.dataset.edgeTo === id)) option(`Around ${label(id)}`, id);
+      if ([...select.options].some(o => o.value === chosen)) select.value = chosen;
+      steps = all.filter(e => !select.value || e.dataset.edgeFrom === select.value || e.dataset.edgeTo === select.value);
+      index = Math.min(index, Math.max(0, steps.length - 1));
+    }
+    function paint() {
+      clear();
+      const step = steps[index];
+      button('previous').disabled = !step || index === 0;
+      button('next').disabled = !step || index === steps.length - 1;
+      button('play').disabled = !step || steps.length < 2 || reduced.matches;
+      button('play').title = reduced.matches ? 'Automatic playback is disabled for reduced motion. Use Next.' : 'Advance every three seconds';
+      progress.max = Math.max(1, steps.length); progress.value = step ? index + 1 : 0;
+      if (!step) { title.textContent = 'No authored connections in this view.'; route.textContent = ''; description.textContent = ''; stop(); return; }
+      const participants = new Set(steps.flatMap(e => [e.dataset.edgeFrom, e.dataset.edgeTo]));
+      for (const [id, node] of nodes) node.dataset.diagoWalk = participants.has(id) ? 'participant' : 'dimmed';
+      all.forEach(e => { e.dataset.diagoWalk = steps.includes(e) ? 'participant' : 'dimmed'; });
+      nodes.get(step.dataset.edgeFrom).dataset.diagoWalk = 'source';
+      nodes.get(step.dataset.edgeTo).dataset.diagoWalk = 'active'; step.dataset.diagoWalk = 'active';
+      title.textContent = `${index + 1} / ${steps.length} · ${step.dataset.edgeLabel || 'Connection'}`;
+      route.textContent = `${label(step.dataset.edgeFrom)} → ${label(step.dataset.edgeTo)}`;
+      description.textContent = nodes.get(step.dataset.edgeTo).getAttribute('aria-label') || label(step.dataset.edgeTo);
+    }
+    function move(delta) { stop(); index = Math.max(0, Math.min(steps.length - 1, index + delta)); paint(); }
+    root.addEventListener('toggle', () => { stop(); if (root.open) { collect(); paint(); } else clear(); });
+    select.addEventListener('change', () => { stop(); index = 0; collect(); paint(); });
+    button('previous').addEventListener('click', () => move(-1));
+    button('next').addEventListener('click', () => move(1));
+    button('play').addEventListener('click', () => {
+      if (timer) { stop(); return; }
+      if (reduced.matches || steps.length < 2) return;
+      if (index === steps.length - 1) index = 0;
+      paint(); button('play').textContent = 'Pause'; button('play').setAttribute('aria-pressed', 'true');
+      timer = setInterval(() => { if (index >= steps.length - 1) { stop(); return; } index++; paint(); if (index === steps.length - 1) stop(); }, 3000);
+    });
+    root.addEventListener('keydown', e => {
+      if (e.target.tagName === 'SELECT' || !root.open || !['ArrowRight','ArrowLeft'].includes(e.key)) return;
+      e.preventDefault(); e.stopPropagation(); move(e.key === 'ArrowRight' ? 1 : -1);
+    });
+    function jump(e) {
+      if (e.type === 'keydown' && !['Enter',' '].includes(e.key)) return;
+      const node = e.target.closest('[data-node-id]'); if (!node || !host.contains(node)) return;
+      if (!root.open) {
+        if (!host.classList.contains('canvas')) return;
+        root.open = true; collect();
+      }
+      e.preventDefault(); e.stopImmediatePropagation(); stop();
+      const found = steps.findIndex(s => s.dataset.edgeFrom === node.dataset.nodeId || s.dataset.edgeTo === node.dataset.nodeId);
+      if (found < 0) { description.textContent = `${label(node.dataset.nodeId)} is outside the selected connections. Choose All connections to inspect it.`; return; }
+      index = found; paint();
+    }
+    host.addEventListener('click', jump, true); host.addEventListener('keydown', jump, true);
+    button('markdown').addEventListener('click', () => {
+      const text = `# ${document.title}\n\nAuthored connection walkthrough; order does not imply execution.\n\n` + steps.map((s,i) => `${i+1}. ${label(s.dataset.edgeFrom)} → ${label(s.dataset.edgeTo)}: ${s.dataset.edgeLabel || 'Connection'}\n   ${nodes.get(s.dataset.edgeTo).getAttribute('aria-label') || ''}`).join('\n');
+      const url = URL.createObjectURL(new Blob([text], {type:'text/markdown'})); const a = document.createElement('a'); a.href = url; a.download = 'diago-walkthrough.md'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+    window.addEventListener('pagehide', stop);
+    reduced.addEventListener('change', () => { stop(); if (root.open) paint(); });
+    let frame;
+    window.addEventListener('resize', () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(() => { if (root.open) { stop(); collect(); paint(); } }); });
+    // Export stays a neutral complete diagram; the active teaching state is transient.
+    document.getElementById('btn-export')?.addEventListener('click', () => { root.open = false; stop(); clear(); }, true);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+</script>
+</body>
+</html>

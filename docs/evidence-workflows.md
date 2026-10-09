@@ -86,4 +86,4 @@ The result includes `ready`, all node states, `limits`, plan-compatible `evidenc
 
 `ok` is true only for `complete`. Read status even when the CLI exits 0. MCP input errors return `isError: true`; a valid but incomplete report is structured data with `ok: false`.
 
-Inspect unresolved report groups and failed node reasons before transferring `evidence` into a schema-v2 diagram plan. Copy only after source verification and intentional reconciliation; then run the existing plan review and renderer validation. The original plan schema, eight-renderer catalog, and rendering commands remain compatible.
+Inspect unresolved report groups and failed node reasons before transferring `evidence` into a schema-v2 diagram plan. Copy only after source verification and intentional reconciliation; then run the existing plan review and renderer validation. The original plan schema, renderer catalog, and rendering commands remain compatible.
