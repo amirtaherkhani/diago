@@ -69,6 +69,7 @@ test('explorer HTML is deterministic, branded, offline, and escapes embedded use
   const html = buildExplorerHtml(d);
   assert.equal(html, buildExplorerHtml(d));
   assert.ok(html.includes('Diago interlocking D mark'));
+  assert.match(html, /\.brand svg\s*\{\s*width:28px;\s*height:28px/);
   assert.ok(html.includes('connect-src \'none\''));
   assert.ok(!html.includes('<img src=x'));
   assert.ok(!html.includes('<script>bad()'));

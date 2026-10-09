@@ -20,6 +20,7 @@ for(const [type] of Object.entries(examples)) test(`${type}: embeds an offline a
  const receipt=renderDiagramDocument({type,diagram,outputPath,quality:'standard'});
  const html=fs.readFileSync(outputPath,'utf8');
  assert.match(html,/Arrow guide/);assert.match(html,/All six Diago connection types/);
+ assert.match(html,/<img class="diago-logo" src="data:image\/svg\+xml;base64,/);
  assert.ok(html.includes(`data-diago-arrow-model="${type}"`));
  const rule=ARROW_RULES[type];
  if(rule) assert.ok(html.includes(`data-arrow-type="${rule.default}"`));
