@@ -12,6 +12,8 @@ All notable changes to Diago are documented here.
 
 ### Changed
 
+- Reduced decorative shadows and replaced saturated gradients with subtle pastel blue/lilac washes across renderer presets, native outputs, Explorer, and the public site. Cards and buttons remain flat; floating panels use one small low-opacity shadow.
+
 - Unified all eight specialized renderer outputs with Diago’s navy/yellow presentation; preserved Archify interactions and export themes, added native light/dark controls, and provided a reproducible eight-renderer gallery. Final delivery hashes and provenance include the branded output.
 
 - Refreshed the bundled Archify snapshot to main commit `bb990b17` and switched upstream discovery and synchronization to track main, including updates newer than release tags. The renderer and schema contracts remain unchanged.

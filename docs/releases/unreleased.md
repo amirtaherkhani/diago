@@ -13,6 +13,8 @@ Diago's architecture explorer and eight specialized renderers now present engine
 
 ## Changed
 
+- Subtle pastel decoration across light/dark renderer presets; removed heavy card and button shadows and reduced Explorer and website elevation.
+
 - Archify's five rendered outputs use Diago presentation before validation and hashing; their interactive controls and export capabilities remain available.
 - The bundled Archify snapshot tracks main at `bb990b17`, including updates newer than its release tags.
 
