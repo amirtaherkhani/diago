@@ -26,6 +26,8 @@ for (const [type, example] of Object.entries(examples)) {
    const receipt = renderDiagramDocument({type, diagram, outputPath, quality:'standard'});
    const html = fs.readFileSync(outputPath);
    assert.match(html.toString(), /--bg:#080f20/);
+   assert.match(html.toString(), /markerWidth="(?:7\.5|5\.25)" markerHeight="5\.25"/);
+   assert.doesNotMatch(html.toString(), /markerWidth="10" markerHeight="7"/);
    assert.match(html.toString(), /--primary:#ffbe0b/);
    assert.match(html.toString(), /data-theme="light"/);
    assert.equal(receipt.artifact.sha256, createHash('sha256').update(html).digest('hex'));
