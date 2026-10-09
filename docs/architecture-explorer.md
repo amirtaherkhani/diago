@@ -15,6 +15,8 @@ From MCP, use `render_explorer` with `document`, absolute `outputPath`, and opti
 
 [Open the generated Diago example](explorer/index.html) · [Compact source example](../examples/diago.architecture-explorer.json) · [JSON schema](../schemas/architecture-explorer.schema.json)
 
+The public example is a source-grounded system explanation of Diago itself. Its perspectives cover the question-to-artifact path, local CLI and MCP entry points, renderer routing, and evidence limits. It documents the current source checkout; the published v0.7.0 plugin predates several of these source-checkout additions.
+
 ## Compact authoring contract
 
 ```json
