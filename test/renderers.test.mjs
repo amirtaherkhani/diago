@@ -39,7 +39,7 @@ test('data-model validates endpoints and renders accessible cardinality', () => 
   assert.equal(validation.ok, true);
   assert.equal(validation.type, 'data-model');
   assert.equal(rendered.firstReceipt.type, 'data-model');
-  assert.match(rendered.first, /<svg[^>]+role="img"/);
+  assert.match(rendered.first, /<svg[^>]+role="group"/);
   assert.match(rendered.first, /aria-labelledby=/);
   assert.match(rendered.first, /<title id=/);
   assert.match(rendered.first, /<desc id=/);
@@ -105,7 +105,7 @@ test('timeline renders ordered phased milestones on bounded tracks', () => {
   assert.equal(validation.ok, true);
   assert.equal(validation.composition.metrics.tracks, 3);
   assert.ok(rendered.first.indexOf('Shadow write') < rendered.first.indexOf('Cut over'));
-  assert.match(rendered.first, /role="img"/);
+  assert.match(rendered.first, /role="group"/);
   assert.match(rendered.first, /Phase 5/);
   assert.equal(rendered.first, rendered.second);
 });

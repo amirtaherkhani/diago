@@ -6,6 +6,8 @@ Diago's architecture explorer and eight specialized renderers now present engine
 
 ## Added
 
+- Guided connection walkthroughs for all eight renderers, with playback, filtering, node navigation, and companion Markdown downloads. Existing diagram schemas and CLI/MCP calls remain compatible.
+
 - Offline architecture explorer with shared-component JSON, bounded multi-view navigation, drill-down, evidence inspection, search, and responsive light/dark themes.
 - `diago explore` and the `render_explorer` MCP tool, returning compact artifact receipts.
 - Reproducible eight-renderer gallery and theme controls for native Data model, Timeline, and Layers outputs.

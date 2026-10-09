@@ -6,6 +6,8 @@ All notable changes to Diago are documented here.
 
 ### Added
 
+- Shared guided connection walkthroughs across eight renderers: manual/playback controls, participant/source/target states, node-click navigation, reduced-motion support, and Markdown explanation downloads, inspired by Architecture Diagram Skill.
+
 - A native Diago architecture explorer with offline multi-view navigation, bounded component drill-down, evidence inspection, search, light/dark themes, and responsive layout.
 - Compact shared-component JSON authoring, `diago explore`, and the `render_explorer` MCP tool; rendering returns an artifact receipt instead of generated HTML to reduce conversation payload.
 - Oh My Mermaid as a fifth tracked upstream, with an MIT-licensed architecture-scanning methodology snapshot, weekly synchronization, and a source-level compatibility and security review.

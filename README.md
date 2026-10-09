@@ -378,3 +378,7 @@ Run `npm run check` for repository validation and tests. Run `npm run upstreams:
 ## Unified renderer presentation (source checkout)
 
 All eight specialized outputs now share Diago’s navy/yellow visual language, with light/dark themes and preserved evidence colors. CLI and MCP deliver the same branded files. [Presentation and local gallery](docs/renderer-presentation.md). Existing v0.7.0 installations require an update before these changes are available.
+
+## Guided walkthrough (source checkout)
+
+All eight specialized outputs include an optional step player with source/target highlighting, connection filtering, node-click navigation, and a companion Markdown download. It adapts Architecture Diagram Skill’s teaching ideas to Diago without inventing runtime flows. [Walkthrough guide](docs/guided-walkthrough.md).
