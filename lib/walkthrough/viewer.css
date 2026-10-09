@@ -1,12 +1,24 @@
-.diago-walkthrough{margin:16px 0;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font:14px/1.5 system-ui,sans-serif}
+.diago-walkthrough{margin:16px 0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--text);font:14px/1.5 system-ui,sans-serif}
 .diago-walkthrough summary{cursor:pointer;font-weight:700;color:var(--primary)}
 .diago-walkthrough .walk-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}
-.diago-walkthrough button,.diago-walkthrough select{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px;min-height:40px;max-width:100%;cursor:pointer}
+.diago-walkthrough button,.diago-walkthrough select{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;min-height:40px;max-width:100%;cursor:pointer}
 .diago-walkthrough button:disabled{opacity:.45;cursor:default}
 .diago-walkthrough :focus-visible{outline:2px solid var(--primary);outline-offset:3px}
 .diago-walkthrough p{margin:6px 0;overflow-wrap:anywhere}
 .diago-walkthrough .walk-note{color:var(--muted);font-size:12px}
-.diago-walkthrough progress{width:min(100%,320px);accent-color:var(--primary)}
+.diago-walkthrough .walk-steps{display:flex;align-items:center;gap:5px;max-width:min(100%,420px);overflow-x:auto;padding:3px;scrollbar-width:thin}
+.diago-walkthrough .walk-steps:empty{display:none}
+.diago-walkthrough .walk-step{flex:0 0 34px;width:34px;min-height:34px;height:34px;padding:0;border-radius:50%;color:var(--muted);font:700 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
+.diago-walkthrough .walk-step.is-current{color:var(--bg);background:var(--primary);border-color:var(--primary)}
+.diago-walkthrough .walk-progress{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.diago-walkthrough progress{width:min(100%,220px);height:7px;accent-color:var(--primary)}
+.diago-walkthrough .walk-title{color:var(--muted);font:700 11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em}
+.diago-walkthrough .walk-route{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px}
+.diago-walkthrough .walk-endpoint{display:inline-flex;align-items:center;min-height:34px;max-width:min(100%,320px);padding:5px 10px;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--primary) 5%,var(--bg));font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+.diago-walkthrough .walk-arrow{color:var(--primary);font-size:18px;font-weight:800}
+svg [data-diago-walk-badge]{pointer-events:none}
+svg [data-diago-walk-badge] circle{fill:var(--primary);stroke:var(--panel);stroke-width:2}
+svg [data-diago-walk-badge] text{fill:var(--bg);font:700 11px/1 system-ui,sans-serif}
 svg [data-diago-walk="dimmed"]{opacity:.25!important}
 svg [data-diago-walk="participant"]{opacity:.8!important}
 svg [data-diago-walk="active"],svg [data-diago-walk="source"]{opacity:1!important}
@@ -14,4 +26,5 @@ svg [data-node-id][data-diago-walk="active"]>rect,svg [data-node-id][data-diago-
 svg [data-node-id][data-diago-walk="source"]>rect{stroke:var(--primary)!important;stroke-dasharray:4 3}
 svg path[data-edge-from][data-diago-walk="active"],svg line[data-edge-from][data-diago-walk="active"],svg [data-edge-from][data-diago-walk="active"]>path{stroke-width:3px!important}
 svg [data-edge-from][data-diago-walk="active"]>rect{stroke:var(--primary)!important;stroke-width:3px}
-@media print{.diago-walkthrough{display:none}svg [data-diago-walk]{opacity:1!important}}
+@media(max-width:640px){.diago-walkthrough .walk-controls{align-items:stretch}.diago-walkthrough .walk-steps{order:3;width:100%;max-width:100%}.diago-walkthrough [data-action="markdown"]{width:100%}.diago-walkthrough .walk-progress{gap:6px}}
+@media print{.diago-walkthrough{display:none}svg [data-diago-walk]{opacity:1!important}svg [data-diago-walk-badge]{display:none}}
