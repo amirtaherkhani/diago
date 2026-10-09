@@ -1,6 +1,6 @@
 # Arrow guide
 
-Every Diago model and Architecture Explorer includes an expandable **Arrow guide** above the canvas. It lists connection types in the visible view, with a compact reference to all six types. Connections also expose hover and keyboard descriptions. The helper is embedded offline; no package, network request, or model-generated styling is required.
+Every Diago model and Architecture Explorer includes a small **Arrow legend** above the canvas. It shows only the connection types used in the current view, with a short label and a compact arrow sample. Hover or assistive technology exposes each type’s full meaning. Models without arrows state that briefly. The helper is embedded offline; no package, network request, or model-generated styling is required.
 
 ## Six connection types
 
@@ -13,7 +13,7 @@ Every Diago model and Architecture Explorer includes an expandable **Arrow guide
 | `bidirectional` | Filled triangle at both ends | The same relationship applies in both directions |
 | `association` | No head | Structural association; read cardinality labels |
 
-These are Diago conventions, not a complete UML notation. Colors and line dashes retain their model-specific evidence/status/classification meaning. A dashed line alone never establishes asynchronous behavior. Labels and evidence remain authoritative; never infer runtime order from layout alone.
+These are Diago conventions, not a complete UML notation. Colors and line dashes retain their model-specific evidence/status/classification meaning. A dashed line alone never establishes asynchronous behavior. Labels and evidence remain authoritative; never infer runtime order from layout alone. The compact on-canvas legend shows only the types used in that view; this page documents all supported types.
 
 [Interactive examples](https://amirtaherkhani.github.io/diago/arrows/) use fictional proposed relationships. Their [compact source](../examples/arrow-types.architecture-explorer.json) stores the two components once and varies only the connection across six views.
 
@@ -51,12 +51,12 @@ Security matrix uses permission cells, not arrows. Its guide explains that acces
 
 ## Rendering and compatibility
 
-- Existing inputs require no migration. Regenerate HTML from the updated source checkout to get the guide and model-specific heads.
+- Existing inputs require no migration. Regenerate HTML from the updated source checkout to get the compact legend and model-specific heads.
 - CLI and MCP use the same validation and presentation. Invalid or unsupported types fail before delivery.
 - The Archify-backed models accept `arrow` through Diago's adapter. Their vendored snapshots and upstream schema contracts remain unchanged; the raw upstream CLI does not accept this extension.
-- On narrow screens, native models may present connections as lists. The guide describes those entries without inventing connector geometry.
-- The guide follows light/dark themes and current Explorer navigation. Walkthroughs and companion Markdown use `↔` for bidirectional links and `—` for associations.
+- On narrow screens, native models may present connections as lists. The legend describes those entries without inventing connector geometry.
+- The legend follows light/dark themes and current Explorer navigation. Walkthroughs and companion Markdown use `↔` for bidirectional links and `—` for associations.
 - Archify's route/reachability tools exclude associations and follow stored endpoints for other types. A bidirectional head does not synthesize a reverse route; author two directed connections when tracing both directions is required.
-- The six-type catalog is explanatory; not every type is appropriate for every model. Omit `arrow` when the default correctly describes the evidence.
+- The authoring reference is explanatory; not every type is appropriate for every model. Omit `arrow` when the default correctly describes the evidence.
 
 This is a source-checkout addition after v0.7.0, not a new published plugin release.

@@ -15,11 +15,12 @@ const examples = {architecture:'plugin-request.architecture.json',sequence:'pres
 const read = type => JSON.parse(fs.readFileSync(fromRoot('examples', examples[type]), 'utf8'));
 const temporary = callback => { const directory=fs.mkdtempSync(path.join(os.tmpdir(),'diago-arrows-test-'));try{return callback(directory);}finally{fs.rmSync(directory,{recursive:true,force:true});} };
 
-for(const [type] of Object.entries(examples)) test(`${type}: embeds an offline arrow guide and correct default semantics`,()=>temporary(directory=>{
+for(const [type] of Object.entries(examples)) test(`${type}: embeds a compact offline arrow legend and correct default semantics`,()=>temporary(directory=>{
  const diagram=read(type), before=JSON.stringify(diagram), outputPath=path.join(directory,'view.html');
  const receipt=renderDiagramDocument({type,diagram,outputPath,quality:'standard'});
  const html=fs.readFileSync(outputPath,'utf8');
- assert.match(html,/Arrow guide/);assert.match(html,/All six Diago connection types/);
+ assert.match(html,/Arrow legend/);assert.match(html,/arrow-legend-item/);
+ assert.doesNotMatch(html,/All six Diago connection types|arrow-catalog|arrow-description/);
  assert.match(html,/<img class="diago-logo" src="data:image\/svg\+xml;base64,/);
  assert.ok(html.includes(`data-diago-arrow-model="${type}"`));
  const rule=ARROW_RULES[type];

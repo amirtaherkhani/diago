@@ -33,4 +33,4 @@ The three [additional engineering models](engineering-models.md) retain speciali
 
 ## Connection meaning
 
-The shared [Arrow guide](arrow-guide.md) shows the types used in the current view. Arrowheads describe relationship semantics independently of existing evidence colors and line dashes. The gallery includes a six-view arrow example.
+The shared [Arrow legend](arrow-guide.md) compactly shows only the types used in the current view. Arrowheads describe relationship semantics independently of existing evidence colors and line dashes. The gallery includes a six-view arrow example.
