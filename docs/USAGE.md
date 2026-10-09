@@ -196,3 +196,9 @@ The checker reads every configured source with at most four concurrent GitHub re
 Archify updates track its `main` branch, including changes newer than the latest release tag. Each synchronization records the exact copied commit in `vendor/upstreams.lock.json`; the bundled runtime may still report the last upstream release version.
 
 Dependency updates never silently rewrite the canonical skills.
+
+### Oh My Mermaid
+
+`oh-my-mermaid` is tracked from `main` as a methodology snapshot: `LICENSE`, `README.md`, and `skills/omm-scan/SKILL.md`. Run `./scripts/sync-upstreams.sh oh-my-mermaid` to refresh those files and their exact commit pin. The weekly upstream workflow includes this source.
+
+Its perspective selection and recursive decomposition are references for future evidence-grounded overview/detail views. Vendored instructions are source material, not automatically enabled Diago skills. This integration does not add an `omm` command, HTTP server, cloud upload, runtime dependency, or ninth renderer. Read the [code and integration review](upstreams/oh-my-mermaid-review.md) for findings and adoption requirements.

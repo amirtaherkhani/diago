@@ -1,6 +1,6 @@
 # Third-party notices
 
-Diago preserves notices for four MIT-licensed upstream sources, the GitHub Octicons mark, Simple Icons social marks, and the bundled JetBrains Mono font. Pinned upstream versions are recorded in `vendor/upstreams.lock.json`.
+Diago preserves notices for five MIT-licensed upstream sources, the GitHub Octicons mark, Simple Icons social marks, and the bundled JetBrains Mono font. Pinned upstream versions are recorded in `vendor/upstreams.lock.json`.
 
 ## GitHub Octicons
 
@@ -46,3 +46,12 @@ The viewer template also bundles JetBrains Mono font subsets under the SIL Open 
 - License: `vendor/diagram-design/LICENSE`
 
 The canonical skills in this repository are original integration work. Upstream snapshots remain clearly separated so updates can be reviewed before their ideas are adapted.
+
+## Oh My Mermaid
+
+- Source: https://github.com/oh-my-mermaid/oh-my-mermaid
+- Pinned ref and commit: `vendor/upstreams.lock.json` (`oh-my-mermaid`)
+- Integration: methodology snapshot of the README and recursive architecture scanning skill
+- License: `vendor/oh-my-mermaid/LICENSE` (MIT, copyright 2025 oh-my-mermaid)
+
+The snapshot is review material. Its CLI, browser server, cloud client, and installation skills are not installed or executed by Diago. See [the integration review](docs/upstreams/oh-my-mermaid-review.md).
