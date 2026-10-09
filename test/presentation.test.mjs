@@ -51,8 +51,8 @@ test('template drift fails explicitly instead of silently producing an unbranded
  assert.throws(()=>applyDiagoPresentation('<html></html>'),/presentation contract/);
 });
 
-test('Export styles paint the visible pill, preserving a transparent hit target', () => {
- assert.match(presentationCss, /#btn-export\[aria-expanded="true"\] \{background:transparent;color:#080f20\}/);
- assert.match(presentationCss, /#btn-export::before \{background:#ffbe0b\}/);
- assert.match(presentationCss, /#btn-export:hover::before,\s*html \.toolbar #btn-export\[aria-expanded="true"\]::before \{background:#ffd24d\}/);
+test('Export has one borderless surface and a non-border keyboard focus indicator', () => {
+ assert.match(presentationCss, /border:0;box-shadow:none;outline:none/);
+ assert.match(presentationCss, /#btn-export::after \{content:none;display:none;box-shadow:none\}/);
+ assert.match(presentationCss, /#btn-export:focus-visible \{outline:none;text-decoration:underline/);
 });

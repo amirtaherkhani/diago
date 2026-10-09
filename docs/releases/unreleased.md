@@ -18,7 +18,7 @@ Diago's architecture explorer and eight specialized renderers now present engine
 
 ## Fixed
 
-- Export buttons use one yellow visible surface in both themes, including hover and expanded states, without a mismatched background behind the pill.
+- Export buttons use one borderless yellow surface in both themes, without shadows or decorative layers. Keyboard focus uses an underline instead of an inset ring.
 
 ## Migration
 

@@ -18,7 +18,7 @@ All notable changes to Diago are documented here.
 
 ### Fixed
 
-- Corrected the Export button’s layered background in light/dark output: the visible pill now carries the yellow accent with readable text in normal, hovered, and expanded states.
+- Corrected the Export button’s layered background in light/dark output: the button now has one yellow surface without borders, shadows, or decorative layers; keyboard focus uses a text underline.
 
 ## [0.7.0] - 2026-10-08
 
