@@ -8,7 +8,7 @@ Diago's architecture explorer and eleven specialized renderers now present engin
 
 - A compact embedded Diago plugin logo in every renderer header, with matching sizing in Architecture Explorer.
 
-- Shared offline Arrow guide across all eleven models and Architecture Explorer, with six semantic connection types, hover/keyboard descriptions, model-specific validation, and a six-view notation preview. Existing JSON works unchanged; optional `arrow` fields distinguish responses, events, dependencies, bidirectional links, and associations.
+- Shared offline arrow semantics across all eleven models and Architecture Explorer, with six connection types, full assistive-technology descriptions, model-specific validation, and a six-view notation preview. Existing JSON works unchanged; optional `arrow` fields distinguish responses, events, dependencies, bidirectional links, and associations.
 
 - Three deterministic engineering models inspired by Diagram Design: dependency graphs with shared dependents and structural cycles, role/resource security matrices with explicit unknowns, and evidence-labeled incident fishbones. Includes schemas, advisor recipes, CLI/MCP delivery, responsive light/dark views, and full source registers.
 - A public preview and pinned review of all 44 upstream diagram references, documenting existing coverage and deferred candidates.
@@ -22,6 +22,7 @@ Diago's architecture explorer and eleven specialized renderers now present engin
 
 ## Changed
 
+- Replaced the expandable Arrow guide with a compact, view-specific legend across all eleven renderer models and Architecture Explorer; full connection meanings remain available to assistive technology.
 - Unified theme controls across all eleven renderers and Explorer: one accessible sun/moon switch in the top-right header tools, with consistent dimensions and pressed state.
 
 - Reduced arrowhead dimensions by 25% in the shared diagram presentation and Explorer, preserving marker proportions, endpoint alignment, and exported SVG geometry. New directed models inherit this sizing.

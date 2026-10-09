@@ -397,6 +397,6 @@ The catalog now has **11 specialized models**, adding:
 
 All three support offline light/dark output and readable mobile views. [Authoring guide](docs/engineering-models.md) · [Live examples](https://amirtaherkhani.github.io/diago/models/) · [Review of all 44 Diagram Design references](docs/upstreams/diagram-design-engineering-review.md). These additions are newer than v0.7.0; installed plugins require a future update or use of this source checkout.
 
-## Arrow guide (source checkout)
+## Arrow legend (source checkout)
 
-All eleven models and Architecture Explorer include a compact Arrow guide. Six connection types clarify direction and meaning while preserving evidence colors and line styles. Existing inputs work unchanged; add an optional `arrow` field where supported. [Authoring guide](docs/arrow-guide.md) · [Interactive examples](https://amirtaherkhani.github.io/diago/arrows/).
+All eleven models and Architecture Explorer include a small, view-specific arrow legend. It shows only connection types present in that view; full meanings are available on hover and to assistive technology. Evidence colors and line styles remain unchanged. Existing inputs work unchanged; add an optional `arrow` field where supported. [Authoring guide](docs/arrow-guide.md) · [Interactive examples](https://amirtaherkhani.github.io/diago/arrows/).

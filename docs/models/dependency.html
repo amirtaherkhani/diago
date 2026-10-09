@@ -133,14 +133,13 @@ html[data-preset] .pulse-dot {background:var(--primary);border-color:var(--prima
     <section class="engineering-details"><h2>Modules and packages</h2><div class="engineering-table" tabindex="0" role="region" aria-label="Modules and packages"><table><caption>Modules and packages — complete authored values</caption><thead><tr><th scope="col">Node</th><th scope="col">Kind / status</th><th scope="col">Evidence</th></tr></thead><tbody><tr><th scope="row">Web app</th><td>module / verified</td><td>Illustrative source: web/package.json</td></tr><tr><th scope="row">API gateway</th><td>module / verified</td><td>Illustrative source: api/package.json</td></tr><tr><th scope="row">Orders</th><td>module / verified</td><td>Illustrative source: orders/package.json</td></tr><tr><th scope="row">Billing</th><td>module / verified</td><td>Illustrative source: billing/package.json</td></tr><tr><th scope="row">Shared contracts</th><td>package / verified</td><td>Illustrative source: contracts/package.json</td></tr></tbody></table></div></section><section class="engineering-details"><h2>Dependency register</h2><div class="engineering-table" tabindex="0" role="region" aria-label="Dependency register"><table><caption>Dependency register — complete authored values</caption><thead><tr><th scope="col">Connection</th><th scope="col">Relationship</th><th scope="col">Status</th><th scope="col">Evidence</th></tr></thead><tbody><tr><th scope="row">1. Web app → API gateway</th><td>Calls API client</td><td>verified</td><td>Illustrative import: web imports api</td></tr><tr><th scope="row">2. API gateway → Orders</th><td>Imports order service</td><td>verified</td><td>Illustrative import: api imports orders</td></tr><tr><th scope="row">3. API gateway → Billing</th><td>Imports billing service</td><td>verified</td><td>Illustrative import: api imports billing</td></tr><tr><th scope="row">4. Orders → Billing</th><td>Requests invoice</td><td>verified / structural cycle</td><td>Illustrative import: orders imports billing</td></tr><tr><th scope="row">5. Billing → Orders</th><td>Reads order summary</td><td>verified / structural cycle</td><td>Illustrative import: billing imports orders</td></tr><tr><th scope="row">6. Orders → Shared contracts</th><td>Imports event types</td><td>verified</td><td>Illustrative import: orders imports contracts</td></tr><tr><th scope="row">7. Billing → Shared contracts</th><td>Imports event types</td><td>verified</td><td>Illustrative import: billing imports contracts</td></tr></tbody></table></div></section>
     <footer>Standalone HTML · deterministic native renderer · source evidence remains authoritative</footer>
   </main>
-<style>.diago-arrow-guide{margin:14px 0;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font:13px/1.6 system-ui,sans-serif;overflow:hidden}
-.diago-arrow-guide>summary{padding:12px 16px;cursor:pointer;color:var(--primary,var(--accent,#ffbe0b));font-weight:700}
-.diago-arrow-guide summary:focus-visible{outline:2px solid var(--primary,var(--accent,#ffbe0b));outline-offset:-4px}
-.diago-arrow-guide .arrow-body{padding:0 16px 16px}.diago-arrow-guide p{margin:8px 0;color:var(--muted);font-size:13px}
-.diago-arrow-guide ul{list-style:none;padding:0;margin:10px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:8px 20px}
-.diago-arrow-guide li{display:flex;align-items:center;gap:12px;min-width:0}.diago-arrow-guide li svg{width:64px;height:26px;flex:0 0 64px;color:var(--text)}
-.diago-arrow-guide strong{font-weight:650}.diago-arrow-guide .arrow-description{display:block;color:var(--muted);font-size:12px}
-.diago-arrow-guide .arrow-catalog{margin-top:12px}.diago-arrow-guide .arrow-catalog>summary{cursor:pointer;font-weight:600}
+<style>.diago-arrow-guide{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin:8px 0 12px;padding:7px 0;border-block:1px solid var(--line);color:var(--muted);font:12px/1.4 system-ui,sans-serif}
+.diago-arrow-guide .arrow-legend-title{color:var(--primary,var(--accent,#ffbe0b));font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.diago-arrow-guide ul{display:flex;flex-wrap:wrap;align-items:center;gap:5px 12px;list-style:none;padding:0;margin:0}
+.diago-arrow-guide .arrow-legend-item{display:inline-flex;align-items:center;gap:4px;min-width:0;white-space:nowrap}
+.diago-arrow-guide .arrow-legend-item svg{width:34px;height:16px;flex:0 0 34px;color:var(--text)}
+.diago-arrow-guide .arrow-legend-name{font-weight:600;color:var(--text)}
+.diago-arrow-guide .arrow-legend-note{font-size:11px;color:var(--muted)}
 [data-arrow-type]:focus-visible{outline:2px solid var(--primary,var(--accent,#ffbe0b));outline-offset:3px}
 </style><script data-diago-arrow-model="dependency">(() => {
   const model = document.currentScript.dataset.diagoArrowModel;
@@ -171,24 +170,24 @@ html[data-preset] .pulse-dot {background:var(--primary);border-color:var(--prima
     }
     return icon;
   }
-  function item(type, count) {
-    const entry = types[type], row = el('li'), copy = el('span');
-    row.append(sample(type), copy); copy.append(el('strong', `${entry[0]}${count ? ` · ${count}` : ''}`), el('span', entry[1], 'arrow-description')); return row;
+  function item(type) {
+    const entry = types[type], row = el('li', null, 'arrow-legend-item');
+    row.setAttribute('aria-label', `${entry[0]}: ${entry[1]}`);
+    row.title = `${entry[0]}: ${entry[1]}`;
+    row.append(sample(type), el('span', ({ bidirectional: 'Two-way', effect: 'Effect' })[type] || entry[0], 'arrow-legend-name'));
+    return row;
   }
   function boot() {
     const host = document.querySelector('.canvas, .diagram-container, #canvas');
     if (!host) return;
-    const guide = el('details', null, 'diago-arrow-guide');
-    guide.append(el('summary', 'Arrow guide'));
-    const body = el('div', null, 'arrow-body'), note = el('p'), used = el('ul');
-    const routeNote = el('p', 'Route tracing follows authored endpoints. To trace both directions, supply two directed connections.');
-    routeNote.hidden = true;
+    const guide = el('section', null, 'diago-arrow-guide');
+    guide.setAttribute('role', 'group'); guide.setAttribute('aria-label', 'Arrow legend');
+    guide.title = 'Arrowheads show relationship meaning; colors and line styles retain this model’s status or classification meaning.';
+    const used = el('ul');
     used.setAttribute('aria-label','Connection types in this view');
-    body.append(note, used, routeNote, el('p', 'Arrowheads show connection meaning. Colors and line dashes retain this model’s existing status or classification meaning. Read its evidence legend separately.'));
-    const catalog = el('details',null,'arrow-catalog'); catalog.append(el('summary','All six Diago connection types'));
-    const all = el('ul'); Object.keys(types).filter(t=>t!=='effect').forEach(t=>all.append(item(t))); catalog.append(all);
-    body.append(catalog,el('p','This is Diago notation, not a complete UML notation. Only author a type supported by the model and source evidence.'));
-    guide.append(body); host.before(guide);
+    guide.append(el('span', 'Arrows', 'arrow-legend-title'), used);
+    const note = el('span', null, 'arrow-legend-note');
+    guide.append(note); host.before(guide);
     function refresh() {
       const counts = new Map();
       [...host.querySelectorAll('svg')].forEach((graph, index) => {
@@ -225,9 +224,10 @@ html[data-preset] .pulse-dot {background:var(--primary);border-color:var(--prima
           }
         }
       });
-      used.replaceChildren(); counts.forEach((count,type)=>used.append(item(type,count)));
-      routeNote.hidden = model !== 'architecture' || !counts.has('bidirectional');
-      note.textContent = model==='security-matrix' ? 'This model is a permission grid. Cells express access; no arrows or execution order are implied.' : model==='fishbone' ? 'The spine points to one observed effect. Category branches group investigated candidates, not proven causal links.' : counts.size ? 'Types used in this view. Follow each connection’s label and arrowhead; diagram order alone does not imply execution.' : 'This view has no authored connections. No direction is inferred.';
+      used.replaceChildren(); counts.forEach((count,type)=>used.append(item(type)));
+      note.textContent = model==='security-matrix' ? 'Permissions; execution direction is not implied.' : model==='fishbone' ? 'Branches group candidates; they do not prove causes.' : model==='architecture' && counts.has('bidirectional') ? 'Traversal follows authored endpoints.' : counts.size ? '' : 'No authored arrows in this view.';
+      note.title = model==='architecture' && counts.has('bidirectional') ? 'To trace both directions, author two directed connections.' : model==='security-matrix' ? 'Permission cells do not represent runtime flow.' : model==='fishbone' ? 'The spine points to the observed effect; branches are investigated hypotheses.' : '';
+      note.hidden = !note.textContent;
     }
     refresh();
     let frame;
