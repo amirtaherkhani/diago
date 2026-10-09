@@ -206,3 +206,7 @@ Its perspective selection and recursive decomposition informed the native [archi
 ## Multi-view architecture exploration
 
 Use `diago explore <input.json> <output.html>` or the source checkout's `render_explorer` tool for an offline architecture explorer with shared component definitions, bounded drill-down, source evidence, search, and Diago styling. See the [compact authoring guide](architecture-explorer.md) and [interactive example](explorer/index.html). The existing v0.7.0 release predates this feature.
+
+## Additional engineering models (source checkout)
+
+Dependency graphs, security matrices, and incident fishbones bring the catalog to 11 specialized models. See the [authoring guide and examples](engineering-models.md). Existing CLI/MCP validation and rendering commands accept `dependency`, `security-matrix`, and `fishbone`; installed v0.7.0 plugins do not include them.

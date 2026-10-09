@@ -6,7 +6,10 @@ All notable changes to Diago are documented here.
 
 ### Added
 
-- Shared guided connection walkthroughs across eight renderers: manual/playback controls, participant/source/target states, node-click navigation, reduced-motion support, and Markdown explanation downloads, inspired by Architecture Diagram Skill.
+- Three deterministic engineering models inspired by Diagram Design: dependency graphs with shared dependents and structural cycles, role/resource security matrices with explicit unknowns, and evidence-labeled incident fishbones. Includes schemas, advisor recipes, CLI/MCP delivery, responsive light/dark views, and full source registers.
+- A public preview and pinned review of all 44 upstream diagram references, documenting existing coverage and deferred candidates.
+
+- Shared guided connection walkthroughs across nine connection-based renderers: manual/playback controls, participant/source/target states, node-click navigation, reduced-motion support, and Markdown explanation downloads, inspired by Architecture Diagram Skill.
 
 - A native Diago architecture explorer with offline multi-view navigation, bounded component drill-down, evidence inspection, search, light/dark themes, and responsive layout.
 - Compact shared-component JSON authoring, `diago explore`, and the `render_explorer` MCP tool; rendering returns an artifact receipt instead of generated HTML to reduce conversation payload.
@@ -14,13 +17,13 @@ All notable changes to Diago are documented here.
 
 ### Changed
 
-- Unified theme controls across all eight renderers and Explorer: one accessible sun/moon switch in the top-right header tools, with consistent dimensions and pressed state.
+- Unified theme controls across all eleven renderers and Explorer: one accessible sun/moon switch in the top-right header tools, with consistent dimensions and pressed state.
 
-- Reduced arrowhead dimensions by 25% across all eight diagram renderers and Explorer, preserving marker proportions, endpoint alignment, and exported SVG geometry.
+- Reduced arrowhead dimensions by 25% in the shared diagram presentation and Explorer, preserving marker proportions, endpoint alignment, and exported SVG geometry. New directed models inherit this sizing.
 
 - Reduced decorative shadows and replaced saturated gradients with subtle pastel blue/lilac washes across renderer presets, native outputs, Explorer, and the public site. Cards and buttons remain flat; floating panels use one small low-opacity shadow.
 
-- Unified all eight specialized renderer outputs with Diago’s navy/yellow presentation; preserved Archify interactions and export themes, added native light/dark controls, and provided a reproducible eight-renderer gallery. Final delivery hashes and provenance include the branded output.
+- Unified all eleven specialized renderer outputs with Diago’s navy/yellow presentation; preserved Archify interactions and export themes, added native light/dark controls, and provided a reproducible eleven-renderer gallery. Final delivery hashes and provenance include the branded output.
 
 - Refreshed the bundled Archify snapshot to main commit `bb990b17` and switched upstream discovery and synchronization to track main, including updates newer than release tags. The renderer and schema contracts remain unchanged.
 

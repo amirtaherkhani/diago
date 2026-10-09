@@ -53,7 +53,7 @@
       "evidence": [
         "registry-src"
       ],
-      "description": "Validates and renders the eight existing diagram types."
+      "description": "Validates and renders the eleven specialized diagram types."
     },
     {
       "id": "explorer",

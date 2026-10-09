@@ -26,7 +26,7 @@
       "additionalProperties": false,
       "required": ["type", "view", "profile", "pattern", "question", "rationale", "why", "include", "avoid", "budget", "decomposition", "quality"],
       "properties": {
-        "type": { "enum": ["architecture", "sequence", "workflow", "dataflow", "lifecycle", "data-model", "timeline", "layers"] },
+        "type": { "enum": ["architecture", "sequence", "workflow", "dataflow", "lifecycle", "data-model", "timeline", "layers", "dependency", "security-matrix", "fishbone"] },
         "view": { "type": "string", "minLength": 1 },
         "profile": { "type": "string", "minLength": 1 },
         "pattern": { "type": "string", "minLength": 1 },

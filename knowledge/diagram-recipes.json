@@ -194,5 +194,47 @@
     "signals": ["defense in depth", "compensating control", "residual risk"],
     "include": ["defense layers", "controls", "coverage", "gaps", "residual risk"],
     "avoid": ["invented threats", "physical topology without enforcement meaning"]
+  },
+  {
+    "id": "dependency-review",
+    "type": "dependency",
+    "view": "module-dependencies",
+    "profile": "module-dependencies",
+    "semanticPattern": "shared-dependency-cycles",
+    "question": "Which modules share dependencies or form dependency cycles?",
+    "why": "Direct package, module, or service dependencies with shared consumers and structural cycles.",
+    "useWhen": "Direct package, module, or service dependencies with shared consumers and structural cycles.",
+    "keywords": ["dependency graph", "package dependencies", "shared dependency", "fan-in", "circular imports", "coupling"],
+    "signals": ["dependency graph", "dependency cycle"],
+    "include": ["modules and package versions when evidenced", "direct dependency edges", "shared dependents", "structural cycles and edge status"],
+    "avoid": ["Runtime call order, physical deployment, or transitive impact presented as direct fan-in.", "invented source details"]
+  },
+  {
+    "id": "security-matrix-review",
+    "type": "security-matrix",
+    "view": "access-review",
+    "profile": "access-review",
+    "semanticPattern": "role-resource-permissions",
+    "question": "Which roles can perform which operations on each resource?",
+    "why": "Evidence-backed access reviews across roles and resources, including unknown permissions.",
+    "useWhen": "Evidence-backed access reviews across roles and resources, including unknown permissions.",
+    "keywords": ["permissions", "rbac", "access matrix", "role permissions", "security matrix", "least privilege"],
+    "signals": ["who can access", "access review"],
+    "include": ["roles and resources", "exact permission values", "explicit denials and unknowns", "policy context and source evidence"],
+    "avoid": ["Policy evaluation, inferred deny rules, network topology, or chronological authentication flows.", "invented source details"]
+  },
+  {
+    "id": "fishbone-review",
+    "type": "fishbone",
+    "view": "incident-cause-analysis",
+    "profile": "incident-cause-analysis",
+    "semanticPattern": "categorized-cause-evidence",
+    "question": "Which investigated causes may explain one observed effect?",
+    "why": "Incident or defect investigations with explicit hypotheses, confirmed contributors, and ruled-out candidates.",
+    "useWhen": "Incident or defect investigations with explicit hypotheses, confirmed contributors, and ruled-out candidates.",
+    "keywords": ["fishbone", "ishikawa", "root cause", "contributing causes", "hypothesis", "cause analysis"],
+    "signals": ["fishbone", "incident causes"],
+    "include": ["one observed effect", "nonempty cause categories", "hypotheses and ruled-out candidates", "evidence for confirmed contributors"],
+    "avoid": ["Chronological failure chains, fabricated root causes, or multiple unrelated effects.", "invented source details"]
   }
 ]

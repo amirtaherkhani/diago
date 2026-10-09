@@ -2,22 +2,25 @@
 
 ## Highlights
 
-Diago's architecture explorer and eight specialized renderers now present engineering evidence with a consistent navy/yellow design language.
+Diago's architecture explorer and eleven specialized renderers now present engineering evidence with a consistent navy/yellow design language.
 
 ## Added
 
-- Guided connection walkthroughs for all eight renderers, with playback, filtering, node navigation, and companion Markdown downloads. Existing diagram schemas and CLI/MCP calls remain compatible.
+- Three deterministic engineering models inspired by Diagram Design: dependency graphs with shared dependents and structural cycles, role/resource security matrices with explicit unknowns, and evidence-labeled incident fishbones. Includes schemas, advisor recipes, CLI/MCP delivery, responsive light/dark views, and full source registers.
+- A public preview and pinned review of all 44 upstream diagram references, documenting existing coverage and deferred candidates.
+
+- Guided connection walkthroughs for nine connection-based renderers, with playback, filtering, node navigation, and companion Markdown downloads. Existing diagram schemas and CLI/MCP calls remain compatible.
 
 - Offline architecture explorer with shared-component JSON, bounded multi-view navigation, drill-down, evidence inspection, search, and responsive light/dark themes.
 - `diago explore` and the `render_explorer` MCP tool, returning compact artifact receipts.
-- Reproducible eight-renderer gallery and theme controls for native Data model, Timeline, and Layers outputs.
+- Reproducible eleven-renderer gallery and theme controls for native Data model, Timeline, and Layers outputs.
 - Oh My Mermaid as a tracked methodology upstream with a source-level integration review.
 
 ## Changed
 
-- Unified theme controls across all eight renderers and Explorer: one accessible sun/moon switch in the top-right header tools, with consistent dimensions and pressed state.
+- Unified theme controls across all eleven renderers and Explorer: one accessible sun/moon switch in the top-right header tools, with consistent dimensions and pressed state.
 
-- Reduced arrowhead dimensions by 25% across all eight diagram renderers and Explorer, preserving marker proportions, endpoint alignment, and exported SVG geometry.
+- Reduced arrowhead dimensions by 25% in the shared diagram presentation and Explorer, preserving marker proportions, endpoint alignment, and exported SVG geometry. New directed models inherit this sizing.
 
 - Subtle pastel decoration across light/dark renderer presets; removed heavy card and button shadows and reduced Explorer and website elevation.
 

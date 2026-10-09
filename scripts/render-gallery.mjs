@@ -17,10 +17,13 @@ const examples = {
   'data-model': 'order-domain.data-model.json',
   timeline: 'payment-migration.timeline.json',
   layers: 'checkout-controls.layers.json',
+  'dependency': 'checkout.dependency.json',
+  'security-matrix': 'platform.security-matrix.json',
+  'fishbone': 'latency.fishbone.json',
 };
 for (const [type, input] of Object.entries(examples)) {
   renderDiagramDocument({ type, diagram: JSON.parse(fs.readFileSync(fromRoot('examples', input), 'utf8')), outputPath: path.join(directory, `${type}.html`), quality: 'standard' });
 }
 const links = Object.keys(examples).map(type => `<li><strong>${type}</strong> <a href="${type}.html?theme=dark">Dark</a> · <a href="${type}.html?theme=light">Light</a></li>`).join('\n');
-fs.writeFileSync(path.join(directory, 'index.html'), `<!doctype html><html lang="en" data-theme="dark"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Diago renderer gallery</title><style>${presentationCss}body{font:16px/1.7 system-ui,sans-serif;color:var(--text);max-width:900px;margin:auto;padding:32px}h1,a{color:var(--primary)}li{padding:14px;border-bottom:1px solid var(--line)}strong{display:inline-block;min-width:150px}</style><main><span class="diago-brand">Diago · Engineering workbench</span><h1>Renderer gallery</h1><p>Eight deterministic outputs. Shared brand, specialized diagram semantics. These examples illustrate presentation, not verified facts about a production system.</p><ul>${links}</ul></main></html>`);
+fs.writeFileSync(path.join(directory, 'index.html'), `<!doctype html><html lang="en" data-theme="dark"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Diago renderer gallery</title><style>${presentationCss}body{font:16px/1.7 system-ui,sans-serif;color:var(--text);max-width:900px;margin:auto;padding:32px}h1,a{color:var(--primary)}li{padding:14px;border-bottom:1px solid var(--line)}strong{display:inline-block;min-width:150px}</style><main><span class="diago-brand">Diago · Engineering workbench</span><h1>Renderer gallery</h1><p>${Object.keys(examples).length} deterministic outputs. Shared brand, specialized diagram semantics. These examples illustrate presentation, not verified facts about a production system.</p><ul>${links}</ul></main></html>`);
 console.log(`Gallery: ${path.join(directory, 'index.html')}`);

@@ -28,11 +28,11 @@ test('types lists all native renderer contracts as JSON', () => {
   // When the native type catalog is requested
   const result = run(['types', '--json']);
 
-  // Then all eight supported engineering renderers are discoverable
+  // Then all eleven supported engineering renderers are discoverable
   assert.equal(result.status, 0, result.stderr);
   const catalog = JSON.parse(result.stdout);
   assert.equal(catalog.schemaVersion, 1);
-  assert.equal(catalog.types.length, 8);
+  assert.equal(catalog.types.length, 11);
   assert.equal(catalog.types[5].type, 'data-model');
 });
 

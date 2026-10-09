@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "diagram_type": "security-matrix",
+  "meta": {
+    "title": "Who can access what?",
+    "subtitle": "Illustrative engineering example. Sources and findings are fictional."
+  },
+  "roles": [
+    {
+      "id": "ops",
+      "label": "Operations"
+    },
+    {
+      "id": "writer",
+      "label": "Order worker"
+    },
+    {
+      "id": "reader",
+      "label": "Analytics"
+    }
+  ],
+  "resources": [
+    {
+      "id": "orders",
+      "label": "Orders table"
+    },
+    {
+      "id": "events",
+      "label": "Event stream"
+    },
+    {
+      "id": "audit",
+      "label": "Audit log"
+    },
+    {
+      "id": "secrets",
+      "label": "Secret store"
+    }
+  ],
+  "permissions": [
+    {
+      "resource": "orders",
+      "role": "ops",
+      "level": "admin",
+      "value": "DB owner",
+      "evidence": "Illustrative policy: ops/orders"
+    },
+    {
+      "resource": "orders",
+      "role": "writer",
+      "level": "write",
+      "value": "SELECT / UPDATE",
+      "evidence": "Illustrative policy: writer/orders"
+    },
+    {
+      "resource": "orders",
+      "role": "reader",
+      "level": "read",
+      "value": "SELECT",
+      "evidence": "Illustrative policy: reader/orders"
+    },
+    {
+      "resource": "events",
+      "role": "ops",
+      "level": "admin",
+      "value": "Manage topics",
+      "evidence": "Illustrative policy: ops/events"
+    },
+    {
+      "resource": "events",
+      "role": "writer",
+      "level": "write",
+      "value": "Publish",
+      "evidence": "Illustrative policy: writer/events"
+    },
+    {
+      "resource": "events",
+      "role": "reader",
+      "level": "read",
+      "value": "Subscribe",
+      "evidence": "Illustrative policy: reader/events"
+    },
+    {
+      "resource": "audit",
+      "role": "ops",
+      "level": "read",
+      "value": "Read",
+      "evidence": "Illustrative policy: ops/audit"
+    },
+    {
+      "resource": "audit",
+      "role": "writer",
+      "level": "write",
+      "value": "Append",
+      "evidence": "Illustrative policy: writer/audit"
+    },
+    {
+      "resource": "audit",
+      "role": "reader",
+      "level": "none",
+      "value": "Explicit deny",
+      "evidence": "Illustrative policy: reader/audit"
+    },
+    {
+      "resource": "secrets",
+      "role": "ops",
+      "level": "read",
+      "value": "Read",
+      "evidence": "Illustrative policy: ops/secrets"
+    },
+    {
+      "resource": "secrets",
+      "role": "reader",
+      "level": "none",
+      "value": "Explicit deny",
+      "evidence": "Illustrative policy: reader/secrets"
+    }
+  ]
+}

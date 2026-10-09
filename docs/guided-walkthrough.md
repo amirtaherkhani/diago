@@ -1,6 +1,6 @@
 # Guided walkthroughs (source checkout)
 
-Diago adapts Architecture Diagram Skill's teaching model to its eight specialized outputs: Architecture, Sequence, Workflow, Dataflow, Lifecycle, Data model, Timeline, and Layers.
+Diago adapts Architecture Diagram Skill's teaching model to its nine connection-based outputs: Architecture, Sequence, Workflow, Dataflow, Lifecycle, Data model, Timeline, Layers, and Dependency.
 
 Open **Guided walkthrough** above the diagram:
 
@@ -17,7 +17,7 @@ This is a connection walkthrough, not a simulation. The order comes from the ren
 
 Archify already provides richer route/trace and presentation tools. Its controls continue to work when the walkthrough is closed. Opening Export closes the transient walkthrough so the exported diagram remains complete. Dragging nodes and deployment-mode toggles are not added by this integration; those require a separate authored layout/variant contract.
 
-The architecture explorer keeps its existing multi-view navigation and evidence inspector. It is a separate output type, not one of these eight specialized renderers.
+The architecture explorer keeps its existing multi-view navigation and evidence inspector. It is a separate output type, not one of these specialized renderers.
 
 ## Implementation
 
@@ -26,3 +26,5 @@ The architecture explorer keeps its existing multi-view navigation and evidence 
 No new dependency or repeated diagram JSON is required. CLI/MCP inputs and receipts remain unchanged. The MIT-licensed upstream snapshot stays byte-exact; this is an original Diago implementation of its interaction ideas.
 
 Regenerate existing artifacts with the updated checkout. The existing v0.7.0 release does not include this feature.
+
+Security matrix and Fishbone use evidence registers instead of connection playback. They do not express a directed traversal or execution sequence.

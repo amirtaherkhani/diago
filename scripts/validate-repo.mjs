@@ -89,6 +89,9 @@ const nativeExamples = {
   'data-model': 'examples/order-domain.data-model.json',
   timeline: 'examples/payment-migration.timeline.json',
   layers: 'examples/checkout-controls.layers.json',
+  'dependency': 'examples/checkout.dependency.json',
+  'security-matrix': 'examples/platform.security-matrix.json',
+  'fishbone': 'examples/latency.fishbone.json',
 };
 for (const [type, file] of Object.entries(nativeExamples)) {
   const diagram = readJson(file);
@@ -101,7 +104,7 @@ for (const [type, file] of Object.entries(nativeExamples)) {
 }
 
 const catalog = listDiagramTypes();
-check(catalog.length === 8, 'The public catalog must expose exactly eight native renderers.');
+check(catalog.length === 11, 'The public catalog must expose exactly eleven engineering renderers.');
 check(new Set(catalog.map(({ type }) => type)).size === catalog.length, 'Renderer catalog types must be unique.');
 for (const renderer of catalog) {
   const schema = renderer.engine === 'archify'

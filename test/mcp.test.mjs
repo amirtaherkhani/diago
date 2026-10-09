@@ -27,6 +27,9 @@ test('MCP handlers advise, plan, and review without writing files', () => {
     'data-model',
     'timeline',
     'layers',
+    'dependency',
+    'security-matrix',
+    'fishbone',
   ]);
   assert.equal(callTool('list_diagram_types', { extra: true }).isError, true);
 

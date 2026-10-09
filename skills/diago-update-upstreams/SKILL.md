@@ -46,7 +46,7 @@ Never edit an installed Codex plugin cache as the source repository. If the chec
    - schema, CLI, MCP, renderer, and standalone HTML compatibility;
    - methodology changes that affect Diago's evidence contract or quality gates;
    - removed, renamed, or newly required vendored files.
-7. Keep vendored snapshots separate from canonical Diago behavior. Adapt relevant changes into `skills/`, `schemas/`, `lib/`, `mcp/`, documentation, or tests only when the upstream change is applicable and evidence supports the integration. Never copy methodology wholesale or silently change the public eight-type catalog.
+7. Keep vendored snapshots separate from canonical Diago behavior. Adapt relevant changes into `skills/`, `schemas/`, `lib/`, `mcp/`, documentation, or tests only when the upstream change is applicable and evidence supports the integration. Never copy methodology wholesale or silently change the public renderer catalog.
 8. Update `THIRD_PARTY_NOTICES.md` when a displayed pin or attribution changes. Update the changelog, package/plugin versions, release notes, tag, GitHub release, and installed Codex plugin only when the user also requests a release or plugin update.
 9. Run the final gates:
 

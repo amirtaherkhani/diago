@@ -1,6 +1,6 @@
 ---
 name: diago-engineering-diagram
-description: Create evidence-grounded software engineering diagrams for architecture, sequences, workflows, data movement, lifecycles, data models, engineering timelines, architecture layers, design patterns, and best-practice decisions. Use when a task, feature, code path, project, chat, system design, implementation plan, incident, migration, or architecture decision would be clearer as an interactive diagram or visual walkthrough.
+description: Create evidence-grounded software engineering diagrams for architecture, sequences, workflows, data movement, lifecycles, data models, engineering timelines, architecture layers, dependency graphs, access matrices, incident fishbones, design patterns, and best-practice decisions. Use when a task, feature, code path, project, chat, system design, implementation plan, incident, migration, or architecture decision would be clearer as an interactive diagram or visual walkthrough.
 ---
 
 # Engineering Diagram
@@ -9,7 +9,7 @@ Turn engineering evidence into a diagram that answers one explicit question. Pre
 
 ## Multi-view architecture explorer
 
-For repository-wide architecture with meaningful drill-down, read `references/architecture-explorer.md`. Use a compact shared-component document and `render_explorer`, or `diago explore <input.json> <output.html>`. This is a composition mode; keep the eight specialized renderer types for precise flow, state, sequence, and data-model semantics.
+For repository-wide architecture with meaningful drill-down, read `references/architecture-explorer.md`. Use a compact shared-component document and `render_explorer`, or `diago explore <input.json> <output.html>`. This is a composition mode; keep the eleven specialized renderer types for precise flow, state, sequence, and data-model semantics.
 
 ## Workflow
 
@@ -25,7 +25,7 @@ For repository-wide architecture with meaningful drill-down, read `references/ar
 
 5. Record the selected question kind, semantic pattern, renderer, profile, rationale, audience, bounded complexity budget, and fidelity ledger before authoring geometry. Call `create_diagram_plan`, or fill `assets/diagram-plan.json`. Keep exactly one primary view; add bounded detail views only when a second question carries the decision.
 6. If the source exceeds its budget, reduce in this order: repeated presentation detail, exact replicas, evidenced leaf groups, cross-cutting detail, then overview/detail split. Record every merge, collapse, omission, and preserved claim in `fidelity`.
-7. Author renderer JSON IR. Use `vendor/archify/schemas/` for architecture, sequence, workflow, dataflow, and lifecycle. Use the plugin-root `schemas/` for data-model, timeline, and layers. Start from the corresponding file in `examples/`.
+7. Author renderer JSON IR. Use `vendor/archify/schemas/` for architecture, sequence, workflow, dataflow, and lifecycle. Use the plugin-root `schemas/` for data-model, timeline, layers, dependency, security-matrix, and fishbone. Start from the corresponding file in `examples/`.
 8. Call `validate_diagram`. After it passes, call `render_diagram` with an absolute `.html` path. Use `overwrite: true` only when replacement is intended. If MCP tools are unavailable:
 
    ```bash
@@ -57,7 +57,7 @@ Deliver:
 - the source JSON IR;
 - a validated standalone HTML diagram;
 - a concise evidence legend;
-- the primary walkthrough in five to nine steps;
+- a short walkthrough for directed graphs, or the permission/cause evidence register for matrix and fishbone models;
 - the renderer profile, complexity decision, and fidelity ledger;
 - open questions that materially affect the design.
 
@@ -65,4 +65,6 @@ Do not invent services, protocols, queues, databases, ownership, or deployment b
 
 ## Guided explanation
 
-Rendered specialized diagrams include an optional Guided walkthrough player. Use its source/target/participant states to explain authored connections and download the companion Markdown when useful. Do not describe diagram order as runtime order without evidence. Do not duplicate HTML, CSS, or diagram JSON to add the player; the renderer embeds it. Mode variants, payload examples, and temporal ordering require authored evidence.
+Rendered connection-based diagrams include an optional Guided walkthrough player. Use its source/target/participant states to explain authored connections and download the companion Markdown when useful. Do not describe diagram order as runtime order without evidence. Do not duplicate HTML, CSS, or diagram JSON to add the player; the renderer embeds it. Mode variants, payload examples, and temporal ordering require authored evidence.
+
+For dependency graphs, report direct fan-in and structural cycles without claiming runtime order. For access matrices, missing permissions stay unknown. For fishbones, retain hypotheses and ruled-out candidates; never require or invent one confirmed root cause. Read `references/engineering-models.md` before authoring these types.

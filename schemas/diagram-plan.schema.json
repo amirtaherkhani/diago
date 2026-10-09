@@ -110,7 +110,7 @@
     }
   },
   "$defs": {
-    "renderer": { "enum": ["architecture", "sequence", "workflow", "dataflow", "lifecycle", "data-model", "timeline", "layers"] },
+    "renderer": { "enum": ["architecture", "sequence", "workflow", "dataflow", "lifecycle", "data-model", "timeline", "layers", "dependency", "security-matrix", "fishbone"] },
     "claim": {
       "type": "object",
       "additionalProperties": false,
