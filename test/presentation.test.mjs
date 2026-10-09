@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { fromRoot } from '../lib/paths.mjs';
 import { renderDiagramDocument } from '../lib/renderer-registry.mjs';
-import { applyDiagoPresentation } from '../lib/renderers/presentation.mjs';
+import { applyDiagoPresentation, presentationCss } from '../lib/renderers/presentation.mjs';
 
 const examples = {
  architecture: 'plugin-request.architecture.json',
@@ -49,4 +49,10 @@ test('CLI delivery receives the same presentation before provenance is signed', 
 });
 test('template drift fails explicitly instead of silently producing an unbranded artifact',()=>{
  assert.throws(()=>applyDiagoPresentation('<html></html>'),/presentation contract/);
+});
+
+test('Export styles paint the visible pill, preserving a transparent hit target', () => {
+ assert.match(presentationCss, /#btn-export\[aria-expanded="true"\] \{background:transparent;color:#080f20\}/);
+ assert.match(presentationCss, /#btn-export::before \{background:#ffbe0b\}/);
+ assert.match(presentationCss, /#btn-export:hover::before,\s*html \.toolbar #btn-export\[aria-expanded="true"\]::before \{background:#ffd24d\}/);
 });
