@@ -9,6 +9,12 @@ import { callTool } from '../mcp/tools.mjs';
 import { fromRoot } from '../lib/paths.mjs';
 const example = () => JSON.parse(fs.readFileSync(fromRoot('examples/diago.architecture-explorer.json'), 'utf8'));
 
+test('selected and keyboard-focused nodes share one visible box', () => {
+  const css = fs.readFileSync(fromRoot('lib/explorer/viewer.css'), 'utf8');
+  assert.match(css, /\[role=button\]:not\(\.node\):focus-visible/);
+  assert.match(css, /\.node:focus-visible \.node-body\s*\{\s*stroke:var\(--accent\);\s*stroke-width:3\s*\}/);
+});
+
 test('explorer validates shared components and reports byte metrics without echoing the model', () => {
   const result = validateExplorer(example());
   assert.equal(result.components, 17);

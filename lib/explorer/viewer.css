@@ -51,7 +51,7 @@ button {
 button:hover {
   border-color:var(--accent)
 }
-button:focus-visible,a:focus-visible,input:focus-visible,[role=button]:focus-visible {
+button:focus-visible,a:focus-visible,input:focus-visible,[role=button]:not(.node):focus-visible {
   outline:3px solid var(--accent);
   outline-offset:4px
 }
@@ -253,6 +253,10 @@ main {
 .node:hover .node-body,.node[aria-pressed=true] .node-body {
   stroke:var(--accent);
   stroke-width:2
+}
+.node:focus-visible .node-body {
+  stroke:var(--accent);
+  stroke-width:3
 }
 .node-title {
   fill:var(--text);

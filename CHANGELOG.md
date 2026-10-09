@@ -37,6 +37,7 @@ All notable changes to Diago are documented here.
 
 ### Fixed
 
+- Removed the duplicate outer focus box from selected Explorer nodes; keyboard focus now highlights the node’s existing SVG card.
 - Corrected the Export button’s layered background in light/dark output: the button now has one yellow surface without borders, shadows, or decorative layers; keyboard focus uses a text underline.
 
 ## [0.7.0] - 2026-10-08
