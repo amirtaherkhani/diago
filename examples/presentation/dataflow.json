@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Diago delivery dataflow",
+    "output": "dataflow.html",
+    "animation": "none"
+  },
+  "stages": [
+    {
+      "label": "Input"
+    },
+    {
+      "label": "Output"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "json",
+      "type": "frontend",
+      "label": "Diagram JSON",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "html",
+      "type": "backend",
+      "label": "Standalone HTML",
+      "stage": 1,
+      "row": 0
+    }
+  ],
+  "flows": [
+    {
+      "from": "json",
+      "to": "html",
+      "label": "Render",
+      "labelDy": -32
+    }
+  ]
+}

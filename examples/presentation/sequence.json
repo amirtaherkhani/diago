@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Diago delivery sequence",
+    "output": "sequence.html",
+    "animation": "none"
+  },
+  "participants": [
+    {
+      "id": "client",
+      "type": "frontend",
+      "label": "Client"
+    },
+    {
+      "id": "renderer",
+      "type": "backend",
+      "label": "Renderer"
+    }
+  ],
+  "messages": [
+    {
+      "id": "render",
+      "from": "client",
+      "to": "renderer",
+      "y": 160,
+      "label": "Render JSON"
+    }
+  ]
+}

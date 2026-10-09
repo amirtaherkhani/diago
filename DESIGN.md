@@ -181,3 +181,7 @@ The approved mark uses two offset rounded modules with a D-shaped opening. The y
 - `docs/assets/icon-192.png`, `icon-512.png`, and `apple-touch-icon.png`: web icons.
 
 Yellow identifies the brand and primary actions. Mint still means verified evidence; muted amber still means an assumption. Keep those meanings distinct. The website wordmark uses live text in the system sans stack for legibility.
+
+## 10. Generated renderer artifacts
+
+`lib/renderers/presentation.mjs` applies Diago tokens to all eight specialized outputs before delivery. Brand accents do not replace evidence semantics. Native SVG nodes use theme variables in desktop and mobile layouts. Archify presets retain composition and motion while Diago controls shared surfaces, headings, and semantic stroke colors. See [renderer presentation](docs/renderer-presentation.md) for ownership and the reproducible gallery.
