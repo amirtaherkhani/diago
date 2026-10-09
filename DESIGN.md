@@ -46,7 +46,7 @@ Diago uses a restrained engineering-workbench aesthetic: midnight-blue layered s
 | Preview lane line | `--preview-lane-line` | `rgba(145, 162, 181, 0.22)` |
 | Workbench shell border | `--workbench-shell-border` | `#2b3a4d` |
 | Workbench shell surface | `--workbench-shell-surface` | `#0b1425` |
-| Workbench shell shadow | `--workbench-shell-shadow` | `0 38px 90px rgba(0, 0, 0, 0.36)` |
+| Workbench shell shadow | `--workbench-shell-shadow` | `0 3px 12px rgba(186, 205, 230, 0.055)` |
 | Idle workbench dot | `--workbench-dot-idle` | `#344356` |
 | Page background start | `--page-background-start` | `rgba(8, 15, 32, 0.96)` |
 | Page background end | `--page-background-end` | `rgba(8, 15, 32, 0.99)` |
@@ -55,7 +55,7 @@ Diago uses a restrained engineering-workbench aesthetic: midnight-blue layered s
 | Text on accent | `--text-on-accent` | `#080f20` |
 | Header border | `--header-border` | `rgba(145, 162, 181, 0.14)` |
 | Header surface | `--header-surface` | `rgba(8, 15, 32, 0.88)` |
-| Primary button shadow | `--button-primary-shadow` | `0 12px 34px rgba(255, 190, 11, 0.14)` |
+| Primary button shadow | `--button-primary-shadow` | `none` |
 | Primary button hover | `--button-primary-hover` | `#ffd24d` |
 | Interactive surface | `--surface-interactive` | `rgba(17, 28, 48, 0.56)` |
 | Interactive border hover | `--line-interactive-hover` | `#43556b` |
@@ -63,14 +63,14 @@ Diago uses a restrained engineering-workbench aesthetic: midnight-blue layered s
 | Assumption evidence border | `--evidence-assumption-border` | `rgba(242, 212, 122, 0.45)` |
 | Recommendation evidence border | `--evidence-recommendation-border` | `rgba(108, 168, 255, 0.5)` |
 | Section surface | `--section-surface` | `rgba(13, 22, 40, 0.72)` |
-| Verified signal glow | `--signal-glow` | `0 0 8px rgba(110, 243, 197, 0.5)` |
+| Verified signal glow | `--signal-glow` | `none` |
 | View code text | `--view-code-text` | `#7890a8` |
 | Diagram glyph surface | `--glyph-surface` | `#101925` |
 | Diagram glyph line | `--glyph-line` | `#3a5b78` |
 | Contract section surface | `--contract-surface` | `#0b1425` |
 | Code window border | `--code-window-border` | `#2a3a4d` |
 | Code window surface | `--code-window-surface` | `#091222` |
-| Code window shadow | `--code-window-shadow` | `0 30px 80px rgba(0, 0, 0, 0.25)` |
+| Code window shadow | `--code-window-shadow` | `none` |
 | Code text | `--code-text` | `#c8d6e3` |
 | Code punctuation | `--code-punctuation` | `#8094a8` |
 | Install panel surface | `--install-panel-surface` | `rgba(13, 22, 40, 0.86)` |
@@ -79,7 +79,7 @@ Diago uses a restrained engineering-workbench aesthetic: midnight-blue layered s
 | Footer surface | `--footer-surface` | `#060d1b` |
 | Mobile menu surface | `--mobile-menu-surface` | `#111c30` |
 | Mobile navigation surface | `--mobile-nav-surface` | `#0b1425` |
-| Mobile navigation shadow | `--mobile-nav-shadow` | `0 20px 50px rgba(0, 0, 0, 0.35)` |
+| Mobile navigation shadow | `--mobile-nav-shadow` | `0 3px 12px rgba(186, 205, 230, 0.055)` |
 | Sans type stack | `--sans` | `Inter, ui-sans-serif, system sans` |
 | Monospace type stack | `--mono` | `SFMono-Regular, Consolas, Liberation Mono` |
 | Content maximum width | `--max` | `1180px` |
@@ -111,7 +111,7 @@ Diago uses a restrained engineering-workbench aesthetic: midnight-blue layered s
 | Workbench dot size | `--workbench-dot-size` | `7px` |
 | Workbench status gap | `--workbench-status-gap` | `6px` |
 | Workbench status dot size | `--workbench-status-dot-size` | `5px` |
-| Workbench status glow | `--workbench-status-glow` | `0 0 8px currentColor` |
+| Workbench status glow | `--workbench-status-glow` | `none` |
 | Workbench tab rail gap | `--workbench-tab-rail-gap` | `6px` |
 | Workbench tab rail padding | `--workbench-tab-rail-padding` | `8px` |
 | Workbench install-tab gap | `--workbench-install-tab-gap` | `4px` |
@@ -185,3 +185,7 @@ Yellow identifies the brand and primary actions. Mint still means verified evide
 ## 10. Generated renderer artifacts
 
 `lib/renderers/presentation.mjs` applies Diago tokens to all eight specialized outputs before delivery. Brand accents do not replace evidence semantics. Native SVG nodes use theme variables in desktop and mobile layouts. Archify presets retain composition and motion while Diago controls shared surfaces, headings, and semantic stroke colors. See [renderer presentation](docs/renderer-presentation.md) for ownership and the reproducible gallery.
+
+## 11. Restrained pastel depth
+
+Generated views use pastel blue (186,215,239) and lilac (220,205,238) washes at 2.5–3.5% opacity in dark mode and 9–12% in light mode. Cards and buttons have no decorative shadow. Floating panels use one 3px-offset, 12px-blur pastel shadow at 5.5% dark / 12% light opacity. Semantic strokes and keyboard focus remain independent of decoration. Avoid stacking glow effects across hover, selection, and preset states.

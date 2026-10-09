@@ -11,7 +11,7 @@
   --verified:#65d6ad;
   --assumption:#ffcb66;
   --proposed:#88b8ff;
-  --shadow:#0003
+  --shadow:rgba(186,205,230,.055)
 }
 * {
   box-sizing:border-box
@@ -35,7 +35,7 @@ body.light {
   --verified:#157254;
   --assumption:#946200;
   --proposed:#285eb6;
-  --shadow:#1231
+  --shadow:rgba(166,188,218,.12)
 }
 button,input {
   font:inherit
@@ -237,7 +237,7 @@ main {
   background-color:var(--canvas);
   background-image:radial-gradient(var(--line) .6px,transparent .6px);
   background-size:18px 18px;
-  box-shadow:0 12px 40px var(--shadow)
+  box-shadow:0 3px 12px var(--shadow)
 }
 #graph {
   display:block;

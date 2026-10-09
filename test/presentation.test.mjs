@@ -56,3 +56,10 @@ test('Export has one borderless surface and a non-border keyboard focus indicato
  assert.match(presentationCss, /#btn-export::after \{content:none;display:none;box-shadow:none\}/);
  assert.match(presentationCss, /#btn-export:focus-visible \{outline:none;text-decoration:underline/);
 });
+
+test('decoration uses low-opacity pastel tokens and flat diagram surfaces', () => {
+ assert.match(presentationCss, /--pastel-blue:rgba\(186,215,239,\.035\)/);
+ assert.match(presentationCss, /--pastel-lilac:rgba\(220,205,238,\.09\)/);
+ assert.match(presentationCss, /box-shadow:none!important/);
+ assert.match(presentationCss, /--soft-shadow:0 3px 12px rgba\(166,188,218,\.12\)/);
+});
