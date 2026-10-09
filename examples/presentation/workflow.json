@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Diago delivery workflow",
+    "output": "workflow.html",
+    "animation": "none"
+  },
+  "lanes": [
+    {
+      "id": "runtime",
+      "label": "Diago runtime"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "validate",
+      "lane": "runtime",
+      "col": 0,
+      "type": "backend",
+      "label": "Validate"
+    },
+    {
+      "id": "render",
+      "lane": "runtime",
+      "col": 1,
+      "type": "backend",
+      "label": "Render"
+    }
+  ],
+  "edges": [
+    {
+      "from": "validate",
+      "to": "render",
+      "label": "Valid input",
+      "labelDy": -32
+    }
+  ]
+}

@@ -374,3 +374,7 @@ Run `npm run check` for repository validation and tests. Run `npm run upstreams:
   <sub>Small diagrams. Clearer decisions. Made for curious engineers.</sub><br><br>
   <a href="#top">↑ Back to the top</a>
 </p>
+
+## Unified renderer presentation (source checkout)
+
+All eight specialized outputs now share Diago’s navy/yellow visual language, with light/dark themes and preserved evidence colors. CLI and MCP deliver the same branded files. [Presentation and local gallery](docs/renderer-presentation.md). Existing v0.7.0 installations require an update before these changes are available.
