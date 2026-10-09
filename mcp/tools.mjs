@@ -1,3 +1,4 @@
+import { renderExplorer } from '../lib/explorer.mjs';
 import { listDiagramTypes } from '../lib/diagram-catalog.mjs';
 import { planEvidenceWorkflow } from '../lib/evidence-workflow.mjs';
 import { createPlan } from '../lib/planner.mjs';
@@ -86,6 +87,12 @@ export function callTool(name, args = {}) {
       case 'validate_diagram':
         requireKeys(args, ['type', 'diagram', 'quality'], ['type', 'diagram']);
         return validateDiagram(args);
+      case 'render_explorer': {
+        requireKeys(args, ['document', 'outputPath', 'overwrite'], ['document', 'outputPath']);
+        const output = prepareOutputPath(args.outputPath, args.overwrite);
+        if (!output.ok) return errorResult(output.message);
+        return textResult(renderExplorer(requireObject(args.document, 'document'), output.outputPath, args.overwrite === true));
+      }
       case 'render_diagram':
         requireKeys(args, ['type', 'diagram', 'outputPath', 'quality', 'overwrite'], ['type', 'diagram', 'outputPath']);
         return renderDiagram(args);

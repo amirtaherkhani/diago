@@ -91,6 +91,22 @@ const renderOutput = {
 
 export const TOOL_DEFINITIONS = [
   {
+    name: 'render_explorer',
+    title: 'Render a Diago architecture explorer',
+    description: 'Render a compact shared-component document into one offline Diago HTML with perspective navigation, recursive details, and evidence. Use schemas/architecture-explorer.schema.json; define components and evidence once, then reference IDs in views. Returns only an artifact receipt, not HTML. Does not inspect source code.',
+    inputSchema: {
+      type: 'object', additionalProperties: false,
+      required: ['document', 'outputPath'],
+      properties: {
+        document: { type: 'object', description: 'schemaVersion 1; title, root view ID, components, evidence, views. See the explorer schema and example.' },
+        outputPath: { type: 'string', minLength: 1 },
+        overwrite: { type: 'boolean', default: false },
+      },
+    },
+    annotations: { readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: false },
+    execution: { taskSupport: 'forbidden' },
+  },
+  {
     name: 'plan_evidence_workflow',
     title: 'Plan dependency-aware evidence work',
     description: 'Evaluate a caller-owned evidence workflow snapshot. Return bounded ready work, local failures, retry limits, and merged evidence with conflicts retained. Does not launch workers, fetch sources, or independently verify reported claims.',

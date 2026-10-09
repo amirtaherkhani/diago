@@ -3,6 +3,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import { renderExplorer, validateExplorer } from '../lib/explorer.mjs';
+import { prepareOutputPath } from '../mcp/artifacts.mjs';
 import { runArchify } from '../lib/archify.mjs';
 import { parseContextArgs, parseNativeOptions } from '../lib/cli-options.mjs';
 import { DIAGRAM_TYPES, getDiagramType, listDiagramTypes } from '../lib/diagram-catalog.mjs';
@@ -28,6 +30,7 @@ Usage:
   diago plan <task or feature> [--source kind] [--audience detail] [--destination label] [--out diagram-plan.json]
   diago review <diagram-plan.json> [--json]
   diago evidence <evidence-workflow.json> [--json]
+  diago explore <input.json> [output.html] [--validate] [--overwrite]
   diago render <type> <input.json> [output.html] [renderer options]
   diago validate <type> <input.json> [renderer options]
   diago doctor [--json]
@@ -131,6 +134,23 @@ function commandEvidence(args) {
   if (result.status === 'incomplete') process.exitCode = 1;
 }
 
+function commandExplore(args) {
+  const flags = new Set(['--validate', '--overwrite']);
+  const positional = args.filter(arg => !arg.startsWith('--'));
+  if (args.some(arg => arg.startsWith('--') && !flags.has(arg))) fail('Unknown explore option.');
+  const validating = args.includes('--validate');
+  if (positional.length !== (validating ? 1 : 2)) fail(usage());
+  try {
+    const document = readJson(positional[0]);
+    if (validating) console.log(JSON.stringify(validateExplorer(document)));
+    else {
+      const output = prepareOutputPath(path.resolve(positional[1]), args.includes('--overwrite'));
+      if (!output.ok) fail(output.message);
+      console.log(JSON.stringify(renderExplorer(document, output.outputPath, args.includes('--overwrite'))));
+    }
+  } catch (error) { fail(error.message); }
+}
+
 function commandDoctor(args) {
   const checks = [
     { name: 'node', ok: Number(process.versions.node.split('.')[0]) >= 18, detail: `Node ${process.versions.node}` },
@@ -139,6 +159,7 @@ function commandDoctor(args) {
     { name: 'codex-plugin', ok: fs.existsSync(fromRoot('.codex-plugin', 'plugin.json')), detail: 'Codex plugin manifest' },
     { name: 'claude-plugin', ok: fs.existsSync(fromRoot('.claude-plugin', 'plugin.json')), detail: 'Claude plugin manifest' },
     { name: 'mcp-server', ok: fs.existsSync(fromRoot('mcp', 'server.mjs')), detail: 'Bundled stdio MCP tools' },
+    { name: 'architecture-explorer', ok: ['lib/explorer/viewer.js', 'lib/explorer/viewer.css', 'schemas/architecture-explorer.schema.json'].every(file => fs.existsSync(fromRoot(file))), detail: 'Compact architecture explorer and offline viewer' },
     { name: 'upstream-lock', ok: fs.existsSync(fromRoot('vendor', 'upstreams.lock.json')), detail: 'Pinned upstream sources' },
   ];
   const result = { ok: checks.every((check) => check.ok), checks };
@@ -209,6 +230,7 @@ switch (command) {
   case 'plan': commandPlan(rawArgs); break;
   case 'review': commandReview(rawArgs); break;
   case 'evidence': commandEvidence(rawArgs); break;
+  case 'explore': commandExplore(rawArgs); break;
   case 'render':
   case 'validate':
   case 'deliver':

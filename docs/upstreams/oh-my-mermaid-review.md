@@ -92,3 +92,7 @@ These are adoption recommendations, not newly implemented renderer or scanner fe
 - The vendored scan skill remains reference material outside Diago's active `skills/` directory. No upstream CLI/server/cloud code or npm dependency is imported.
 
 Future updates must review changes to scan instructions and upstream runtime findings before promoting any behavior into canonical Diago skills. Current snapshot identity is authoritative in `vendor/upstreams.lock.json`.
+
+## Subsequent Diago adoption
+
+The source checkout now includes a [native architecture explorer](../architecture-explorer.md) inspired by the bounded perspective/detail approach. It has a shared JSON model, complete reference/cycle validation, and an offline Diago viewer with text-only evidence rendering. It does not import the reviewed upstream runtime. The findings above remain observations about the pinned upstream commit.

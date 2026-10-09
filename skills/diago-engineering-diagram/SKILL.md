@@ -7,6 +7,10 @@ description: Create evidence-grounded software engineering diagrams for architec
 
 Turn engineering evidence into a diagram that answers one explicit question. Prefer a small, truthful view over a complete but unreadable system map.
 
+## Multi-view architecture explorer
+
+For repository-wide architecture with meaningful drill-down, read `references/architecture-explorer.md`. Use a compact shared-component document and `render_explorer`, or `diago explore <input.json> <output.html>`. This is a composition mode; keep the eight specialized renderer types for precise flow, state, sequence, and data-model semantics.
+
 ## Workflow
 
 1. Name the input source as `prompt`, `repository`, `conversation`, or `mixed`. State the audience detail, delivery destination, decision, and system boundary.
