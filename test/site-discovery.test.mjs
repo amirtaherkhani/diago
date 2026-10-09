@@ -12,6 +12,13 @@ const pages = [
 ].map((page) => ({ ...page, html: fs.readFileSync(fromRoot('docs', page.file), 'utf8') }));
 const structuredData = (html) => JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
 
+test('the system map is linked from the primary site navigation and guide header', () => {
+  assert.match(pages[0].html, /<nav id="site-nav"[^>]*>[\s\S]*?<a href="\.\/explorer\/">System map<\/a>/);
+  assert.match(pages[0].html, /<nav class="footer-nav"[^>]*>[\s\S]*?<a href="\.\/explorer\/">System map<\/a>/);
+  assert.match(pages[1].html, /<a class="text-link" href="\.\.\/explorer\/">System map/);
+  assert.match(pages[1].html, /<nav class="footer-nav"[^>]*>[\s\S]*?<a href="\.\.\/explorer\/">System map<\/a>/);
+});
+
 test('public pages have unique titles, descriptions, canonical URLs, and share metadata', () => {
   const titles = new Set();
   const descriptions = new Set();

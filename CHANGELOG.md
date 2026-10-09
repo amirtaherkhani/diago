@@ -6,6 +6,8 @@ All notable changes to Diago are documented here.
 
 ### Added
 
+- Expanded the Diago architecture Explorer into a five-perspective, source-evidenced system map and linked it from the homepage and getting-started guide.
+
 - Numbered, selectable connection-review steps, source/target endpoint boxes, and an active step badge on the highlighted arrow across the nine guided-walkthrough models.
 
 - Added a compact, embedded Diago plugin logo to every renderer header and reduced the Explorer mark to match.

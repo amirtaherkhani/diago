@@ -11,11 +11,23 @@ const example = () => JSON.parse(fs.readFileSync(fromRoot('examples/diago.archit
 
 test('explorer validates shared components and reports byte metrics without echoing the model', () => {
   const result = validateExplorer(example());
-  assert.equal(result.components, 9);
-  assert.equal(result.views, 4);
-  assert.equal(result.reusedComponentReferences, 4);
+  assert.equal(result.components, 17);
+  assert.equal(result.views, 5);
+  assert.equal(result.reusedComponentReferences, 21);
   assert.ok(result.inputBytes < result.expandedInputBytes);
   assert.equal(result.document, undefined);
+});
+
+test('Diago system map explains request flow, interfaces, render routing, and evidence limits', () => {
+  const d = example();
+  assert.equal(d.title, 'How Diago works');
+  assert.deepEqual(d.views.map(({ id }) => id), [
+    'system-overview', 'request-workflow', 'local-interfaces', 'renderer-routing', 'evidence-boundary',
+  ]);
+  assert.ok(d.components.some(({ id }) => id === 'evidence-workflow'));
+  assert.ok(d.evidence.some(({ source }) => source === 'mcp/server.mjs'));
+  assert.match(d.summary, /does not independently prove/i);
+  assert.equal(validateExplorer(d).ok, true);
 });
 
 test('explorer rejects invalid references, duplicates, unknown fields, and unsupported evidence status', () => {
@@ -37,7 +49,7 @@ test('explorer rejects invalid references, duplicates, unknown fields, and unsup
 
 test('all explorer perspectives are checked for cycles and bounded depth', () => {
   const d = example();
-  d.components[0].detail = 'overview';
+  d.components[0].detail = d.root;
   assert.throws(() => validateExplorer(d), /cycle/);
   const chain = {
     schemaVersion: 1, title: 'Depth', root: 'v0', evidence: [],
@@ -53,7 +65,7 @@ test('all explorer perspectives are checked for cycles and bounded depth', () =>
 
 test('explorer rejects oversized views and unused components without forbidding relationship cycles', () => {
   const d = example();
-  d.views[0].edges.push({ ...d.views[0].edges[0], from: 'rendering', to: 'cli' });
+  d.views[0].edges.push({ ...d.views[0].edges[0], from: d.views[0].nodes[1], to: d.views[0].nodes[0] });
   assert.equal(validateExplorer(d).ok, true);
   d.components.push({ id: 'unused', label: 'Unused', status: 'assumption' });
   assert.throws(() => validateExplorer(d), /every component/);
