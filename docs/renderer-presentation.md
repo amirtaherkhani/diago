@@ -1,6 +1,6 @@
 # Diago renderer presentation (source checkout)
 
-All eleven specialized renderers use Diago's midnight navy surfaces, yellow brand accent, system-font headings, and distinct evidence colors. Architecture, Sequence, Workflow, Dataflow, and Lifecycle retain Archify's interaction and export features; Data model, Timeline, Layers, Dependency, Security matrix, and Fishbone support light/dark themes, including `?theme=light` and a keyboard-accessible theme button.
+All eleven specialized renderers use Diago's midnight navy surfaces, yellow brand accent, compact embedded interlocking D plugin logo, system-font headings, and distinct evidence colors. Architecture Explorer uses the same small mark. Architecture, Sequence, Workflow, Dataflow, and Lifecycle retain Archify's interaction and export features; Data model, Timeline, Layers, Dependency, Security matrix, and Fishbone support light/dark themes, including `?theme=light` and a keyboard-accessible theme button.
 
 Yellow identifies the brand. Mint remains verification, amber uncertainty, blue proposed/current relationships, and rose risk. Labels, line styles, diagram structure, and source evidence retain their meaning.
 

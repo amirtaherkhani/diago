@@ -380,7 +380,7 @@ Run `npm run check` for repository validation and tests. Run `npm run upstreams:
 
 ## Unified renderer presentation (source checkout)
 
-All eleven specialized outputs now share Diago’s navy/yellow visual language, with light/dark themes and preserved evidence colors. CLI and MCP deliver the same branded files. [Presentation and local gallery](docs/renderer-presentation.md). Existing v0.7.0 installations require an update before these changes are available.
+All eleven specialized outputs now share Diago’s navy/yellow visual language, including a compact embedded plugin mark, with light/dark themes and preserved evidence colors. CLI and MCP deliver the same branded files. [Presentation and local gallery](docs/renderer-presentation.md). Existing v0.7.0 installations require an update before these changes are available.
 
 ## Guided walkthrough (source checkout)
 

@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
   <title>Investigate checkout latency · Diago</title>
-  <style>
+    <style>
+    .diago-native-brand{display:flex;align-items:center;gap:8px;color:var(--primary);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
     :root{--radius:18px}
     *{box-sizing:border-box}html{background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{margin:0;min-width:320px;background:var(--bg)}main{width:min(1280px,100%);margin:0 auto;padding:32px clamp(16px,4vw,56px) 48px}header{display:grid;gap:8px;margin-bottom:24px}.eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}h1{font-size:clamp(28px,5vw,52px);line-height:1.04;margin:0;max-width:18ch}header p{color:var(--muted);font-size:clamp(14px,2vw,18px);line-height:1.6;margin:0;max-width:72ch}.canvas{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:color-mix(in srgb,var(--panel) 92%,transparent);box-shadow:none}.diagram-view{display:block;width:100%;height:auto}.diagram-mobile{display:none}.diagram-node{outline:none;cursor:default}.diagram-node rect{transition:stroke .16s ease,filter .16s ease}.diagram-node:hover rect,.diagram-node:focus-visible rect{stroke:var(--mint);filter:none}.node-title{fill:var(--text);font-size:17px;font-weight:750}.node-copy{fill:var(--muted);font-size:12px}.node-key{fill:var(--mint);font-size:10px;font-weight:800}.status-verified{--status:var(--mint)}.status-proposed{--status:var(--cyan)}.status-assumption{--status:var(--amber)}.status-completed{--status:var(--mint)}.status-current{--status:var(--cyan)}.status-risk{--status:var(--rose)}.relationship{fill:none;stroke:var(--line);stroke-width:2}.relationship.status-proposed{stroke:var(--cyan);stroke-dasharray:8 7}.relationship.status-assumption{stroke:var(--amber);stroke-dasharray:3 6}.relationship-label{fill:var(--text);font-size:11px;font-weight:700;paint-order:stroke;stroke:var(--bg);stroke-width:5px;stroke-linejoin:round}.legend{display:flex;flex-wrap:wrap;gap:14px;padding:14px 18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.legend span{display:inline-flex;align-items:center;gap:7px}.legend i{width:9px;height:9px;border-radius:50%;background:var(--status)}footer{color:var(--muted);font-size:12px;padding-top:16px}@media(max-width:760px){main{padding:20px 12px 32px}.canvas{border-radius:14px}.diagram-desktop{display:none}.diagram-mobile{display:block}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
     .engineering-details{margin-top:24px}.engineering-details h2{font-size:20px}.engineering-table{overflow-x:auto;border:1px solid var(--line);border-radius:12px}.engineering-table table{width:100%;border-collapse:collapse;font-size:13px;text-align:left}.engineering-table caption{padding:12px;color:var(--muted);text-align:left}.engineering-table th,.engineering-table td{padding:12px;vertical-align:top;border-top:1px solid var(--line);overflow-wrap:anywhere;min-width:110px}.engineering-table td{color:var(--muted)}
@@ -26,6 +27,7 @@ main.diago-native {position:relative}main.diago-native header {padding-right:84p
 @media(prefers-reduced-motion:reduce){.diago-theme-thumb{transition:none}}
 @media print{.diago-native-tools{display:none}}
 
+.diago-logo{display:block;width:28px;height:28px;flex:0 0 28px}
 
 [data-theme="dark"][data-theme], :root:not([data-theme]) {
  --bg:#080f20;--panel:#111c30;--mask:#111c30;--text:#f5f8fb;--muted:#91a2b5;
@@ -71,7 +73,7 @@ svg [data-relationship-preview],svg [data-route-journey-current],
 .diagram-node:hover rect,.diagram-node:focus-visible rect {filter:none!important}
 
 .diago-brand,.eyebrow {color:var(--primary);font:700 12px/1.5 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase}
-.diago-brand {display:block;margin-bottom:12px}
+.diago-brand {display:flex;align-items:center;gap:8px;margin-bottom:12px}
 html .header h1,html[data-preset] .header h1,html[data-preset] .card h3 {font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 /* One painted surface; suppress upstream decorative layers and inset focus ring. */
 html .toolbar #btn-export {background:#ffbe0b;color:#080f20;border:0;box-shadow:none;outline:none;border-radius:11px}
@@ -102,7 +104,7 @@ html[data-preset] .pulse-dot {background:var(--primary);border-color:var(--prima
 <body class="quality-showcase">
   <main class="diago-native">
     <div class="diago-native-tools"><div class="diago-theme-group"><button id="btn-theme" class="diago-theme" type="button" aria-label="Toggle color theme" title="Toggle color theme" aria-pressed="false"><span class="diago-theme-track" aria-hidden="true"><span class="diago-theme-thumb"></span></span><span id="theme-icon" hidden></span><span id="theme-label" hidden>Dark</span></button></div></div>
-    <header><span class="eyebrow">Diago · fishbone</span><h1>Investigate checkout latency</h1><p>Illustrative engineering example. Sources and findings are fictional.</p></header>
+    <header><span class="diago-native-brand"><img class="diago-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9InRpdGxlIj4KICA8dGl0bGUgaWQ9InRpdGxlIj5EaWFnbyBpbnRlcmxvY2tpbmcgRCBtYXJrPC90aXRsZT4KICA8cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE2MCIgcng9IjMyIiBmaWxsPSIjMDgwRjIwIi8+CiAgPHBhdGggZmlsbD0iI0Y1RjhGQiIgZD0iTTEwMiA2MGgyMmEyMCAyMCAwIDAgMSAyMCAyMHYzOGEyMCAyMCAwIDAgMS0yMCAyMEg3NmEyMCAyMCAwIDAgMS0yMC0yMHYtMTZoMjJhMjQgMjQgMCAwIDAgMjQtMjRWNjBaIi8+CiAgPHBhdGggZmlsbD0iI0ZGQkUwQiIgZD0iTTM2IDI0aDQ2YTIwIDIwIDAgMCAxIDIwIDIwdjM0YTI0IDI0IDAgMCAwLTI0LTI0SDU2djQ4SDM2YTIwIDIwIDAgMCAxLTIwLTIwVjQ0YTIwIDIwIDAgMCAxIDIwLTIwWiIvPgo8L3N2Zz4K" alt="" aria-hidden="true"><span>Diago · fishbone</span></span><h1>Investigate checkout latency</h1><p>Illustrative engineering example. Sources and findings are fictional.</p></header>
     <section class="canvas" aria-label="Investigate checkout latency">
       <svg class="diagram-view diagram-desktop" role="group" aria-labelledby="diago-fishbone-title diago-fishbone-desc" viewBox="0 0 978 794" tabindex="0">
         <title id="diago-fishbone-title">Investigate checkout latency</title>

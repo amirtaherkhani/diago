@@ -32,6 +32,7 @@ for (const [type, example] of Object.entries(examples)) {
    assert.match(html.toString(), /Download walkthrough Markdown/);
    assert.match(html.toString(), /class="diago-theme"/);
    assert.match(html.toString(), /class="diago-theme-track"/);
+   assert.match(html.toString(), /<img class="diago-logo" src="data:image\/svg\+xml;base64,/);
    assert.match(html.toString(), /aria-label="Toggle color theme"/);
    assert.match(html.toString(), /markerWidth="(?:7\.5|5\.25)" markerHeight="5\.25"/);
    assert.doesNotMatch(html.toString(), /markerWidth="10" markerHeight="7"/);
