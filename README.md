@@ -349,7 +349,7 @@ scripts/      Repository validation and upstream automation
 test/         Node test suite and renderer checks
 ```
 
-Run `npm run check` for repository validation and tests. Run `npm run upstreams:check` for read-only source discovery. Upstream changes are reviewed before the canonical skills are updated; [details](./docs/USAGE.md#dependency-updates).
+Run `npm run check` for repository validation and tests. Run `npm run upstreams:check` for read-only source discovery. The five tracked upstreams include [Oh My Mermaid](./docs/upstreams/oh-my-mermaid-review.md) as a methodology reference for perspective-based recursive analysis. Upstream changes are reviewed before the canonical skills are updated; [details](./docs/USAGE.md#dependency-updates).
 
 </details>
 

@@ -71,6 +71,15 @@ case "$source_name" in
     cp "$temp_root/source/.claude/skills/ui-ux-pro-max/SKILL.md" "$temp_root/vendor/.claude/skills/ui-ux-pro-max/"
     rsync -a --delete "$temp_root/vendor/" "$repo_root/vendor/ui-ux-pro-max-skill/"
     ;;
+  oh-my-mermaid)
+    ref="main"
+    clone_source "https://github.com/oh-my-mermaid/oh-my-mermaid.git" "$ref" "$temp_root/source"
+    commit="$(git -C "$temp_root/source" rev-parse HEAD)"
+    mkdir -p "$temp_root/vendor/skills/omm-scan"
+    cp "$temp_root/source/LICENSE" "$temp_root/source/README.md" "$temp_root/vendor/"
+    cp "$temp_root/source/skills/omm-scan/SKILL.md" "$temp_root/vendor/skills/omm-scan/"
+    rsync -a --delete "$temp_root/vendor/" "$repo_root/vendor/oh-my-mermaid/"
+    ;;
   diagram-design)
     ref="main"
     clone_source "https://github.com/cathrynlavery/diagram-design.git" "$ref" "$temp_root/source"
@@ -82,7 +91,7 @@ case "$source_name" in
     rsync -a --delete "$temp_root/vendor/" "$repo_root/vendor/diagram-design/"
     ;;
   *)
-    echo "Usage: scripts/sync-upstreams.sh {archify|architecture-diagram-skill|ui-ux-pro-max-skill|diagram-design}" >&2
+    echo "Usage: scripts/sync-upstreams.sh {archify|architecture-diagram-skill|ui-ux-pro-max-skill|diagram-design|oh-my-mermaid}" >&2
     exit 2
     ;;
 esac

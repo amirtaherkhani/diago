@@ -4,6 +4,10 @@ All notable changes to Diago are documented here.
 
 ## [Unreleased]
 
+### Added
+
+- Oh My Mermaid as a fifth tracked upstream, with an MIT-licensed architecture-scanning methodology snapshot, weekly synchronization, and a source-level compatibility and security review.
+
 ### Changed
 
 - Refreshed the bundled Archify snapshot to main commit `bb990b17` and switched upstream discovery and synchronization to track main, including updates newer than release tags. The renderer and schema contracts remain unchanged.

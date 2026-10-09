@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-08",
+  "updatedAt": "2026-10-09",
   "sources": {
     "archify": {
       "repository": "https://github.com/tt-a1i/archify",
@@ -29,6 +29,13 @@
       "commit": "f4547ee95f88e5b28a52517feff6b6c11cc657f9",
       "mode": "methodology-snapshot",
       "path": "vendor/diagram-design"
+    },
+    "oh-my-mermaid": {
+      "repository": "https://github.com/oh-my-mermaid/oh-my-mermaid",
+      "ref": "main",
+      "commit": "38ccdb69298adec949177c92c88d6e3ddfb5bab7",
+      "mode": "methodology-snapshot",
+      "path": "vendor/oh-my-mermaid"
     }
   }
 }

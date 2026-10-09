@@ -23,6 +23,7 @@ jobs:
           - architecture-diagram-skill
           - ui-ux-pro-max-skill
           - diagram-design
+          - oh-my-mermaid
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import { checkUpstreams, formatUpstreamReport } from '../lib/upstream-checker.mjs';
@@ -99,7 +100,9 @@ test('CLI emits the complete JSON report and exits nonzero on partial failure', 
   ], { encoding: 'utf8' });
   assert.equal(run.status, 1, run.stderr);
   const report = JSON.parse(run.stdout);
-  assert.equal(Object.keys(report).length, 4);
+  const lock = JSON.parse(fs.readFileSync(fromRoot('vendor', 'upstreams.lock.json'), 'utf8'));
+  assert.deepEqual(Object.keys(report), Object.keys(lock.sources));
+  assert.ok(report['oh-my-mermaid'].latest);
   assert.equal(report.archify.changed, null);
   assert.ok(report['diagram-design'].latest);
 });
