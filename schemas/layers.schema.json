@@ -42,6 +42,7 @@
         "additionalProperties": false,
         "required": ["from", "to", "label", "status"],
         "properties": {
+          "arrow": { "enum": ["dependency"] },
           "from": { "$ref": "#/$defs/id" },
           "to": { "$ref": "#/$defs/id" },
           "label": { "type": "string", "minLength": 1 },

@@ -6,6 +6,8 @@ All notable changes to Diago are documented here.
 
 ### Added
 
+- Shared offline Arrow guide across all eleven models and Architecture Explorer, with six semantic connection types, hover/keyboard descriptions, model-specific validation, and a six-view notation preview. Existing JSON works unchanged; optional `arrow` fields distinguish responses, events, dependencies, bidirectional links, and associations.
+
 - Three deterministic engineering models inspired by Diagram Design: dependency graphs with shared dependents and structural cycles, role/resource security matrices with explicit unknowns, and evidence-labeled incident fishbones. Includes schemas, advisor recipes, CLI/MCP delivery, responsive light/dark views, and full source registers.
 - A public preview and pinned review of all 44 upstream diagram references, documenting existing coverage and deferred candidates.
 

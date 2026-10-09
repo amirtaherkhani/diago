@@ -129,6 +129,11 @@
             "minLength": 1,
             "maxLength": 300,
             "pattern": "\\S"
+          },
+          "arrow": {
+            "enum": [
+              "dependency"
+            ]
           }
         }
       }

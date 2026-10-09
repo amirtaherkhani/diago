@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "title": "Arrow types",
+  "summary": "Six connection meanings in Diago. Illustrative notation examples, not evidence of a running system.",
+  "root": "directed",
+  "components": [
+    {
+      "id": "source",
+      "label": "Source",
+      "status": "proposed",
+      "description": "Illustrative source component."
+    },
+    {
+      "id": "target",
+      "label": "Target",
+      "status": "proposed",
+      "description": "Illustrative target component."
+    }
+  ],
+  "evidence": [],
+  "views": [
+    {
+      "id": "directed",
+      "title": "Directed",
+      "question": "Send request",
+      "nodes": [
+        "source",
+        "target"
+      ],
+      "edges": [
+        {
+          "from": "source",
+          "to": "target",
+          "label": "Send request",
+          "status": "proposed",
+          "arrow": "directed"
+        }
+      ]
+    },
+    {
+      "id": "response",
+      "title": "Response",
+      "question": "Return result",
+      "nodes": [
+        "source",
+        "target"
+      ],
+      "edges": [
+        {
+          "from": "source",
+          "to": "target",
+          "label": "Return result",
+          "status": "proposed",
+          "arrow": "response"
+        }
+      ]
+    },
+    {
+      "id": "event",
+      "title": "Event",
+      "question": "Publish notification",
+      "nodes": [
+        "source",
+        "target"
+      ],
+      "edges": [
+        {
+          "from": "source",
+          "to": "target",
+          "label": "Publish notification",
+          "status": "proposed",
+          "arrow": "event"
+        }
+      ]
+    },
+    {
+      "id": "dependency",
+      "title": "Dependency",
+      "question": "Client requires service",
+      "nodes": [
+        "source",
+        "target"
+      ],
+      "edges": [
+        {
+          "from": "source",
+          "to": "target",
+          "label": "Client requires service",
+          "status": "proposed",
+          "arrow": "dependency"
+        }
+      ]
+    },
+    {
+      "id": "bidirectional",
+      "title": "Bidirectional",
+      "question": "Exchange updates",
+      "nodes": [
+        "source",
+        "target"
+      ],
+      "edges": [
+        {
+          "from": "source",
+          "to": "target",
+          "label": "Exchange updates",
+          "status": "proposed",
+          "arrow": "bidirectional"
+        }
+      ]
+    },
+    {
+      "id": "association",
+      "title": "Association",
+      "question": "Related components",
+      "nodes": [
+        "source",
+        "target"
+      ],
+      "edges": [
+        {
+          "from": "source",
+          "to": "target",
+          "label": "Related components",
+          "status": "proposed",
+          "arrow": "association"
+        }
+      ]
+    }
+  ]
+}
