@@ -237,15 +237,27 @@ html[data-preset] .pulse-dot {background:var(--primary);border-color:var(--prima
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
 </script>
-<style>.diago-walkthrough{margin:16px 0;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font:14px/1.5 system-ui,sans-serif}
+<style>.diago-walkthrough{margin:16px 0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--text);font:14px/1.5 system-ui,sans-serif}
 .diago-walkthrough summary{cursor:pointer;font-weight:700;color:var(--primary)}
 .diago-walkthrough .walk-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}
-.diago-walkthrough button,.diago-walkthrough select{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px;min-height:40px;max-width:100%;cursor:pointer}
+.diago-walkthrough button,.diago-walkthrough select{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;min-height:40px;max-width:100%;cursor:pointer}
 .diago-walkthrough button:disabled{opacity:.45;cursor:default}
 .diago-walkthrough :focus-visible{outline:2px solid var(--primary);outline-offset:3px}
 .diago-walkthrough p{margin:6px 0;overflow-wrap:anywhere}
 .diago-walkthrough .walk-note{color:var(--muted);font-size:12px}
-.diago-walkthrough progress{width:min(100%,320px);accent-color:var(--primary)}
+.diago-walkthrough .walk-steps{display:flex;align-items:center;gap:5px;max-width:min(100%,420px);overflow-x:auto;padding:3px;scrollbar-width:thin}
+.diago-walkthrough .walk-steps:empty{display:none}
+.diago-walkthrough .walk-step{flex:0 0 34px;width:34px;min-height:34px;height:34px;padding:0;border-radius:50%;color:var(--muted);font:700 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
+.diago-walkthrough .walk-step.is-current{color:var(--bg);background:var(--primary);border-color:var(--primary)}
+.diago-walkthrough .walk-progress{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.diago-walkthrough progress{width:min(100%,220px);height:7px;accent-color:var(--primary)}
+.diago-walkthrough .walk-title{color:var(--muted);font:700 11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em}
+.diago-walkthrough .walk-route{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px}
+.diago-walkthrough .walk-endpoint{display:inline-flex;align-items:center;min-height:34px;max-width:min(100%,320px);padding:5px 10px;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--primary) 5%,var(--bg));font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+.diago-walkthrough .walk-arrow{color:var(--primary);font-size:18px;font-weight:800}
+svg [data-diago-walk-badge]{pointer-events:none}
+svg [data-diago-walk-badge] circle{fill:var(--primary);stroke:var(--panel);stroke-width:2}
+svg [data-diago-walk-badge] text{fill:var(--bg);font:700 11px/1 system-ui,sans-serif}
 svg [data-diago-walk="dimmed"]{opacity:.25!important}
 svg [data-diago-walk="participant"]{opacity:.8!important}
 svg [data-diago-walk="active"],svg [data-diago-walk="source"]{opacity:1!important}
@@ -253,7 +265,8 @@ svg [data-node-id][data-diago-walk="active"]>rect,svg [data-node-id][data-diago-
 svg [data-node-id][data-diago-walk="source"]>rect{stroke:var(--primary)!important;stroke-dasharray:4 3}
 svg path[data-edge-from][data-diago-walk="active"],svg line[data-edge-from][data-diago-walk="active"],svg [data-edge-from][data-diago-walk="active"]>path{stroke-width:3px!important}
 svg [data-edge-from][data-diago-walk="active"]>rect{stroke:var(--primary)!important;stroke-width:3px}
-@media print{.diago-walkthrough{display:none}svg [data-diago-walk]{opacity:1!important}}
+@media(max-width:640px){.diago-walkthrough .walk-controls{align-items:stretch}.diago-walkthrough .walk-steps{order:3;width:100%;max-width:100%}.diago-walkthrough [data-action="markdown"]{width:100%}.diago-walkthrough .walk-progress{gap:6px}}
+@media print{.diago-walkthrough{display:none}svg [data-diago-walk]{opacity:1!important}svg [data-diago-walk-badge]{display:none}}
 </style><script>// Read rendered, escaped metadata instead of duplicating diagram JSON in the output.
 (() => {
   function boot() {
@@ -264,20 +277,24 @@ svg [data-edge-from][data-diago-walk="active"]>rect{stroke:var(--primary)!import
     const graph = () => graphs.find(s => s.getBoundingClientRect().width > 0) || graphs[0];
     const root = document.createElement('details');
     root.className = 'diago-walkthrough';
-    root.innerHTML = `<summary>Guided walkthrough</summary><p class="walk-note">Review authored connections in diagram order. This is not an inferred execution sequence. While open, click a node to jump to its first connection.</p><div class="walk-controls"><label>Connections <select aria-label="Walkthrough connections"></select></label><button type="button" data-action="previous">Previous</button><button type="button" data-action="next">Next</button><button type="button" data-action="play">Play</button><button type="button" data-action="markdown">Download walkthrough Markdown</button></div><progress aria-label="Walkthrough progress" value="0" max="1"></progress><div role="status" aria-live="polite"><p class="walk-title"></p><p class="walk-route"></p><p class="walk-description"></p></div>`;
+    root.innerHTML = `<summary>Guided walkthrough</summary><p class="walk-note">Review authored connections in diagram order. This is not an inferred execution sequence. While open, click a node to jump to its first connection.</p><div class="walk-controls"><label>Connections <select aria-label="Walkthrough connections"></select></label><div class="walk-steps" role="group" aria-label="Connection review steps"></div><button type="button" data-action="previous">Previous</button><button type="button" data-action="next">Next</button><button type="button" data-action="play" aria-pressed="false">Play</button><button type="button" data-action="markdown">Download walkthrough Markdown</button></div><div class="walk-progress"><progress aria-label="Walkthrough progress" value="0" max="1"></progress><p class="walk-title"></p></div><div role="status" aria-live="polite"><p class="walk-route"><span class="walk-endpoint" data-endpoint="source"></span><span class="walk-arrow" aria-hidden="true"></span><span class="walk-endpoint" data-endpoint="target"></span></p><p class="walk-description"></p></div>`;
     host.before(root);
     const select = root.querySelector('select');
     const title = root.querySelector('.walk-title');
     const route = root.querySelector('.walk-route');
     const description = root.querySelector('.walk-description');
     const progress = root.querySelector('progress');
+    const stepList = root.querySelector('.walk-steps');
     const button = action => root.querySelector(`[data-action="${action}"]`);
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     let index = 0, timer = null, steps = [], nodes = new Map(), all = [];
     const option = (label, value) => { const o = document.createElement('option'); o.textContent = label; o.value = value; select.append(o); };
     const symbol = edge => edge.dataset.arrowType === 'association' ? '—' : edge.dataset.arrowType === 'bidirectional' ? '↔' : '→';
     const label = id => nodes.get(id)?.dataset.nodeLabel || id;
-    function clear() { host.querySelectorAll('[data-diago-walk]').forEach(e => e.removeAttribute('data-diago-walk')); }
+    function clear() {
+      host.querySelectorAll('[data-diago-walk]').forEach(e => e.removeAttribute('data-diago-walk'));
+      host.querySelectorAll('[data-diago-walk-badge]').forEach(e => e.remove());
+    }
     function stop() { clearInterval(timer); timer = null; button('play').textContent = 'Play'; button('play').setAttribute('aria-pressed', 'false'); }
     function collect() {
       const g = graph();
@@ -292,6 +309,47 @@ svg [data-edge-from][data-diago-walk="active"]>rect{stroke:var(--primary)!import
       if ([...select.options].some(o => o.value === chosen)) select.value = chosen;
       steps = all.filter(e => !select.value || e.dataset.edgeFrom === select.value || e.dataset.edgeTo === select.value);
       index = Math.min(index, Math.max(0, steps.length - 1));
+      stepList.replaceChildren();
+      steps.forEach((edge, i) => {
+        const chip = document.createElement('button');
+        chip.type = 'button'; chip.className = 'walk-step'; chip.dataset.index = String(i);
+        chip.textContent = String(i + 1);
+        chip.title = `${i + 1}. ${label(edge.dataset.edgeFrom)} ${symbol(edge)} ${label(edge.dataset.edgeTo)}${edge.dataset.edgeLabel ? ` · ${edge.dataset.edgeLabel}` : ''}`;
+        chip.setAttribute('aria-label', `Review step ${i + 1}: ${chip.title.slice(chip.title.indexOf('. ') + 2)}`);
+        chip.addEventListener('click', () => { stop(); index = i; paint(); });
+        stepList.append(chip);
+      });
+    }
+    function addStepBadge(step) {
+      const svg = graph();
+      const shapes = [...step.querySelectorAll('path,line,polyline')];
+      const candidates = step.matches('path,line,polyline') ? [step, ...shapes] : [...shapes, step];
+      for (const shape of candidates) {
+        try {
+          const bounds = shape.getBBox();
+          const ctm = shape.getScreenCTM();
+          const inverse = svg.getScreenCTM()?.inverse();
+          if (!ctm || !inverse || (!bounds.width && !bounds.height)) continue;
+          let point;
+          if (typeof shape.getTotalLength === 'function' && typeof shape.getPointAtLength === 'function') {
+            const length = shape.getTotalLength();
+            if (!length) continue;
+            const middle = shape.getPointAtLength(length / 2);
+            point = new DOMPoint(middle.x, middle.y).matrixTransform(ctm).matrixTransform(inverse);
+          } else {
+            point = new DOMPoint(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2).matrixTransform(ctm).matrixTransform(inverse);
+          }
+          const badge = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          badge.dataset.diagoWalkBadge = '';
+          badge.setAttribute('transform', `translate(${point.x} ${point.y})`);
+          badge.setAttribute('aria-hidden', 'true');
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('r', '12');
+          const number = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          number.textContent = String(index + 1); number.setAttribute('text-anchor', 'middle'); number.setAttribute('dy', '.35em');
+          badge.append(circle, number); svg.append(badge); return;
+        } catch { /* Some SVG renderers do not expose geometry for decorative groups. */ }
+      }
     }
     function paint() {
       clear();
@@ -301,15 +359,24 @@ svg [data-edge-from][data-diago-walk="active"]>rect{stroke:var(--primary)!import
       button('play').disabled = !step || steps.length < 2 || reduced.matches;
       button('play').title = reduced.matches ? 'Automatic playback is disabled for reduced motion. Use Next.' : 'Advance every three seconds';
       progress.max = Math.max(1, steps.length); progress.value = step ? index + 1 : 0;
-      if (!step) { title.textContent = 'No authored connections in this view.'; route.textContent = ''; description.textContent = ''; stop(); return; }
+      stepList.querySelectorAll('.walk-step').forEach((chip, i) => {
+        if (i === index) { chip.setAttribute('aria-current', 'step'); chip.classList.add('is-current'); }
+        else { chip.removeAttribute('aria-current'); chip.classList.remove('is-current'); }
+      });
+      if (!step) { title.textContent = 'No authored connections in this view.'; route.querySelectorAll('.walk-endpoint').forEach(e => { e.textContent = ''; e.removeAttribute('title'); }); route.querySelector('.walk-arrow').textContent = ''; description.textContent = ''; stop(); return; }
       const participants = new Set(steps.flatMap(e => [e.dataset.edgeFrom, e.dataset.edgeTo]));
       for (const [id, node] of nodes) node.dataset.diagoWalk = participants.has(id) ? 'participant' : 'dimmed';
       all.forEach(e => { e.dataset.diagoWalk = steps.includes(e) ? 'participant' : 'dimmed'; });
       nodes.get(step.dataset.edgeFrom).dataset.diagoWalk = 'source';
       nodes.get(step.dataset.edgeTo).dataset.diagoWalk = 'active'; step.dataset.diagoWalk = 'active';
-      title.textContent = `${index + 1} / ${steps.length} · ${step.dataset.edgeLabel || 'Connection'}`;
-      route.textContent = `${label(step.dataset.edgeFrom)} ${symbol(step)} ${label(step.dataset.edgeTo)}`;
+      title.textContent = `STEP ${String(index + 1).padStart(2, '0')} / ${String(steps.length).padStart(2, '0')} · ${step.dataset.edgeLabel || 'Connection'}`;
+      const source = route.querySelector('[data-endpoint="source"]');
+      const target = route.querySelector('[data-endpoint="target"]');
+      source.textContent = label(step.dataset.edgeFrom); target.textContent = label(step.dataset.edgeTo);
+      source.title = source.textContent; target.title = target.textContent;
+      route.querySelector('.walk-arrow').textContent = symbol(step);
       description.textContent = nodes.get(step.dataset.edgeTo).getAttribute('aria-label') || label(step.dataset.edgeTo);
+      addStepBadge(step);
     }
     function move(delta) { stop(); index = Math.max(0, Math.min(steps.length - 1, index + delta)); paint(); }
     root.addEventListener('toggle', () => { stop(); if (root.open) { collect(); paint(); } else clear(); });

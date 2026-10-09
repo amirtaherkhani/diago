@@ -12,6 +12,12 @@ test('walkthrough assets are offline, bounded, and wait for DOM readiness', () =
  const assets = walkthroughAssets();
  assert.ok(Buffer.byteLength(assets) < 16000);
  assert.doesNotMatch(assets, /<script[^>]+src=/);
+ assert.match(assets, /Connection review steps/);
+ assert.match(assets, /data-diago-walk-badge/);
+ assert.match(assets, /STEP \$\{String\(index \+ 1\)/);
+ assert.match(assets, /data-endpoint="source"/);
+ assert.match(assets, /data-endpoint="target"/);
+ assert.match(assets, /order does not imply execution|not an inferred execution sequence/);
  let initialized;
  vm.runInNewContext(fs.readFileSync(fromRoot('lib/walkthrough/viewer.js'), 'utf8'), {
   document: {readyState:'loading', addEventListener(event, callback) {assert.equal(event,'DOMContentLoaded'); initialized = callback;}},

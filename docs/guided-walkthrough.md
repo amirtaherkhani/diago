@@ -5,9 +5,10 @@ Diago adapts Architecture Diagram Skill's teaching model to its nine connection-
 Open **Guided walkthrough** above the diagram:
 
 - Review all authored connections or just those around one component.
+- Follow a numbered, horizontally scrollable step rail; selecting a number jumps directly to that connection. The current step number also appears on its highlighted arrow.
 - Use Previous/Next, or Left/Right while focused in the player.
 - Play advances every three seconds and stops at the last connection. Pause, close, hide the tab, or change the filter to stop it. Reduced-motion users get manual stepping.
-- See the source, target, current connection, and the other participating components together. Components outside the selected group are dimmed; evidence colors remain unchanged.
+- Read the current step, source → target endpoint boxes, connection label, and the other participating components together. Components outside the selected group are dimmed; evidence colors remain unchanged.
 - While the walkthrough is open, click or press Enter/Space on a node to jump to its first selected connection. A node outside the selection produces explanatory feedback. Native diagrams also open the walkthrough when a node is activated.
 - Download a companion Markdown explanation of the selected connections.
 

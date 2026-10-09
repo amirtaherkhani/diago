@@ -6,6 +6,8 @@ All notable changes to Diago are documented here.
 
 ### Added
 
+- Numbered, selectable connection-review steps, source/target endpoint boxes, and an active step badge on the highlighted arrow across the nine guided-walkthrough models.
+
 - Added a compact, embedded Diago plugin logo to every renderer header and reduced the Explorer mark to match.
 
 - Shared offline Arrow guide across all eleven models and Architecture Explorer, with six semantic connection types, hover/keyboard descriptions, model-specific validation, and a six-view notation preview. Existing JSON works unchanged; optional `arrow` fields distinguish responses, events, dependencies, bidirectional links, and associations.
