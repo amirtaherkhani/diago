@@ -24,3 +24,7 @@ Open `http://127.0.0.1:8766/`. Each renderer has dark and light links. The gener
 ## Scope
 
 This change is available in the source checkout, after v0.7.0. Existing exported files and already-installed v0.7.0 plugins do not change automatically; regenerate an artifact using the updated checkout. Compact JSON inputs and artifact receipts remain unchanged, so no additional model output is required to author the visual style.
+
+## Theme control
+
+Every renderer and Explorer uses the shared sun/moon switch in `lib/renderers/theme-control.mjs`. It sits in the right-aligned header tools (above the title on narrow screens), has a 56 × 44px hit area, exposes light mode through `aria-pressed`, and supports Enter/Space. Theme changes preserve diagram controls and content.

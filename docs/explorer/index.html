@@ -451,6 +451,11 @@ aside {
   .brand {
     font-size:19px
   }
+  .tools {
+    width:100%;
+    justify-content:flex-end;
+    order:-1
+  }
   .tools button {
     font-size:11px;
     padding:6px 8px
@@ -537,6 +542,23 @@ aside {
   #navigation-controls { display: none; margin-top: 16px; }
   .views.expanded #navigation-controls { display: block; }
 }
+
+
+button.diago-theme {position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;width:56px!important;min-width:56px!important;height:44px!important;min-height:44px!important;padding:0!important;border:0!important;border-radius:10px!important;background:transparent!important;box-shadow:none!important;cursor:pointer}
+button.diago-theme::before,button.diago-theme::after {content:none!important;display:none!important}
+.diago-theme-track {display:block;width:42px;height:20px;border-radius:999px;background:color-mix(in srgb,var(--text) 9%,transparent)}
+.diago-theme-thumb {display:block;position:relative;width:18px;height:18px;top:1px;left:23px;border-radius:50%;background:#3b4a63;color:#c7d2fe;transition:left .18s ease}
+.diago-theme-thumb::after {content:'☾';display:block;font:14px/18px system-ui,sans-serif;text-align:center}
+button.diago-theme[aria-pressed="true"] .diago-theme-thumb {left:1px;background:var(--panel);color:#936600}
+button.diago-theme[aria-pressed="true"] .diago-theme-thumb::after {content:'☀'}
+button.diago-theme:hover .diago-theme-track {background:color-mix(in srgb,var(--text) 13%,transparent)}
+button.diago-theme:focus-visible {outline:2px solid var(--text)!important;outline-offset:2px}
+.diago-theme-group {display:flex;align-items:center;padding:0 4px;border:1px solid var(--line);border-radius:11px;background:var(--panel)}
+.diago-native-tools {position:absolute;top:32px;right:clamp(16px,4vw,56px)}
+main.diago-native {position:relative}main.diago-native header {padding-right:84px}
+@media(max-width:760px){.diago-native-tools{position:static;display:flex;justify-content:flex-end;margin-bottom:16px}main.diago-native header{padding-right:0}}
+@media(prefers-reduced-motion:reduce){.diago-theme-thumb{transition:none}}
+@media print{.diago-native-tools{display:none}}
 </style></head><body>
 <header class="topbar"><a class="brand" href="#" aria-label="Diago overview"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title">
   <title id="title">Diago interlocking D mark</title>
@@ -544,7 +566,7 @@ aside {
   <path fill="#F5F8FB" d="M102 60h22a20 20 0 0 1 20 20v38a20 20 0 0 1-20 20H76a20 20 0 0 1-20-20v-16h22a24 24 0 0 0 24-24V60Z"/>
   <path fill="#FFBE0B" d="M36 24h46a20 20 0 0 1 20 20v34a24 24 0 0 0-24-24H56v48H36a20 20 0 0 1-20-20V44a20 20 0 0 1 20-20Z"/>
 </svg>
-<span>Diago<span class="brand-sub">Architecture explorer</span></span></a><div class="tools"><button id="theme" aria-label="Switch color theme">Light theme</button><button id="download">Source JSON ↓</button></div></header>
+<span>Diago<span class="brand-sub">Architecture explorer</span></span></a><div class="tools"><div class="diago-theme-group"><button id="theme" class="diago-theme" type="button" aria-label="Toggle color theme" title="Toggle color theme" aria-pressed="false"><span class="diago-theme-track" aria-hidden="true"><span class="diago-theme-thumb"></span></span><span id="theme-icon" hidden></span><span id="theme-label" hidden>Dark</span></button></div><button id="download">Source JSON ↓</button></div></header>
 <div class="workspace"><nav class="views" aria-label="Architecture views"><p class="eyebrow">PROJECT MAP</p><h1 dir="auto"></h1><p id="summary" dir="auto"></p><button id="nav-toggle" aria-expanded="false" aria-controls="navigation-controls">Views &amp; search</button><div id="navigation-controls"><label for="search">Find a component</label><input id="search" type="search" placeholder="Name or source path…"><div id="search-results" aria-live="polite"></div><p class="eyebrow">PERSPECTIVES</p><div id="view-list"></div></div><p class="nav-note">Explore the structure.<br>Inspect the evidence.</p></nav>
 <main><nav id="breadcrumbs" aria-label="Breadcrumb"></nav><div class="view-heading"><div><p class="eyebrow">CONNECTED ARCHITECTURE</p><h2 id="view-title" tabindex="-1" dir="auto"></h2><p id="question" dir="auto"></p></div><span id="count" class="count"></span></div>
 <div class="canvas-tools"><span>Select a component to inspect its sources.</span><div><button id="zoom-out" aria-label="Zoom out">−</button><button id="fit">Fit</button><button id="zoom-in" aria-label="Zoom in">+</button></div></div>
@@ -688,7 +710,11 @@ aside {
     if (!matches.length) $('search-results').append(el('p', 'No matching components.', 'empty'));
     if (matches.length > 20) $('search-results').append(el('p', 'Showing 20 results. Refine your search.', 'empty'));
   });
-  $('theme').addEventListener('click', () => { const light = document.body.classList.toggle('light'); $('theme').textContent = light ? 'Dark theme' : 'Light theme'; });
+  const requestedTheme = new URLSearchParams(location.search).get('theme');
+  document.body.classList.toggle('light', requestedTheme === 'light' || (requestedTheme !== 'dark' && matchMedia('(prefers-color-scheme: light)').matches));
+  function syncTheme() { $('theme').setAttribute('aria-pressed', String(document.body.classList.contains('light'))); }
+  syncTheme();
+  $('theme').addEventListener('click', () => { document.body.classList.toggle('light'); syncTheme(); });
   $('zoom-in').addEventListener('click', () => { scale = Math.min(3, scale + .25); $('graph').style.width = `${scale * 100}%`; });
   $('zoom-out').addEventListener('click', () => { scale = Math.max(1, scale - .25); $('graph').style.width = `${scale * 100}%`; });
   $('fit').addEventListener('click', () => { scale = 1; $('graph').style.width = '100%'; $('canvas').scrollTo(0, 0); });

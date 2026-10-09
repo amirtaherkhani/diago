@@ -26,6 +26,9 @@ for (const [type, example] of Object.entries(examples)) {
    const receipt = renderDiagramDocument({type, diagram, outputPath, quality:'standard'});
    const html = fs.readFileSync(outputPath);
    assert.match(html.toString(), /--bg:#080f20/);
+   assert.match(html.toString(), /class="diago-theme"/);
+   assert.match(html.toString(), /class="diago-theme-track"/);
+   assert.match(html.toString(), /aria-label="Toggle color theme"/);
    assert.match(html.toString(), /markerWidth="(?:7\.5|5\.25)" markerHeight="5\.25"/);
    assert.doesNotMatch(html.toString(), /markerWidth="10" markerHeight="7"/);
    assert.match(html.toString(), /--primary:#ffbe0b/);
