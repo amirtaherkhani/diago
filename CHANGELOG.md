@@ -16,6 +16,10 @@ All notable changes to Diago are documented here.
 
 - Refreshed the bundled Archify snapshot to main commit `bb990b17` and switched upstream discovery and synchronization to track main, including updates newer than release tags. The renderer and schema contracts remain unchanged.
 
+### Fixed
+
+- Corrected the Export button’s layered background in light/dark output: the visible pill now carries the yellow accent with readable text in normal, hovered, and expanded states.
+
 ## [0.7.0] - 2026-10-08
 
 ### Added

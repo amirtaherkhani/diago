@@ -16,6 +16,10 @@ Diago's architecture explorer and eight specialized renderers now present engine
 - Archify's five rendered outputs use Diago presentation before validation and hashing; their interactive controls and export capabilities remain available.
 - The bundled Archify snapshot tracks main at `bb990b17`, including updates newer than its release tags.
 
+## Fixed
+
+- Export buttons use one yellow visible surface in both themes, including hover and expanded states, without a mismatched background behind the pill.
+
 ## Migration
 
 No input-schema migration is required. Regenerate existing HTML with the updated source checkout to apply the new style. Existing v0.7.0 installations and files are unchanged. This document does not announce a published release.
