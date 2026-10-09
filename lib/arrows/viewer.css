@@ -1,0 +1,9 @@
+.diago-arrow-guide{margin:14px 0;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font:13px/1.6 system-ui,sans-serif;overflow:hidden}
+.diago-arrow-guide>summary{padding:12px 16px;cursor:pointer;color:var(--primary,var(--accent,#ffbe0b));font-weight:700}
+.diago-arrow-guide summary:focus-visible{outline:2px solid var(--primary,var(--accent,#ffbe0b));outline-offset:-4px}
+.diago-arrow-guide .arrow-body{padding:0 16px 16px}.diago-arrow-guide p{margin:8px 0;color:var(--muted);font-size:13px}
+.diago-arrow-guide ul{list-style:none;padding:0;margin:10px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:8px 20px}
+.diago-arrow-guide li{display:flex;align-items:center;gap:12px;min-width:0}.diago-arrow-guide li svg{width:64px;height:26px;flex:0 0 64px;color:var(--text)}
+.diago-arrow-guide strong{font-weight:650}.diago-arrow-guide .arrow-description{display:block;color:var(--muted);font-size:12px}
+.diago-arrow-guide .arrow-catalog{margin-top:12px}.diago-arrow-guide .arrow-catalog>summary{cursor:pointer;font-weight:600}
+[data-arrow-type]:focus-visible{outline:2px solid var(--primary,var(--accent,#ffbe0b));outline-offset:3px}

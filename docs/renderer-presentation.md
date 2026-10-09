@@ -8,7 +8,7 @@ Yellow identifies the brand. Mint remains verification, amber uncertainty, blue 
 
 `lib/renderers/presentation.mjs` owns the common presentation tokens. Native SVGs reference those tokens instead of fixed dark fills. Archify render/deliver commands prepare a private temporary runtime with the Diago stylesheet applied **before** generation, validation, and artifact hashing. The directory is removed when the command finishes. CLI and MCP use this same boundary. Delivery receipts and provenance describe the final branded bytes; SVG/raster exports inherit the theme through Archify's stylesheet collector.
 
-The ~3 MB bundled runtime is copied locally for each Archify render/delivery. There is no network request, new package dependency, or model-generated stylesheet. Validation-only commands use the original runtime directly. Future template changes fail explicitly if the expected header/head contract disappears.
+The ~3 MB bundled runtime is copied locally for each Archify render/delivery. There is no network request, new package dependency, or model-generated stylesheet. Validation-only commands use the original runtime directly unless the input uses Diago’s optional arrow extension; that extension is validated before a disposable adapter delegates the remaining fields to upstream validation. Future template changes fail explicitly if the expected header/head contract disappears.
 
 The tracked `vendor/` snapshots remain exact upstream copies. Architecture Diagram Skill, UI UX Pro Max, Diagram Design, and Oh My Mermaid supply methodology; they do not each have a separate runtime viewer. Their guidance is expressed through Diago's renderers and architecture explorer.
 
@@ -30,3 +30,7 @@ This change is available in the source checkout, after v0.7.0. Existing exported
 Every renderer and Explorer uses the shared sun/moon switch in `lib/renderers/theme-control.mjs`. It sits in the right-aligned header tools (above the title on narrow screens), has a 56 × 44px hit area, exposes light mode through `aria-pressed`, and supports Enter/Space. Theme changes preserve diagram controls and content.
 
 The three [additional engineering models](engineering-models.md) retain specialized semantics: access color encodes permission level; fishbone status encodes an authored investigation finding. Unknown permissions are explicitly labeled. Both provide evidence registers rather than directed walkthroughs.
+
+## Connection meaning
+
+The shared [Arrow guide](arrow-guide.md) shows the types used in the current view. Arrowheads describe relationship semantics independently of existing evidence colors and line dashes. The gallery includes a six-view arrow example.

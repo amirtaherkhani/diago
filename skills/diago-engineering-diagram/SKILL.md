@@ -65,6 +65,8 @@ Do not invent services, protocols, queues, databases, ownership, or deployment b
 
 ## Guided explanation
 
+All outputs include an Arrow guide. Use the optional connection `arrow` field only when source evidence supports the meaning. `list_diagram_types` / `diago types --json` reports model-specific defaults and allowed types. Read `references/arrows.md` before overriding defaults; do not generate extra SVG/CSS for arrow styling.
+
 Rendered connection-based diagrams include an optional Guided walkthrough player. Use its source/target/participant states to explain authored connections and download the companion Markdown when useful. Do not describe diagram order as runtime order without evidence. Do not duplicate HTML, CSS, or diagram JSON to add the player; the renderer embeds it. Mode variants, payload examples, and temporal ordering require authored evidence.
 
 For dependency graphs, report direct fan-in and structural cycles without claiming runtime order. For access matrices, missing permissions stay unknown. For fishbones, retain hypotheses and ruled-out candidates; never require or invent one confirmed root cause. Read `references/engineering-models.md` before authoring these types.

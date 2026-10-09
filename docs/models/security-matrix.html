@@ -121,6 +121,110 @@ html[data-preset] .pulse-dot {background:var(--primary);border-color:var(--prima
     <section class="engineering-details"><h2>Permission register</h2><div class="engineering-table" tabindex="0" role="region" aria-label="Permission register"><table><caption>Permission register — complete authored values</caption><thead><tr><th scope="col">Resource</th><th scope="col">Role</th><th scope="col">Permission</th><th scope="col">Evidence</th></tr></thead><tbody><tr><th scope="row">Orders table</th><td>Operations</td><td>admin: DB owner</td><td>Illustrative policy: ops/orders</td></tr><tr><th scope="row">Orders table</th><td>Order worker</td><td>write: SELECT / UPDATE</td><td>Illustrative policy: writer/orders</td></tr><tr><th scope="row">Orders table</th><td>Analytics</td><td>read: SELECT</td><td>Illustrative policy: reader/orders</td></tr><tr><th scope="row">Event stream</th><td>Operations</td><td>admin: Manage topics</td><td>Illustrative policy: ops/events</td></tr><tr><th scope="row">Event stream</th><td>Order worker</td><td>write: Publish</td><td>Illustrative policy: writer/events</td></tr><tr><th scope="row">Event stream</th><td>Analytics</td><td>read: Subscribe</td><td>Illustrative policy: reader/events</td></tr><tr><th scope="row">Audit log</th><td>Operations</td><td>read: Read</td><td>Illustrative policy: ops/audit</td></tr><tr><th scope="row">Audit log</th><td>Order worker</td><td>write: Append</td><td>Illustrative policy: writer/audit</td></tr><tr><th scope="row">Audit log</th><td>Analytics</td><td>none: Explicit deny</td><td>Illustrative policy: reader/audit</td></tr><tr><th scope="row">Secret store</th><td>Operations</td><td>read: Read</td><td>Illustrative policy: ops/secrets</td></tr><tr><th scope="row">Secret store</th><td>Order worker</td><td>unknown: Unknown</td><td>No permission evidence supplied.</td></tr><tr><th scope="row">Secret store</th><td>Analytics</td><td>none: Explicit deny</td><td>Illustrative policy: reader/secrets</td></tr></tbody></table></div></section>
     <footer>Standalone HTML · deterministic native renderer · source evidence remains authoritative</footer>
   </main>
+<style>.diago-arrow-guide{margin:14px 0;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font:13px/1.6 system-ui,sans-serif;overflow:hidden}
+.diago-arrow-guide>summary{padding:12px 16px;cursor:pointer;color:var(--primary,var(--accent,#ffbe0b));font-weight:700}
+.diago-arrow-guide summary:focus-visible{outline:2px solid var(--primary,var(--accent,#ffbe0b));outline-offset:-4px}
+.diago-arrow-guide .arrow-body{padding:0 16px 16px}.diago-arrow-guide p{margin:8px 0;color:var(--muted);font-size:13px}
+.diago-arrow-guide ul{list-style:none;padding:0;margin:10px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:8px 20px}
+.diago-arrow-guide li{display:flex;align-items:center;gap:12px;min-width:0}.diago-arrow-guide li svg{width:64px;height:26px;flex:0 0 64px;color:var(--text)}
+.diago-arrow-guide strong{font-weight:650}.diago-arrow-guide .arrow-description{display:block;color:var(--muted);font-size:12px}
+.diago-arrow-guide .arrow-catalog{margin-top:12px}.diago-arrow-guide .arrow-catalog>summary{cursor:pointer;font-weight:600}
+[data-arrow-type]:focus-visible{outline:2px solid var(--primary,var(--accent,#ffbe0b));outline-offset:3px}
+</style><script data-diago-arrow-model="security-matrix">(() => {
+  const model = document.currentScript.dataset.diagoArrowModel;
+  const types = {
+    directed: ['Directed', 'One-way connection, read from source to arrowhead.', 'M1 1 L9 5 L1 9 Z', true],
+    response: ['Response', 'A reply to an earlier interaction; follow the authored direction.', 'M1 1 L9 5 L1 9', false],
+    event: ['Event', 'An explicitly authored event or asynchronous notification.', 'M0 1 L4 5 L0 9 M5 1 L9 5 L5 9', false],
+    dependency: ['Dependency', 'A required relationship; the label states prerequisite/dependent direction.', 'M1 1 L9 5 L1 9 Z', false],
+    bidirectional: ['Bidirectional', 'The same relationship is explicitly valid in both directions.', 'M1 1 L9 5 L1 9 Z', true],
+    association: ['Association', 'A structural relationship without implied flow; read cardinality labels.', '', false],
+    effect: ['Observed effect', 'Fishbone spine points to the observed effect. Branches do not prove causation.', 'M1 1 L9 5 L1 9 Z', true],
+  };
+  const svg = (tag, attrs) => { const node = document.createElementNS('http://www.w3.org/2000/svg', tag); for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, value); return node; };
+  const el = (tag, text, className) => { const node = document.createElement(tag); if (text) node.textContent = text; if (className) node.className = className; return node; };
+  function marker(id, type) {
+    const node = svg('marker', {id, viewBox:'0 0 10 10', refX:9, refY:5, markerWidth:model==='explorer'?4.5:5.25, markerHeight:model==='explorer'?4.5:5.25, orient:'auto-start-reverse'});
+    const entry = types[type];
+    node.append(svg('path', {d:entry[2], fill:entry[3] ? 'context-stroke' : type === 'dependency' ? 'var(--panel)' : 'none', stroke:'context-stroke', 'stroke-width':1.3, 'stroke-linecap':'round', 'stroke-linejoin':'round'}));
+    return node;
+  }
+  function sample(type) {
+    const entry = types[type], icon = svg('svg', {viewBox:'0 0 64 26', 'aria-hidden':'true', focusable:'false'});
+    icon.append(svg('path', {d:'M8 13 H54', fill:'none', stroke:'currentColor', 'stroke-width':1.5}));
+    if (entry[2]) {
+      const attrs = {d:entry[2],fill:entry[3] ? 'currentColor' : type === 'dependency' ? 'var(--panel)' : 'none',stroke:'currentColor','stroke-width':1.3};
+      icon.append(svg('path',{...attrs,transform:'translate(49 9) scale(.8)'}));
+      if(type==='bidirectional') icon.append(svg('path',{...attrs,transform:'translate(13 17) rotate(180) scale(.8)'}));
+    }
+    return icon;
+  }
+  function item(type, count) {
+    const entry = types[type], row = el('li'), copy = el('span');
+    row.append(sample(type), copy); copy.append(el('strong', `${entry[0]}${count ? ` · ${count}` : ''}`), el('span', entry[1], 'arrow-description')); return row;
+  }
+  function boot() {
+    const host = document.querySelector('.canvas, .diagram-container, #canvas');
+    if (!host) return;
+    const guide = el('details', null, 'diago-arrow-guide');
+    guide.append(el('summary', 'Arrow guide'));
+    const body = el('div', null, 'arrow-body'), note = el('p'), used = el('ul');
+    const routeNote = el('p', 'Route tracing follows authored endpoints. To trace both directions, supply two directed connections.');
+    routeNote.hidden = true;
+    used.setAttribute('aria-label','Connection types in this view');
+    body.append(note, used, routeNote, el('p', 'Arrowheads show connection meaning. Colors and line dashes retain this model’s existing status or classification meaning. Read its evidence legend separately.'));
+    const catalog = el('details',null,'arrow-catalog'); catalog.append(el('summary','All six Diago connection types'));
+    const all = el('ul'); Object.keys(types).filter(t=>t!=='effect').forEach(t=>all.append(item(t))); catalog.append(all);
+    body.append(catalog,el('p','This is Diago notation, not a complete UML notation. Only author a type supported by the model and source evidence.'));
+    guide.append(body); host.before(guide);
+    function refresh() {
+      const counts = new Map();
+      [...host.querySelectorAll('svg')].forEach((graph, index) => {
+        const seen = new Set();
+        let defs = graph.querySelector('defs');
+        if (!defs) { defs = svg('defs',{}); graph.prepend(defs); }
+        for (const type of Object.keys(types)) if (types[type][2]) {
+          const id = `diago-arrow-${index}-${type}`;
+          if (!graph.querySelector(`#${id}`)) defs.append(marker(id,type));
+        }
+        for (const edge of graph.querySelectorAll('[data-arrow-type]')) {
+          // Upstream hit/focus rails clone connector attributes, but are not
+          // visible authored edges. Never add heads or focus stops to them.
+          if (edge.closest('.relationship-hit-target')) { edge.removeAttribute('data-arrow-type'); continue; }
+          const type = edge.dataset.arrowType, entry = types[type]; if (!entry) continue;
+          const paths = edge.matches('path,line,polyline') ? [edge] : [...edge.querySelectorAll('path[marker-end],line[marker-end],polyline[marker-end]')];
+          for (const path of paths) {
+            path.setAttribute('marker-end',type==='association'?'none':`url(#diago-arrow-${index}-${type})`);
+            path.setAttribute('marker-start',type==='bidirectional'?`url(#diago-arrow-${index}-${type})`:'none');
+          }
+          // Retain author labels. Native title supports hover; aria text also
+          // exposes the helper to keyboard and assistive-technology users.
+          if (!edge.hasAttribute('data-arrow-described')) {
+            const original = edge.getAttribute('aria-label') || edge.dataset.edgeLabel || entry[0];
+            edge.setAttribute('aria-label',`${entry[0]}. ${original}. ${entry[1]}`);
+            edge.setAttribute('tabindex','0'); edge.setAttribute('role','img');
+            const title = svg('title',{}); title.textContent = `${entry[0]}: ${original}`;
+            edge.prepend(title); edge.dataset.arrowDescribed='true';
+          }
+          const bounds = edge.getBoundingClientRect();
+          const key = edge.dataset.edgeId ?? edge.dataset.edgeKey ?? edge;
+          if (graph.getBoundingClientRect().width > 0 && (bounds.width > 0 || bounds.height > 0) && !seen.has(key)) {
+            seen.add(key); counts.set(type,(counts.get(type)||0)+1);
+          }
+        }
+      });
+      used.replaceChildren(); counts.forEach((count,type)=>used.append(item(type,count)));
+      routeNote.hidden = model !== 'architecture' || !counts.has('bidirectional');
+      note.textContent = model==='security-matrix' ? 'This model is a permission grid. Cells express access; no arrows or execution order are implied.' : model==='fishbone' ? 'The spine points to one observed effect. Category branches group investigated candidates, not proven causal links.' : counts.size ? 'Types used in this view. Follow each connection’s label and arrowhead; diagram order alone does not imply execution.' : 'This view has no authored connections. No direction is inferred.';
+    }
+    refresh();
+    let frame;
+    window.addEventListener('resize',()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(refresh);});
+    document.addEventListener('diago:graph-render',refresh);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+})();
+</script>
 <style>.diago-walkthrough{margin:16px 0;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font:14px/1.5 system-ui,sans-serif}
 .diago-walkthrough summary{cursor:pointer;font-weight:700;color:var(--primary)}
 .diago-walkthrough .walk-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}
@@ -159,6 +263,7 @@ svg [data-edge-from][data-diago-walk="active"]>rect{stroke:var(--primary)!import
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     let index = 0, timer = null, steps = [], nodes = new Map(), all = [];
     const option = (label, value) => { const o = document.createElement('option'); o.textContent = label; o.value = value; select.append(o); };
+    const symbol = edge => edge.dataset.arrowType === 'association' ? '—' : edge.dataset.arrowType === 'bidirectional' ? '↔' : '→';
     const label = id => nodes.get(id)?.dataset.nodeLabel || id;
     function clear() { host.querySelectorAll('[data-diago-walk]').forEach(e => e.removeAttribute('data-diago-walk')); }
     function stop() { clearInterval(timer); timer = null; button('play').textContent = 'Play'; button('play').setAttribute('aria-pressed', 'false'); }
@@ -191,7 +296,7 @@ svg [data-edge-from][data-diago-walk="active"]>rect{stroke:var(--primary)!import
       nodes.get(step.dataset.edgeFrom).dataset.diagoWalk = 'source';
       nodes.get(step.dataset.edgeTo).dataset.diagoWalk = 'active'; step.dataset.diagoWalk = 'active';
       title.textContent = `${index + 1} / ${steps.length} · ${step.dataset.edgeLabel || 'Connection'}`;
-      route.textContent = `${label(step.dataset.edgeFrom)} → ${label(step.dataset.edgeTo)}`;
+      route.textContent = `${label(step.dataset.edgeFrom)} ${symbol(step)} ${label(step.dataset.edgeTo)}`;
       description.textContent = nodes.get(step.dataset.edgeTo).getAttribute('aria-label') || label(step.dataset.edgeTo);
     }
     function move(delta) { stop(); index = Math.max(0, Math.min(steps.length - 1, index + delta)); paint(); }
@@ -224,7 +329,7 @@ svg [data-edge-from][data-diago-walk="active"]>rect{stroke:var(--primary)!import
     }
     host.addEventListener('click', jump, true); host.addEventListener('keydown', jump, true);
     button('markdown').addEventListener('click', () => {
-      const text = `# ${document.title}\n\nAuthored connection walkthrough; order does not imply execution.\n\n` + steps.map((s,i) => `${i+1}. ${label(s.dataset.edgeFrom)} → ${label(s.dataset.edgeTo)}: ${s.dataset.edgeLabel || 'Connection'}\n   ${nodes.get(s.dataset.edgeTo).getAttribute('aria-label') || ''}`).join('\n');
+      const text = `# ${document.title}\n\nAuthored connection walkthrough; order does not imply execution.\n\n` + steps.map((s,i) => `${i+1}. ${label(s.dataset.edgeFrom)} ${symbol(s)} ${label(s.dataset.edgeTo)}: ${s.dataset.edgeLabel || 'Connection'}\n   ${nodes.get(s.dataset.edgeTo).getAttribute('aria-label') || ''}`).join('\n');
       const url = URL.createObjectURL(new Blob([text], {type:'text/markdown'})); const a = document.createElement('a'); a.href = url; a.download = 'diago-walkthrough.md'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
     document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
