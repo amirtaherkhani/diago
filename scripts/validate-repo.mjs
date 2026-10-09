@@ -2,6 +2,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { buildExplorerHtml, validateExplorer } from '../lib/explorer.mjs';
 import { listDiagramTypes } from '../lib/diagram-catalog.mjs';
 import { fromRoot } from '../lib/paths.mjs';
 import { validateDiagramDocument } from '../lib/renderer-registry.mjs';
@@ -52,6 +53,15 @@ readJson('schemas/diagram-plan.schema.json');
 readJson('schemas/diagram-plan-v1.schema.json');
 readJson('schemas/advice.schema.json');
 readJson('schemas/evidence-workflow.schema.json');
+readJson('schemas/architecture-explorer.schema.json');
+const explorerExample = readJson('examples/diago.architecture-explorer.json');
+if (explorerExample) {
+  try {
+    validateExplorer(explorerExample);
+    check(fs.readFileSync(fromRoot('docs/explorer/index.html'), 'utf8') === buildExplorerHtml(explorerExample),
+      'Explorer preview is stale. Regenerate with diago explore examples/diago.architecture-explorer.json docs/explorer/index.html --overwrite.');
+  } catch (error) { errors.push(error.message); }
+}
 const evidenceExample = readJson('examples/checkout.evidence-workflow.json');
 if (evidenceExample) {
   try {

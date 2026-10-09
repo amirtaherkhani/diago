@@ -216,7 +216,7 @@ The agent inspects sources and authors the diagram. Diago's deterministic core r
 | `validate_diagram` | Check schema, renderer, accessibility, and composition rules |
 | `render_diagram` | Write validated standalone HTML to an absolute local path |
 
-Only `render_diagram` writes an artifact. The server uses local stdio transport.
+`render_diagram` writes a diagram artifact. In the source checkout, `render_explorer` also writes a multi-view architecture artifact. The server uses local stdio transport.
 
 ### Included skills
 
@@ -318,6 +318,16 @@ Add your own screenshot, prompt, and what you learned. Share it where it answers
 </p>
 
 <p align="center"><strong><a href="https://github.com/amirtaherkhani/diago">☆ Star Diago</a> &nbsp; · &nbsp; <a href="https://github.com/amirtaherkhani/diago/fork">⑂ Make a fork</a></strong></p>
+
+## Architecture explorer (source checkout)
+
+Generate one offline HTML with shared components, multiple architecture perspectives, recursive detail navigation, and source evidence. Diago generates its navy/yellow UI from compact JSON; agents do not write the HTML or repeat component descriptions.
+
+```bash
+node bin/diago.mjs explore examples/diago.architecture-explorer.json output.html
+```
+
+The source checkout adds `render_explorer` as an eighth MCP tool. This feature is not included in the existing v0.7.0 release. [Authoring guide](docs/architecture-explorer.md) · [Interactive example](https://amirtaherkhani.github.io/diago/explorer/)
 
 <a name="development--reference"></a>
 

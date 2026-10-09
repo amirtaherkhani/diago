@@ -201,4 +201,8 @@ Dependency updates never silently rewrite the canonical skills.
 
 `oh-my-mermaid` is tracked from `main` as a methodology snapshot: `LICENSE`, `README.md`, and `skills/omm-scan/SKILL.md`. Run `./scripts/sync-upstreams.sh oh-my-mermaid` to refresh those files and their exact commit pin. The weekly upstream workflow includes this source.
 
-Its perspective selection and recursive decomposition are references for future evidence-grounded overview/detail views. Vendored instructions are source material, not automatically enabled Diago skills. This integration does not add an `omm` command, HTTP server, cloud upload, runtime dependency, or ninth renderer. Read the [code and integration review](upstreams/oh-my-mermaid-review.md) for findings and adoption requirements.
+Its perspective selection and recursive decomposition informed the native [architecture explorer](architecture-explorer.md). Vendored instructions are source material, not automatically enabled Diago skills. This integration does not add an `omm` command, HTTP server, cloud upload, runtime dependency, or ninth renderer. Read the [code and integration review](upstreams/oh-my-mermaid-review.md) for findings and adoption requirements.
+
+## Multi-view architecture exploration
+
+Use `diago explore <input.json> <output.html>` or the source checkout's `render_explorer` tool for an offline architecture explorer with shared component definitions, bounded drill-down, source evidence, search, and Diago styling. See the [compact authoring guide](architecture-explorer.md) and [interactive example](explorer/index.html). The existing v0.7.0 release predates this feature.
