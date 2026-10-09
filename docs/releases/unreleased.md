@@ -13,6 +13,8 @@ Diago's architecture explorer and eight specialized renderers now present engine
 
 ## Changed
 
+- Reduced arrowhead dimensions by 25% across all eight diagram renderers and Explorer, preserving marker proportions, endpoint alignment, and exported SVG geometry.
+
 - Subtle pastel decoration across light/dark renderer presets; removed heavy card and button shadows and reduced Explorer and website elevation.
 
 - Archify's five rendered outputs use Diago presentation before validation and hashing; their interactive controls and export capabilities remain available.

@@ -630,7 +630,7 @@ aside {
     const rows = Math.ceil(view.nodes.length / columns), H = rows * cardH + (rows - 1) * gapY + pad * 2;
     graph.setAttribute('viewBox', `0 0 ${W} ${H}`); graph.style.width = `${100 * scale}%`;
     const positions = new Map(view.nodes.map((id, i) => [id, { x: pad + (i % columns) * (cardW + gapX), y: pad + Math.floor(i / columns) * (cardH + gapY) }]));
-    const defs = svg('defs', {}), marker = svg('marker', { id: 'arrow', viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto-start-reverse' });
+    const defs = svg('defs', {}), marker = svg('marker', { id: 'arrow', viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 4.5, markerHeight: 4.5, orient: 'auto-start-reverse' });
     marker.append(svg('path', { d: 'M0 0 L10 5 L0 10z', fill: 'var(--muted)' })); defs.append(marker); graph.append(defs);
     view.edges.forEach((edge, i) => {
       const a = positions.get(edge.from), b = positions.get(edge.to);
