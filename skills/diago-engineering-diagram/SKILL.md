@@ -62,3 +62,7 @@ Deliver:
 - open questions that materially affect the design.
 
 Do not invent services, protocols, queues, databases, ownership, or deployment boundaries. Do not hide uncertainty in decorative labels.
+
+## Guided explanation
+
+Rendered specialized diagrams include an optional Guided walkthrough player. Use its source/target/participant states to explain authored connections and download the companion Markdown when useful. Do not describe diagram order as runtime order without evidence. Do not duplicate HTML, CSS, or diagram JSON to add the player; the renderer embeds it. Mode variants, payload examples, and temporal ordering require authored evidence.

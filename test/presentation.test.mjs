@@ -26,6 +26,10 @@ for (const [type, example] of Object.entries(examples)) {
    const receipt = renderDiagramDocument({type, diagram, outputPath, quality:'standard'});
    const html = fs.readFileSync(outputPath);
    assert.match(html.toString(), /--bg:#080f20/);
+   assert.match(html.toString(), /Guided walkthrough/);
+   assert.match(html.toString(), /data-node-id=/);
+   assert.match(html.toString(), /data-edge-from=/);
+   assert.match(html.toString(), /Download walkthrough Markdown/);
    assert.match(html.toString(), /class="diago-theme"/);
    assert.match(html.toString(), /class="diago-theme-track"/);
    assert.match(html.toString(), /aria-label="Toggle color theme"/);

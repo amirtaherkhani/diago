@@ -45,7 +45,7 @@ test('MCP validates and renders every Diago-owned native example', () => {
       assert.equal(validation.structuredContent.type, type);
       assert.equal(render.isError, false, render.content[0].text);
       assert.equal(render.structuredContent.type, type);
-      assert.match(fs.readFileSync(outputPath, 'utf8'), /role="img"/);
+      assert.match(fs.readFileSync(outputPath, 'utf8'), /role="group"/);
     }
   } finally {
     fs.rmSync(temporary, { recursive: true, force: true });

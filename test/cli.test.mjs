@@ -109,7 +109,7 @@ test('CLI validates and renders every Diago-owned native example', () => {
       assert.equal(validation.status, 0, validation.stderr);
       assert.equal(JSON.parse(validation.stdout).ok, true);
       assert.equal(render.status, 0, render.stderr);
-      assert.match(fs.readFileSync(output, 'utf8'), /role="img"/);
+      assert.match(fs.readFileSync(output, 'utf8'), /role="group"/);
     }
   } finally {
     fs.rmSync(temporary, { recursive: true, force: true });
