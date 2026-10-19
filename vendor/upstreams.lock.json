@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-09",
+  "updatedAt": "2026-10-19",
   "sources": {
     "archify": {
       "repository": "https://github.com/tt-a1i/archify",
@@ -26,7 +26,7 @@
     "diagram-design": {
       "repository": "https://github.com/cathrynlavery/diagram-design",
       "ref": "main",
-      "commit": "f4547ee95f88e5b28a52517feff6b6c11cc657f9",
+      "commit": "550fd66edff058bc73056c3416b76d69cfe865ba",
       "mode": "methodology-snapshot",
       "path": "vendor/diagram-design"
     },
