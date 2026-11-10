@@ -27,21 +27,21 @@ The viewer template also bundles JetBrains Mono font subsets under the SIL Open 
 ## Architecture Diagram Skill
 
 - Source: https://github.com/konraddzbik/architecture-diagram-skill
-- Pinned revision: `486ac078705c873012239124a07e7ef2df8fe783`
+- Pinned revision: `e0e43282dd9c9a3482331e674b39d518c2239c29`
 - Integration: methodology snapshot used to inform interaction and walkthrough patterns
 - License: `vendor/architecture-diagram-skill/LICENSE`
 
 ## UI UX Pro Max Skill
 
 - Source: https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
-- Pinned revision: `1a2c459b35f26116fd165b0a0f30597f252749ff`
+- Pinned revision: `4f2dbb67e64969a9a30ab00742f2d55d66ddec2b`
 - Integration: methodology snapshot used to inform visual quality, accessibility, and design-system guidance
 - License: `vendor/ui-ux-pro-max-skill/LICENSE`
 
 ## Diagram Design
 
 - Source: https://github.com/cathrynlavery/diagram-design
-- Pinned revision: `f4547ee95f88e5b28a52517feff6b6c11cc657f9`
+- Pinned revision: `f2496acbde9f45ccb55c24d4f75210c8a1355df8`
 - Integration: minimal methodology snapshot used to inform question-first selection, semantic-pattern separation, and bounded decomposition
 - License: `vendor/diagram-design/LICENSE`
 
