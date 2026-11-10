@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-09",
+  "updatedAt": "2026-11-10",
   "sources": {
     "archify": {
       "repository": "https://github.com/tt-a1i/archify",
@@ -12,21 +12,21 @@
     "architecture-diagram-skill": {
       "repository": "https://github.com/konraddzbik/architecture-diagram-skill",
       "ref": "main",
-      "commit": "486ac078705c873012239124a07e7ef2df8fe783",
+      "commit": "e0e43282dd9c9a3482331e674b39d518c2239c29",
       "mode": "methodology-snapshot",
       "path": "vendor/architecture-diagram-skill"
     },
     "ui-ux-pro-max-skill": {
       "repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
       "ref": "main",
-      "commit": "1a2c459b35f26116fd165b0a0f30597f252749ff",
+      "commit": "4f2dbb67e64969a9a30ab00742f2d55d66ddec2b",
       "mode": "methodology-snapshot",
       "path": "vendor/ui-ux-pro-max-skill"
     },
     "diagram-design": {
       "repository": "https://github.com/cathrynlavery/diagram-design",
       "ref": "main",
-      "commit": "f4547ee95f88e5b28a52517feff6b6c11cc657f9",
+      "commit": "f2496acbde9f45ccb55c24d4f75210c8a1355df8",
       "mode": "methodology-snapshot",
       "path": "vendor/diagram-design"
     },
