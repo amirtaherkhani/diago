@@ -32,9 +32,16 @@ case "$source_name" in
     # Avoid downloading the upstream website, release archive, and benchmark assets.
     git -c http.version=HTTP/1.1 clone --depth 1 --filter=blob:none --no-checkout \
       --branch "$ref" "https://github.com/tt-a1i/archify.git" "$temp_root/source"
+    # The bounded explainer checker closure is required by check-render-output;
+    # this does not expose an explainer renderer in Diago or sync the full directory.
     git -C "$temp_root/source" sparse-checkout set --no-cone \
       /archify/assets/ /archify/bin/ /archify/recipes/ /archify/renderers/ \
-      /archify/schemas/ /archify/scripts/ /archify/LICENSE /archify/SKILL.md /archify/package.json
+      /archify/schemas/ /archify/scripts/ /archify/locales/ /archify/LICENSE \
+      /archify/LICENSE-MIT /archify/NOTICE /archify/THIRD_PARTY_NOTICES.md \
+      /archify/explainer/check.mjs /archify/explainer/parse.mjs \
+      /archify/explainer/revision.mjs /archify/explainer/page-bundle.mjs \
+      /archify/explainer/diagrams.mjs \
+      /archify/SKILL.md /archify/package.json
     git -C "$temp_root/source" -c http.version=HTTP/1.1 checkout "$ref"
     commit="$(git -C "$temp_root/source" rev-parse HEAD)"
     mkdir -p "$temp_root/vendor"
@@ -45,12 +52,25 @@ case "$source_name" in
       "$temp_root/source/archify/renderers" \
       "$temp_root/source/archify/schemas" \
       "$temp_root/source/archify/scripts" \
+      "$temp_root/source/archify/locales" \
       "$temp_root/vendor/"
     cp \
       "$temp_root/source/archify/LICENSE" \
+      "$temp_root/source/archify/LICENSE-MIT" \
+      "$temp_root/source/archify/NOTICE" \
+      "$temp_root/source/archify/THIRD_PARTY_NOTICES.md" \
       "$temp_root/source/archify/SKILL.md" \
       "$temp_root/source/archify/package.json" \
       "$temp_root/vendor/"
+    # Copy only the transitive checker modules identified above.
+    mkdir -p "$temp_root/vendor/explainer"
+    cp \
+      "$temp_root/source/archify/explainer/check.mjs" \
+      "$temp_root/source/archify/explainer/parse.mjs" \
+      "$temp_root/source/archify/explainer/revision.mjs" \
+      "$temp_root/source/archify/explainer/page-bundle.mjs" \
+      "$temp_root/source/archify/explainer/diagrams.mjs" \
+      "$temp_root/vendor/explainer/"
     rsync -a --delete "$temp_root/vendor/" "$repo_root/vendor/archify/"
     ;;
   architecture-diagram-skill)

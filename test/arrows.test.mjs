@@ -127,3 +127,14 @@ test('upstream render paths preserve event metadata, and associations cannot bec
   assert.match(html, /seen\[key\] \|\| edge.getAttribute\('data-arrow-type'\) === 'association'/);
   assert.match(html, /from === to \|\| edge.getAttribute\('data-arrow-type'\) === 'association'/);
 }));
+
+test('dataflow compiler preserves response and event arrow metadata', () => temporary(directory => {
+  for (const arrow of ['response', 'event']) {
+    const diagram = read('dataflow');
+    diagram.flows[0].arrow = arrow;
+    assert.equal(validateDiagramDocument({ type: 'dataflow', diagram, quality: 'standard' }).ok, true);
+    const outputPath = path.join(directory, `${arrow}.html`);
+    renderDiagramDocument({ type: 'dataflow', diagram, outputPath, quality: 'standard' });
+    assert.ok(fs.readFileSync(outputPath, 'utf8').includes(`data-arrow-type="${arrow}"`));
+  }
+}));
