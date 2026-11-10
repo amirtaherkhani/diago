@@ -184,7 +184,7 @@ Yellow identifies the brand and primary actions. Mint still means verified evide
 
 ## 10. Generated renderer artifacts
 
-`lib/renderers/presentation.mjs` applies Diago tokens to all eight specialized outputs before delivery. Brand accents do not replace evidence semantics. Native SVG nodes use theme variables in desktop and mobile layouts. Archify presets retain composition and motion while Diago controls shared surfaces, headings, and semantic stroke colors. See [renderer presentation](docs/renderer-presentation.md) for ownership and the reproducible gallery.
+`lib/renderers/presentation.mjs` applies Diago tokens to all eleven specialized outputs before delivery. Brand accents do not replace evidence semantics. Native SVG nodes use theme variables in desktop and mobile layouts. Archify presets retain composition and motion while Diago controls shared surfaces, headings, and semantic stroke colors. See [renderer presentation](docs/renderer-presentation.md) for ownership and the reproducible gallery.
 
 ## 11. Restrained pastel depth
 

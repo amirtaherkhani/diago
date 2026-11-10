@@ -32,7 +32,7 @@
   <a href="./docs/USAGE.md">📖 Docs</a>
 </p>
 
-<p align="center"><sub>8 diagram views &nbsp; / &nbsp; 4 agent skills &nbsp; / &nbsp; Standalone HTML &nbsp; / &nbsp; Zero runtime npm dependencies</sub></p>
+<p align="center"><sub>11 specialized renderers &nbsp; / &nbsp; 8 MCP tools &nbsp; / &nbsp; 4 agent skills &nbsp; / &nbsp; Standalone HTML &nbsp; / &nbsp; Zero runtime npm dependencies</sub></p>
 
 ---
 
@@ -49,7 +49,7 @@ Point Diago at a repository, a feature, or an architecture conversation. Keep th
 | Trace claims to code and contracts. Keep assumptions visible. | Pick the diagram that answers your question. Split crowded systems into smaller views. | Get validated JSON and interactive HTML with responsive layouts and keyboard controls. |
 
 > [!TIP]
-> **Just looking around?** [Try the live demo](https://amirtaherkhani.github.io/diago/#top) before installing. Switch between all eight views and pause on the one you want to explore.
+> **Just looking around?** The [homepage preview](https://amirtaherkhani.github.io/diago/#top) has eight views you can switch between and pause. Try the [additional engineering models](https://amirtaherkhani.github.io/diago/models/) and [Architecture Explorer](https://amirtaherkhani.github.io/diago/explorer/) in their own demos.
 
 <a name="install"></a>
 
@@ -121,6 +121,8 @@ Want to connect the MCP server directly? [Use the setup guide →](./docs/USAGE.
 
 Both plugins start the bundled `engineering-diagrams` MCP server automatically. Diago needs no separate API key or hosted service; your agent's own access requirements still apply.
 
+Already using Diago? [Upgrade to v0.8.0](./docs/USAGE.md#upgrade-to-v080) to use the new models and Architecture Explorer.
+
 <a name="what-you-can-build"></a>
 
 ## 🧩 One question. The right diagram.
@@ -135,9 +137,9 @@ Both plugins start the bundled `engineering-diagrams` MCP server automatically. 
 | **The domain** — entities, keys, relationships | Data model | [Order domain JSON](./examples/order-domain.data-model.json) |
 | **The milestones** — phases, dependencies, timing | Timeline | [Migration JSON](./examples/payment-migration.timeline.json) |
 | **The boundaries** — responsibilities and controls | Layers | [Checkout controls JSON](./examples/checkout-controls.layers.json) |
-| **Coupling and reuse** — shared packages, direct dependents, cycles | Dependency (source checkout) | [Dependency JSON](./examples/checkout.dependency.json) |
-| **Access permissions** — roles, resources, explicit unknowns | Security matrix (source checkout) | [Access JSON](./examples/platform.security-matrix.json) |
-| **Incident causes** — hypotheses, contributors, exclusions | Fishbone (source checkout) | [Investigation JSON](./examples/latency.fishbone.json) |
+| **Coupling and reuse** — shared packages, direct dependents, cycles | Dependency | [Dependency JSON](./examples/checkout.dependency.json) |
+| **Access permissions** — roles, resources, explicit unknowns | Security matrix | [Access JSON](./examples/platform.security-matrix.json) |
+| **Incident causes** — hypotheses, contributors, exclusions | Fishbone | [Investigation JSON](./examples/latency.fishbone.json) |
 
 <sub>The live-demo links open the same workbench. Choose the named tab to see that view.</sub>
 
@@ -202,7 +204,7 @@ Your question + source evidence
 The agent inspects sources and authors the diagram. Diago's deterministic core reviews, validates, and renders it. Each view records what was merged, collapsed, or omitted. Keep the JSON and HTML together so the diagram stays reviewable.
 
 > [!NOTE]
-> **Diago v0.7.0 includes all seven MCP tools**, including `plan_evidence_workflow`. Update an older plugin installation to use evidence planning. [Release notes →](./docs/releases/v0.7.0.md)
+> **Diago v0.8.0 includes eight MCP tools**, adding `render_explorer` for multi-view architecture artifacts. [Release notes →](./docs/releases/v0.8.0.md)
 
 <details>
 <summary><strong>🔌 Explore the MCP toolbox and agent skills</strong></summary>
@@ -218,8 +220,9 @@ The agent inspects sources and authors the diagram. Diago's deterministic core r
 | `review_diagram_plan` | Find unsupported claims and missing context |
 | `validate_diagram` | Check schema, renderer, accessibility, and composition rules |
 | `render_diagram` | Write validated standalone HTML to an absolute local path |
+| `render_explorer` | Write a multi-view Architecture Explorer artifact and return its receipt |
 
-`render_diagram` writes a diagram artifact. In the source checkout, `render_explorer` also writes a multi-view architecture artifact. The server uses local stdio transport.
+The server uses local stdio transport.
 
 ### Included skills
 
@@ -235,11 +238,9 @@ The agent inspects sources and authors the diagram. Diago's deterministic core r
 <a name="evidence-workflows"></a>
 
 <details>
-<summary><strong>🧪 Evidence workflows · new in v0.7.0</strong></summary>
+<summary><strong>🧪 Evidence workflows · introduced in v0.7.0</strong></summary>
 
 ### How evidence planning works
-
-**Available in Diago v0.7.0.** Use the MCP tool from the updated plugin, or run the CLI example below from a v0.7.0 source checkout. See the [release notes](./docs/releases/v0.7.0.md).
 
 Use `diago evidence` or the read-only `plan_evidence_workflow` MCP tool when a diagram needs evidence from independent sources and dependent cross-checks:
 
@@ -322,15 +323,15 @@ Add your own screenshot, prompt, and what you learned. Share it where it answers
 
 <p align="center"><strong><a href="https://github.com/amirtaherkhani/diago">☆ Star Diago</a> &nbsp; · &nbsp; <a href="https://github.com/amirtaherkhani/diago/fork">⑂ Make a fork</a></strong></p>
 
-## Architecture explorer (source checkout)
+## Architecture Explorer
 
-Generate one offline HTML with shared components, multiple architecture perspectives, recursive detail navigation, and source evidence. Diago generates its navy/yellow UI from compact JSON; agents do not write the HTML or repeat component descriptions.
+Architecture Explorer is a separate output in v0.8.0. Generate one offline HTML file with shared components, multiple perspectives, drill-down, search, and source evidence. Define each component once in the JSON and reuse it across views.
 
 ```bash
 node bin/diago.mjs explore examples/diago.architecture-explorer.json output.html
 ```
 
-The source checkout adds `render_explorer` as an eighth MCP tool. This feature is not included in the existing v0.7.0 release. [Authoring guide](docs/architecture-explorer.md) · [Interactive example](https://amirtaherkhani.github.io/diago/explorer/)
+From an agent session, use the `render_explorer` MCP tool. [Authoring guide](docs/architecture-explorer.md) · [Interactive example](https://amirtaherkhani.github.io/diago/explorer/)
 
 <a name="development--reference"></a>
 
@@ -378,16 +379,16 @@ Run `npm run check` for repository validation and tests. Run `npm run upstreams:
   <a href="#top">↑ Back to the top</a>
 </p>
 
-## Unified renderer presentation (source checkout)
+## Unified renderer presentation
 
-All eleven specialized outputs now share Diago’s navy/yellow visual language, including a compact embedded plugin mark, with light/dark themes and preserved evidence colors. CLI and MCP deliver the same branded files. [Presentation and local gallery](docs/renderer-presentation.md). Existing v0.7.0 installations require an update before these changes are available.
+All eleven specialized renderers share Diago’s navy and yellow styling, a compact plugin logo, and light and dark themes. The CLI and MCP server use the same presentation and preserve each model’s evidence colors. [Presentation and local gallery](docs/renderer-presentation.md)
 
-## Guided walkthrough (source checkout)
+## Guided walkthrough
 
-Nine connection-based outputs include an optional step player with source/target highlighting, connection filtering, node-click navigation, and a companion Markdown download. It adapts Architecture Diagram Skill’s teaching ideas to Diago without inventing runtime flows. [Walkthrough guide](docs/guided-walkthrough.md).
+Nine connection-based renderers let you step through numbered connections, highlight their endpoints, filter by component, and download a Markdown explanation. [Walkthrough guide](docs/guided-walkthrough.md)
 
 
-### Additional engineering models (source checkout)
+## Additional engineering models
 
 The catalog now has **11 specialized models**, adding:
 
@@ -395,8 +396,8 @@ The catalog now has **11 specialized models**, adding:
 - **Security matrix** — role/resource permissions, including unknown access.
 - **Fishbone** — incident hypotheses, confirmed contributors, and ruled-out causes.
 
-All three support offline light/dark output and readable mobile views. [Authoring guide](docs/engineering-models.md) · [Live examples](https://amirtaherkhani.github.io/diago/models/) · [Review of all 44 Diagram Design references](docs/upstreams/diagram-design-engineering-review.md). These additions are newer than v0.7.0; installed plugins require a future update or use of this source checkout.
+All three support offline light and dark themes and mobile layouts. [Authoring guide](docs/engineering-models.md) · [Live examples](https://amirtaherkhani.github.io/diago/models/) · [Review of all 44 Diagram Design references](docs/upstreams/diagram-design-engineering-review.md)
 
-## Arrow legend (source checkout)
+## Arrow legend
 
-All eleven models and Architecture Explorer include a small, view-specific arrow legend. It shows only connection types present in that view; full meanings are available on hover and to assistive technology. Evidence colors and line styles remain unchanged. Existing inputs work unchanged; add an optional `arrow` field where supported. [Authoring guide](docs/arrow-guide.md) · [Interactive examples](https://amirtaherkhani.github.io/diago/arrows/).
+All eleven models and Architecture Explorer include a compact arrow legend for the connection types in the current view. Full meanings are available on hover and to assistive technology. Use the optional `arrow` field where supported to distinguish a response, event, dependency, bidirectional link, or association. [Authoring guide](docs/arrow-guide.md) · [Interactive examples](https://amirtaherkhani.github.io/diago/arrows/)

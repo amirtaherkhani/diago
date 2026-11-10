@@ -4,7 +4,7 @@ Diago evaluates a dependency graph of evidence tasks and returns what the host c
 
 ## Availability
 
-Available in Diago v0.7.0 through the plugin's `plan_evidence_workflow` MCP tool and the CLI. Update an older plugin installation, or run the CLI from the repository root of a v0.7.0 checkout. See the [release notes](./releases/v0.7.0.md).
+Evidence planning was introduced in Diago v0.7.0. Use `plan_evidence_workflow` from the plugin or run the CLI command from a v0.7.0 or newer checkout. [v0.7.0 release notes](./releases/v0.7.0.md)
 
 ## Start
 

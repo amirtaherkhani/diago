@@ -4,42 +4,27 @@ All notable changes to Diago are documented here.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-10
+
 ### Added
 
-- Expanded the Diago architecture Explorer into a five-perspective, source-evidenced system map and linked it from the homepage and getting-started guide.
-
-- Numbered, selectable connection-review steps, source/target endpoint boxes, and an active step badge on the highlighted arrow across the nine guided-walkthrough models.
-
-- Added a compact, embedded Diago plugin logo to every renderer header and reduced the Explorer mark to match.
-
-- Shared offline arrow semantics across all eleven models and Architecture Explorer, with six connection types, full assistive-technology descriptions, model-specific validation, and a six-view notation preview. Existing JSON works unchanged; optional `arrow` fields distinguish responses, events, dependencies, bidirectional links, and associations.
-
-- Three deterministic engineering models inspired by Diagram Design: dependency graphs with shared dependents and structural cycles, role/resource security matrices with explicit unknowns, and evidence-labeled incident fishbones. Includes schemas, advisor recipes, CLI/MCP delivery, responsive light/dark views, and full source registers.
-- A public preview and pinned review of all 44 upstream diagram references, documenting existing coverage and deferred candidates.
-
-- Shared guided connection walkthroughs across nine connection-based renderers: manual/playback controls, participant/source/target states, node-click navigation, reduced-motion support, and Markdown explanation downloads, inspired by Architecture Diagram Skill.
-
-- A native Diago architecture explorer with offline multi-view navigation, bounded component drill-down, evidence inspection, search, light/dark themes, and responsive layout.
-- Compact shared-component JSON authoring, `diago explore`, and the `render_explorer` MCP tool; rendering returns an artifact receipt instead of generated HTML to reduce conversation payload.
-- Oh My Mermaid as a fifth tracked upstream, with an MIT-licensed architecture-scanning methodology snapshot, weekly synchronization, and a source-level compatibility and security review.
+- Dependency graphs for shared dependencies and structural cycles, security matrices for role and resource permissions with explicit unknowns, and fishbones for evidence-labeled incident causes. The three additions bring the catalog to 11 specialized renderers and include schemas, advisor recipes, examples, and CLI and MCP support.
+- Architecture Explorer for offline perspectives, component drill-down, search, and evidence inspection from shared-component JSON. Use `diago explore` or the new `render_explorer` MCP tool to write HTML and receive an artifact receipt. The public example maps Diago itself across five perspectives.
+- Guided walkthroughs for nine connection-based renderers. Select numbered steps, inspect highlighted endpoints, filter by component, or download the selected connections as Markdown. Playback respects reduced-motion preferences.
+- Six arrow types with model-specific validation and compact, accessible legends across the renderers and Explorer. Add an optional `arrow` field where supported. Existing inputs continue to use their defaults.
+- Browser examples for the three new models and six arrow types, a local gallery for all 11 renderers, and a [review of 44 Diagram Design references](./docs/upstreams/diagram-design-engineering-review.md).
+- Oh My Mermaid as a fifth tracked upstream, with its MIT-licensed architecture-scanning methodology and a [compatibility and security review](./docs/upstreams/oh-my-mermaid-review.md).
 
 ### Changed
 
-- Replaced the expandable Arrow guide with a compact, view-specific legend across all eleven renderer models and Architecture Explorer; full connection meanings remain available to assistive technology.
-- Unified theme controls across all eleven renderers and Explorer: one accessible sun/moon switch in the top-right header tools, with consistent dimensions and pressed state.
-
-- Reduced arrowhead dimensions by 25% in the shared diagram presentation and Explorer, preserving marker proportions, endpoint alignment, and exported SVG geometry. New directed models inherit this sizing.
-
-- Reduced decorative shadows and replaced saturated gradients with subtle pastel blue/lilac washes across renderer presets, native outputs, Explorer, and the public site. Cards and buttons remain flat; floating panels use one small low-opacity shadow.
-
-- Unified all eleven specialized renderer outputs with Diago’s navy/yellow presentation; preserved Archify interactions and export themes, added native light/dark controls, and provided a reproducible eleven-renderer gallery. Final delivery hashes and provenance include the branded output.
-
-- Refreshed the bundled Archify snapshot to main commit `bb990b17` and switched upstream discovery and synchronization to track main, including updates newer than release tags. The renderer and schema contracts remain unchanged.
+- Applied Diago’s navy and yellow styling, compact logo, and accessible light/dark switch across the renderers and Explorer. Reduced arrowhead dimensions by 25% and softened decorative gradients and shadows. Archify interactions, export themes, and evidence colors carry through to the branded output. Delivery receipts hash the final file.
+- Upstream discovery tracks Archify’s `main`. The bundled runtime uses commit `bb990b17` to preserve lifecycle schema v1 and v2 support and the arrow adapter. The reviewed head `7e45f36` breaks both.
+- Refreshed compatible Architecture Diagram Skill, UI UX Pro Max, and Diagram Design methodology snapshots. Oh My Mermaid was already current at review time. [Partial upstream refresh details](./docs/upstreams/2026-11-10-review.md)
 
 ### Fixed
 
-- Removed the duplicate outer focus box from selected Explorer nodes; keyboard focus now highlights the node’s existing SVG card.
-- Corrected the Export button’s layered background in light/dark output: the button now has one yellow surface without borders, shadows, or decorative layers; keyboard focus uses a text underline.
+- Keyboard focus now highlights the Explorer node’s existing SVG card once.
+- The Export button uses a single yellow surface in both themes and an underline for keyboard focus.
 
 ## [0.7.0] - 2026-10-08
 
@@ -144,3 +129,6 @@ All notable changes to Diago are documented here.
 ## [0.1.0] - 2026-07-27
 
 - Initial evidence-grounded engineering diagram toolkit, dual-agent plugin, skills, CLI, MCP tools, examples, and GitHub Pages site.
+
+[Unreleased]: https://github.com/amirtaherkhani/diago/compare/v0.8.0...main
+[0.8.0]: https://github.com/amirtaherkhani/diago/compare/v0.7.0...v0.8.0
