@@ -40,7 +40,7 @@
             "description": "Install Diago, choose a diagram view, and render a standalone HTML example from source JSON.",
             "inLanguage": "en",
             "datePublished": "2026-10-08",
-            "dateModified": "2026-10-08",
+            "dateModified": "2026-11-10",
             "author": {
               "@type": "Person",
               "name": "Amir Taherkhani",
@@ -81,7 +81,7 @@
           <p class="eyebrow"><span></span> From a question to a diagram</p>
           <h1>Create architecture diagrams with Codex or Claude Code.</h1>
           <p class="guide-lede">Diago is an open-source Model Context Protocol (MCP) toolkit that helps your agent turn repository evidence into interactive software engineering diagrams. Install the plugin, ask a focused question, and keep the JSON and standalone HTML for review.</p>
-          <p class="guide-meta">By <a href="https://github.com/amirtaherkhani">Amir Taherkhani</a> · Updated <time datetime="2026-10-08">October 8, 2026</time></p>
+          <p class="guide-meta">By <a href="https://github.com/amirtaherkhani">Amir Taherkhani</a> · Updated <time datetime="2026-11-10">November 10, 2026</time></p>
         </header>
         <nav class="guide-toc" aria-label="On this page">
           <a href="#install">01 Install</a><a href="#ask">02 Ask</a><a href="#choose">03 Choose a view</a><a href="#example">04 Render an example</a><a href="#review">05 Review</a>
@@ -99,8 +99,8 @@ codex plugin add diago@diago</code></pre>
 /plugin install diago@diago
 /reload-plugins</code></pre>
           <p>After installing, open a new agent thread in the repository you want to understand. For a direct MCP connection, use the <a href="https://github.com/amirtaherkhani/diago/blob/main/docs/USAGE.md#connect-the-mcp-server-directly-to-codex">stdio server setup instructions</a>.</p>
-          <aside class="guide-note"><strong>System map:</strong> <a href="../explorer/">Explore how Diago works</a> across agent guidance, local CLI/MCP entry points, evidence boundaries, validation, and renderer routing. The map cites its source files; a citation link is a review aid, not independent proof of a claim. Read the <a href="https://github.com/amirtaherkhani/diago/blob/main/docs/architecture-explorer.md">compact authoring guide</a>. The current source checkout also applies Diago’s navy/yellow presentation to all eleven specialized renderers and includes a <a href="https://github.com/amirtaherkhani/diago/blob/main/docs/guided-walkthrough.md">guided connection walkthrough</a>. <a href="../models/">Explore Dependency, Security matrix, and Fishbone models</a>; the latter two preserve complete evidence registers.</aside>
-          <aside class="guide-note"><strong>Current release: v0.7.0.</strong> Diago includes eight diagram views and seven MCP tools, including evidence workflow planning. Update an older plugin installation to use the new tool. See the <a href="https://github.com/amirtaherkhani/diago/releases/tag/v0.7.0">release notes</a>.</aside>
+          <aside class="guide-note"><strong>System map:</strong> <a href="../explorer/">Explore how Diago works</a> across agent guidance, local CLI/MCP entry points, evidence boundaries, validation, and renderer routing. The map cites its source files; a citation link is a review aid, not independent proof of a claim. Read the <a href="https://github.com/amirtaherkhani/diago/blob/main/docs/architecture-explorer.md">compact authoring guide</a>. Diago v0.8.0 applies Diago’s navy/yellow presentation to all eleven specialized renderers and includes a <a href="https://github.com/amirtaherkhani/diago/blob/main/docs/guided-walkthrough.md">guided connection walkthrough</a>. <a href="../models/">Explore Dependency, Security matrix, and Fishbone models</a>; the latter two preserve complete evidence registers.</aside>
+          <aside class="guide-note"><strong>Current release: v0.8.0.</strong> Diago includes eleven diagram types and eight MCP tools, including Architecture Explorer and evidence workflow planning. Update an older plugin installation and reload its MCP server to use the new features. Existing JSON inputs remain compatible; regenerate exported HTML to use the new presentation. See the <a href="https://github.com/amirtaherkhani/diago/releases/tag/v0.8.0">release notes</a>.</aside>
         </section>
 
         <section id="ask">
@@ -132,16 +132,19 @@ show ownership and request ordering, and label assumptions and failure paths.</c
                 <tr><td>Which entities and relationships define the domain?</td><td>Data model</td></tr>
                 <tr><td>Which milestones depend on earlier work?</td><td>Timeline</td></tr>
                 <tr><td>Where are responsibilities and controls enforced?</td><td>Layers</td></tr>
+                <tr><td>Which dependencies are shared or cyclic?</td><td>Dependency</td></tr>
+                <tr><td>Which roles can access each resource?</td><td>Security matrix</td></tr>
+                <tr><td>Which causes explain an incident, and what evidence supports them?</td><td>Fishbone</td></tr>
               </tbody>
             </table>
           </div>
-          <p><a href="../#top">Open the live workbench</a> and select a view to see an interactive example.</p>
+          <p><a href="../#top">Open the eight-view workbench preview</a>, explore the <a href="../models/">three additional engineering models</a>, or use <a href="../explorer/">Architecture Explorer</a> for related perspectives with shared components.</p>
         </section>
 
         <section id="example">
           <h2>4. Render a ready-made architecture example</h2>
           <p>You can try the renderer without an agent. Clone the source and render the bundled plugin-request example:</p>
-          <pre><code>git clone https://github.com/amirtaherkhani/diago.git
+          <pre><code>git clone --branch v0.8.0 https://github.com/amirtaherkhani/diago.git
 cd diago
 node bin/diago.mjs doctor
 node bin/diago.mjs render architecture examples/plugin-request.architecture.json diagram.html --quality showcase</code></pre>

@@ -2,6 +2,21 @@
 
 [← Back to the README](../README.md)
 
+## Upgrade to v0.8.0
+
+If you installed Diago as a plugin, update it through the Diago marketplace in your host. Start a new Codex session after updating, or run `/reload-plugins` in Claude Code. To verify the update, ask the agent to list the MCP tools and diagram types. The v0.8.0 server exposes eight tools, including `render_explorer`, and the catalog lists 11 specialized renderers.
+
+If you use the CLI or registered the MCP server directly from a clone, switch a clean checkout to the release tag:
+
+```bash
+git fetch --tags origin
+git switch --detach v0.8.0
+node bin/diago.mjs doctor
+node bin/diago.mjs types --json
+```
+
+Restart your agent session to reload a directly registered server. A source checkout and a marketplace installation update separately. Existing diagram inputs work with v0.8.0. Render them again to get the new controls and styling in your HTML files. [Release notes](releases/v0.8.0.md)
+
 ## Connect the MCP server directly to Codex
 
 Register Diago as a native stdio MCP server:
@@ -148,7 +163,7 @@ Legacy schema-v1 plans remain reviewable through non-mutating compatibility norm
 
 ## Evidence workflows
 
-Available in Diago v0.7.0. Update an older plugin installation to use `plan_evidence_workflow`, or run the CLI from a v0.7.0 source checkout. Updating repository files alone does not update an installed plugin.
+Evidence planning was introduced in Diago v0.7.0 and is available through both the CLI and MCP. [v0.7.0 release notes](releases/v0.7.0.md)
 
 Use `diago evidence` or the read-only `plan_evidence_workflow` MCP tool when a diagram needs evidence from independent sources and dependent cross-checks:
 
@@ -195,18 +210,20 @@ The checker reads every configured source with at most four concurrent GitHub re
 
 Archify updates track its `main` branch, including changes newer than the latest release tag. Each synchronization records the exact copied commit in `vendor/upstreams.lock.json`; the bundled runtime may still report the last upstream release version.
 
+Diago v0.8.0 keeps Archify at `bb990b17`. The reviewed head `7e45f36` rejects lifecycle schema v1 and v2 and breaks Diago’s dataflow arrow adapter. The compatible methodology snapshots were refreshed. [Partial upstream refresh details](upstreams/2026-11-10-review.md)
+
 Dependency updates never silently rewrite the canonical skills.
 
 ### Oh My Mermaid
 
 `oh-my-mermaid` is tracked from `main` as a methodology snapshot: `LICENSE`, `README.md`, and `skills/omm-scan/SKILL.md`. Run `./scripts/sync-upstreams.sh oh-my-mermaid` to refresh those files and their exact commit pin. The weekly upstream workflow includes this source.
 
-Its perspective selection and recursive decomposition informed the native [architecture explorer](architecture-explorer.md). Vendored instructions are source material, not automatically enabled Diago skills. This integration does not add an `omm` command, HTTP server, cloud upload, runtime dependency, or ninth renderer. Read the [code and integration review](upstreams/oh-my-mermaid-review.md) for findings and adoption requirements.
+Its perspective selection and recursive decomposition informed the [Architecture Explorer](architecture-explorer.md). Diago uses these files as a methodology reference. [Code and integration review](upstreams/oh-my-mermaid-review.md)
 
 ## Multi-view architecture exploration
 
-Use `diago explore <input.json> <output.html>` or the source checkout's `render_explorer` tool for an offline architecture explorer with shared component definitions, bounded drill-down, source evidence, search, and Diago styling. See the [compact authoring guide](architecture-explorer.md) and [interactive example](explorer/index.html). The existing v0.7.0 release predates this feature.
+In v0.8.0, use `diago explore <input.json> <output.html>` or the `render_explorer` MCP tool to build an offline Architecture Explorer with shared components, bounded drill-down, search, and source evidence. [Authoring guide](architecture-explorer.md) · [Interactive example](explorer/index.html)
 
-## Additional engineering models (source checkout)
+## Additional engineering models
 
-Dependency graphs, security matrices, and incident fishbones bring the catalog to 11 specialized models. See the [authoring guide and examples](engineering-models.md). Existing CLI/MCP validation and rendering commands accept `dependency`, `security-matrix`, and `fishbone`; installed v0.7.0 plugins do not include them.
+Dependency graphs, security matrices, and incident fishbones bring the v0.8.0 catalog to 11 specialized renderers. CLI and MCP validation and rendering accept `dependency`, `security-matrix`, and `fishbone`. [Authoring guide and examples](engineering-models.md)

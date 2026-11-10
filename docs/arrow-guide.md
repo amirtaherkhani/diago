@@ -1,6 +1,6 @@
 # Arrow guide
 
-Every Diago model and Architecture Explorer includes a small **Arrow legend** above the canvas. It shows only the connection types used in the current view, with a short label and a compact arrow sample. Hover or assistive technology exposes each type’s full meaning. Models without arrows state that briefly. The helper is embedded offline; no package, network request, or model-generated styling is required.
+Diago v0.8.0 includes a compact **Arrow legend** above the canvas in every model and Architecture Explorer. It shows the connection types used in the current view with a short label and arrow sample. Hover or use assistive technology to read each type’s full meaning. Models without arrows state that in the legend. The legend works offline.
 
 ## Six connection types
 
@@ -51,12 +51,10 @@ Security matrix uses permission cells, not arrows. Its guide explains that acces
 
 ## Rendering and compatibility
 
-- Existing inputs require no migration. Regenerate HTML from the updated source checkout to get the compact legend and model-specific heads.
+- Existing inputs work with v0.8.0. Regenerate HTML to get the compact legend and model-specific arrowheads.
 - CLI and MCP use the same validation and presentation. Invalid or unsupported types fail before delivery.
 - The Archify-backed models accept `arrow` through Diago's adapter. Their vendored snapshots and upstream schema contracts remain unchanged; the raw upstream CLI does not accept this extension.
 - On narrow screens, native models may present connections as lists. The legend describes those entries without inventing connector geometry.
 - The legend follows light/dark themes and current Explorer navigation. Walkthroughs and companion Markdown use `↔` for bidirectional links and `—` for associations.
 - Archify's route/reachability tools exclude associations and follow stored endpoints for other types. A bidirectional head does not synthesize a reverse route; author two directed connections when tracing both directions is required.
 - The authoring reference is explanatory; not every type is appropriate for every model. Omit `arrow` when the default correctly describes the evidence.
-
-This is a source-checkout addition after v0.7.0, not a new published plugin release.

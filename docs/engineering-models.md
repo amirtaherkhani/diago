@@ -1,6 +1,6 @@
-# Additional engineering models (source checkout)
+# Additional engineering models
 
-The source catalog has **11 specialized renderers**. Dependency, security-matrix, and fishbone are additions after v0.7.0, alongside the existing eight types. The architecture explorer remains a separate composition mode. Existing v0.7.0 plugin installations do not gain these models automatically.
+Diago v0.8.0 adds dependency graphs, security matrices, and fishbones, bringing the catalog to **11 specialized renderers**. Architecture Explorer is a separate output. [Upgrade to v0.8.0](USAGE.md#upgrade-to-v080)
 
 [Research and all 44 upstream dispositions](upstreams/diagram-design-engineering-review.md) · [Browser examples](models/)
 

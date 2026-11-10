@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { fromRoot } from '../lib/paths.mjs';
+import { listDiagramTypes } from '../lib/diagram-catalog.mjs';
+import { TOOL_DEFINITIONS } from '../mcp/contracts.mjs';
 
 const base = 'https://amirtaherkhani.github.io/diago/';
 const version = JSON.parse(fs.readFileSync(fromRoot('package.json'), 'utf8')).version;
@@ -57,6 +59,7 @@ test('structured data links the website, visible product, and authored guide', (
   assert.equal(page.mainEntity['@id'], source['@id']);
   assert.equal(source.author['@id'], author['@id']);
   assert.equal(source.codeRepository, 'https://github.com/amirtaherkhani/diago');
+  assert.equal(source.version, version);
   assert.equal(article.about['@id'], source['@id']);
   assert.equal(article.isPartOf['@id'], website['@id']);
   assert.equal(article.author.name, author.name);
@@ -72,13 +75,27 @@ test('FAQ answers and all setup options are present in static HTML', () => {
   assert.match(home, /Model Context Protocol/);
   for (const { html } of pages) {
     assert.ok(html.includes(`v${version}`), 'Public release availability must match the package version.');
-    assert.match(html, /eight diagram views and seven MCP tools/);
+    assert.match(html, /eleven diagram types and eight MCP tools/);
     assert.doesNotMatch(html, /not yet in that release|not included in the published|available on main/i);
   }
   assert.match(guide, /codex plugin add diago@diago/);
   assert.match(guide, /\/plugin install diago@diago/);
   assert.match(guide, /node bin\/diago.mjs render architecture/);
   assert.match(guide, /does not inspect an arbitrary repository/);
+});
+
+test('published catalog and MCP counts match the runtime while the hero remains an eight-view preview', () => {
+  const home = pages[0].html;
+  assert.ok(home.includes(`<strong>${listDiagramTypes().length} diagram types</strong>`));
+  assert.ok(home.includes(`<strong>${TOOL_DEFINITIONS.length} native MCP tools</strong>`));
+  const views = home.match(/<section id="views"[\s\S]*?<\/section>/)[0];
+  assert.equal((views.match(/<article>/g) ?? []).length, listDiagramTypes().length);
+  const previewTabs = home.match(/<div class="view-switcher"[\s\S]*?<\/div>/)[0];
+  assert.equal((previewTabs.match(/role="tab"/g) ?? []).length, 8);
+  for (const name of ['Dependency', 'Security matrix', 'Fishbone']) {
+    assert.ok(views.includes(`<h3>${name}</h3>`));
+    assert.ok(pages[1].html.includes(`<td>${name}</td>`));
+  }
 });
 
 test('public page links and assets resolve within the project Pages base path', () => {

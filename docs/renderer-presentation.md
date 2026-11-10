@@ -1,6 +1,6 @@
-# Diago renderer presentation (source checkout)
+# Diago renderer presentation
 
-All eleven specialized renderers use Diago's midnight navy surfaces, yellow brand accent, compact embedded interlocking D plugin logo, system-font headings, and distinct evidence colors. Architecture Explorer uses the same small mark. Architecture, Sequence, Workflow, Dataflow, and Lifecycle retain Archify's interaction and export features; Data model, Timeline, Layers, Dependency, Security matrix, and Fishbone support light/dark themes, including `?theme=light` and a keyboard-accessible theme button.
+In Diago v0.8.0, all eleven specialized renderers and Architecture Explorer share midnight navy surfaces, a yellow accent, the compact Diago logo, and a keyboard-accessible theme switch. Architecture, Sequence, Workflow, Dataflow, and Lifecycle retain Archify’s interaction and export features.
 
 Yellow identifies the brand. Mint remains verification, amber uncertainty, blue proposed/current relationships, and rose risk. Labels, line styles, diagram structure, and source evidence retain their meaning.
 
@@ -21,9 +21,9 @@ python3 -m http.server 8766 --bind 127.0.0.1 --directory tmp/renderer-gallery
 
 Open `http://127.0.0.1:8766/`. Each renderer has dark and light links. The generator refuses an existing destination; choose a new directory for another run. Samples illustrate layout, not verified production facts. The generated standalone HTML also opens directly from disk.
 
-## Scope
+## Update existing artifacts
 
-This change is available in the source checkout, after v0.7.0. Existing exported files and already-installed v0.7.0 plugins do not change automatically; regenerate an artifact using the updated checkout. Compact JSON inputs and artifact receipts remain unchanged, so no additional model output is required to author the visual style.
+Regenerate an artifact with Diago v0.8.0 to apply the new presentation. You can reuse the original diagram JSON. [Upgrade to v0.8.0](USAGE.md#upgrade-to-v080)
 
 ## Theme control
 

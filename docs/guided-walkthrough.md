@@ -1,6 +1,6 @@
-# Guided walkthroughs (source checkout)
+# Guided walkthroughs
 
-Diago adapts Architecture Diagram Skill's teaching model to its nine connection-based outputs: Architecture, Sequence, Workflow, Dataflow, Lifecycle, Data model, Timeline, Layers, and Dependency.
+Diago v0.8.0 adds guided walkthroughs to nine connection-based renderers. They cover Architecture, Sequence, Workflow, Dataflow, Lifecycle, Data model, Timeline, Layers, and Dependency and draw on Architecture Diagram Skill’s interaction guidance.
 
 Open **Guided walkthrough** above the diagram:
 
@@ -26,6 +26,6 @@ The architecture explorer keeps its existing multi-view navigation and evidence 
 
 No new dependency or repeated diagram JSON is required. CLI/MCP inputs and receipts remain unchanged. The MIT-licensed upstream snapshot stays byte-exact; this is an original Diago implementation of its interaction ideas.
 
-Regenerate existing artifacts with the updated checkout. The existing v0.7.0 release does not include this feature.
+Regenerate existing artifacts with v0.8.0 to add the walkthrough. [Upgrade to v0.8.0](USAGE.md#upgrade-to-v080)
 
 Security matrix and Fishbone use evidence registers instead of connection playback. They do not express a directed traversal or execution sequence.
