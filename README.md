@@ -123,6 +123,9 @@ Both plugins start the bundled `engineering-diagrams` MCP server automatically. 
 
 Already using Diago? [Upgrade to v0.8.0](./docs/USAGE.md#upgrade-to-v080) to use the new models and Architecture Explorer.
 
+> [!NOTE]
+> Source checkouts with Archify 3.2.0 require lifecycle schema v3. The published v0.8.0 release uses the earlier Archify pin. [Lifecycle migration guide](./docs/lifecycle-v3.md)
+
 <a name="what-you-can-build"></a>
 
 ## 🧩 One question. The right diagram.

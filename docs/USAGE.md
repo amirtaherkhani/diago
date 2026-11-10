@@ -17,6 +17,10 @@ node bin/diago.mjs types --json
 
 Restart your agent session to reload a directly registered server. A source checkout and a marketplace installation update separately. Existing diagram inputs work with v0.8.0. Render them again to get the new controls and styling in your HTML files. [Release notes](releases/v0.8.0.md)
 
+## Lifecycle diagrams in the source checkout
+
+The Archify 3.2.0 integration requires lifecycle schema v3 for both CLI and MCP. Convert v1 and v2 lifecycle inputs by hand before rendering from the updated checkout. The v0.8.0 release keeps its earlier lifecycle format. [Lifecycle migration guide](lifecycle-v3.md)
+
 ## Connect the MCP server directly to Codex
 
 Register Diago as a native stdio MCP server:
@@ -210,7 +214,7 @@ The checker reads every configured source with at most four concurrent GitHub re
 
 Archify updates track its `main` branch, including changes newer than the latest release tag. Each synchronization records the exact copied commit in `vendor/upstreams.lock.json`; the bundled runtime may still report the last upstream release version.
 
-Diago v0.8.0 keeps Archify at `bb990b17`. The reviewed head `7e45f36` rejects lifecycle schema v1 and v2 and breaks Diago’s dataflow arrow adapter. The compatible methodology snapshots were refreshed. [Partial upstream refresh details](upstreams/2026-11-10-review.md)
+The November 10 upstream review deferred Archify `7e45f36` because it required lifecycle v3 and moved dataflow edge rendering. The published v0.8.0 release therefore uses `bb990b17`. The follow-up source integration pins Archify 3.2.0 at `7e45f36`, adapts Diago’s dataflow arrow extension to the new compiler, and requires manual migration of older lifecycle inputs. [Original upstream review](upstreams/2026-11-10-review.md) · [Lifecycle migration guide](lifecycle-v3.md)
 
 Dependency updates never silently rewrite the canonical skills.
 

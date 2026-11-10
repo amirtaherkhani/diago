@@ -47,6 +47,7 @@ const claudeMarketplace = readJson('.claude-plugin/marketplace.json');
 const codexMarketplace = readJson('.agents/plugins/marketplace.json');
 const mcpConfig = readJson('.mcp.json');
 const upstreams = readJson('vendor/upstreams.lock.json');
+const archifyLocaleManifest = readJson('vendor/archify/locales/manifest.json');
 const packageManifest = readJson('package.json');
 const packageLock = readJson('package-lock.json');
 readJson('schemas/diagram-plan.schema.json');
@@ -147,7 +148,17 @@ for (const skillName of skillNames) validateSkill(skillName);
 for (const relativePath of [
   'DESIGN.md',
   'vendor/archify/bin/archify.mjs',
+  // Transitive dependencies of check-render-output.mjs; not public renderers.
+  'vendor/archify/explainer/check.mjs',
+  'vendor/archify/explainer/parse.mjs',
+  'vendor/archify/explainer/revision.mjs',
+  'vendor/archify/explainer/page-bundle.mjs',
+  'vendor/archify/explainer/diagrams.mjs',
+  'vendor/archify/assets/JetBrainsMono-OFL.txt',
   'vendor/archify/LICENSE',
+  'vendor/archify/LICENSE-MIT',
+  'vendor/archify/NOTICE',
+  'vendor/archify/THIRD_PARTY_NOTICES.md',
   'vendor/architecture-diagram-skill/LICENSE',
   'vendor/ui-ux-pro-max-skill/LICENSE',
   'vendor/diagram-design/LICENSE',
@@ -164,6 +175,24 @@ for (const relativePath of [
   'CHANGELOG.md',
 ]) {
   check(fs.existsSync(fromRoot(relativePath)), `${relativePath} is required.`);
+}
+
+const localeCatalogs = archifyLocaleManifest?.catalogs;
+check(Array.isArray(localeCatalogs), 'Archify locale manifest must list catalogs.');
+if (Array.isArray(localeCatalogs)) {
+  check(localeCatalogs.some(catalog => catalog?.locale === 'en'), 'Archify locale manifest must enroll the English catalog.');
+  const localeFiles = new Set();
+  for (const catalog of localeCatalogs) {
+    const file = catalog?.file;
+    check(typeof file === 'string' && /^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(file),
+      `Archify locale catalog has an invalid filename: ${String(file)}.`);
+    if (typeof file !== 'string' || !/^[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(file)) continue;
+    check(!localeFiles.has(file), `Archify locale catalog ${file} is listed more than once.`);
+    localeFiles.add(file);
+    const catalogData = readJson(`vendor/archify/locales/${file}`);
+    check(catalogData && typeof catalogData === 'object' && !Array.isArray(catalogData),
+      `Archify locale catalog ${file} must contain a JSON object.`);
+  }
 }
 
 for (const unsupportedPath of [

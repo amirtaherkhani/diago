@@ -36,6 +36,10 @@ For repository-wide architecture with meaningful drill-down, read `references/ar
 9. Inspect the HTML at 1440 px and 360 px. Apply `references/quality-gates.md` before delivery.
 10. Explain the result in three short sections: verified behavior, design responsibility, and limitations or open questions. Include the fidelity ledger when any source content was reduced.
 
+## Lifecycle diagrams
+
+With Archify 3.2.0, author lifecycle schema v3 and choose a `mainPath` supported by the evidence. Each step in the path needs a directed transition from the preceding state. Convert v1 and v2 inputs manually, preserving any ownership or phase information from the old lanes. See plugin-root `docs/lifecycle-v3.md` for the field mapping and example.
+
 ## Evidence Contract
 
 Read `references/evidence-contract.md` before diagramming an existing repository, production system, incident, security boundary, or externally documented API.

@@ -1,39 +1,33 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "diagram_type": "lifecycle",
   "meta": {
     "title": "Diago delivery lifecycle",
+    "subtitle": "Artifact",
     "output": "lifecycle.html",
     "animation": "none"
   },
-  "lanes": [
-    {
-      "id": "main",
-      "label": "Artifact"
-    }
+  "mainPath": [
+    "pending",
+    "delivered"
   ],
   "states": [
     {
       "id": "pending",
       "type": "start",
-      "label": "Pending",
-      "lane": "main",
-      "col": 0
+      "label": "Pending"
     },
     {
       "id": "delivered",
       "type": "success",
-      "label": "Delivered",
-      "lane": "main",
-      "col": 2
+      "label": "Delivered"
     }
   ],
   "transitions": [
     {
       "from": "pending",
       "to": "delivered",
-      "label": "Render succeeds",
-      "labelDy": -32
+      "label": "Render succeeds"
     }
   ]
 }

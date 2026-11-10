@@ -1,6 +1,6 @@
 # Third-party notices
 
-Diago preserves notices for five MIT-licensed upstream sources, the GitHub Octicons mark, Simple Icons social marks, and the bundled JetBrains Mono font. Pinned upstream versions are recorded in `vendor/upstreams.lock.json`.
+Diago preserves notices for the bundled Archify runtime, four MIT-licensed methodology snapshots, the GitHub Octicons mark, Simple Icons social marks, and the bundled JetBrains Mono font. Pinned upstream versions are recorded in `vendor/upstreams.lock.json`.
 
 ## GitHub Octicons
 
@@ -17,12 +17,13 @@ Diago preserves notices for five MIT-licensed upstream sources, the GitHub Octic
 ## Archify
 
 - Source: https://github.com/tt-a1i/archify
-- Pinned source: `main` at `bb990b17b886e83d633e273221615eb259a92c78`
+- Pinned source: Archify 3.2.0, `main` at `7e45f36c66de1254d5ad6ba1d878f6499ea269fd`
 - Integration: bundled runtime, schemas, renderer, templates, and original skill snapshot
-- License: `vendor/archify/LICENSE`
+- License: [Apache License 2.0](vendor/archify/LICENSE), subject to the exceptions in [Archify’s NOTICE](vendor/archify/NOTICE)
+- Historical MIT license and copyright notice: [LICENSE-MIT](vendor/archify/LICENSE-MIT)
+- Component and brand notices: [Archify third-party notices](vendor/archify/THIRD_PARTY_NOTICES.md)
 
-Archify's original copyright and MIT license are preserved with the vendored runtime.
-The viewer template also bundles JetBrains Mono font subsets under the SIL Open Font License 1.1; its license text is preserved in `vendor/archify/assets/JetBrainsMono-OFL.txt`.
+Code received under the original MIT license retains its historical grant, as documented in Archify’s NOTICE. The viewer template also bundles JetBrains Mono font subsets under the [SIL Open Font License 1.1](vendor/archify/assets/JetBrainsMono-OFL.txt).
 
 ## Architecture Diagram Skill
 
