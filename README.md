@@ -121,10 +121,10 @@ Want to connect the MCP server directly? [Use the setup guide →](./docs/USAGE.
 
 Both plugins start the bundled `engineering-diagrams` MCP server automatically. Diago needs no separate API key or hosted service; your agent's own access requirements still apply.
 
-Already using Diago? [Upgrade to v0.8.0](./docs/USAGE.md#upgrade-to-v080) to use the new models and Architecture Explorer.
+Already using Diago? [Upgrade to v0.8.1](./docs/USAGE.md#upgrade-to-v081).
 
-> [!NOTE]
-> Source checkouts with Archify 3.2.0 require lifecycle schema v3. The published v0.8.0 release uses the earlier Archify pin. [Lifecycle migration guide](./docs/lifecycle-v3.md)
+> [!IMPORTANT]
+> Diago v0.8.1 requires lifecycle schema v3. Convert lifecycle v1 and v2 JSON by hand before rendering it with the updated CLI or plugin. [Lifecycle migration guide](./docs/lifecycle-v3.md)
 
 <a name="what-you-can-build"></a>
 
@@ -207,7 +207,7 @@ Your question + source evidence
 The agent inspects sources and authors the diagram. Diago's deterministic core reviews, validates, and renders it. Each view records what was merged, collapsed, or omitted. Keep the JSON and HTML together so the diagram stays reviewable.
 
 > [!NOTE]
-> **Diago v0.8.0 includes eight MCP tools**, adding `render_explorer` for multi-view architecture artifacts. [Release notes →](./docs/releases/v0.8.0.md)
+> **Diago includes eight MCP tools.** The `render_explorer` tool was introduced in v0.8.0 for multi-view architecture artifacts. [Current release notes →](./docs/releases/v0.8.1.md)
 
 <details>
 <summary><strong>🔌 Explore the MCP toolbox and agent skills</strong></summary>
@@ -328,7 +328,7 @@ Add your own screenshot, prompt, and what you learned. Share it where it answers
 
 ## Architecture Explorer
 
-Architecture Explorer is a separate output in v0.8.0. Generate one offline HTML file with shared components, multiple perspectives, drill-down, search, and source evidence. Define each component once in the JSON and reuse it across views.
+Architecture Explorer, introduced in v0.8.0, is a separate output. Generate one offline HTML file with shared components, multiple perspectives, drill-down, search, and source evidence. Define each component once in the JSON and reuse it across views.
 
 ```bash
 node bin/diago.mjs explore examples/diago.architecture-explorer.json output.html

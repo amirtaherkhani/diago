@@ -51,9 +51,9 @@ Security matrix uses permission cells, not arrows. Its guide explains that acces
 
 ## Rendering and compatibility
 
-- Existing inputs work with v0.8.0. Regenerate HTML to get the compact legend and model-specific arrowheads.
+- Regenerate HTML with Diago v0.8.1 to get the compact legend and model-specific arrowheads. Convert lifecycle v1 and v2 JSON to v3 before rendering it. [Upgrade to v0.8.1](USAGE.md#upgrade-to-v081) · [Lifecycle migration guide](lifecycle-v3.md)
 - CLI and MCP use the same validation and presentation. Invalid or unsupported types fail before delivery.
-- The Archify-backed models accept `arrow` through Diago's adapter. Their vendored snapshots and upstream schema contracts remain unchanged; the raw upstream CLI does not accept this extension.
+- The Archify-backed models accept `arrow` through Diago's adapter. Use the Diago CLI or MCP server for this extension.
 - On narrow screens, native models may present connections as lists. The legend describes those entries without inventing connector geometry.
 - The legend follows light/dark themes and current Explorer navigation. Walkthroughs and companion Markdown use `↔` for bidirectional links and `—` for associations.
 - Archify's route/reachability tools exclude associations and follow stored endpoints for other types. A bidirectional head does not synthesize a reverse route; author two directed connections when tracing both directions is required.

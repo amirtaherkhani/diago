@@ -2,24 +2,24 @@
 
 [← Back to the README](../README.md)
 
-## Upgrade to v0.8.0
+## Upgrade to v0.8.1
 
-If you installed Diago as a plugin, update it through the Diago marketplace in your host. Start a new Codex session after updating, or run `/reload-plugins` in Claude Code. To verify the update, ask the agent to list the MCP tools and diagram types. The v0.8.0 server exposes eight tools, including `render_explorer`, and the catalog lists 11 specialized renderers.
+If you installed Diago as a plugin, update it through the Diago marketplace in your host. Start a new Codex session after updating, or run `/reload-plugins` in Claude Code. Check that the host lists v0.8.1, then ask the agent to list the eight MCP tools and 11 specialized renderers to confirm the server has loaded.
 
 If you use the CLI or registered the MCP server directly from a clone, switch a clean checkout to the release tag:
 
 ```bash
 git fetch --tags origin
-git switch --detach v0.8.0
+git switch --detach v0.8.1
 node bin/diago.mjs doctor
 node bin/diago.mjs types --json
 ```
 
-Restart your agent session to reload a directly registered server. A source checkout and a marketplace installation update separately. Existing diagram inputs work with v0.8.0. Render them again to get the new controls and styling in your HTML files. [Release notes](releases/v0.8.0.md)
+Restart your agent session to reload a directly registered server. A source checkout and a marketplace installation update separately. Sequence now defaults to spread columns. If a diagram relied on fixed column spacing, set `meta.column_fit` to `"fixed"` before rendering it again. [Release notes](releases/v0.8.1.md)
 
-## Lifecycle diagrams in the source checkout
+## Migrate lifecycle diagrams to v3
 
-The Archify 3.2.0 integration requires lifecycle schema v3 for both CLI and MCP. Convert v1 and v2 lifecycle inputs by hand before rendering from the updated checkout. The v0.8.0 release keeps its earlier lifecycle format. [Lifecycle migration guide](lifecycle-v3.md)
+Diago v0.8.1 requires lifecycle schema v3 for both CLI and MCP. Convert lifecycle v1 and v2 JSON by hand before validating or rendering it. The published v0.8.0 release uses the earlier lifecycle formats. [Lifecycle migration guide](lifecycle-v3.md)
 
 ## Connect the MCP server directly to Codex
 
@@ -214,7 +214,7 @@ The checker reads every configured source with at most four concurrent GitHub re
 
 Archify updates track its `main` branch, including changes newer than the latest release tag. Each synchronization records the exact copied commit in `vendor/upstreams.lock.json`; the bundled runtime may still report the last upstream release version.
 
-The November 10 upstream review deferred Archify `7e45f36` because it required lifecycle v3 and moved dataflow edge rendering. The published v0.8.0 release therefore uses `bb990b17`. The follow-up source integration pins Archify 3.2.0 at `7e45f36`, adapts Diago’s dataflow arrow extension to the new compiler, and requires manual migration of older lifecycle inputs. [Original upstream review](upstreams/2026-11-10-review.md) · [Lifecycle migration guide](lifecycle-v3.md)
+The November 10 upstream review deferred Archify `7e45f36` because it required lifecycle v3 and moved dataflow edge rendering. Diago v0.8.0 uses the earlier pin `bb990b17`. Diago v0.8.1 bundles Archify 3.2.0 at `7e45f36` and adapts Diago’s dataflow arrows to the new compiler. [Original upstream review](upstreams/2026-11-10-review.md) · [Lifecycle migration guide](lifecycle-v3.md)
 
 Dependency updates never silently rewrite the canonical skills.
 
@@ -226,7 +226,7 @@ Its perspective selection and recursive decomposition informed the [Architecture
 
 ## Multi-view architecture exploration
 
-In v0.8.0, use `diago explore <input.json> <output.html>` or the `render_explorer` MCP tool to build an offline Architecture Explorer with shared components, bounded drill-down, search, and source evidence. [Authoring guide](architecture-explorer.md) · [Interactive example](explorer/index.html)
+Use `diago explore <input.json> <output.html>` or the `render_explorer` MCP tool to build an offline Architecture Explorer with shared components, bounded drill-down, search, and source evidence. [Authoring guide](architecture-explorer.md) · [Interactive example](explorer/index.html)
 
 ## Additional engineering models
 

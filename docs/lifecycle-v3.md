@@ -1,10 +1,10 @@
 # Migrate lifecycle diagrams to schema v3
 
-Diago source checkouts that bundle Archify 3.2.0 require `schema_version: 3` for lifecycle diagrams. The CLI and MCP validators reject lifecycle v1 and v2 inputs, which must be converted by hand.
+Diago v0.8.1 requires `schema_version: 3` for lifecycle diagrams. The CLI and MCP reject lifecycle v1 and v2 inputs. Convert those files by hand using the steps below.
 
 ## Integration status
 
-The Diago 0.8.0 source integration pins Archify 3.2.0 at `7e45f36c66de1254d5ad6ba1d878f6499ea269fd`. The published Diago v0.8.0 release uses the earlier pin `bb990b17` and accepts lifecycle v1 and v2. [v0.8.0 release notes](releases/v0.8.0.md)
+Diago v0.8.1 pins Archify 3.2.0 at `7e45f36c66de1254d5ad6ba1d878f6499ea269fd`. The published Diago v0.8.0 release uses the earlier pin `bb990b17` and accepts lifecycle v1 and v2. [v0.8.0 release notes](releases/v0.8.0.md)
 
 ## Convert an existing diagram
 
@@ -25,7 +25,7 @@ These fields have no direct v3 equivalents. Use the source evidence to recover a
 
 ## Example
 
-The original example placed `pending` and `delivered` in an **Artifact** lane. Its only transition goes from `pending` to `delivered` when rendering succeeds. In v3 that transition defines the main path, and **Artifact** becomes the subtitle. [Original v1 input](../test/fixtures/lifecycle-v1.json)
+The [maintained v3 example](../examples/presentation/lifecycle.json) uses the transition from `pending` to `delivered` as its main path. The subtitle preserves the meaning of the old **Artifact** lane.
 
 ```json
 {
@@ -48,7 +48,7 @@ The original example placed `pending` and `delivered` in an **Artifact** lane. I
 }
 ```
 
-From the root of an updated Diago source checkout, validate and render the [maintained example](../examples/presentation/lifecycle.json).
+From the root of a Diago v0.8.1 source checkout, validate and render the example.
 
 ```bash
 node bin/diago.mjs validate lifecycle examples/presentation/lifecycle.json

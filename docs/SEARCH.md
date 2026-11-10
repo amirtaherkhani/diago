@@ -19,7 +19,7 @@ This checklist covers Diago's public site and repository. Search visibility and 
 - Structured data describes the visible website, source project, and guide. Do not invent reviews, ratings, usage counts, or endorsements.
 - Update `sitemap.xml` when a public HTML page is added or meaningfully changed. Its dates should reflect content changes, not every deployment.
 - Keep the guide's visible update date and structured-data date aligned.
-- Update the FAQ and guide when a new plugin version ships. Diago v0.8.0 has 11 specialized renderers, a separate Architecture Explorer, eight MCP tools, and four agent skills. The homepage hero previews eight diagram views.
+- Update the FAQ and guide when a new plugin version ships. Diago v0.8.1 has 11 specialized renderers, a separate Architecture Explorer, eight MCP tools, and four agent skills. The homepage hero previews eight diagram views.
 - Run `npm run check` before publishing; the discovery checks cover canonical URLs, metadata, schema parsing, sitemap entries, and local links.
 - Match GitHub description and topics to the product. Use relevant terms such as `mcp`, `model-context-protocol`, `codex`, `claude-code`, and `architecture-diagrams`.
 

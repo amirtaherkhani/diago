@@ -4,6 +4,21 @@ All notable changes to Diago are documented here.
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-11-10
+
+### Changed
+
+- Bundle Archify 3.2.0 at `7e45f36c66de1254d5ad6ba1d878f6499ea269fd`, with the required locale catalogs and five explainer checker modules. Diago exposes 11 specialized renderers and eight MCP tools.
+- Lifecycle schema v3 lays out states and routes automatically from an explicit `mainPath`. The bundled example and authoring guide use the new schema.
+- Adapt Dataflow response and event arrows to Archify’s new compiler. Dataflow fits the width to the stages and nodes when `meta.viewBox` is omitted.
+- Sequence now defaults to spread columns and sizes its automatic canvas to the content. Set `meta.column_fit` to `"fixed"` for the previous fixed column spacing.
+- Preserve Archify’s Apache 2.0 license, NOTICE, historical MIT grant, component notices, and JetBrains Mono font license in the bundle and Archify-generated HTML. [Third-party notices](./THIRD_PARTY_NOTICES.md)
+
+### Removed
+
+- **Breaking change for Lifecycle.** CLI and MCP reject lifecycle v1 and v2 JSON. Convert older files by hand using the [migration guide](./docs/lifecycle-v3.md). Diago provides no automatic converter.
+- Remove the obsolete lifecycle v1 fixture. Use the [maintained v3 example](./examples/presentation/lifecycle.json) for new diagrams.
+
 ## [0.8.0] - 2026-11-10
 
 ### Added
@@ -130,5 +145,6 @@ All notable changes to Diago are documented here.
 
 - Initial evidence-grounded engineering diagram toolkit, dual-agent plugin, skills, CLI, MCP tools, examples, and GitHub Pages site.
 
-[Unreleased]: https://github.com/amirtaherkhani/diago/compare/v0.8.0...main
+[Unreleased]: https://github.com/amirtaherkhani/diago/compare/v0.8.1...main
+[0.8.1]: https://github.com/amirtaherkhani/diago/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/amirtaherkhani/diago/compare/v0.7.0...v0.8.0
