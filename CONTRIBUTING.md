@@ -19,3 +19,7 @@ Keep each view focused on one engineering question. Include a source for verifie
 ## Upstream changes
 
 Do not merge upstream changes blindly. Use `scripts/sync-upstreams.sh <source>`, review license and behavior changes, adapt useful methodology into the canonical skills, and run the full checks.
+
+## After merging a task
+
+Follow the [Diago post-merge cleanup skill](.agents/skills/diago-post-merge-cleanup/SKILL.md) to verify integration and remove the eligible task worktree, local branch, and remote branch.
