@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/amirtaherkhani/diago/actions/workflows/ci.yml"><img alt="CI status" src="https://github.com/amirtaherkhani/diago/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/amirtaherkhani/diago/actions/workflows/ci.yml"><img alt="CI status" src="https://img.shields.io/github/actions/workflow/status/amirtaherkhani/diago/ci.yml?branch=main&style=flat-square&label=CI&color=ffbe0b&labelColor=080f20"></a>
   <a href="https://github.com/amirtaherkhani/diago/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/amirtaherkhani/diago?style=flat-square&color=ffbe0b&labelColor=080f20"></a>
   <a href="./LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-ffbe0b?style=flat-square&labelColor=080f20"></a>
   <a href="./package.json"><img alt="Node.js 18 or newer" src="https://img.shields.io/badge/Node.js-18%2B-ffbe0b?style=flat-square&labelColor=080f20"></a>
