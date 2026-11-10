@@ -24,8 +24,8 @@ The architecture explorer keeps its existing multi-view navigation and evidence 
 
 `lib/walkthrough/viewer.js` and `viewer.css` provide the shared offline player. Native desktop and mobile diagrams expose the same escaped node/connection attributes as Archify. `lib/renderers/walkthrough.mjs` embeds the fixed assets before delivery hashing. DOM text is assigned with `textContent`; no authored strings are executed as HTML or JavaScript.
 
-No new dependency or repeated diagram JSON is required. CLI/MCP inputs and receipts remain unchanged. The MIT-licensed upstream snapshot stays byte-exact; this is an original Diago implementation of its interaction ideas.
+Diago implements the walkthrough using authored connections and interaction ideas from the MIT-licensed Architecture Diagram Skill snapshot.
 
-Regenerate existing artifacts with v0.8.0 to add the walkthrough. [Upgrade to v0.8.0](USAGE.md#upgrade-to-v080)
+Regenerate existing artifacts with v0.8.1 to add the walkthrough. Convert lifecycle v1 and v2 JSON to v3 before rendering it. [Upgrade to v0.8.1](USAGE.md#upgrade-to-v081) · [Lifecycle migration guide](lifecycle-v3.md)
 
 Security matrix and Fishbone use evidence registers instead of connection playback. They do not express a directed traversal or execution sequence.

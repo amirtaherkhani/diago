@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Evidence-grounded engineering diagram skills, native MCP tools, and deterministic interactive rendering.",
-    "version": "0.8.0"
+    "version": "0.8.1"
   },
   "plugins": [
     {
       "name": "diago",
       "source": "./",
       "description": "Create and review eleven software engineering diagram types and a multi-view architecture explorer with evidence-aware skills and eight native MCP tools.",
-      "version": "0.8.0",
+      "version": "0.8.1",
       "author": {
         "name": "Amir Taherkhani"
       },

@@ -23,7 +23,7 @@ Open `http://127.0.0.1:8766/`. Each renderer has dark and light links. The gener
 
 ## Update existing artifacts
 
-Regenerate an artifact with Diago v0.8.0 to apply the new presentation. You can reuse the original diagram JSON. [Upgrade to v0.8.0](USAGE.md#upgrade-to-v080)
+Regenerate an artifact with Diago v0.8.1 to apply the current presentation. Convert lifecycle v1 and v2 JSON to v3 before rendering it. [Upgrade to v0.8.1](USAGE.md#upgrade-to-v081) · [Lifecycle migration guide](lifecycle-v3.md)
 
 ## Theme control
 

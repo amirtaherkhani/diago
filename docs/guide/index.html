@@ -100,7 +100,7 @@ codex plugin add diago@diago</code></pre>
 /reload-plugins</code></pre>
           <p>After installing, open a new agent thread in the repository you want to understand. For a direct MCP connection, use the <a href="https://github.com/amirtaherkhani/diago/blob/main/docs/USAGE.md#connect-the-mcp-server-directly-to-codex">stdio server setup instructions</a>.</p>
           <aside class="guide-note"><strong>System map:</strong> <a href="../explorer/">Explore how Diago works</a> across agent guidance, local CLI/MCP entry points, evidence boundaries, validation, and renderer routing. The map cites its source files; a citation link is a review aid, not independent proof of a claim. Read the <a href="https://github.com/amirtaherkhani/diago/blob/main/docs/architecture-explorer.md">compact authoring guide</a>. Diago v0.8.0 applies Diago’s navy/yellow presentation to all eleven specialized renderers and includes a <a href="https://github.com/amirtaherkhani/diago/blob/main/docs/guided-walkthrough.md">guided connection walkthrough</a>. <a href="../models/">Explore Dependency, Security matrix, and Fishbone models</a>; the latter two preserve complete evidence registers.</aside>
-          <aside class="guide-note"><strong>Current release: v0.8.0.</strong> Diago includes eleven diagram types and eight MCP tools, including Architecture Explorer and evidence workflow planning. Update an older plugin installation and reload its MCP server to use the new features. Existing JSON inputs remain compatible; regenerate exported HTML to use the new presentation. See the <a href="https://github.com/amirtaherkhani/diago/releases/tag/v0.8.0">release notes</a>.</aside>
+          <aside class="guide-note"><strong>Diago v0.8.1</strong> includes eleven diagram types and eight MCP tools. Architecture Explorer is a separate output. Update the plugin in your host, then start a new Codex session or run <code>/reload-plugins</code> in Claude Code. Convert lifecycle v1 and v2 JSON to v3 before rendering it. See the <a href="https://github.com/amirtaherkhani/diago/blob/v0.8.1/docs/lifecycle-v3.md">lifecycle migration guide</a> and <a href="https://github.com/amirtaherkhani/diago/releases/tag/v0.8.1">release notes</a>.</aside>
         </section>
 
         <section id="ask">
@@ -144,7 +144,7 @@ show ownership and request ordering, and label assumptions and failure paths.</c
         <section id="example">
           <h2>4. Render a ready-made architecture example</h2>
           <p>You can try the renderer without an agent. Clone the source and render the bundled plugin-request example:</p>
-          <pre><code>git clone --branch v0.8.0 https://github.com/amirtaherkhani/diago.git
+          <pre><code>git clone --branch v0.8.1 https://github.com/amirtaherkhani/diago.git
 cd diago
 node bin/diago.mjs doctor
 node bin/diago.mjs render architecture examples/plugin-request.architecture.json diagram.html --quality showcase</code></pre>

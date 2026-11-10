@@ -11,7 +11,7 @@ node bin/diago.mjs explore examples/diago.architecture-explorer.json --validate
 
 Existing output files are protected. Add `--overwrite` only for an intentional replacement. `DIAGO_OUTPUT_ROOT` applies to both CLI and MCP output paths. The CLI returns a compact JSON receipt containing the path, SHA-256, artifact size, counts, and input-size metrics. It never prints the generated HTML.
 
-From MCP, use `render_explorer` with `document`, an absolute `outputPath`, and optional `overwrite`. The CLI and MCP tool share the same validator and template. [Upgrade to v0.8.0](USAGE.md#upgrade-to-v080)
+From MCP, use `render_explorer` with `document`, an absolute `outputPath`, and optional `overwrite`. The CLI and MCP tool share the same validator and template. [Upgrade to v0.8.1](USAGE.md#upgrade-to-v081)
 
 [Open the generated Diago example](explorer/index.html) · [Compact source example](../examples/diago.architecture-explorer.json) · [JSON schema](../schemas/architecture-explorer.schema.json)
 

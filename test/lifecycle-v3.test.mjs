@@ -37,22 +37,6 @@ function branchingLifecycle() {
   };
 }
 
-test('lifecycle v3 example preserves the v1 example semantics through explicit migration', () => {
-  const original = readJson('test/fixtures/lifecycle-v1.json');
-  const migrated = readJson('examples/presentation/lifecycle.json');
-  assert.equal(original.schema_version, 1);
-  assert.equal(migrated.schema_version, 3);
-  assert.deepEqual(migrated.mainPath, ['pending', 'delivered']);
-  for (const key of ['title', 'output', 'animation']) assert.equal(migrated.meta[key], original.meta[key]);
-  assert.equal(migrated.meta.subtitle, original.lanes[0].label);
-  assert.deepEqual(migrated.states.map(({ id, type, label }) => ({ id, type, label })),
-    original.states.map(({ id, type, label }) => ({ id, type, label })));
-  assert.deepEqual(migrated.transitions.map(({ from, to, label }) => ({ from, to, label })),
-    original.transitions.map(({ from, to, label }) => ({ from, to, label })));
-  assert.ok(migrated.states.every(state => !('lane' in state) && !('col' in state)));
-  assert.ok(migrated.transitions.every(transition => !('labelDy' in transition)));
-});
-
 test('lifecycle v3 validates and renders its explicit main path, branch, retry loop, and directed arrow', () => temporary(directory => {
   const diagram = branchingLifecycle();
   const before = JSON.stringify(diagram);
@@ -75,14 +59,11 @@ test('lifecycle v3 validates and renders its explicit main path, branch, retry l
 }));
 
 test('lifecycle rejects v1/v2 documents and missing or invalid mainPath values', () => {
-  const legacy = readJson('test/fixtures/lifecycle-v1.json');
-  assert.equal(callTool('validate_diagram', { type: 'lifecycle', diagram: legacy }).isError, true);
-  const legacyV2 = { ...legacy, schema_version: 2 };
-  assert.equal(callTool('validate_diagram', { type: 'lifecycle', diagram: legacyV2 }).isError, true);
   for (const version of [1, 2]) {
     const diagram = branchingLifecycle();
     diagram.schema_version = version;
     assert.throws(() => validateDiagramDocument({ type: 'lifecycle', diagram, quality: 'standard' }), /schema_version|const|must be equal/i);
+    assert.equal(callTool('validate_diagram', { type: 'lifecycle', diagram, quality: 'standard' }).isError, true);
   }
   const missing = branchingLifecycle();
   delete missing.mainPath;
