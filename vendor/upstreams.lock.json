@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-10",
+  "updatedAt": "2026-11-16",
   "sources": {
     "archify": {
       "repository": "https://github.com/tt-a1i/archify",
@@ -19,7 +19,7 @@
     "ui-ux-pro-max-skill": {
       "repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
       "ref": "main",
-      "commit": "4f2dbb67e64969a9a30ab00742f2d55d66ddec2b",
+      "commit": "e59ff376a41f7ca47b7541ad5c116495cbade3ee",
       "mode": "methodology-snapshot",
       "path": "vendor/ui-ux-pro-max-skill"
     },
